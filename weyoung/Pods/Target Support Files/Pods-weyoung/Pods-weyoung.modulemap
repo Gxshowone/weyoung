@@ -1,0 +1,6 @@
+module Pods_weyoung [system] {
+  umbrella header "Pods-weyoung-umbrella.h"
+
+  export *
+  module * { export * }
+}

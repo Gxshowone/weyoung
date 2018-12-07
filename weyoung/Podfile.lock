@@ -16,6 +16,18 @@ PODS:
     - AFNetworking/NSURLSession
   - MJExtension (3.0.15.1)
   - MJRefresh (3.1.15.7)
+  - NJKWebViewProgress (0.2.3):
+    - NJKWebViewProgress/Core (= 0.2.3)
+    - NJKWebViewProgress/ProgressView (= 0.2.3)
+  - NJKWebViewProgress/Core (0.2.3)
+  - NJKWebViewProgress/ProgressView (0.2.3)
+  - ReactiveCocoa (2.5.2):
+    - ReactiveCocoa/UI (= 2.5.2)
+  - ReactiveCocoa/Core (2.5.2):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.5.2)
+  - ReactiveCocoa/UI (2.5.2):
+    - ReactiveCocoa/Core
   - RongCloudIM/IMKit (2.9.8):
     - RongCloudIM/IMLib
   - RongCloudIM/IMLib (2.9.8)
@@ -27,6 +39,8 @@ DEPENDENCIES:
   - AFNetworking
   - MJExtension
   - MJRefresh
+  - NJKWebViewProgress
+  - ReactiveCocoa (from `https://github.com/zhao0/ReactiveCocoa.git`, tag `2.5.2`)
   - RongCloudIM/IMKit
   - RongCloudIM/IMLib
   - SDWebImage
@@ -36,16 +50,29 @@ SPEC REPOS:
     - AFNetworking
     - MJExtension
     - MJRefresh
+    - NJKWebViewProgress
     - RongCloudIM
     - SDWebImage
+
+EXTERNAL SOURCES:
+  ReactiveCocoa:
+    :git: https://github.com/zhao0/ReactiveCocoa.git
+    :tag: 2.5.2
+
+CHECKOUT OPTIONS:
+  ReactiveCocoa:
+    :git: https://github.com/zhao0/ReactiveCocoa.git
+    :tag: 2.5.2
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   MJExtension: 19bc33ce2eee2d319760f5622562cf581a6ff756
   MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
+  NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
+  ReactiveCocoa: 3ff25b1bd992ac79c5c79b26b6c0c1713b715bb2
   RongCloudIM: dcfa8c4fe11e992c0d187f7dda71f2ce5bfae4d1
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
 
-PODFILE CHECKSUM: fa5f57099a79c37b12779ec655122159277d4d8b
+PODFILE CHECKSUM: 8fa2d793f69d91b356896fab2ceb8a3b01a27059
 
 COCOAPODS: 1.5.0

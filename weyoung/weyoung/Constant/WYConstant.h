@@ -9,5 +9,10 @@
 #ifndef WYConstant_h
 #define WYConstant_h
 
+#import "WYEnum.h"
+#import "WYNotifacation.h"
+#import "WYApi.h"
+#import "WYDefine.h"
+#import "WYCache.h"
 
 #endif /* WYConstant_h */
