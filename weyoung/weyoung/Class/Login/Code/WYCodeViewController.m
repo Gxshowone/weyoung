@@ -8,6 +8,7 @@
 
 #import "WYCodeViewController.h"
 #import "WLUnitField.h"
+#import "WYPassWordViewController.h"
 @interface WYCodeViewController ()<WLUnitFieldDelegate>
 
 @property(nonatomic,strong)UILabel     * inputLabel;
@@ -72,14 +73,16 @@
     self.unitField.frame = CGRectMake(KScreenWidth/2-uw/2, CGRectGetMaxY(self.phoneLabel.frame)+50,uw, 55);
     
     CGFloat sy = KScreenHeight - KTabbarSafeBottomMargin- 278;
-      _sendButton.frame = CGRectMake(KScreenWidth/2-50,sy,100,44);
+    self.sendButton.frame = CGRectMake(KScreenWidth/2-50,sy,100,44);
     
     
 }
 
 -(void)unitFieldEditingChanged:(WLUnitField *)sender
 {
-    
+    if (sender.text.length == 4) {
+        [self.navigationController pushViewController:[WYPassWordViewController new] animated:YES];
+    }
 }
 
 -(UILabel*)inputLabel
@@ -118,6 +121,7 @@
         _unitField.cursorColor = [UIColor binaryColor:@"6060FC"];
         [_unitField sizeToFit];
         [_unitField addTarget:self action:@selector(unitFieldEditingChanged:) forControlEvents:UIControlEventEditingChanged];
+        [_unitField becomeFirstResponder];
         
     }
     return _unitField;

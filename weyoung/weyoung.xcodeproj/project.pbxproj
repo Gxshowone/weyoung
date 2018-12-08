@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8A5E27B8018E295784CC6DCF /* libPods-weyoungUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 942E09A90DF1D4B8E22A6637 /* libPods-weyoungUITests.a */; };
 		BCBCE70B1410216BED5305A4 /* libPods-weyoung.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0481827233D893221E297107 /* libPods-weyoung.a */; };
+		D224038C21BB8B3C00001B83 /* WYPasswordInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = D224038B21BB8B3C00001B83 /* WYPasswordInputView.m */; };
 		D2249FBA21BA1A32009B274C /* WYSession.m in Sources */ = {isa = PBXBuildFile; fileRef = D2249FB921BA1A32009B274C /* WYSession.m */; };
 		D2249FBD21BA1A3F009B274C /* WYConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = D2249FBC21BA1A3F009B274C /* WYConfig.m */; };
 		D2249FC721BA235D009B274C /* WYNoNetView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2249FC621BA235D009B274C /* WYNoNetView.m */; };
@@ -62,6 +63,8 @@
 		942E09A90DF1D4B8E22A6637 /* libPods-weyoungUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-weyoungUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1EEBF3ACFD18510BE5999FE /* Pods-weyoungUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weyoungUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-weyoungUITests/Pods-weyoungUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C7C14D2704F1BFDDE69D0458 /* Pods-weyoungTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weyoungTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-weyoungTests/Pods-weyoungTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D224038A21BB8B3C00001B83 /* WYPasswordInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYPasswordInputView.h; sourceTree = "<group>"; };
+		D224038B21BB8B3C00001B83 /* WYPasswordInputView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYPasswordInputView.m; sourceTree = "<group>"; };
 		D2249FB821BA1A32009B274C /* WYSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYSession.h; sourceTree = "<group>"; };
 		D2249FB921BA1A32009B274C /* WYSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYSession.m; sourceTree = "<group>"; };
 		D2249FBB21BA1A3F009B274C /* WYConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYConfig.h; sourceTree = "<group>"; };
@@ -158,6 +161,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		D224038921BB8B0F00001B83 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D224038A21BB8B3C00001B83 /* WYPasswordInputView.h */,
+				D224038B21BB8B3C00001B83 /* WYPasswordInputView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		D2249FA821BA12D4009B274C /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -190,6 +202,7 @@
 		D2249FAB21BA171A009B274C /* Password */ = {
 			isa = PBXGroup;
 			children = (
+				D224038921BB8B0F00001B83 /* View */,
 				D2249FDD21BA2FAB009B274C /* WYPassWordViewController.h */,
 				D2249FDE21BA2FAB009B274C /* WYPassWordViewController.m */,
 			);
@@ -762,6 +775,7 @@
 				D2249FDC21BA2F7A009B274C /* WYCodeViewController.m in Sources */,
 				D2249FD921BA2F5E009B274C /* WYLoginViewController.m in Sources */,
 				D2249FDF21BA2FAB009B274C /* WYPassWordViewController.m in Sources */,
+				D224038C21BB8B3C00001B83 /* WYPasswordInputView.m in Sources */,
 				D2249FBA21BA1A32009B274C /* WYSession.m in Sources */,
 				D2249FCF21BA2519009B274C /* UIView+Extension.m in Sources */,
 				D2D7103D21B9334900D78746 /* AppDelegate.m in Sources */,
