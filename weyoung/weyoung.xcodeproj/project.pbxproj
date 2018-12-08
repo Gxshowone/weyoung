@@ -31,6 +31,10 @@
 		D2249FE921BA7E69009B274C /* WYTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D2249FE821BA7E69009B274C /* WYTextField.m */; };
 		D2249FED21BA8337009B274C /* WYWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2249FEC21BA8337009B274C /* WYWebViewController.m */; };
 		D2249FF121BA95C5009B274C /* WLUnitField.m in Sources */ = {isa = PBXBuildFile; fileRef = D2249FF021BA95C5009B274C /* WLUnitField.m */; };
+		D226985021BBBDFD0091EE3B /* UIButton+ImagePosition.m in Sources */ = {isa = PBXBuildFile; fileRef = D226984F21BBBDFD0091EE3B /* UIButton+ImagePosition.m */; };
+		D226985421BBC6AA0091EE3B /* WYButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D226985321BBC6AA0091EE3B /* WYButtonItem.m */; };
+		D226985721BBDA600091EE3B /* WYEditHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D226985621BBDA600091EE3B /* WYEditHeaderView.m */; };
+		D226985A21BBDF250091EE3B /* WYEditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D226985921BBDF250091EE3B /* WYEditTableViewCell.m */; };
 		D2D7103D21B9334900D78746 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7103C21B9334900D78746 /* AppDelegate.m */; };
 		D2D7104021B9334900D78746 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7103F21B9334900D78746 /* ViewController.m */; };
 		D2D7104321B9334900D78746 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2D7104121B9334900D78746 /* Main.storyboard */; };
@@ -115,6 +119,14 @@
 		D2249FEC21BA8337009B274C /* WYWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYWebViewController.m; sourceTree = "<group>"; };
 		D2249FEF21BA95C5009B274C /* WLUnitField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUnitField.h; sourceTree = "<group>"; };
 		D2249FF021BA95C5009B274C /* WLUnitField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUnitField.m; sourceTree = "<group>"; };
+		D226984E21BBBDFD0091EE3B /* UIButton+ImagePosition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+ImagePosition.h"; sourceTree = "<group>"; };
+		D226984F21BBBDFD0091EE3B /* UIButton+ImagePosition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+ImagePosition.m"; sourceTree = "<group>"; };
+		D226985221BBC6AA0091EE3B /* WYButtonItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYButtonItem.h; sourceTree = "<group>"; };
+		D226985321BBC6AA0091EE3B /* WYButtonItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYButtonItem.m; sourceTree = "<group>"; };
+		D226985521BBDA600091EE3B /* WYEditHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYEditHeaderView.h; sourceTree = "<group>"; };
+		D226985621BBDA600091EE3B /* WYEditHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYEditHeaderView.m; sourceTree = "<group>"; };
+		D226985821BBDF250091EE3B /* WYEditTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYEditTableViewCell.h; sourceTree = "<group>"; };
+		D226985921BBDF250091EE3B /* WYEditTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYEditTableViewCell.m; sourceTree = "<group>"; };
 		D2D7103821B9334900D78746 /* weyoung.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weyoung.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2D7103B21B9334900D78746 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D2D7103C21B9334900D78746 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -233,6 +245,12 @@
 			children = (
 				D22403A321BBB1A600001B83 /* WYPersonCenterHeaderView.h */,
 				D22403A421BBB1A600001B83 /* WYPersonCenterHeaderView.m */,
+				D226985221BBC6AA0091EE3B /* WYButtonItem.h */,
+				D226985321BBC6AA0091EE3B /* WYButtonItem.m */,
+				D226985521BBDA600091EE3B /* WYEditHeaderView.h */,
+				D226985621BBDA600091EE3B /* WYEditHeaderView.m */,
+				D226985821BBDF250091EE3B /* WYEditTableViewCell.h */,
+				D226985921BBDF250091EE3B /* WYEditTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -422,6 +440,8 @@
 				D2249FCE21BA2519009B274C /* UIView+Extension.m */,
 				D2249FD021BA2561009B274C /* UIColor+Extension.h */,
 				D2249FD121BA2561009B274C /* UIColor+Extension.m */,
+				D226984E21BBBDFD0091EE3B /* UIButton+ImagePosition.h */,
+				D226984F21BBBDFD0091EE3B /* UIButton+ImagePosition.m */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -806,6 +826,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D226985021BBBDFD0091EE3B /* UIButton+ImagePosition.m in Sources */,
 				D224039C21BBB10200001B83 /* WYEditViewController.m in Sources */,
 				D22403A521BBB1A600001B83 /* WYPersonCenterHeaderView.m in Sources */,
 				D2249FE621BA7B9E009B274C /* WYPhoneInputView.m in Sources */,
@@ -820,10 +841,13 @@
 				D22403A821BBB44700001B83 /* WYPersonCenterController.m in Sources */,
 				D224039021BB992100001B83 /* WYNickNameInputView.m in Sources */,
 				D2D7104021B9334900D78746 /* ViewController.m in Sources */,
+				D226985721BBDA600091EE3B /* WYEditHeaderView.m in Sources */,
 				D2249FD221BA2561009B274C /* UIColor+Extension.m in Sources */,
 				D224039621BBA77100001B83 /* WYGradientButton.m in Sources */,
+				D226985421BBC6AA0091EE3B /* WYButtonItem.m in Sources */,
 				D2D7104B21B9334B00D78746 /* main.m in Sources */,
 				D2249FDC21BA2F7A009B274C /* WYCodeViewController.m in Sources */,
+				D226985A21BBDF250091EE3B /* WYEditTableViewCell.m in Sources */,
 				D2249FD921BA2F5E009B274C /* WYLoginViewController.m in Sources */,
 				D2249FDF21BA2FAB009B274C /* WYPassWordViewController.m in Sources */,
 				D224038C21BB8B3C00001B83 /* WYPasswordInputView.m in Sources */,

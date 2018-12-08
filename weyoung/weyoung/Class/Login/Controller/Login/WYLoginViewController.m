@@ -84,8 +84,7 @@
         [_clauseButton setTitle:@"《未央用户协议》" forState:UIControlStateNormal];
         [_clauseButton setTitleColor:[UIColor binaryColor:@"FFFFFF"] forState:UIControlStateNormal];
         _clauseButton.titleLabel.font = [UIFont fontWithName:TextFontName_Light size:14];
-        
-        
+
         @weakify(self);
         [[_clauseButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);

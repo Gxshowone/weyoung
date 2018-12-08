@@ -63,7 +63,7 @@
 #define TextFontName_Bold   @"PingFangSC-Semibold"
 #define TextFontName_Italic @"Verdana-Italic"
 #define TextFontName_Medium @"PingFangSC-Medium"
-
+#define TextFontName_Helvetica @"Helvetica"
 
 
 
