@@ -10,6 +10,12 @@
 		8A5E27B8018E295784CC6DCF /* libPods-weyoungUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 942E09A90DF1D4B8E22A6637 /* libPods-weyoungUITests.a */; };
 		BCBCE70B1410216BED5305A4 /* libPods-weyoung.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0481827233D893221E297107 /* libPods-weyoung.a */; };
 		D224038C21BB8B3C00001B83 /* WYPasswordInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = D224038B21BB8B3C00001B83 /* WYPasswordInputView.m */; };
+		D224039021BB992100001B83 /* WYNickNameInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = D224038F21BB992100001B83 /* WYNickNameInputView.m */; };
+		D224039621BBA77100001B83 /* WYGradientButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D224039521BBA77100001B83 /* WYGradientButton.m */; };
+		D224039921BBAE1E00001B83 /* WYHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D224039821BBAE1E00001B83 /* WYHomePageViewController.m */; };
+		D224039C21BBB10200001B83 /* WYEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D224039B21BBB10200001B83 /* WYEditViewController.m */; };
+		D22403A521BBB1A600001B83 /* WYPersonCenterHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D22403A421BBB1A600001B83 /* WYPersonCenterHeaderView.m */; };
+		D22403A821BBB44700001B83 /* WYPersonCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D22403A721BBB44700001B83 /* WYPersonCenterController.m */; };
 		D2249FBA21BA1A32009B274C /* WYSession.m in Sources */ = {isa = PBXBuildFile; fileRef = D2249FB921BA1A32009B274C /* WYSession.m */; };
 		D2249FBD21BA1A3F009B274C /* WYConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = D2249FBC21BA1A3F009B274C /* WYConfig.m */; };
 		D2249FC721BA235D009B274C /* WYNoNetView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2249FC621BA235D009B274C /* WYNoNetView.m */; };
@@ -65,6 +71,18 @@
 		C7C14D2704F1BFDDE69D0458 /* Pods-weyoungTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weyoungTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-weyoungTests/Pods-weyoungTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D224038A21BB8B3C00001B83 /* WYPasswordInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYPasswordInputView.h; sourceTree = "<group>"; };
 		D224038B21BB8B3C00001B83 /* WYPasswordInputView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYPasswordInputView.m; sourceTree = "<group>"; };
+		D224038E21BB992100001B83 /* WYNickNameInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYNickNameInputView.h; sourceTree = "<group>"; };
+		D224038F21BB992100001B83 /* WYNickNameInputView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYNickNameInputView.m; sourceTree = "<group>"; };
+		D224039421BBA77100001B83 /* WYGradientButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYGradientButton.h; sourceTree = "<group>"; };
+		D224039521BBA77100001B83 /* WYGradientButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYGradientButton.m; sourceTree = "<group>"; };
+		D224039721BBAE1E00001B83 /* WYHomePageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYHomePageViewController.h; sourceTree = "<group>"; };
+		D224039821BBAE1E00001B83 /* WYHomePageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYHomePageViewController.m; sourceTree = "<group>"; };
+		D224039A21BBB10100001B83 /* WYEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYEditViewController.h; sourceTree = "<group>"; };
+		D224039B21BBB10200001B83 /* WYEditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYEditViewController.m; sourceTree = "<group>"; };
+		D22403A321BBB1A600001B83 /* WYPersonCenterHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYPersonCenterHeaderView.h; sourceTree = "<group>"; };
+		D22403A421BBB1A600001B83 /* WYPersonCenterHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYPersonCenterHeaderView.m; sourceTree = "<group>"; };
+		D22403A621BBB44700001B83 /* WYPersonCenterController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYPersonCenterController.h; sourceTree = "<group>"; };
+		D22403A721BBB44700001B83 /* WYPersonCenterController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYPersonCenterController.m; sourceTree = "<group>"; };
 		D2249FB821BA1A32009B274C /* WYSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYSession.h; sourceTree = "<group>"; };
 		D2249FB921BA1A32009B274C /* WYSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYSession.m; sourceTree = "<group>"; };
 		D2249FBB21BA1A3F009B274C /* WYConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYConfig.h; sourceTree = "<group>"; };
@@ -161,11 +179,60 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		D224038921BB8B0F00001B83 /* View */ = {
+		D224039221BBA71B00001B83 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D2249FAC21BA172A009B274C /* Info */,
+				D2249FAB21BA171A009B274C /* Password */,
+				D2249FAA21BA170E009B274C /* Code */,
+				D2249FA921BA1703009B274C /* Login */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		D224039321BBA72C00001B83 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D2249FE421BA7B9E009B274C /* WYPhoneInputView.h */,
+				D2249FE521BA7B9E009B274C /* WYPhoneInputView.m */,
+				D2249FE721BA7E69009B274C /* WYTextField.h */,
+				D2249FE821BA7E69009B274C /* WYTextField.m */,
+				D2249FEF21BA95C5009B274C /* WLUnitField.h */,
+				D2249FF021BA95C5009B274C /* WLUnitField.m */,
 				D224038A21BB8B3C00001B83 /* WYPasswordInputView.h */,
 				D224038B21BB8B3C00001B83 /* WYPasswordInputView.m */,
+				D224038E21BB992100001B83 /* WYNickNameInputView.h */,
+				D224038F21BB992100001B83 /* WYNickNameInputView.m */,
+				D224039421BBA77100001B83 /* WYGradientButton.h */,
+				D224039521BBA77100001B83 /* WYGradientButton.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D224039D21BBB10F00001B83 /* ViewContoller */ = {
+			isa = PBXGroup;
+			children = (
+				D224039E21BBB12000001B83 /* PersonCenter */,
+				D2249FAE21BA17ED009B274C /* Edit */,
+				D2249FAD21BA1765009B274C /* Setting */,
+			);
+			path = ViewContoller;
+			sourceTree = "<group>";
+		};
+		D224039E21BBB12000001B83 /* PersonCenter */ = {
+			isa = PBXGroup;
+			children = (
+				D22403A621BBB44700001B83 /* WYPersonCenterController.h */,
+				D22403A721BBB44700001B83 /* WYPersonCenterController.m */,
+			);
+			path = PersonCenter;
+			sourceTree = "<group>";
+		};
+		D22403A221BBB15300001B83 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D22403A321BBB1A600001B83 /* WYPersonCenterHeaderView.h */,
+				D22403A421BBB1A600001B83 /* WYPersonCenterHeaderView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -182,7 +249,6 @@
 		D2249FA921BA1703009B274C /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				D2249FE321BA7B80009B274C /* View */,
 				D2249FD721BA2F5E009B274C /* WYLoginViewController.h */,
 				D2249FD821BA2F5E009B274C /* WYLoginViewController.m */,
 			);
@@ -192,7 +258,6 @@
 		D2249FAA21BA170E009B274C /* Code */ = {
 			isa = PBXGroup;
 			children = (
-				D2249FEE21BA944A009B274C /* View */,
 				D2249FDA21BA2F7A009B274C /* WYCodeViewController.h */,
 				D2249FDB21BA2F7A009B274C /* WYCodeViewController.m */,
 			);
@@ -202,7 +267,6 @@
 		D2249FAB21BA171A009B274C /* Password */ = {
 			isa = PBXGroup;
 			children = (
-				D224038921BB8B0F00001B83 /* View */,
 				D2249FDD21BA2FAB009B274C /* WYPassWordViewController.h */,
 				D2249FDE21BA2FAB009B274C /* WYPassWordViewController.m */,
 			);
@@ -233,6 +297,8 @@
 		D2249FAE21BA17ED009B274C /* Edit */ = {
 			isa = PBXGroup;
 			children = (
+				D224039A21BBB10100001B83 /* WYEditViewController.h */,
+				D224039B21BBB10200001B83 /* WYEditViewController.m */,
 			);
 			path = Edit;
 			sourceTree = "<group>";
@@ -376,17 +442,6 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
-		D2249FE321BA7B80009B274C /* View */ = {
-			isa = PBXGroup;
-			children = (
-				D2249FE421BA7B9E009B274C /* WYPhoneInputView.h */,
-				D2249FE521BA7B9E009B274C /* WYPhoneInputView.m */,
-				D2249FE721BA7E69009B274C /* WYTextField.h */,
-				D2249FE821BA7E69009B274C /* WYTextField.m */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		D2249FEA21BA8110009B274C /* Web */ = {
 			isa = PBXGroup;
 			children = (
@@ -394,15 +449,6 @@
 				D2249FEC21BA8337009B274C /* WYWebViewController.m */,
 			);
 			path = Web;
-			sourceTree = "<group>";
-		};
-		D2249FEE21BA944A009B274C /* View */ = {
-			isa = PBXGroup;
-			children = (
-				D2249FEF21BA95C5009B274C /* WLUnitField.h */,
-				D2249FF021BA95C5009B274C /* WLUnitField.m */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		D2D7102F21B9334900D78746 = {
@@ -497,6 +543,8 @@
 		D2D7107821B9557700D78746 /* HomePage */ = {
 			isa = PBXGroup;
 			children = (
+				D224039721BBAE1E00001B83 /* WYHomePageViewController.h */,
+				D224039821BBAE1E00001B83 /* WYHomePageViewController.m */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -504,8 +552,8 @@
 		D2D7107921B9558400D78746 /* PersonCenter */ = {
 			isa = PBXGroup;
 			children = (
-				D2249FAE21BA17ED009B274C /* Edit */,
-				D2249FAD21BA1765009B274C /* Setting */,
+				D22403A221BBB15300001B83 /* View */,
+				D224039D21BBB10F00001B83 /* ViewContoller */,
 			);
 			path = PersonCenter;
 			sourceTree = "<group>";
@@ -520,10 +568,8 @@
 		D2D7107C21B955C500D78746 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				D2249FAC21BA172A009B274C /* Info */,
-				D2249FAB21BA171A009B274C /* Password */,
-				D2249FAA21BA170E009B274C /* Code */,
-				D2249FA921BA1703009B274C /* Login */,
+				D224039321BBA72C00001B83 /* View */,
+				D224039221BBA71B00001B83 /* Controller */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -760,6 +806,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D224039C21BBB10200001B83 /* WYEditViewController.m in Sources */,
+				D22403A521BBB1A600001B83 /* WYPersonCenterHeaderView.m in Sources */,
 				D2249FE621BA7B9E009B274C /* WYPhoneInputView.m in Sources */,
 				D2249FF121BA95C5009B274C /* WLUnitField.m in Sources */,
 				D2249FE921BA7E69009B274C /* WYTextField.m in Sources */,
@@ -769,13 +817,17 @@
 				D2249FED21BA8337009B274C /* WYWebViewController.m in Sources */,
 				D2249FD621BA27F8009B274C /* WYBaseViewController.m in Sources */,
 				D2249FE221BA2FBB009B274C /* WYInfoViewController.m in Sources */,
+				D22403A821BBB44700001B83 /* WYPersonCenterController.m in Sources */,
+				D224039021BB992100001B83 /* WYNickNameInputView.m in Sources */,
 				D2D7104021B9334900D78746 /* ViewController.m in Sources */,
 				D2249FD221BA2561009B274C /* UIColor+Extension.m in Sources */,
+				D224039621BBA77100001B83 /* WYGradientButton.m in Sources */,
 				D2D7104B21B9334B00D78746 /* main.m in Sources */,
 				D2249FDC21BA2F7A009B274C /* WYCodeViewController.m in Sources */,
 				D2249FD921BA2F5E009B274C /* WYLoginViewController.m in Sources */,
 				D2249FDF21BA2FAB009B274C /* WYPassWordViewController.m in Sources */,
 				D224038C21BB8B3C00001B83 /* WYPasswordInputView.m in Sources */,
+				D224039921BBAE1E00001B83 /* WYHomePageViewController.m in Sources */,
 				D2249FBA21BA1A32009B274C /* WYSession.m in Sources */,
 				D2249FCF21BA2519009B274C /* UIView+Extension.m in Sources */,
 				D2D7103D21B9334900D78746 /* AppDelegate.m in Sources */,

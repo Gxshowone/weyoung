@@ -55,7 +55,7 @@
         @weakify(self);
         [[_areaButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
-            NSLog(@"[gx] _areaButton click");
+          
         }];
     }
     return _areaButton;

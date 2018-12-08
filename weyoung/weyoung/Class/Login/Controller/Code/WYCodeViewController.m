@@ -139,8 +139,7 @@
         @weakify(self);
         [[_sendButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
-            NSLog(@"[gx] _sendButton click");
-         
+        
         }];
     }
     return _sendButton;

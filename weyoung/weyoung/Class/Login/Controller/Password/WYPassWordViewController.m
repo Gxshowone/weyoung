@@ -9,12 +9,13 @@
 #import "WYPassWordViewController.h"
 #import "WYPasswordInputView.h"
 #import "WYInfoViewController.h"
+#import "WYGradientButton.h"
 @interface WYPassWordViewController ()
 
 @property(nonatomic,strong)UILabel     * inputLabel;
 @property(nonatomic,strong)UILabel     * passwordLabel;
 @property(nonatomic,strong)WYPasswordInputView * inputView;
-@property(nonatomic,strong)UIButton    * nextButton;
+@property(nonatomic,strong)WYGradientButton    * nextButton;
 
 @end
 
@@ -35,9 +36,9 @@
     [super viewDidLayoutSubviews];
     self.inputLabel.frame = CGRectMake(KScreenWidth/2-61.5, KNaviBarHeight+66, 123, 33);
     self.passwordLabel.frame = CGRectMake(KScreenWidth/2-118, CGRectGetMaxY(self.inputLabel.frame)+10,236, 20);
-    self.inputView.frame = CGRectMake(27.5, 260, KScreenWidth-55, 50);
+    self.inputView.frame = CGRectMake(27.5, KNaviBarHeight+196, KScreenWidth-55, 50);
     self.nextButton.frame = CGRectMake(KScreenWidth/2-40, KScreenHeight-KTabbarSafeBottomMargin-95-80, 80, 80);
-    
+     self.nextButton.style = WYGradientButtonCircle;
 }
 
 
@@ -75,10 +76,11 @@
     return _inputView;
 }
 
--(UIButton*)nextButton
+-(WYGradientButton*)nextButton
 {
     if (!_nextButton) {
-        _nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _nextButton = [WYGradientButton buttonWithType:UIButtonTypeCustom];
+       
         @weakify(self);
         [[_nextButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);

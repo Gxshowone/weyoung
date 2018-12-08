@@ -1,18 +1,18 @@
 //
-//  WYInfoViewController.m
+//  WYHomePageViewController.m
 //  weyoung
 //
-//  Created by gongxin on 2018/12/7.
+//  Created by gongxin on 2018/12/8.
 //  Copyright © 2018 SouYu. All rights reserved.
 //
 
-#import "WYInfoViewController.h"
+#import "WYHomePageViewController.h"
 
-@interface WYInfoViewController ()
+@interface WYHomePageViewController ()
 
 @end
 
-@implementation WYInfoViewController
+@implementation WYHomePageViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

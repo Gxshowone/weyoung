@@ -9,6 +9,7 @@
 #import "WYLoginViewController.h"
 #import "WYPhoneInputView.h"
 #import "WYCodeViewController.h"
+#import "WYGradientButton.h"
 @interface WYLoginViewController ()
 
 @property(nonatomic,strong)UIImageView * bgImageView;
@@ -16,7 +17,7 @@
 @property(nonatomic,strong)WYPhoneInputView * phoneInputView;
 @property(nonatomic,strong)UILabel * infoLabel;
 @property(nonatomic,strong)UIButton * clauseButton;
-@property(nonatomic,strong)UIButton * loginButton;
+@property(nonatomic,strong)WYGradientButton * loginButton;
 
 @end
 
@@ -37,11 +38,11 @@
 {
     [super viewDidLayoutSubviews];
     self.bgImageView.frame = self.view.bounds;
-    self.phoneInputView.frame = CGRectMake(27.5, 260, KScreenWidth-55, 50);
+    self.phoneInputView.frame = CGRectMake(27.5,KNaviBarHeight+196, KScreenWidth-55, 50);
     self.infoLabel.frame = CGRectMake((KScreenWidth -287)/2, CGRectGetMaxX(self.phoneInputView.frame)+15, 172, 20);
     self.clauseButton.frame = CGRectMake(CGRectGetMaxX(self.infoLabel.frame)+3, CGRectGetMaxX(self.phoneInputView.frame)+3,115, 44);
     self.loginButton.frame = CGRectMake(KScreenWidth/2-40, KScreenHeight-KTabbarSafeBottomMargin-95-80, 80, 80);
-    
+    self.loginButton.style = WYGradientButtonCircle;
 }
 
 -(UIImageView *)bgImageView
@@ -88,7 +89,7 @@
         @weakify(self);
         [[_clauseButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
-            NSLog(@"[gx] _clauseButton click");
+            
         }];
     }
     return _clauseButton;
@@ -96,10 +97,11 @@
 
 
 
--(UIButton*)loginButton
+-(WYGradientButton*)loginButton
 {
     if (!_loginButton) {
-        _loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _loginButton = [WYGradientButton buttonWithType:UIButtonTypeCustom];
+    
         @weakify(self);
         [[_loginButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);

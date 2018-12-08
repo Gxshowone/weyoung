@@ -33,7 +33,7 @@
 {
     [super layoutSubviews];
     self.textField.frame = CGRectMake(20,0,self.width-70, 50);
-    
+ 
 }
 
 -(WYTextField*)textField
