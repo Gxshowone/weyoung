@@ -52,7 +52,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     
-    return 240;
+    return 248+KNaviBarSafeBottomMargin;
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -73,16 +73,16 @@
     }
 
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    [cell setTitle:self.titleArray[indexPath.row]];
-    [cell setContent:@"Content"];
-    
     if (indexPath.row==0||indexPath.row==2) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }else
     {
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
+    
+    [cell setTitle:self.titleArray[indexPath.row]];
+    [cell setContent:@"Content"];
+    
 
     return cell;
     
@@ -98,7 +98,6 @@
         _tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
         _tableView.delegate=self;
         _tableView.dataSource=self;
-        _tableView.backgroundColor= [UIColor whiteColor];
     }
     return _tableView;
 }
