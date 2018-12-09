@@ -35,6 +35,14 @@
 		D226985421BBC6AA0091EE3B /* WYButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D226985321BBC6AA0091EE3B /* WYButtonItem.m */; };
 		D226985721BBDA600091EE3B /* WYEditHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D226985621BBDA600091EE3B /* WYEditHeaderView.m */; };
 		D226985A21BBDF250091EE3B /* WYEditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D226985921BBDF250091EE3B /* WYEditTableViewCell.m */; };
+		D287DE8C21BCE6C40048B5C2 /* WYSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DE8B21BCE6C40048B5C2 /* WYSettingViewController.m */; };
+		D287DE8F21BCE9510048B5C2 /* WYBlackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DE8E21BCE9510048B5C2 /* WYBlackListViewController.m */; };
+		D287DE9321BCE97A0048B5C2 /* WYAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DE9221BCE97A0048B5C2 /* WYAboutViewController.m */; };
+		D287DE9621BCE9BA0048B5C2 /* WYClauseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DE9521BCE9BA0048B5C2 /* WYClauseViewController.m */; };
+		D287DE9921BCE9CB0048B5C2 /* WYPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DE9821BCE9CB0048B5C2 /* WYPolicyViewController.m */; };
+		D287DE9C21BCE9E00048B5C2 /* WYPasswordChangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DE9B21BCE9E00048B5C2 /* WYPasswordChangeViewController.m */; };
+		D287DE9F21BCE9F20048B5C2 /* WYFeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DE9E21BCE9F20048B5C2 /* WYFeedBackViewController.m */; };
+		D287DEA221BCEA060048B5C2 /* WYEvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DEA121BCEA060048B5C2 /* WYEvaluateViewController.m */; };
 		D2D7103D21B9334900D78746 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7103C21B9334900D78746 /* AppDelegate.m */; };
 		D2D7104021B9334900D78746 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7103F21B9334900D78746 /* ViewController.m */; };
 		D2D7104321B9334900D78746 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2D7104121B9334900D78746 /* Main.storyboard */; };
@@ -127,6 +135,22 @@
 		D226985621BBDA600091EE3B /* WYEditHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYEditHeaderView.m; sourceTree = "<group>"; };
 		D226985821BBDF250091EE3B /* WYEditTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYEditTableViewCell.h; sourceTree = "<group>"; };
 		D226985921BBDF250091EE3B /* WYEditTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYEditTableViewCell.m; sourceTree = "<group>"; };
+		D287DE8A21BCE6C40048B5C2 /* WYSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYSettingViewController.h; sourceTree = "<group>"; };
+		D287DE8B21BCE6C40048B5C2 /* WYSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYSettingViewController.m; sourceTree = "<group>"; };
+		D287DE8D21BCE9510048B5C2 /* WYBlackListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYBlackListViewController.h; sourceTree = "<group>"; };
+		D287DE8E21BCE9510048B5C2 /* WYBlackListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYBlackListViewController.m; sourceTree = "<group>"; };
+		D287DE9121BCE97A0048B5C2 /* WYAboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYAboutViewController.h; sourceTree = "<group>"; };
+		D287DE9221BCE97A0048B5C2 /* WYAboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYAboutViewController.m; sourceTree = "<group>"; };
+		D287DE9421BCE9BA0048B5C2 /* WYClauseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYClauseViewController.h; sourceTree = "<group>"; };
+		D287DE9521BCE9BA0048B5C2 /* WYClauseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYClauseViewController.m; sourceTree = "<group>"; };
+		D287DE9721BCE9CB0048B5C2 /* WYPolicyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYPolicyViewController.h; sourceTree = "<group>"; };
+		D287DE9821BCE9CB0048B5C2 /* WYPolicyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYPolicyViewController.m; sourceTree = "<group>"; };
+		D287DE9A21BCE9E00048B5C2 /* WYPasswordChangeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYPasswordChangeViewController.h; sourceTree = "<group>"; };
+		D287DE9B21BCE9E00048B5C2 /* WYPasswordChangeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYPasswordChangeViewController.m; sourceTree = "<group>"; };
+		D287DE9D21BCE9F20048B5C2 /* WYFeedBackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYFeedBackViewController.h; sourceTree = "<group>"; };
+		D287DE9E21BCE9F20048B5C2 /* WYFeedBackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYFeedBackViewController.m; sourceTree = "<group>"; };
+		D287DEA021BCEA060048B5C2 /* WYEvaluateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYEvaluateViewController.h; sourceTree = "<group>"; };
+		D287DEA121BCEA060048B5C2 /* WYEvaluateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYEvaluateViewController.m; sourceTree = "<group>"; };
 		D2D7103821B9334900D78746 /* weyoung.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weyoung.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2D7103B21B9334900D78746 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D2D7103C21B9334900D78746 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -303,6 +327,7 @@
 		D2249FAD21BA1765009B274C /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				D287DE8921BCE68B0048B5C2 /* Setting */,
 				D2249FB321BA1857009B274C /* Evaluate */,
 				D2249FB221BA1826009B274C /* FeedBack */,
 				D2249FB121BA181F009B274C /* About */,
@@ -324,6 +349,8 @@
 		D2249FAF21BA17FD009B274C /* ChangePassWord */ = {
 			isa = PBXGroup;
 			children = (
+				D287DE9A21BCE9E00048B5C2 /* WYPasswordChangeViewController.h */,
+				D287DE9B21BCE9E00048B5C2 /* WYPasswordChangeViewController.m */,
 			);
 			path = ChangePassWord;
 			sourceTree = "<group>";
@@ -331,6 +358,8 @@
 		D2249FB021BA1814009B274C /* BlackList */ = {
 			isa = PBXGroup;
 			children = (
+				D287DE8D21BCE9510048B5C2 /* WYBlackListViewController.h */,
+				D287DE8E21BCE9510048B5C2 /* WYBlackListViewController.m */,
 			);
 			path = BlackList;
 			sourceTree = "<group>";
@@ -338,6 +367,7 @@
 		D2249FB121BA181F009B274C /* About */ = {
 			isa = PBXGroup;
 			children = (
+				D287DE9021BCE9640048B5C2 /* About */,
 				D2249FB521BA18C7009B274C /* Clause */,
 				D2249FB421BA18AC009B274C /* Policy */,
 			);
@@ -347,6 +377,8 @@
 		D2249FB221BA1826009B274C /* FeedBack */ = {
 			isa = PBXGroup;
 			children = (
+				D287DE9D21BCE9F20048B5C2 /* WYFeedBackViewController.h */,
+				D287DE9E21BCE9F20048B5C2 /* WYFeedBackViewController.m */,
 			);
 			path = FeedBack;
 			sourceTree = "<group>";
@@ -354,6 +386,8 @@
 		D2249FB321BA1857009B274C /* Evaluate */ = {
 			isa = PBXGroup;
 			children = (
+				D287DEA021BCEA060048B5C2 /* WYEvaluateViewController.h */,
+				D287DEA121BCEA060048B5C2 /* WYEvaluateViewController.m */,
 			);
 			path = Evaluate;
 			sourceTree = "<group>";
@@ -361,6 +395,8 @@
 		D2249FB421BA18AC009B274C /* Policy */ = {
 			isa = PBXGroup;
 			children = (
+				D287DE9721BCE9CB0048B5C2 /* WYPolicyViewController.h */,
+				D287DE9821BCE9CB0048B5C2 /* WYPolicyViewController.m */,
 			);
 			path = Policy;
 			sourceTree = "<group>";
@@ -368,6 +404,8 @@
 		D2249FB521BA18C7009B274C /* Clause */ = {
 			isa = PBXGroup;
 			children = (
+				D287DE9421BCE9BA0048B5C2 /* WYClauseViewController.h */,
+				D287DE9521BCE9BA0048B5C2 /* WYClauseViewController.m */,
 			);
 			path = Clause;
 			sourceTree = "<group>";
@@ -469,6 +507,24 @@
 				D2249FEC21BA8337009B274C /* WYWebViewController.m */,
 			);
 			path = Web;
+			sourceTree = "<group>";
+		};
+		D287DE8921BCE68B0048B5C2 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				D287DE8A21BCE6C40048B5C2 /* WYSettingViewController.h */,
+				D287DE8B21BCE6C40048B5C2 /* WYSettingViewController.m */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		D287DE9021BCE9640048B5C2 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				D287DE9121BCE97A0048B5C2 /* WYAboutViewController.h */,
+				D287DE9221BCE97A0048B5C2 /* WYAboutViewController.m */,
+			);
+			path = About;
 			sourceTree = "<group>";
 		};
 		D2D7102F21B9334900D78746 = {
@@ -840,20 +896,28 @@
 				D2249FE221BA2FBB009B274C /* WYInfoViewController.m in Sources */,
 				D22403A821BBB44700001B83 /* WYPersonCenterController.m in Sources */,
 				D224039021BB992100001B83 /* WYNickNameInputView.m in Sources */,
+				D287DE9C21BCE9E00048B5C2 /* WYPasswordChangeViewController.m in Sources */,
 				D2D7104021B9334900D78746 /* ViewController.m in Sources */,
+				D287DE8C21BCE6C40048B5C2 /* WYSettingViewController.m in Sources */,
 				D226985721BBDA600091EE3B /* WYEditHeaderView.m in Sources */,
+				D287DE8F21BCE9510048B5C2 /* WYBlackListViewController.m in Sources */,
+				D287DEA221BCEA060048B5C2 /* WYEvaluateViewController.m in Sources */,
 				D2249FD221BA2561009B274C /* UIColor+Extension.m in Sources */,
 				D224039621BBA77100001B83 /* WYGradientButton.m in Sources */,
 				D226985421BBC6AA0091EE3B /* WYButtonItem.m in Sources */,
 				D2D7104B21B9334B00D78746 /* main.m in Sources */,
 				D2249FDC21BA2F7A009B274C /* WYCodeViewController.m in Sources */,
 				D226985A21BBDF250091EE3B /* WYEditTableViewCell.m in Sources */,
+				D287DE9F21BCE9F20048B5C2 /* WYFeedBackViewController.m in Sources */,
 				D2249FD921BA2F5E009B274C /* WYLoginViewController.m in Sources */,
 				D2249FDF21BA2FAB009B274C /* WYPassWordViewController.m in Sources */,
 				D224038C21BB8B3C00001B83 /* WYPasswordInputView.m in Sources */,
+				D287DE9621BCE9BA0048B5C2 /* WYClauseViewController.m in Sources */,
 				D224039921BBAE1E00001B83 /* WYHomePageViewController.m in Sources */,
+				D287DE9321BCE97A0048B5C2 /* WYAboutViewController.m in Sources */,
 				D2249FBA21BA1A32009B274C /* WYSession.m in Sources */,
 				D2249FCF21BA2519009B274C /* UIView+Extension.m in Sources */,
+				D287DE9921BCE9CB0048B5C2 /* WYPolicyViewController.m in Sources */,
 				D2D7103D21B9334900D78746 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
