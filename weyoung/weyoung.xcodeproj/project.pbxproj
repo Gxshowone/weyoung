@@ -43,6 +43,7 @@
 		D287DE9C21BCE9E00048B5C2 /* WYPasswordChangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DE9B21BCE9E00048B5C2 /* WYPasswordChangeViewController.m */; };
 		D287DE9F21BCE9F20048B5C2 /* WYFeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DE9E21BCE9F20048B5C2 /* WYFeedBackViewController.m */; };
 		D287DEA221BCEA060048B5C2 /* WYEvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DEA121BCEA060048B5C2 /* WYEvaluateViewController.m */; };
+		D287DEA521BCEBF60048B5C2 /* WYAboutHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DEA421BCEBF60048B5C2 /* WYAboutHeaderView.m */; };
 		D2D7103D21B9334900D78746 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7103C21B9334900D78746 /* AppDelegate.m */; };
 		D2D7104021B9334900D78746 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7103F21B9334900D78746 /* ViewController.m */; };
 		D2D7104321B9334900D78746 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2D7104121B9334900D78746 /* Main.storyboard */; };
@@ -151,6 +152,8 @@
 		D287DE9E21BCE9F20048B5C2 /* WYFeedBackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYFeedBackViewController.m; sourceTree = "<group>"; };
 		D287DEA021BCEA060048B5C2 /* WYEvaluateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYEvaluateViewController.h; sourceTree = "<group>"; };
 		D287DEA121BCEA060048B5C2 /* WYEvaluateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYEvaluateViewController.m; sourceTree = "<group>"; };
+		D287DEA321BCEBF60048B5C2 /* WYAboutHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYAboutHeaderView.h; sourceTree = "<group>"; };
+		D287DEA421BCEBF60048B5C2 /* WYAboutHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYAboutHeaderView.m; sourceTree = "<group>"; };
 		D2D7103821B9334900D78746 /* weyoung.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weyoung.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2D7103B21B9334900D78746 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D2D7103C21B9334900D78746 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -275,6 +278,8 @@
 				D226985621BBDA600091EE3B /* WYEditHeaderView.m */,
 				D226985821BBDF250091EE3B /* WYEditTableViewCell.h */,
 				D226985921BBDF250091EE3B /* WYEditTableViewCell.m */,
+				D287DEA321BCEBF60048B5C2 /* WYAboutHeaderView.h */,
+				D287DEA421BCEBF60048B5C2 /* WYAboutHeaderView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -883,6 +888,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D226985021BBBDFD0091EE3B /* UIButton+ImagePosition.m in Sources */,
+				D287DEA521BCEBF60048B5C2 /* WYAboutHeaderView.m in Sources */,
 				D224039C21BBB10200001B83 /* WYEditViewController.m in Sources */,
 				D22403A521BBB1A600001B83 /* WYPersonCenterHeaderView.m in Sources */,
 				D2249FE621BA7B9E009B274C /* WYPhoneInputView.m in Sources */,

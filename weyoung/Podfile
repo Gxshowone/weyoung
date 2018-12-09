@@ -6,13 +6,12 @@ target 'weyoung' do
   # use_frameworks!
    pod 'ReactiveCocoa', :git => 'https://github.com/zhao0/ReactiveCocoa.git', :tag => '2.5.2'
    pod 'AFNetworking'
-   pod 'SDWebImage'
    pod 'MJRefresh'
    pod 'MJExtension'
    pod 'RongCloudIM/IMLib'
    pod 'RongCloudIM/IMKit'
    pod 'NJKWebViewProgress'
-
+   pod 'YYKit'
   # Pods for weyoung
 
   target 'weyoungTests' do

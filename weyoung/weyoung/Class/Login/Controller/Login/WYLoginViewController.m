@@ -39,8 +39,8 @@
     [super viewDidLayoutSubviews];
     self.bgImageView.frame = self.view.bounds;
     self.phoneInputView.frame = CGRectMake(27.5,KNaviBarHeight+196, KScreenWidth-55, 50);
-    self.infoLabel.frame = CGRectMake((KScreenWidth -287)/2, CGRectGetMaxX(self.phoneInputView.frame)+15, 172, 20);
-    self.clauseButton.frame = CGRectMake(CGRectGetMaxX(self.infoLabel.frame)+3, CGRectGetMaxX(self.phoneInputView.frame)+3,115, 44);
+    self.infoLabel.frame = CGRectMake((KScreenWidth -287)/2, CGRectGetMaxY(self.phoneInputView.frame)+15, 172, 20);
+    self.clauseButton.frame = CGRectMake(CGRectGetMaxX(self.infoLabel.frame)+3, CGRectGetMaxY(self.phoneInputView.frame)+3,115, 44);
     self.loginButton.frame = CGRectMake(KScreenWidth/2-40, KScreenHeight-KTabbarSafeBottomMargin-95-80, 80, 80);
     self.loginButton.style = WYGradientButtonCircle;
 }
@@ -100,7 +100,6 @@
 {
     if (!_loginButton) {
         _loginButton = [WYGradientButton buttonWithType:UIButtonTypeCustom];
-    
         @weakify(self);
         [[_loginButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);

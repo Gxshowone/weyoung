@@ -27,7 +27,9 @@
         case WYGradientButtonCircle:
         {
             self.layer.cornerRadius = 40;
+            [self setImage:[UIImage imageNamed:@"login_next_btn"] forState:UIControlStateNormal];
 
+            [self bringSubviewToFront:self.imageView];
         }
             break;
             case WYGradientButtonRectangle:

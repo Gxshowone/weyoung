@@ -31,9 +31,9 @@ PODS:
   - RongCloudIM/IMKit (2.9.8):
     - RongCloudIM/IMLib
   - RongCloudIM/IMLib (2.9.8)
-  - SDWebImage (4.4.2):
-    - SDWebImage/Core (= 4.4.2)
-  - SDWebImage/Core (4.4.2)
+  - YYKit (1.0.9):
+    - YYKit/no-arc (= 1.0.9)
+  - YYKit/no-arc (1.0.9)
 
 DEPENDENCIES:
   - AFNetworking
@@ -43,7 +43,7 @@ DEPENDENCIES:
   - ReactiveCocoa (from `https://github.com/zhao0/ReactiveCocoa.git`, tag `2.5.2`)
   - RongCloudIM/IMKit
   - RongCloudIM/IMLib
-  - SDWebImage
+  - YYKit
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -52,7 +52,7 @@ SPEC REPOS:
     - MJRefresh
     - NJKWebViewProgress
     - RongCloudIM
-    - SDWebImage
+    - YYKit
 
 EXTERNAL SOURCES:
   ReactiveCocoa:
@@ -71,8 +71,8 @@ SPEC CHECKSUMS:
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
   ReactiveCocoa: 3ff25b1bd992ac79c5c79b26b6c0c1713b715bb2
   RongCloudIM: dcfa8c4fe11e992c0d187f7dda71f2ce5bfae4d1
-  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 8fa2d793f69d91b356896fab2ceb8a3b01a27059
+PODFILE CHECKSUM: 4fca9e3864ca71d1620339c7f08a8f3a35bb9521
 
 COCOAPODS: 1.5.0
