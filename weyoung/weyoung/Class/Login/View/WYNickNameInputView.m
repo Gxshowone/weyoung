@@ -11,7 +11,6 @@
 @interface WYNickNameInputView ()<UITextFieldDelegate>
 
 @property(nonatomic,strong)WYTextField * textField;
-@property(nonatomic,strong)UIButton    * randomButton;
 
 @end
 @implementation WYNickNameInputView
@@ -26,7 +25,6 @@
         self.layer.borderWidth = 1;
         self.layer.borderColor = [[UIColor binaryColor:@"FFFFFF"] colorWithAlphaComponent:0.15].CGColor;
         [self addSubview:self.textField];
-        [self addSubview:self.randomButton];
     }
     return self;
 }
@@ -35,8 +33,7 @@
 {
     [super layoutSubviews];
     self.textField.frame = CGRectMake(20,0,self.width-70, 50);
-    self.randomButton.frame = CGRectMake(self.width-60, 0, 50, 50);
-    
+  
 }
 
 -(WYTextField*)textField
@@ -56,19 +53,5 @@
     
 }
 
--(UIButton*)randomButton
-{
-    if (!_randomButton) {
-        _randomButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        
-        @weakify(self);
-        [[_randomButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-            @strongify(self);
-        
-            
-        }];
-    }
-    return _randomButton;
-}
 
 @end

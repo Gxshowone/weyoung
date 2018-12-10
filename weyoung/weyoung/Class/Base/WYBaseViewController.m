@@ -201,6 +201,16 @@
         _leftButton.titleLabel.font = [UIFont fontWithName:TextFontName size:16.0];
         [_leftButton setFrame:CGRectMake(0, 20, 48, 50)];
         _leftButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+        [_leftButton setImage:[UIImage imageNamed:@"navi_back_btn"] forState:UIControlStateNormal];
+        
+        @weakify(self);
+        [[_leftButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+            @strongify(self);
+            NSLog(@"[gx] login click");
+            
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        }];
     }
     return _leftButton;
 }
@@ -210,11 +220,10 @@
     if (!_rightButton) {
         _rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_rightButton setFrame:CGRectMake(KScreenWidth-48,20,48,50)];
-        _rightButton.titleLabel.font = [UIFont fontWithName:@"HPingFangHK-Regular" size:14.0];
-        [_rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _rightButton.titleLabel.font = [UIFont fontWithName:TextFontName_Medium size:16.0];
+        [_rightButton setTitleColor:[UIColor binaryColor:@"6060FC"] forState:UIControlStateNormal];
         _rightButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-        
-        
+   
     }
     
     return _rightButton;
@@ -224,10 +233,10 @@
 {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc]init];
-        _titleLabel.frame = CGRectMake(100, 20,KScreenWidth-200, 44);
+        _titleLabel.frame = CGRectMake(100, 20+KTabbarSafeBottomMargin,KScreenWidth-200, 44);
         _titleLabel.textColor = [UIColor whiteColor];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
-        _titleLabel.font = [UIFont fontWithName:@"MFLiHei_Noncommercial-Regular" size:20];
+        _titleLabel.font = [UIFont fontWithName:TextFontName size:16];
         _titleLabel.adjustsFontSizeToFitWidth =YES;
         _titleLabel.minimumScaleFactor = 0.4;
     }

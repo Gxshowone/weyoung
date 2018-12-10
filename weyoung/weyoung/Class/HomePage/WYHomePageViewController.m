@@ -7,7 +7,7 @@
 //
 
 #import "WYHomePageViewController.h"
-
+#import "WYPersonCenterController.h"
 @interface WYHomePageViewController ()
 
 @end
@@ -17,6 +17,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self setNavigationConfig];
+}
+
+-(void)setNavigationConfig
+{
+ 
+    [self.leftButton setImage:[UIImage imageNamed:@"navi_dynamic_btn"] forState:UIControlStateNormal];
+    
+    [self.rightButton setImage:[UIImage imageNamed:@"navi_dynamic_btn"] forState:UIControlStateNormal];
+    
+    @weakify(self);
+    [[self.rightButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        @strongify(self);
+        NSLog(@"[gx] login click");
+        
+        [self.navigationController pushViewController:[[WYPersonCenterController alloc]init] animated:YES];
+        
+    }];
 }
 
 /*

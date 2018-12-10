@@ -27,6 +27,7 @@
     // Do any additional setup after loading the view.
     [self.view addSubview:self.tableView];
     [self initData];
+    [self setNavTitle:@"设置"];
 }
 
 -(void)initData
@@ -68,7 +69,8 @@
     cell.textLabel.textAlignment = NSTextAlignmentLeft;
     cell.textLabel.x = 20;
     cell.accessoryType =(indexPath.row==5)?UITableViewCellAccessoryNone:UITableViewCellAccessoryDisclosureIndicator;
-    
+    cell.backgroundColor = [UIColor clearColor];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     
     return cell;
@@ -123,6 +125,7 @@
         _tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
         _tableView.delegate=self;
         _tableView.dataSource=self;
+        _tableView.backgroundColor = [UIColor clearColor];
     }
     return _tableView;
 }

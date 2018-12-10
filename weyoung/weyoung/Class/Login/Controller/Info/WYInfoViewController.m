@@ -216,7 +216,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
             @strongify(self);
             
             WYHomePageViewController * hpVC = [WYHomePageViewController new];
-            [UIApplication sharedApplication].keyWindow.rootViewController = hpVC;
+            UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:hpVC];
+            [UIApplication sharedApplication].keyWindow.rootViewController = nav;
         }];
     }
     return _startButton;
