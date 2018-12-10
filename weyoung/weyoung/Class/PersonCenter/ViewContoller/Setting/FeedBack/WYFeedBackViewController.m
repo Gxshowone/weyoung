@@ -37,7 +37,6 @@
 {
     [self setNavTitle:@"问题反馈"];
     [self.rightButton setTitle:@"提交" forState:UIControlStateNormal];
-    
     [self.view addSubview:self.bgView];
     [self.view addSubview:self.textView];
     [self.view addSubview:self.countLabel];

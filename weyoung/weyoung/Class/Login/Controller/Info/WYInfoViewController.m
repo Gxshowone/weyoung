@@ -173,6 +173,15 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 
 }
 
+-(WYNickNameInputView*)nickInputView
+{
+    if (!_nickInputView) {
+        _nickInputView = [[WYNickNameInputView alloc]init];
+    }
+    return _nickInputView;
+
+}
+
 -(UIButton*)manButton
 {
     if (!_manButton) {
