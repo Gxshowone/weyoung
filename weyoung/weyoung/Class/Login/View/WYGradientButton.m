@@ -34,7 +34,7 @@
             break;
             case WYGradientButtonRectangle:
         {
-            self.layer.cornerRadius = 25;
+            self.layer.cornerRadius = 26.94;
 
         }
             break;

@@ -13,10 +13,12 @@
 #import <AVFoundation/AVMediaFormat.h>
 #import "WYGradientButton.h"
 #import "WYHomePageViewController.h"
+#import "WSDatePickerView.h"
 @interface WYInfoViewController ()<UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
 
 @property(nonatomic,strong)UIButton * picButton;
 @property(nonatomic,strong)WYNickNameInputView * nickInputView;
+@property(nonatomic,strong)UIButton * dateButton;
 @property(nonatomic,strong)UIButton * manButton;
 @property(nonatomic,strong)UIButton * womanButton;
 @property(nonatomic,strong)WYGradientButton * startButton;
@@ -144,6 +146,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     self.picButton.frame = CGRectMake(KScreenWidth/2-43, KNaviBarHeight+52, 86, 86);
     self.nickInputView.frame =   CGRectMake(27.5, KNaviBarHeight+196, KScreenWidth-55, 50);
     
+    self.dateButton.frame = CGRectMake(27.5, CGRectGetMaxY(self.nickInputView.frame)+21, KScreenWidth-55, 50);
+    
     CGFloat w = (KScreenWidth-75)/2;
     self.manButton.frame =  CGRectMake(27.5, CGRectGetMaxY(self.picButton.frame)+199, w, 50);
     self.womanButton.frame =  CGRectMake(CGRectGetMaxX(self.manButton.frame)+20, CGRectGetMaxY(self.picButton.frame)+199, w, 50);
@@ -153,10 +157,28 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 
 }
 
+-(void)showDataPicker
+{
+    //年-月-日
+    @weakify(self);
+    WSDatePickerView *datepicker = [[WSDatePickerView alloc] initWithDateStyle:DateStyleShowYearMonthDay CompleteBlock:^(NSDate *selectDate) {
+        @strongify(self);
+        NSString *dateString = [selectDate stringWithFormat:@"yyyy-MM-dd"];
+        NSLog(@"选择的日期：%@",dateString);
+        [self.dateButton setTitle:dateString forState:UIControlStateNormal];
+    }];
+    datepicker.dateLabelColor = WYRandomColor;//年-月-日-时-分 颜色
+    datepicker.datePickerColor = WYRandomColor;//滚轮日期颜色
+    datepicker.doneButtonColor = WYRandomColor;//确定按钮的颜色
+    [datepicker show];
+}
+
 -(UIButton*)picButton
 {
     if (!_picButton) {
         _picButton =[UIButton buttonWithType:UIButtonTypeCustom];
+        
+        
         @weakify(self);
         [[_picButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
@@ -181,6 +203,25 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     return _nickInputView;
 
 }
+
+-(UIButton*)dateButton
+{
+    if (!_dateButton) {
+        _dateButton =[UIButton buttonWithType:UIButtonTypeCustom];
+        _dateButton.layer.cornerRadius = 26.94;
+        _dateButton.layer.borderWidth  = 1;
+        _dateButton.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.3].CGColor;
+        @weakify(self);
+        [[_dateButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+            @strongify(self);
+            [self showDataPicker];
+        }];
+    }
+    return _dateButton;
+    
+}
+
+
 
 -(UIButton*)manButton
 {

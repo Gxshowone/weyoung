@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		8A5E27B8018E295784CC6DCF /* libPods-weyoungUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 942E09A90DF1D4B8E22A6637 /* libPods-weyoungUITests.a */; };
 		BCBCE70B1410216BED5305A4 /* libPods-weyoung.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0481827233D893221E297107 /* libPods-weyoung.a */; };
-		D21B0BB621BE9CF200ED2B1E /* WYPickerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D21B0BB521BE9CF200ED2B1E /* WYPickerButton.m */; };
 		D224038C21BB8B3C00001B83 /* WYPasswordInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = D224038B21BB8B3C00001B83 /* WYPasswordInputView.m */; };
 		D224039021BB992100001B83 /* WYNickNameInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = D224038F21BB992100001B83 /* WYNickNameInputView.m */; };
 		D224039621BBA77100001B83 /* WYGradientButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D224039521BBA77100001B83 /* WYGradientButton.m */; };
@@ -36,6 +35,9 @@
 		D226985421BBC6AA0091EE3B /* WYButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D226985321BBC6AA0091EE3B /* WYButtonItem.m */; };
 		D226985721BBDA600091EE3B /* WYEditHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D226985621BBDA600091EE3B /* WYEditHeaderView.m */; };
 		D226985A21BBDF250091EE3B /* WYEditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D226985921BBDF250091EE3B /* WYEditTableViewCell.m */; };
+		D22AF87A21BF6D530004405B /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D22AF87921BF6D530004405B /* NSDate+Extension.m */; };
+		D22AF87E21BF6EEC0004405B /* WSDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D22AF87C21BF6EEC0004405B /* WSDatePickerView.m */; };
+		D22AF87F21BF6EEC0004405B /* WSDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D22AF87D21BF6EEC0004405B /* WSDatePickerView.xib */; };
 		D287DE8C21BCE6C40048B5C2 /* WYSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DE8B21BCE6C40048B5C2 /* WYSettingViewController.m */; };
 		D287DE8F21BCE9510048B5C2 /* WYBlackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DE8E21BCE9510048B5C2 /* WYBlackListViewController.m */; };
 		D287DE9321BCE97A0048B5C2 /* WYAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DE9221BCE97A0048B5C2 /* WYAboutViewController.m */; };
@@ -83,8 +85,6 @@
 		942E09A90DF1D4B8E22A6637 /* libPods-weyoungUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-weyoungUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1EEBF3ACFD18510BE5999FE /* Pods-weyoungUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weyoungUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-weyoungUITests/Pods-weyoungUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C7C14D2704F1BFDDE69D0458 /* Pods-weyoungTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weyoungTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-weyoungTests/Pods-weyoungTests.debug.xcconfig"; sourceTree = "<group>"; };
-		D21B0BB421BE9CF200ED2B1E /* WYPickerButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYPickerButton.h; sourceTree = "<group>"; };
-		D21B0BB521BE9CF200ED2B1E /* WYPickerButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYPickerButton.m; sourceTree = "<group>"; };
 		D224038A21BB8B3C00001B83 /* WYPasswordInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYPasswordInputView.h; sourceTree = "<group>"; };
 		D224038B21BB8B3C00001B83 /* WYPasswordInputView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYPasswordInputView.m; sourceTree = "<group>"; };
 		D224038E21BB992100001B83 /* WYNickNameInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYNickNameInputView.h; sourceTree = "<group>"; };
@@ -139,6 +139,11 @@
 		D226985621BBDA600091EE3B /* WYEditHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYEditHeaderView.m; sourceTree = "<group>"; };
 		D226985821BBDF250091EE3B /* WYEditTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYEditTableViewCell.h; sourceTree = "<group>"; };
 		D226985921BBDF250091EE3B /* WYEditTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYEditTableViewCell.m; sourceTree = "<group>"; };
+		D22AF87821BF6D530004405B /* NSDate+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
+		D22AF87921BF6D530004405B /* NSDate+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
+		D22AF87B21BF6EEC0004405B /* WSDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSDatePickerView.h; sourceTree = "<group>"; };
+		D22AF87C21BF6EEC0004405B /* WSDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSDatePickerView.m; sourceTree = "<group>"; };
+		D22AF87D21BF6EEC0004405B /* WSDatePickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WSDatePickerView.xib; sourceTree = "<group>"; };
 		D287DE8A21BCE6C40048B5C2 /* WYSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYSettingViewController.h; sourceTree = "<group>"; };
 		D287DE8B21BCE6C40048B5C2 /* WYSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYSettingViewController.m; sourceTree = "<group>"; };
 		D287DE8D21BCE9510048B5C2 /* WYBlackListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYBlackListViewController.h; sourceTree = "<group>"; };
@@ -235,6 +240,9 @@
 		D224039321BBA72C00001B83 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D22AF87B21BF6EEC0004405B /* WSDatePickerView.h */,
+				D22AF87C21BF6EEC0004405B /* WSDatePickerView.m */,
+				D22AF87D21BF6EEC0004405B /* WSDatePickerView.xib */,
 				D2249FE421BA7B9E009B274C /* WYPhoneInputView.h */,
 				D2249FE521BA7B9E009B274C /* WYPhoneInputView.m */,
 				D2249FE721BA7E69009B274C /* WYTextField.h */,
@@ -247,8 +255,6 @@
 				D224038F21BB992100001B83 /* WYNickNameInputView.m */,
 				D224039421BBA77100001B83 /* WYGradientButton.h */,
 				D224039521BBA77100001B83 /* WYGradientButton.m */,
-				D21B0BB421BE9CF200ED2B1E /* WYPickerButton.h */,
-				D21B0BB521BE9CF200ED2B1E /* WYPickerButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -497,6 +503,8 @@
 		D2249FCC21BA24AA009B274C /* NS */ = {
 			isa = PBXGroup;
 			children = (
+				D22AF87821BF6D530004405B /* NSDate+Extension.h */,
+				D22AF87921BF6D530004405B /* NSDate+Extension.m */,
 			);
 			path = NS;
 			sourceTree = "<group>";
@@ -780,6 +788,7 @@
 			files = (
 				D2D7104821B9334B00D78746 /* LaunchScreen.storyboard in Resources */,
 				D2D7104521B9334B00D78746 /* Assets.xcassets in Resources */,
+				D22AF87F21BF6EEC0004405B /* WSDatePickerView.xib in Resources */,
 				D2D7104321B9334900D78746 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -903,14 +912,15 @@
 				D2249FCA21BA2375009B274C /* WYNoDataView.m in Sources */,
 				D2249FC721BA235D009B274C /* WYNoNetView.m in Sources */,
 				D2249FED21BA8337009B274C /* WYWebViewController.m in Sources */,
+				D22AF87A21BF6D530004405B /* NSDate+Extension.m in Sources */,
 				D2249FD621BA27F8009B274C /* WYBaseViewController.m in Sources */,
 				D2249FE221BA2FBB009B274C /* WYInfoViewController.m in Sources */,
+				D22AF87E21BF6EEC0004405B /* WSDatePickerView.m in Sources */,
 				D22403A821BBB44700001B83 /* WYPersonCenterController.m in Sources */,
 				D224039021BB992100001B83 /* WYNickNameInputView.m in Sources */,
 				D287DE9C21BCE9E00048B5C2 /* WYPasswordChangeViewController.m in Sources */,
 				D2D7104021B9334900D78746 /* ViewController.m in Sources */,
 				D287DE8C21BCE6C40048B5C2 /* WYSettingViewController.m in Sources */,
-				D21B0BB621BE9CF200ED2B1E /* WYPickerButton.m in Sources */,
 				D226985721BBDA600091EE3B /* WYEditHeaderView.m in Sources */,
 				D287DE8F21BCE9510048B5C2 /* WYBlackListViewController.m in Sources */,
 				D287DEA221BCEA060048B5C2 /* WYEvaluateViewController.m in Sources */,
