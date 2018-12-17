@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "AppDelegate+KeyboardManager.h"
 
 #import "WYLoginViewController.h"
 #import "WYHomePageViewController.h"
@@ -19,6 +20,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    //键盘管理器
+    [self registerKeyboardManager];
     
     
     _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];

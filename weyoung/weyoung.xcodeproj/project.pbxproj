@@ -38,6 +38,8 @@
 		D22AF87A21BF6D530004405B /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D22AF87921BF6D530004405B /* NSDate+Extension.m */; };
 		D22AF87E21BF6EEC0004405B /* WSDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D22AF87C21BF6EEC0004405B /* WSDatePickerView.m */; };
 		D22AF87F21BF6EEC0004405B /* WSDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D22AF87D21BF6EEC0004405B /* WSDatePickerView.xib */; };
+		D22BDF0021C76B09002269AC /* AppDelegate+RongCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = D22BDEFF21C76B09002269AC /* AppDelegate+RongCloud.m */; };
+		D22BDF0721C76BD3002269AC /* AppDelegate+KeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D22BDF0621C76BD3002269AC /* AppDelegate+KeyboardManager.m */; };
 		D287DE8C21BCE6C40048B5C2 /* WYSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DE8B21BCE6C40048B5C2 /* WYSettingViewController.m */; };
 		D287DE8F21BCE9510048B5C2 /* WYBlackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DE8E21BCE9510048B5C2 /* WYBlackListViewController.m */; };
 		D287DE9321BCE97A0048B5C2 /* WYAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DE9221BCE97A0048B5C2 /* WYAboutViewController.m */; };
@@ -144,6 +146,10 @@
 		D22AF87B21BF6EEC0004405B /* WSDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSDatePickerView.h; sourceTree = "<group>"; };
 		D22AF87C21BF6EEC0004405B /* WSDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSDatePickerView.m; sourceTree = "<group>"; };
 		D22AF87D21BF6EEC0004405B /* WSDatePickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WSDatePickerView.xib; sourceTree = "<group>"; };
+		D22BDEFE21C76B09002269AC /* AppDelegate+RongCloud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+RongCloud.h"; sourceTree = "<group>"; };
+		D22BDEFF21C76B09002269AC /* AppDelegate+RongCloud.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+RongCloud.m"; sourceTree = "<group>"; };
+		D22BDF0521C76BD3002269AC /* AppDelegate+KeyboardManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+KeyboardManager.h"; sourceTree = "<group>"; };
+		D22BDF0621C76BD3002269AC /* AppDelegate+KeyboardManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+KeyboardManager.m"; sourceTree = "<group>"; };
 		D287DE8A21BCE6C40048B5C2 /* WYSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYSettingViewController.h; sourceTree = "<group>"; };
 		D287DE8B21BCE6C40048B5C2 /* WYSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYSettingViewController.m; sourceTree = "<group>"; };
 		D287DE8D21BCE9510048B5C2 /* WYBlackListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYBlackListViewController.h; sourceTree = "<group>"; };
@@ -527,6 +533,19 @@
 			path = Web;
 			sourceTree = "<group>";
 		};
+		D22BDF0121C76B1B002269AC /* Appdelegate */ = {
+			isa = PBXGroup;
+			children = (
+				D2D7103B21B9334900D78746 /* AppDelegate.h */,
+				D2D7103C21B9334900D78746 /* AppDelegate.m */,
+				D22BDEFE21C76B09002269AC /* AppDelegate+RongCloud.h */,
+				D22BDEFF21C76B09002269AC /* AppDelegate+RongCloud.m */,
+				D22BDF0521C76BD3002269AC /* AppDelegate+KeyboardManager.h */,
+				D22BDF0621C76BD3002269AC /* AppDelegate+KeyboardManager.m */,
+			);
+			path = Appdelegate;
+			sourceTree = "<group>";
+		};
 		D287DE8921BCE68B0048B5C2 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
@@ -570,14 +589,13 @@
 		D2D7103A21B9334900D78746 /* weyoung */ = {
 			isa = PBXGroup;
 			children = (
+				D22BDF0121C76B1B002269AC /* Appdelegate */,
 				D2249FC221BA22EF009B274C /* Public */,
 				D2249FC121BA204F009B274C /* Category */,
 				D2249FC021BA2018009B274C /* Unti */,
 				D2249FA821BA12D4009B274C /* Manager */,
 				D2D7107621B9403200D78746 /* Class */,
 				D2D7106D21B939BA00D78746 /* Constant */,
-				D2D7103B21B9334900D78746 /* AppDelegate.h */,
-				D2D7103C21B9334900D78746 /* AppDelegate.m */,
 				D2D7103E21B9334900D78746 /* ViewController.h */,
 				D2249FBE21BA1CBD009B274C /* weyoung-Prefix.pch */,
 				D2D7103F21B9334900D78746 /* ViewController.m */,
@@ -835,6 +853,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-weyoung/Pods-weyoung-resources.sh",
+				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/RongCloudIM/RongCloudIM/RongCloud.bundle",
 				"${PODS_ROOT}/RongCloudIM/RongCloudIM/en.lproj",
@@ -845,6 +864,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RongCloud.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/en.lproj",
@@ -906,6 +926,7 @@
 				D224039C21BBB10200001B83 /* WYEditViewController.m in Sources */,
 				D22403A521BBB1A600001B83 /* WYPersonCenterHeaderView.m in Sources */,
 				D2249FE621BA7B9E009B274C /* WYPhoneInputView.m in Sources */,
+				D22BDF0721C76BD3002269AC /* AppDelegate+KeyboardManager.m in Sources */,
 				D2249FF121BA95C5009B274C /* WLUnitField.m in Sources */,
 				D2249FE921BA7E69009B274C /* WYTextField.m in Sources */,
 				D2249FBD21BA1A3F009B274C /* WYConfig.m in Sources */,
@@ -926,6 +947,7 @@
 				D287DEA221BCEA060048B5C2 /* WYEvaluateViewController.m in Sources */,
 				D2249FD221BA2561009B274C /* UIColor+Extension.m in Sources */,
 				D224039621BBA77100001B83 /* WYGradientButton.m in Sources */,
+				D22BDF0021C76B09002269AC /* AppDelegate+RongCloud.m in Sources */,
 				D226985421BBC6AA0091EE3B /* WYButtonItem.m in Sources */,
 				D2D7104B21B9334B00D78746 /* main.m in Sources */,
 				D2249FDC21BA2F7A009B274C /* WYCodeViewController.m in Sources */,

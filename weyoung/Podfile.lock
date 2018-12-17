@@ -14,6 +14,8 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
+  - CWLateralSlide (1.6.3)
+  - IQKeyboardManager (6.2.0)
   - MJExtension (3.0.15.1)
   - MJRefresh (3.1.15.7)
   - NJKWebViewProgress (0.2.3):
@@ -37,6 +39,8 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - CWLateralSlide
+  - IQKeyboardManager
   - MJExtension
   - MJRefresh
   - NJKWebViewProgress
@@ -48,6 +52,8 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - AFNetworking
+    - CWLateralSlide
+    - IQKeyboardManager
     - MJExtension
     - MJRefresh
     - NJKWebViewProgress
@@ -66,6 +72,8 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  CWLateralSlide: 1b9a848873b93de45cfefe6389765b12aa70982c
+  IQKeyboardManager: 6194101620b73af5e67900b8f89707a99de0b804
   MJExtension: 19bc33ce2eee2d319760f5622562cf581a6ff756
   MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
@@ -73,6 +81,6 @@ SPEC CHECKSUMS:
   RongCloudIM: dcfa8c4fe11e992c0d187f7dda71f2ce5bfae4d1
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 4fca9e3864ca71d1620339c7f08a8f3a35bb9521
+PODFILE CHECKSUM: ae23c233440df8c3d2bed4fb2b5c5e8596ec8549
 
 COCOAPODS: 1.5.0

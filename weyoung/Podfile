@@ -12,6 +12,8 @@ target 'weyoung' do
    pod 'RongCloudIM/IMKit'
    pod 'NJKWebViewProgress'
    pod 'YYKit'
+   pod 'IQKeyboardManager'
+   pod 'CWLateralSlide'
   # Pods for weyoung
 
   target 'weyoungTests' do

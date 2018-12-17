@@ -32,6 +32,7 @@
     // Do any additional setup after loading the view.
     [self.view addSubview:self.picButton];
     [self.view addSubview:self.nickInputView];
+    [self.view addSubview:self.dateButton];
     [self.view addSubview:self.manButton];
     [self.view addSubview:self.womanButton];
     [self.view addSubview:self.startButton];
@@ -177,7 +178,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     if (!_picButton) {
         _picButton =[UIButton buttonWithType:UIButtonTypeCustom];
-        
+        [_picButton setImage:[UIImage imageNamed:@"login_pic_btn"] forState:UIControlStateNormal];
         
         @weakify(self);
         [[_picButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
