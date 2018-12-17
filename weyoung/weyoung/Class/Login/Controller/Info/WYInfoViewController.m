@@ -168,9 +168,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         NSLog(@"选择的日期：%@",dateString);
         [self.dateButton setTitle:dateString forState:UIControlStateNormal];
     }];
-    datepicker.dateLabelColor = WYRandomColor;//年-月-日-时-分 颜色
-    datepicker.datePickerColor = WYRandomColor;//滚轮日期颜色
-    datepicker.doneButtonColor = WYRandomColor;//确定按钮的颜色
+    datepicker.doneButtonColor = [UIColor binaryColor:@"6950FB"];//确定按钮的颜色
     [datepicker show];
 }
 
@@ -211,7 +209,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         _dateButton =[UIButton buttonWithType:UIButtonTypeCustom];
         _dateButton.layer.cornerRadius = 26.94;
         _dateButton.layer.borderWidth  = 1;
-        _dateButton.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.3].CGColor;
+        _dateButton.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.15].CGColor;
         @weakify(self);
         [[_dateButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
