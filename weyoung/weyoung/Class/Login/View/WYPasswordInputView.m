@@ -8,6 +8,7 @@
 
 #import "WYPasswordInputView.h"
 #import "WYTextField.h"
+
 @interface WYPasswordInputView ()<UITextFieldDelegate>
 
 @property(nonatomic,strong)WYTextField * textField;
@@ -52,5 +53,11 @@
     return _textField;
     
 }
+
+-(NSString*)inputText
+{
+    return self.textField.text;
+}
+
 
 @end

@@ -10,6 +10,8 @@
 #import "WYPasswordInputView.h"
 #import "WYInfoViewController.h"
 #import "WYGradientButton.h"
+#import <AudioToolbox/AudioToolbox.h>
+#import "NSString+Validation.h"
 @interface WYPassWordViewController ()
 
 @property(nonatomic,strong)UILabel     * inputLabel;
@@ -84,9 +86,23 @@
         @weakify(self);
         [[_nextButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
-            NSLog(@"[gx] login click");
-            
-            [self.navigationController pushViewController:[[WYInfoViewController alloc]init] animated:YES];
+          
+            if ([[self.inputView inputText] isValidPassword] ) {
+                
+                [self.navigationController pushViewController:[[WYInfoViewController alloc]init] animated:YES];
+                
+            }else
+                
+            {
+                if ([[self.inputView inputText] isEmpty]) {
+                    [self.view makeToast:@"请设置密码" duration:3.0 position:CSToastPositionTop];
+                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+                }else
+                {
+                    [self.view makeToast:@"密码格式不正确" duration:3.0 position:CSToastPositionTop];
+                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+                }
+            }
             
         }];
     }

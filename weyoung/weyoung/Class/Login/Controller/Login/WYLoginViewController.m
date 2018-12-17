@@ -10,6 +10,8 @@
 #import "WYPhoneInputView.h"
 #import "WYCodeViewController.h"
 #import "WYGradientButton.h"
+#import "NSString+Validation.h"
+#import <AudioToolbox/AudioToolbox.h>
 @interface WYLoginViewController ()
 
 @property(nonatomic,strong)UIImageView * bgImageView;
@@ -44,6 +46,8 @@
     self.loginButton.frame = CGRectMake(KScreenWidth/2-40, KScreenHeight-KTabbarSafeBottomMargin-95-80, 80, 80);
     self.loginButton.style = WYGradientButtonCircle;
 }
+
+
 
 -(UIImageView *)bgImageView
 {
@@ -89,6 +93,8 @@
         [[_clauseButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
             
+          
+            
         }];
     }
     return _clauseButton;
@@ -104,8 +110,24 @@
         [[_loginButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
             NSLog(@"[gx] login click");
+            if ([[self.phoneInputView inputText] isValidPhone]) {
+                
+                WYCodeViewController * codeVc = [[WYCodeViewController alloc]init];
+                codeVc.phone = [self.phoneInputView inputText];
+                [self.navigationController pushViewController:codeVc animated:YES];
+            }else
+                
+            {
+                if ([[self.phoneInputView inputText] isEmpty]) {
+                    [self.view makeToast:@"请输入手机号" duration:3.0 position:CSToastPositionTop];
+                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+                }else
+                {
+                    [self.view makeToast:@"手机号格式不正确" duration:3.0 position:CSToastPositionTop];
+                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+                }
+            }
             
-            [self.navigationController pushViewController:[[WYCodeViewController alloc]init] animated:YES];
             
         }];
     }

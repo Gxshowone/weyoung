@@ -78,14 +78,15 @@
         _textField.placeholder = @"输入手机号";
         _textField.delegate = self;
         _textField.keyboardType = UIKeyboardTypePhonePad;
-        @weakify(self);
-        [_textField.rac_textSignal subscribeNext:^(NSString * _Nullable x) {
-            NSLog(@"%@",x);
-            @strongify(self);
-        }];
+      
     }
     return _textField;
     
+}
+
+-(NSString*)inputText
+{
+    return self.textField.text;
 }
 
 

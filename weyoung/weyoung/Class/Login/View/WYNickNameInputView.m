@@ -53,5 +53,11 @@
     
 }
 
+-(NSString*)inputText
+{
+    return self.textField.text;
+}
+
+
 
 @end

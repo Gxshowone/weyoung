@@ -33,7 +33,7 @@
 }
 
 -(void)startTime{
-    __block int timeout = 45; //倒计时时间
+    __block int timeout = 60; //倒计时时间
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
     dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
@@ -78,6 +78,7 @@
     
 }
 
+
 -(void)unitFieldEditingChanged:(WLUnitField *)sender
 {
     if (sender.text.length == 4) {
@@ -101,7 +102,6 @@
 {
     if (!_phoneLabel) {
         _phoneLabel = [[UILabel alloc]init];
-        _phoneLabel.text = @"已发送至+8618500120859";
         _phoneLabel.font = [UIFont fontWithName:TextFontName_Light size:14];
         _phoneLabel.textAlignment = NSTextAlignmentCenter;
         _phoneLabel.textColor = [[UIColor binaryColor:@"FFFFFF"] colorWithAlphaComponent:0.5];
@@ -143,6 +143,13 @@
         }];
     }
     return _sendButton;
+}
+
+-(void)setPhone:(NSString *)phone
+{
+    _phone = phone;
+    
+    self.phoneLabel.text =  [NSString stringWithFormat:@"已发送至+86%@",phone];
 }
 
 

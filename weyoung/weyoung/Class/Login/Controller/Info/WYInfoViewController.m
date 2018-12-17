@@ -36,6 +36,8 @@
     [self.view addSubview:self.manButton];
     [self.view addSubview:self.womanButton];
     [self.view addSubview:self.startButton];
+    
+    self.manButton.selected = YES;
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -167,6 +169,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         NSString *dateString = [selectDate stringWithFormat:@"yyyy-MM-dd"];
         NSLog(@"选择的日期：%@",dateString);
         [self.dateButton setTitle:dateString forState:UIControlStateNormal];
+        [self.dateButton setTitleColor:[UIColor binaryColor:@"FFFFFF"] forState:UIControlStateNormal];
     }];
     datepicker.doneButtonColor = [UIColor binaryColor:@"6950FB"];//确定按钮的颜色
     [datepicker show];
@@ -207,6 +210,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     if (!_dateButton) {
         _dateButton =[UIButton buttonWithType:UIButtonTypeCustom];
+        [_dateButton setTitle:@"选择生日" forState:UIControlStateNormal];
+        [_dateButton setTitleColor:[[UIColor binaryColor:@"FFFFFF"] colorWithAlphaComponent:0.3] forState:UIControlStateNormal];
         _dateButton.layer.cornerRadius = 26.94;
         _dateButton.layer.borderWidth  = 1;
         _dateButton.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.15].CGColor;
@@ -215,6 +220,10 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
             @strongify(self);
             [self showDataPicker];
         }];
+        
+        CGFloat edgeLeft = KScreenWidth/2;
+        _dateButton.titleEdgeInsets =  UIEdgeInsetsMake(0, -(edgeLeft+20), 0, 0);
+        _dateButton.titleLabel.font = [UIFont fontWithName:TextFontName_Light size:16];
     }
     return _dateButton;
     
@@ -226,11 +235,35 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     if (!_manButton) {
         _manButton =[UIButton buttonWithType:UIButtonTypeCustom];
+        _manButton.layer.cornerRadius = 27.5;
+        _manButton.layer.masksToBounds = YES;
+        [_manButton setTitle:@"小哥哥" forState:UIControlStateNormal];
+        _manButton.titleLabel.font = [UIFont fontWithName:TextFontName_Light size:16];
+        
+        CGSize titleSize =_manButton.titleLabel.bounds.size;
+        CGSize imageSize = _manButton.imageView.bounds.size;
+        _manButton.imageEdgeInsets = UIEdgeInsetsMake(0,titleSize.width, 0, -titleSize.width);
+        _manButton.titleEdgeInsets = UIEdgeInsetsMake(0, -imageSize.width, 0, imageSize.width);
+        
+        [_manButton setImage:[UIImage imageNamed:@"login_man_btn_unselect"] forState:UIControlStateNormal];
+        [_manButton setImage:[UIImage imageNamed:@"login_man_btn_select"] forState:UIControlStateSelected];
+        
+        [_manButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        [_manButton setTitleColor:[[UIColor whiteColor] colorWithAlphaComponent:0.3]  forState:UIControlStateNormal];
+        [_manButton setBackgroundColor:[[UIColor whiteColor] colorWithAlphaComponent:0.15]];
+        
         @weakify(self);
         [[_manButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
           
+            self.manButton.selected = YES;
+            self.womanButton.selected = NO;
+            [self.manButton setBackgroundColor:[[UIColor whiteColor] colorWithAlphaComponent:0.15]];
+            [self.womanButton setBackgroundColor:[UIColor clearColor]];
             
+            self.womanButton.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.15].CGColor;
+            self.womanButton.layer.borderWidth = 1;
+            self.manButton.layer.borderWidth = 0;
         }];
     }
     return _manButton;
@@ -241,11 +274,43 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     if (!_womanButton) {
         _womanButton =[UIButton buttonWithType:UIButtonTypeCustom];
+        _womanButton.layer.cornerRadius = 27.5;
+        _womanButton.layer.masksToBounds = YES;
+        _womanButton.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.15].CGColor;
+        _womanButton.layer.borderWidth = 1;
+        
+        
+        [_womanButton setTitle:@"小姐姐" forState:UIControlStateNormal];
+        _womanButton.titleLabel.font = [UIFont fontWithName:TextFontName_Light size:16];
+        
+        
+        
+        CGSize titleSize =_womanButton.titleLabel.bounds.size;
+        CGSize imageSize = _womanButton.imageView.bounds.size;
+        _womanButton.imageEdgeInsets = UIEdgeInsetsMake(0,titleSize.width, 0, -titleSize.width);
+        _womanButton.titleEdgeInsets = UIEdgeInsetsMake(0, -imageSize.width, 0, imageSize.width);
+        
+        [_womanButton setImage:[UIImage imageNamed:@"login_woman_btn_unselect"] forState:UIControlStateNormal];
+        [_womanButton setImage:[UIImage imageNamed:@"login_woman_btn_select"] forState:UIControlStateSelected];
+        
+        [_womanButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        [_womanButton setTitleColor:[[UIColor whiteColor] colorWithAlphaComponent:0.3]  forState:UIControlStateNormal];
+        
+        [_womanButton setBackgroundColor:[UIColor clearColor]];
+        
         @weakify(self);
         [[_womanButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
-        
+           
+            self.manButton.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.15].CGColor;
+            self.manButton.layer.borderWidth = 1;
+            self.womanButton.layer.borderWidth = 0;
             
+            self.manButton.selected = NO;
+            self.womanButton.selected = YES;
+            [self.womanButton setBackgroundColor:[[UIColor whiteColor] colorWithAlphaComponent:0.15]];
+            [self.manButton setBackgroundColor:[UIColor clearColor]];
+    
         }];
     }
     return _womanButton;
