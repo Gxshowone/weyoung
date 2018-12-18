@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void (^PersonCenterClickBlock)(NSInteger index);
+
 @interface WYPersonCenterHeaderView : UIView
+
+@property(nonatomic,copy)PersonCenterClickBlock block;
 
 @end
 

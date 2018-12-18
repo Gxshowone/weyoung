@@ -9,12 +9,13 @@
 #import "WYWebViewController.h"
 #import <NJKWebViewProgress.h>
 #import <NJKWebViewProgressView.h>
+#import <WebKit/WebKit.h>
 @interface WYWebViewController ()
 <UIWebViewDelegate, NJKWebViewProgressDelegate>
 
 @property(nonatomic,strong)NJKWebViewProgressView *webViewProgressView;
 @property(nonatomic,strong)NJKWebViewProgress *webViewProgress;
-@property(nonatomic,strong)UIWebView * webView;
+@property(nonatomic,strong)WKWebView * webView;
 
 
 @end
@@ -43,7 +44,6 @@
 {
     if (!_webViewProgress) {
         _webViewProgress = [[NJKWebViewProgress alloc] init];
-        _webView.delegate = _webViewProgress;
         _webViewProgress.webViewProxyDelegate = self;
         _webViewProgress.progressDelegate = self;
     }
@@ -51,15 +51,13 @@
 }
 
 
--(UIWebView*)webView
+-(WKWebView*)webView
 {
     if (!_webView) {
-        _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, KNaviBarHeight, KScreenWidth, KScreenHeight-KNaviBarHeight)];
+        _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, KNaviBarHeight, KScreenWidth, KScreenHeight-KNaviBarHeight)];
         _webView.backgroundColor = [UIColor binaryColor:@"FAFAFA"];
-        _webView.delegate = self;
         _webView.opaque  = NO;
         _webView.tag = 1;
-        _webView.scalesPageToFit = YES;
         _webView.autoresizesSubviews = YES;
         
     }
@@ -87,7 +85,7 @@
         
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
         
-        [_webView loadRequest:request];
+        [self.webView loadRequest:request];
     }
 
     
@@ -102,18 +100,6 @@
     
 }
 
-- (void)webViewDidStartLoad:(UIWebView *)webView;
-{
-    
-}
-- (void)webViewDidFinishLoad:(UIWebView *)webView;
-{
-    
-}
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error;
-{
-    
-}
 
 
 @end

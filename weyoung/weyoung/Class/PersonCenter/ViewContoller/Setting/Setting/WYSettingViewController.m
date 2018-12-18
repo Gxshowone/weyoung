@@ -7,12 +7,12 @@
 //
 
 #import "WYSettingViewController.h"
-#import "WYPasswordChangeViewController.h"
+#import "WYCodeViewController.h"
 #import "WYBlackListViewController.h"
 #import "WYFeedBackViewController.h"
 #import "WYAboutViewController.h"
 #import "WYEvaluateViewController.h"
-
+#import <StoreKit/StoreKit.h>
 @interface WYSettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView * tableView;
@@ -30,6 +30,7 @@
     [self setNavTitle:@"设置"];
 }
 
+
 -(void)initData
 {
     self.titleArray = @[@"更改密码",@"黑名单",@"关于未央",@"问题反馈",@"五星好评",@"退出登录"];
@@ -37,6 +38,26 @@
 }
 
 #pragma mark - TabelView delegate 代理
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.1;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.1;
+}
+
+-(nullable UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    return nil;
+}
+
+-(nullable UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return nil;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     return 70;
@@ -65,12 +86,14 @@
     }
     
     cell.textLabel.text =self.titleArray[indexPath.row];
-    cell.textLabel.textColor =(indexPath.row==5)?[UIColor binaryColor:@"DCDEEA"]:[UIColor binaryColor:@"DCDEEA"];
+    cell.textLabel.textColor =(indexPath.row==5)?[UIColor binaryColor:@"6060FC"]:[UIColor binaryColor:@"DCDEEA"];
     cell.textLabel.textAlignment = NSTextAlignmentLeft;
     cell.textLabel.x = 20;
     cell.accessoryType =(indexPath.row==5)?UITableViewCellAccessoryNone:UITableViewCellAccessoryDisclosureIndicator;
     cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.textLabel.font = [UIFont fontWithName:TextFontName_Light size:16];
+
     
     
     return cell;
@@ -82,7 +105,9 @@
     switch (indexPath.row) {
         case 0:
         {
-            [self.navigationController pushViewController:[WYPasswordChangeViewController new] animated:YES];
+            WYCodeViewController * codeVc = [[WYCodeViewController alloc]init];
+            codeVc.phone = @"18910026892";
+            [self.navigationController pushViewController:codeVc animated:YES];
         }
             break;
             case 1:
@@ -102,7 +127,7 @@
             break;
             case 4:
         {
-              [self.navigationController pushViewController:[WYEvaluateViewController new] animated:YES];
+             [SKStoreReviewController requestReview];
         }
             break;
             case 5:
@@ -121,7 +146,7 @@
 {
     if (!_tableView) {
         
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight-KNaviBarHeight) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,KNaviBarHeight, KScreenWidth, KScreenHeight-KNaviBarHeight) style:UITableViewStyleGrouped];
         _tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
         _tableView.delegate=self;
         _tableView.dataSource=self;

@@ -10,7 +10,7 @@
 #import "WYButtonItem.h"
 @interface WYPersonCenterHeaderView ()<UITextFieldDelegate>
 
-@property(nonatomic,strong)UIImageView * avatarImageView;
+@property(nonatomic,strong)UIButton *  avatarItem;
 @property(nonatomic,strong)UILabel     * nickLabel;
 @property(nonatomic,strong)UIImageView * sexImageView;
 @property(nonatomic,strong)UILabel     * infoLabel; //age  constellation
@@ -25,7 +25,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        [self addSubview:self.avatarImageView];
+        [self addSubview:self.avatarItem];
         [self addSubview:self.nickLabel];
         [self addSubview:self.sexImageView];
         [self addSubview:self.infoLabel];
@@ -40,8 +40,8 @@
 -(void)layoutSubviews
 {
     [super layoutSubviews];
-    self.avatarImageView.frame = CGRectMake(KScreenWidth/2-45, KNaviBarHeight+20, 90, 90);
-    self.nickLabel.frame = CGRectMake(50, CGRectGetMaxY(self.avatarImageView.frame)+11, KScreenWidth-100, 27);
+    self.avatarItem.frame = CGRectMake(KScreenWidth/2-45, KNaviBarHeight+20, 90, 90);
+    self.nickLabel.frame = CGRectMake(50, CGRectGetMaxY(self.avatarItem.frame)+11, KScreenWidth-100, 27);
     self.infoLabel.frame = CGRectMake(KScreenWidth/2-35, CGRectGetMaxY(self.nickLabel.frame)+2, 91, 26);
     self.sexImageView.frame = CGRectMake(KScreenWidth/2-45, CGRectGetMaxY(self.nickLabel.frame)+10, 10, 10);
     
@@ -51,15 +51,23 @@
 }
 
 
--(UIImageView*)avatarImageView
+-(UIButton*)avatarItem
 {
-    if (!_avatarImageView) {
-        _avatarImageView = [[UIImageView alloc]init];
-        _avatarImageView.layer.cornerRadius = 45;
-        _avatarImageView.layer.masksToBounds = YES;
+    if (!_avatarItem) {
+        _avatarItem = [[UIButton alloc]init];
+        _avatarItem.layer.cornerRadius = 45;
+        _avatarItem.layer.masksToBounds = YES;
+        [_avatarItem yy_setImageWithURL:[NSURL URLWithString:@"http://mmbiz.qpic.cn/mmbiz/PwIlO51l7wuFyoFwAXfqPNETWCibjNACIt6ydN7vw8LeIwT7IjyG3eeribmK4rhibecvNKiaT2qeJRIWXLuKYPiaqtQ/0"] forState:UIControlStateNormal options:YYWebImageOptionSetImageWithFadeAnimation];
+        @weakify(self);
+        [[_avatarItem rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+            @strongify(self);
+            if (self.block) {
+                self.block(0);
+            }
+        }];
         
     }
-    return _avatarImageView;
+    return _avatarItem;
 }
 
 -(UILabel*)nickLabel
@@ -81,7 +89,9 @@
         @weakify(self);
         [[_dynamicItem rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
-            
+            if (self.block) {
+                self.block(1);
+            }
         }];
         
     }
@@ -95,7 +105,9 @@
         @weakify(self);
         [[_friendItem rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
-            
+            if (self.block) {
+                self.block(2);
+            }
         }];
         
     }

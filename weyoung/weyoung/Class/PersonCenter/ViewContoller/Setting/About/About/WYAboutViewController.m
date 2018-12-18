@@ -8,6 +8,7 @@
 
 #import "WYAboutViewController.h"
 #import "WYAboutHeaderView.h"
+#import "WYWebViewController.h"
 @interface WYAboutViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)WYAboutHeaderView * headerView;
@@ -27,6 +28,7 @@
 
 -(void)initData
 {
+    [self setNavTitle:@"关于未央"];
     self.titleArray = @[@"隐私政策",@"服务条款"];
     [self.tableView reloadData];
 }
@@ -50,7 +52,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     
-    return 248+KNaviBarSafeBottomMargin;
+    return 184;
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -76,17 +78,42 @@
     cell.textLabel.textAlignment = NSTextAlignmentLeft;
     cell.textLabel.x = 20;
     cell.accessoryType =UITableViewCellAccessoryDisclosureIndicator;
-    
-    
+    cell.backgroundColor = [UIColor clearColor];
+    cell.textLabel.font = [UIFont fontWithName:TextFontName_Light size:16];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
     
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.row) {
+        case 0:
+        {
+            WYWebViewController * webVc = [[WYWebViewController alloc]init];
+            webVc.url = @"http://www.baidu.com";
+            [self.navigationController pushViewController:webVc animated:YES];
+        }
+            break;
+            case 1:
+        {
+            WYWebViewController * webVc = [[WYWebViewController alloc]init];
+            webVc.url = @"http://www.baidu.com";
+            [self.navigationController pushViewController:webVc animated:YES];
+        }
+            
+            break;
+        default:
+            break;
+    }
 }
 
 -(WYAboutHeaderView*)headerView
 {
     if (!_headerView) {
         _headerView = [[WYAboutHeaderView alloc]init];
+        
     }
     return _headerView;
 }
@@ -97,10 +124,11 @@
 {
     if (!_tableView) {
         
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight-KNaviBarHeight) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,KNaviBarHeight, KScreenWidth, KScreenHeight-KNaviBarHeight) style:UITableViewStyleGrouped];
         _tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
         _tableView.delegate=self;
         _tableView.dataSource=self;
+        _tableView.backgroundColor = [UIColor clearColor];
     }
     return _tableView;
 }

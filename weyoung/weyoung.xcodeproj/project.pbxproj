@@ -43,6 +43,8 @@
 		D22BDF0B21C79973002269AC /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = D22BDF0A21C79973002269AC /* UIView+Toast.m */; };
 		D22BDF0E21C79A94002269AC /* AppDelegate+NetWork.m in Sources */ = {isa = PBXBuildFile; fileRef = D22BDF0D21C79A94002269AC /* AppDelegate+NetWork.m */; };
 		D22BDF1121C7BA1F002269AC /* NSString+Validation.m in Sources */ = {isa = PBXBuildFile; fileRef = D22BDF1021C7BA1F002269AC /* NSString+Validation.m */; };
+		D22BDF1421C7D2CD002269AC /* WYDynamicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D22BDF1321C7D2CD002269AC /* WYDynamicViewController.m */; };
+		D230F08921C8FA620055D5A0 /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D230F08821C8FA620055D5A0 /* NSString+Extension.m */; };
 		D287DE8C21BCE6C40048B5C2 /* WYSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DE8B21BCE6C40048B5C2 /* WYSettingViewController.m */; };
 		D287DE8F21BCE9510048B5C2 /* WYBlackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DE8E21BCE9510048B5C2 /* WYBlackListViewController.m */; };
 		D287DE9321BCE97A0048B5C2 /* WYAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DE9221BCE97A0048B5C2 /* WYAboutViewController.m */; };
@@ -159,6 +161,10 @@
 		D22BDF0D21C79A94002269AC /* AppDelegate+NetWork.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+NetWork.m"; sourceTree = "<group>"; };
 		D22BDF0F21C7BA1F002269AC /* NSString+Validation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Validation.h"; sourceTree = "<group>"; };
 		D22BDF1021C7BA1F002269AC /* NSString+Validation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Validation.m"; sourceTree = "<group>"; };
+		D22BDF1221C7D2CD002269AC /* WYDynamicViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYDynamicViewController.h; sourceTree = "<group>"; };
+		D22BDF1321C7D2CD002269AC /* WYDynamicViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYDynamicViewController.m; sourceTree = "<group>"; };
+		D230F08721C8FA620055D5A0 /* NSString+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Extension.h"; sourceTree = "<group>"; };
+		D230F08821C8FA620055D5A0 /* NSString+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extension.m"; sourceTree = "<group>"; };
 		D287DE8A21BCE6C40048B5C2 /* WYSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYSettingViewController.h; sourceTree = "<group>"; };
 		D287DE8B21BCE6C40048B5C2 /* WYSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYSettingViewController.m; sourceTree = "<group>"; };
 		D287DE8D21BCE9510048B5C2 /* WYBlackListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYBlackListViewController.h; sourceTree = "<group>"; };
@@ -524,6 +530,8 @@
 				D22AF87921BF6D530004405B /* NSDate+Extension.m */,
 				D22BDF0F21C7BA1F002269AC /* NSString+Validation.h */,
 				D22BDF1021C7BA1F002269AC /* NSString+Validation.m */,
+				D230F08721C8FA620055D5A0 /* NSString+Extension.h */,
+				D230F08821C8FA620055D5A0 /* NSString+Extension.m */,
 			);
 			path = NS;
 			sourceTree = "<group>";
@@ -688,6 +696,8 @@
 		D2D7107B21B955AE00D78746 /* Dynamic */ = {
 			isa = PBXGroup;
 			children = (
+				D22BDF1221C7D2CD002269AC /* WYDynamicViewController.h */,
+				D22BDF1321C7D2CD002269AC /* WYDynamicViewController.m */,
 			);
 			path = Dynamic;
 			sourceTree = "<group>";
@@ -943,6 +953,7 @@
 				D22BDF0B21C79973002269AC /* UIView+Toast.m in Sources */,
 				D2249FE621BA7B9E009B274C /* WYPhoneInputView.m in Sources */,
 				D22BDF0721C76BD3002269AC /* AppDelegate+KeyboardManager.m in Sources */,
+				D230F08921C8FA620055D5A0 /* NSString+Extension.m in Sources */,
 				D2249FF121BA95C5009B274C /* WLUnitField.m in Sources */,
 				D2249FE921BA7E69009B274C /* WYTextField.m in Sources */,
 				D2249FBD21BA1A3F009B274C /* WYConfig.m in Sources */,
@@ -952,6 +963,7 @@
 				D22AF87A21BF6D530004405B /* NSDate+Extension.m in Sources */,
 				D2249FD621BA27F8009B274C /* WYBaseViewController.m in Sources */,
 				D2249FE221BA2FBB009B274C /* WYInfoViewController.m in Sources */,
+				D22BDF1421C7D2CD002269AC /* WYDynamicViewController.m in Sources */,
 				D22AF87E21BF6EEC0004405B /* WSDatePickerView.m in Sources */,
 				D22403A821BBB44700001B83 /* WYPersonCenterController.m in Sources */,
 				D224039021BB992100001B83 /* WYNickNameInputView.m in Sources */,

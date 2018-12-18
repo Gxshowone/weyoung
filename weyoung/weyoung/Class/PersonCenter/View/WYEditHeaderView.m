@@ -30,7 +30,7 @@
 -(void)layoutSubviews
 {
     [super layoutSubviews];
-    self.avatarButton.frame = CGRectMake(KScreenWidth/2-45, KNaviBarHeight+20, 90, 90);
+    self.avatarButton.frame = CGRectMake(KScreenWidth/2-45, 16, 90, 90);
     self.alertLabel.frame = CGRectMake(KScreenWidth/2-44, CGRectGetMaxY(self.avatarButton.frame)+10.8, 88, 26);
     
 }
@@ -40,6 +40,8 @@
 {
     if (!_avatarButton) {
         _avatarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_avatarButton setImage:[UIImage imageNamed:@"login_pic_btn"] forState:UIControlStateNormal];
+        
         @weakify(self);
         [[_avatarButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
