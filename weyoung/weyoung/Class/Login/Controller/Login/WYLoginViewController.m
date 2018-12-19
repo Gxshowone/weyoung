@@ -9,6 +9,7 @@
 #import "WYLoginViewController.h"
 #import "WYPhoneInputView.h"
 #import "WYCodeViewController.h"
+#import "WYInputViewController.h"
 #import "WYGradientButton.h"
 #import "NSString+Validation.h"
 #import <AudioToolbox/AudioToolbox.h>
@@ -112,9 +113,15 @@
             NSLog(@"[gx] login click");
             if ([[self.phoneInputView inputText] isValidPhone]) {
                 
-                WYCodeViewController * codeVc = [[WYCodeViewController alloc]init];
-                codeVc.phone = [self.phoneInputView inputText];
-                [self.navigationController pushViewController:codeVc animated:YES];
+//                WYCodeViewController * codeVc = [[WYCodeViewController alloc]init];
+//                codeVc.phone = [self.phoneInputView inputText];
+//                [self.navigationController pushViewController:codeVc animated:YES];
+//
+                WYInputViewController * inputVc = [WYInputViewController new];
+                inputVc.phone =[self.phoneInputView inputText];
+                [self.navigationController pushViewController:inputVc animated:YES];
+                
+                
             }else
                 
             {
@@ -133,5 +140,7 @@
     }
     return _loginButton;
 }
+
+
 
 @end

@@ -87,6 +87,7 @@
         [[_nextButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
           
+            
             if ([[self.inputView inputText] isValidPassword] ) {
                 
                 [self.navigationController pushViewController:[[WYInfoViewController alloc]init] animated:YES];

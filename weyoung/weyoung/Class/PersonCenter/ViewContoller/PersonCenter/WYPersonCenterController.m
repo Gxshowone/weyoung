@@ -15,6 +15,7 @@
 @property(nonatomic,strong)UITableView * tableView;
 @property(nonatomic,strong)WYPersonCenterHeaderView * headerView;
 @property(nonatomic,strong)NSMutableArray * dataArray;
+@property(nonatomic,strong)UIButton * messageButton;
 
 @end
 @implementation WYPersonCenterController
@@ -28,6 +29,13 @@
     [self registerGesture];
     [self.view addSubview:self.tableView];
  
+}
+
+-(void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    self.messageButton.frame = CGRectMake(KScreenWidth-100, 20, 48,50);
 }
 
 -(void)registerGesture
@@ -66,6 +74,8 @@
          WYSettingViewController * settingVc = [[WYSettingViewController alloc]init];
         [self.navigationController pushViewController:settingVc animated:YES];
     }];
+    
+    [self.customNavigationBar addSubview:self.messageButton];
 }
 
 
@@ -168,6 +178,22 @@
         _tableView.backgroundColor = [UIColor clearColor];
     }
     return _tableView;
+}
+
+-(UIButton*)messageButton
+{
+    if (!_messageButton) {
+        _messageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_messageButton setImage:[UIImage imageNamed:@"navi_message_btn"] forState:UIControlStateNormal];
+        
+        @weakify(self);
+        [[_messageButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+            @strongify(self);
+            NSLog(@"[gx] goto message");
+            
+        }];
+    }
+    return _messageButton;
 }
 
 

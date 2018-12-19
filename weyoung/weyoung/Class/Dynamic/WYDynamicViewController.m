@@ -37,6 +37,8 @@
     self.titleLabel.mj_x = 20;
     self.titleLabel.textAlignment = NSTextAlignmentLeft;
     self.leftButton.hidden = YES;
+  //  [self.rightButton setImage:[UIImage imageNamed:@"navi_back_btn_right"] forState:UIControlStateNormal];
+    
     @weakify(self);
     [[self.rightButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
         @strongify(self);

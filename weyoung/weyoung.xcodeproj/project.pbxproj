@@ -35,6 +35,9 @@
 		D226985421BBC6AA0091EE3B /* WYButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D226985321BBC6AA0091EE3B /* WYButtonItem.m */; };
 		D226985721BBDA600091EE3B /* WYEditHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D226985621BBDA600091EE3B /* WYEditHeaderView.m */; };
 		D226985A21BBDF250091EE3B /* WYEditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D226985921BBDF250091EE3B /* WYEditTableViewCell.m */; };
+		D229B79421CA175B006BCD39 /* WYHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D229B79321CA175B006BCD39 /* WYHttpRequest.m */; };
+		D229B79A21CA1CF9006BCD39 /* WYInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D229B79921CA1CF9006BCD39 /* WYInputViewController.m */; };
+		D229B79D21CA1EF1006BCD39 /* WYCodeInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = D229B79C21CA1EF1006BCD39 /* WYCodeInputView.m */; };
 		D22AF87A21BF6D530004405B /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D22AF87921BF6D530004405B /* NSDate+Extension.m */; };
 		D22AF87E21BF6EEC0004405B /* WSDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D22AF87C21BF6EEC0004405B /* WSDatePickerView.m */; };
 		D22AF87F21BF6EEC0004405B /* WSDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D22AF87D21BF6EEC0004405B /* WSDatePickerView.xib */; };
@@ -146,6 +149,12 @@
 		D226985621BBDA600091EE3B /* WYEditHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYEditHeaderView.m; sourceTree = "<group>"; };
 		D226985821BBDF250091EE3B /* WYEditTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYEditTableViewCell.h; sourceTree = "<group>"; };
 		D226985921BBDF250091EE3B /* WYEditTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYEditTableViewCell.m; sourceTree = "<group>"; };
+		D229B79221CA175B006BCD39 /* WYHttpRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYHttpRequest.h; sourceTree = "<group>"; };
+		D229B79321CA175B006BCD39 /* WYHttpRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYHttpRequest.m; sourceTree = "<group>"; };
+		D229B79821CA1CF9006BCD39 /* WYInputViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYInputViewController.h; sourceTree = "<group>"; };
+		D229B79921CA1CF9006BCD39 /* WYInputViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYInputViewController.m; sourceTree = "<group>"; };
+		D229B79B21CA1EF1006BCD39 /* WYCodeInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYCodeInputView.h; sourceTree = "<group>"; };
+		D229B79C21CA1EF1006BCD39 /* WYCodeInputView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYCodeInputView.m; sourceTree = "<group>"; };
 		D22AF87821BF6D530004405B /* NSDate+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
 		D22AF87921BF6D530004405B /* NSDate+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
 		D22AF87B21BF6EEC0004405B /* WSDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSDatePickerView.h; sourceTree = "<group>"; };
@@ -250,6 +259,7 @@
 		D224039221BBA71B00001B83 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D229B79721CA1CD6006BCD39 /* Input */,
 				D2249FAC21BA172A009B274C /* Info */,
 				D2249FAB21BA171A009B274C /* Password */,
 				D2249FAA21BA170E009B274C /* Code */,
@@ -276,6 +286,8 @@
 				D224038F21BB992100001B83 /* WYNickNameInputView.m */,
 				D224039421BBA77100001B83 /* WYGradientButton.h */,
 				D224039521BBA77100001B83 /* WYGradientButton.m */,
+				D229B79B21CA1EF1006BCD39 /* WYCodeInputView.h */,
+				D229B79C21CA1EF1006BCD39 /* WYCodeInputView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -468,6 +480,7 @@
 		D2249FC021BA2018009B274C /* Unti */ = {
 			isa = PBXGroup;
 			children = (
+				D229B79121CA165E006BCD39 /* HttpRequest */,
 			);
 			path = Unti;
 			sourceTree = "<group>";
@@ -552,6 +565,24 @@
 				D2249FEC21BA8337009B274C /* WYWebViewController.m */,
 			);
 			path = Web;
+			sourceTree = "<group>";
+		};
+		D229B79121CA165E006BCD39 /* HttpRequest */ = {
+			isa = PBXGroup;
+			children = (
+				D229B79221CA175B006BCD39 /* WYHttpRequest.h */,
+				D229B79321CA175B006BCD39 /* WYHttpRequest.m */,
+			);
+			path = HttpRequest;
+			sourceTree = "<group>";
+		};
+		D229B79721CA1CD6006BCD39 /* Input */ = {
+			isa = PBXGroup;
+			children = (
+				D229B79821CA1CF9006BCD39 /* WYInputViewController.h */,
+				D229B79921CA1CF9006BCD39 /* WYInputViewController.m */,
+			);
+			path = Input;
 			sourceTree = "<group>";
 		};
 		D22BDF0121C76B1B002269AC /* Appdelegate */ = {
@@ -958,6 +989,7 @@
 				D2249FE921BA7E69009B274C /* WYTextField.m in Sources */,
 				D2249FBD21BA1A3F009B274C /* WYConfig.m in Sources */,
 				D2249FCA21BA2375009B274C /* WYNoDataView.m in Sources */,
+				D229B79D21CA1EF1006BCD39 /* WYCodeInputView.m in Sources */,
 				D2249FC721BA235D009B274C /* WYNoNetView.m in Sources */,
 				D2249FED21BA8337009B274C /* WYWebViewController.m in Sources */,
 				D22AF87A21BF6D530004405B /* NSDate+Extension.m in Sources */,
@@ -965,6 +997,7 @@
 				D2249FE221BA2FBB009B274C /* WYInfoViewController.m in Sources */,
 				D22BDF1421C7D2CD002269AC /* WYDynamicViewController.m in Sources */,
 				D22AF87E21BF6EEC0004405B /* WSDatePickerView.m in Sources */,
+				D229B79421CA175B006BCD39 /* WYHttpRequest.m in Sources */,
 				D22403A821BBB44700001B83 /* WYPersonCenterController.m in Sources */,
 				D224039021BB992100001B83 /* WYNickNameInputView.m in Sources */,
 				D287DE9C21BCE9E00048B5C2 /* WYPasswordChangeViewController.m in Sources */,
@@ -981,6 +1014,7 @@
 				D22BDF1121C7BA1F002269AC /* NSString+Validation.m in Sources */,
 				D2D7104B21B9334B00D78746 /* main.m in Sources */,
 				D2249FDC21BA2F7A009B274C /* WYCodeViewController.m in Sources */,
+				D229B79A21CA1CF9006BCD39 /* WYInputViewController.m in Sources */,
 				D226985A21BBDF250091EE3B /* WYEditTableViewCell.m in Sources */,
 				D287DE9F21BCE9F20048B5C2 /* WYFeedBackViewController.m in Sources */,
 				D2249FD921BA2F5E009B274C /* WYLoginViewController.m in Sources */,

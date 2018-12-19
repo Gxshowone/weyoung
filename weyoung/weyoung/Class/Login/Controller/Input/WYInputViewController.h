@@ -1,8 +1,8 @@
 //
-//  WYPassWordViewController.h
+//  WYInputViewController.h
 //  weyoung
 //
-//  Created by gongxin on 2018/12/7.
+//  Created by gongxin on 2018/12/19.
 //  Copyright © 2018 SouYu. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WYPassWordViewController : WYBaseViewController
+@interface WYInputViewController : WYBaseViewController
 
 @property(nonatomic,copy)NSString * phone;
 
