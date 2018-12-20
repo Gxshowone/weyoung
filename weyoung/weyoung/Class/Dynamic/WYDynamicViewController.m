@@ -28,7 +28,13 @@
    
     [self setNavTitle:@"动态"];
     [self setNaviGationConfig];
-    [self registerGesture];
+
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+     [self registerGesture];
 }
 
 -(void)setNaviGationConfig
@@ -37,7 +43,7 @@
     self.titleLabel.mj_x = 20;
     self.titleLabel.textAlignment = NSTextAlignmentLeft;
     self.leftButton.hidden = YES;
-  //  [self.rightButton setImage:[UIImage imageNamed:@"navi_back_btn_right"] forState:UIControlStateNormal];
+    [self.rightButton setImage:[UIImage imageNamed:@"navi_back_btn_right"] forState:UIControlStateNormal];
     
     @weakify(self);
     [[self.rightButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
@@ -53,7 +59,8 @@
     // 注册手势驱动
     __weak typeof(self)weakSelf = self;
     [self cw_registerShowIntractiveWithEdgeGesture:NO transitionDirectionAutoBlock:^(CWDrawerTransitionDirection direction) {
-         if (direction == CWDrawerTransitionFromRight) { // 右侧滑出
+       
+        if (direction == CWDrawerTransitionFromRight) { // 右侧滑出
             [weakSelf disMiss];
         }
     }];
