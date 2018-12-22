@@ -9,7 +9,13 @@
 #import "WYHomePageViewController.h"
 #import "WYDynamicViewController.h"
 #import "WYPersonCenterController.h"
+#import "WYConversationViewController.h"
+#define kPulseAnimation @"kPulseAnimation"
+
+
 @interface WYHomePageViewController ()
+
+@property(nonatomic,strong)UIImageView * matchImageView;
 
 @end
 
@@ -20,6 +26,24 @@
     // Do any additional setup after loading the view.
     [self setNavigationConfig];
     [self registerGesture];
+    [self initUI];
+    
+}
+
+
+-(void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    self.matchImageView.frame = CGRectMake(KScreenWidth/2-36, KScreenHeight-KTabbarSafeBottomMargin-35-72, 72, 72);
+    
+    self.matchImageView.layer.cornerRadius = self.matchImageView.bounds.size.width / 2;
+    
+}
+
+-(void)initUI
+{
+    [self.view addSubview:self.matchImageView];
 }
 
 -(void)setNavigationConfig
@@ -82,15 +106,88 @@
     [self cw_showDrawerViewController:nav animationType:CWDrawerAnimationTypeDefault configuration:conf];
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(UIImageView*)matchImageView
+{
+    if (!_matchImageView) {
+        _matchImageView = [[UIImageView alloc]init];
+        _matchImageView.backgroundColor = [UIColor whiteColor];
+        _matchImageView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+        @weakify(self);
+        [[tap rac_gestureSignal] subscribeNext:^(id x) {
+            NSLog(@"tap");
+            @strongify(self);
+          //  [self modifyAnimationStatus:self->_matchImageView];
+            WYConversationViewController *conversationVC = [[WYConversationViewController alloc]init];
+            conversationVC.conversationType = ConversationType_PRIVATE;
+            conversationVC.targetId = @"2";
+            conversationVC.title = @"想显示的会话标题";
+            [self.navigationController pushViewController:conversationVC animated:YES];
+            
+        }];
+        [_matchImageView addGestureRecognizer:tap];
+        
+        
+        
+      
+    }
+    return _matchImageView;
 }
-*/
+
+
+//diameter 扩散的大小
+- (CALayer *)waveAnimationLayerWithView:(UIView *)view diameter:(CGFloat)diameter duration:(CGFloat)duration {
+    CALayer *waveLayer = [CALayer layer];
+    waveLayer.bounds = CGRectMake(0, 0, diameter, diameter);
+    waveLayer.cornerRadius = diameter / 2; //设置圆角变为圆形
+    waveLayer.position = view.center;
+    waveLayer.backgroundColor =  [UIColor whiteColor].CGColor;
+    [view.superview.layer insertSublayer:waveLayer below:view.layer];//把扩散层放到播放按钮下面
+    
+    CAAnimationGroup * animationGroup = [CAAnimationGroup animation];
+    animationGroup.duration = duration;
+    animationGroup.repeatCount = INFINITY; //重复无限次
+    animationGroup.removedOnCompletion = NO;
+    
+    CAMediaTimingFunction *defaultCurve = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
+    animationGroup.timingFunction = defaultCurve;
+    
+    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale.xy"];
+    scaleAnimation.fromValue = @0.7; //开始的大小
+    scaleAnimation.toValue = @1.0; //最后的大小
+    scaleAnimation.duration = duration;
+    scaleAnimation.removedOnCompletion = NO;
+    
+    CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    opacityAnimation.fromValue = @0.4; //开始的大小
+    opacityAnimation.toValue = @0.0; //最后的大小
+    opacityAnimation.duration = duration;
+    opacityAnimation.removedOnCompletion = NO;
+    
+    animationGroup.animations = @[scaleAnimation, opacityAnimation];
+    [waveLayer addAnimation:animationGroup forKey:kPulseAnimation];
+    
+    return waveLayer;
+}
+
+- (void)modifyAnimationStatus:(UIImageView*)imageView{
+    BOOL isAnimating = NO;
+    NSArray *layerArr = [NSArray arrayWithArray:imageView.superview.layer.sublayers];
+    
+    for (CALayer *layer in layerArr) {
+        if ([layer.animationKeys containsObject:kPulseAnimation]) {
+            isAnimating = YES;
+            [layer removeAllAnimations];
+            [layer removeFromSuperlayer];
+        }
+    }
+    
+    if (!isAnimating) {
+        [self waveAnimationLayerWithView:self.matchImageView diameter:160 duration:1.2];
+        [self waveAnimationLayerWithView:self.matchImageView diameter:115 duration:1.2];
+    }
+}
+
+
 
 @end

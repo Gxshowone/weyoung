@@ -31,6 +31,7 @@
 		D2249FE921BA7E69009B274C /* WYTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D2249FE821BA7E69009B274C /* WYTextField.m */; };
 		D2249FED21BA8337009B274C /* WYWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2249FEC21BA8337009B274C /* WYWebViewController.m */; };
 		D2249FF121BA95C5009B274C /* WLUnitField.m in Sources */ = {isa = PBXBuildFile; fileRef = D2249FF021BA95C5009B274C /* WLUnitField.m */; };
+		D224B2DB21CCC56300AF6330 /* WYConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D224B2DA21CCC56300AF6330 /* WYConversationViewController.m */; };
 		D226985021BBBDFD0091EE3B /* UIButton+ImagePosition.m in Sources */ = {isa = PBXBuildFile; fileRef = D226984F21BBBDFD0091EE3B /* UIButton+ImagePosition.m */; };
 		D226985421BBC6AA0091EE3B /* WYButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D226985321BBC6AA0091EE3B /* WYButtonItem.m */; };
 		D226985721BBDA600091EE3B /* WYEditHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D226985621BBDA600091EE3B /* WYEditHeaderView.m */; };
@@ -141,6 +142,8 @@
 		D2249FEC21BA8337009B274C /* WYWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYWebViewController.m; sourceTree = "<group>"; };
 		D2249FEF21BA95C5009B274C /* WLUnitField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLUnitField.h; sourceTree = "<group>"; };
 		D2249FF021BA95C5009B274C /* WLUnitField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLUnitField.m; sourceTree = "<group>"; };
+		D224B2D921CCC56300AF6330 /* WYConversationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYConversationViewController.h; sourceTree = "<group>"; };
+		D224B2DA21CCC56300AF6330 /* WYConversationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYConversationViewController.m; sourceTree = "<group>"; };
 		D226984E21BBBDFD0091EE3B /* UIButton+ImagePosition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+ImagePosition.h"; sourceTree = "<group>"; };
 		D226984F21BBBDFD0091EE3B /* UIButton+ImagePosition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+ImagePosition.m"; sourceTree = "<group>"; };
 		D226985221BBC6AA0091EE3B /* WYButtonItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYButtonItem.h; sourceTree = "<group>"; };
@@ -567,6 +570,15 @@
 			path = Web;
 			sourceTree = "<group>";
 		};
+		D224B2D821CCC53A00AF6330 /* Conversation */ = {
+			isa = PBXGroup;
+			children = (
+				D224B2D921CCC56300AF6330 /* WYConversationViewController.h */,
+				D224B2DA21CCC56300AF6330 /* WYConversationViewController.m */,
+			);
+			path = Conversation;
+			sourceTree = "<group>";
+		};
 		D229B79121CA165E006BCD39 /* HttpRequest */ = {
 			isa = PBXGroup;
 			children = (
@@ -696,6 +708,7 @@
 		D2D7107621B9403200D78746 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				D224B2D821CCC53A00AF6330 /* Conversation */,
 				D2249FEA21BA8110009B274C /* Web */,
 				D2249FD321BA27C6009B274C /* Base */,
 				D2D7107C21B955C500D78746 /* Login */,
@@ -995,6 +1008,7 @@
 				D22AF87A21BF6D530004405B /* NSDate+Extension.m in Sources */,
 				D2249FD621BA27F8009B274C /* WYBaseViewController.m in Sources */,
 				D2249FE221BA2FBB009B274C /* WYInfoViewController.m in Sources */,
+				D224B2DB21CCC56300AF6330 /* WYConversationViewController.m in Sources */,
 				D22BDF1421C7D2CD002269AC /* WYDynamicViewController.m in Sources */,
 				D22AF87E21BF6EEC0004405B /* WSDatePickerView.m in Sources */,
 				D229B79421CA175B006BCD39 /* WYHttpRequest.m in Sources */,

@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AppDelegate (RongCloud)
 
+-(void)registerRongCloud;
+
 @end
 
 NS_ASSUME_NONNULL_END

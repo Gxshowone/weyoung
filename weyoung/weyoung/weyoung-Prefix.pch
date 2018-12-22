@@ -9,6 +9,8 @@
 #ifndef weyoung_Prefix_pch
 #define weyoung_Prefix_pch
 
+#import <RongIMKit/RongIMKit.h>
+
 #import <MJRefresh.h>
 #import <MJExtension.h>
 #import <YYWebImage/YYWebImage.h>

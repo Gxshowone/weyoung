@@ -7,7 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import "AppDelegate+RongCloud.h"
 #import "AppDelegate+KeyboardManager.h"
+
 
 #import "WYLoginViewController.h"
 #import "WYHomePageViewController.h"
@@ -20,10 +22,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+ 
+   
+    //注册容云
+    [self registerRongCloud];
     
     //键盘管理器
     [self registerKeyboardManager];
-    
+   
+ 
     
     _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     _window.backgroundColor = [UIColor whiteColor];
@@ -34,6 +41,9 @@
     
     return YES;
 }
+
+
+
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
