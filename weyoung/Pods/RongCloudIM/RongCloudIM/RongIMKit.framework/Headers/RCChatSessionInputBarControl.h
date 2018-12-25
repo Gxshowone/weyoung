@@ -603,6 +603,8 @@ typedef NS_ENUM(NSInteger, KBottomBarStatus) {
  @param bottomBarStatus 当前状态
  */
 - (void)chatSessionInputBarStatusChanged:(KBottomBarStatus)bottomBarStatus;
+
+
 @end
 
 @protocol RCChatSessionInputBarControlDataSource <NSObject>

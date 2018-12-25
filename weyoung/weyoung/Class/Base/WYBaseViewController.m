@@ -194,12 +194,12 @@
 }
 
 
--(UIButton*)leftButton
+-(WYButton*)leftButton
 {
     if (!_leftButton) {
-        _leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _leftButton = [WYButton buttonWithType:UIButtonTypeCustom];
         _leftButton.titleLabel.font = [UIFont fontWithName:TextFontName size:16.0];
-        [_leftButton setFrame:CGRectMake(0, 20, 48, 50)];
+        [_leftButton setFrame:CGRectMake(0, 20+KNaviBarSafeBottomMargin, 48, 50)];
         _leftButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         [_leftButton setImage:[UIImage imageNamed:@"navi_back_btn"] forState:UIControlStateNormal];
         
@@ -215,11 +215,11 @@
     return _leftButton;
 }
 
--(UIButton*)rightButton
+-(WYButton*)rightButton
 {
     if (!_rightButton) {
-        _rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_rightButton setFrame:CGRectMake(KScreenWidth-48,20,48,50)];
+        _rightButton = [WYButton buttonWithType:UIButtonTypeCustom];
+        [_rightButton setFrame:CGRectMake(KScreenWidth-48,20+KNaviBarSafeBottomMargin,48,50)];
         _rightButton.titleLabel.font = [UIFont fontWithName:TextFontName_Medium size:16.0];
         [_rightButton setTitleColor:[UIColor binaryColor:@"6060FC"] forState:UIControlStateNormal];
         _rightButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;

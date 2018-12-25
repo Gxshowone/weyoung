@@ -31,6 +31,7 @@
     // Do any additional setup after loading the view.
     
     [self.view addSubview:self.bgImageView];
+    [self.view addSubview:self.logoImageView];
     [self.view addSubview:self.phoneInputView];
     [self.view addSubview:self.infoLabel];
     [self.view addSubview:self.clauseButton];
@@ -41,6 +42,7 @@
 {
     [super viewDidLayoutSubviews];
     self.bgImageView.frame = self.view.bounds;
+    self.logoImageView.frame = CGRectMake(KScreenWidth/2-20/5, 23+KNaviBarHeight, 41, 87);
     self.phoneInputView.frame = CGRectMake(27.5,KNaviBarHeight+196, KScreenWidth-55, 50);
     self.infoLabel.frame = CGRectMake((KScreenWidth -287)/2, CGRectGetMaxY(self.phoneInputView.frame)+15, 172, 20);
     self.clauseButton.frame = CGRectMake(CGRectGetMaxX(self.infoLabel.frame)+3, CGRectGetMaxY(self.phoneInputView.frame)+3,115, 44);
@@ -59,6 +61,15 @@
         _bgImageView.backgroundColor = [UIColor blackColor];
     }
     return _bgImageView;
+}
+
+-(UIImageView*)logoImageView
+{
+    if (!_logoImageView) {
+        _logoImageView = [[UIImageView alloc]init];
+        _logoImageView.image = [UIImage imageNamed:@"login_logo"];
+    }
+    return _logoImageView;
 }
 
 -(WYPhoneInputView *)phoneInputView

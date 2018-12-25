@@ -10,6 +10,7 @@
 #import "WYDynamicViewController.h"
 #import "WYPersonCenterController.h"
 #import "WYConversationViewController.h"
+
 #define kPulseAnimation @"kPulseAnimation"
 
 
@@ -44,10 +45,19 @@
 -(void)initUI
 {
     [self.view addSubview:self.matchImageView];
+  
 }
 
 -(void)setNavigationConfig
 {
+    self.leftButton.x = 10;
+    
+    self.rightButton.y = 29+KNaviBarSafeBottomMargin;
+    self.rightButton.width = 30;
+    self.rightButton.height = 30;
+    self.rightButton.layer.cornerRadius = 15;
+    self.rightButton.layer.masksToBounds = YES;
+    
     [self setNavTitle:@"Explore"];
  
     [self.leftButton setImage:[UIImage imageNamed:@"navi_dynamic_btn"] forState:UIControlStateNormal];

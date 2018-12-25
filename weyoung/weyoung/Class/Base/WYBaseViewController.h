@@ -10,6 +10,7 @@
 #import "WYNoDataView.h"
 #import "WYNoNetView.h"
 #import <AFNetworking.h>
+#import "WYButton.h"
 NS_ASSUME_NONNULL_BEGIN
 
 
@@ -40,12 +41,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 导航栏左边的按钮
  */
-@property(nonatomic,strong)UIButton    * leftButton;
+@property(nonatomic,strong)WYButton   * leftButton;
 
 /**
  * 导航栏右边的按钮
  */
-@property(nonatomic,strong)UIButton    * rightButton;
+@property(nonatomic,strong)WYButton    * rightButton;
 
 /**
  * 页面背景图片

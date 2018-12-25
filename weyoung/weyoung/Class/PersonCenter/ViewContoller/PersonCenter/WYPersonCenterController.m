@@ -37,7 +37,7 @@
 {
     [super viewDidLayoutSubviews];
     
-    self.messageButton.frame = CGRectMake(KScreenWidth-100, 20, 48,50);
+    self.messageButton.frame = CGRectMake(KScreenWidth-100, 20+KNaviBarSafeBottomMargin, 48,50);
 }
 
 -(void)registerGesture

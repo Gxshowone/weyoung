@@ -1,28 +1,23 @@
 //
-//  WYConversationViewController.m
+//  WYFriendViewController.m
 //  weyoung
 //
-//  Created by gongxin on 2018/12/21.
+//  Created by gongxin on 2018/12/22.
 //  Copyright © 2018 SouYu. All rights reserved.
 //
 
-#import "WYConversationViewController.h"
+#import "WYFriendViewController.h"
 
-@interface WYConversationViewController ()
+@interface WYFriendViewController ()
 
 @end
 
-@implementation WYConversationViewController
+@implementation WYFriendViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    // Do any additional setup after loading the view.
 }
-
-
-
-
-
 
 /*
 #pragma mark - Navigation

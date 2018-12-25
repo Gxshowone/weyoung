@@ -38,12 +38,22 @@
     _window.rootViewController = rootNav;
     [_window makeKeyAndVisible];
 
+    [self setNavigationBarConfig];
     
     return YES;
 }
 
 
-
+-(void)setNavigationBarConfig
+{
+    //统一导航条样式
+    UIFont *font = [UIFont systemFontOfSize:16.f];
+    NSDictionary *textAttributes = @{NSFontAttributeName : font, NSForegroundColorAttributeName : [UIColor whiteColor]};
+    [[UINavigationBar appearance] setTitleTextAttributes:textAttributes];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
+    
+}
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
