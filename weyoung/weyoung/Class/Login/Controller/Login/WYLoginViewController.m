@@ -43,10 +43,36 @@
 -(void)checkUser
 {
     NSDictionary * dict = @{@"phone":[self.phoneInputView inputText],@"zone_num":@"86",@"interface":@"Login@checkUser"};
-
     WYHttpRequest *request = [[WYHttpRequest alloc]init];
-    
     [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+        NSInteger  register_status = [[response valueForKey:@"register_status"] integerValue];
+        
+        switch (register_status) {
+            case 0:
+            {
+                
+            }
+                break;
+                case 1:
+            {
+                
+            }
+                break;
+                case 2:
+            {
+                
+            }
+                break;
+            default:
+                break;
+        }
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+    };
  
     
     

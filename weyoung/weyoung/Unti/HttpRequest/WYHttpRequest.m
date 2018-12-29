@@ -48,16 +48,20 @@
     
     [[manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         
-
         NSData * data = [NSData dataWithData:responseObject];
-     
         NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-        
         NSString * result = [str aci_decryptWithAES];
-    
         NSDictionary * dict = [self dictionaryWithJsonString:result];
+        NSInteger status = [[dict valueForKey:@"status"] integerValue];
+        NSDictionary * result = [dict valueForKey:@"data"];
         
-        NSLog(@"[gx] resutlt dict %@",dict);
+        if (status==200) {
+            self.successBlock(result);
+        }else if(status==300)
+        {
+            self.failureDataBlock(result);
+        }
+        
      
     }] resume];
 
