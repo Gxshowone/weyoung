@@ -40,13 +40,13 @@
 -(void)layoutSubviews
 {
     [super layoutSubviews];
-    self.avatarItem.frame = CGRectMake(KScreenWidth/2-45, KNaviBarHeight+20, 90, 90);
+    self.avatarItem.frame = CGRectMake(KScreenWidth/2-45,20, 90, 90);
     self.nickLabel.frame = CGRectMake(50, CGRectGetMaxY(self.avatarItem.frame)+11, KScreenWidth-100, 27);
     self.infoLabel.frame = CGRectMake(KScreenWidth/2-35, CGRectGetMaxY(self.nickLabel.frame)+2, 91, 26);
     self.sexImageView.frame = CGRectMake(KScreenWidth/2-45, CGRectGetMaxY(self.nickLabel.frame)+10, 10, 10);
     
-    self.dynamicItem.frame = CGRectMake(KScreenWidth/2-90, CGRectGetMaxY(self.infoLabel.frame)+5, 60, 44);
-    self.friendItem.frame = CGRectMake(KScreenWidth/2+30, CGRectGetMaxY(self.infoLabel.frame)+5, 60, 44);
+    self.dynamicItem.frame = CGRectMake(KScreenWidth/2-100, CGRectGetMaxY(self.infoLabel.frame)+5, 80, 44);
+    self.friendItem.frame = CGRectMake(KScreenWidth/2+20, CGRectGetMaxY(self.infoLabel.frame)+5, 80, 44);
     
 }
 
@@ -70,6 +70,7 @@
     return _avatarItem;
 }
 
+
 -(UILabel*)nickLabel
 {
     if (!_nickLabel) {
@@ -82,18 +83,38 @@
     return _nickLabel;
 }
 
+-(UILabel*)infoLabel
+{
+    if (!_infoLabel) {
+        _infoLabel = [[UILabel alloc]init];
+        _infoLabel.text = @"24岁   天蝎座";
+        _infoLabel.textAlignment = NSTextAlignmentLeft;
+        _infoLabel.font = [UIFont fontWithName:TextFontName_Light size:14];
+        _infoLabel.textColor = [[UIColor binaryColor:@"FFFFFF"] colorWithAlphaComponent:0.5];
+    }
+    return _infoLabel;
+}
+
 -(WYButtonItem*)dynamicItem
 {
     if (!_dynamicItem) {
         _dynamicItem = [[WYButtonItem alloc] init];
+        _dynamicItem.userInteractionEnabled = YES;
+        [_dynamicItem setLeft:@"动态"];
+        [_dynamicItem setRight:@"23"];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
         @weakify(self);
-        [[_dynamicItem rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        [[tap rac_gestureSignal] subscribeNext:^(id x) {
+            
             @strongify(self);
             if (self.block) {
                 self.block(1);
             }
+            
         }];
         
+        [_dynamicItem addGestureRecognizer:tap];
     }
     return _dynamicItem;
 }
@@ -102,16 +123,25 @@
 {
     if (!_friendItem) {
         _friendItem = [[WYButtonItem alloc] init];
+        _friendItem.userInteractionEnabled = YES;
+        [_friendItem setLeft:@"好友"];
+        [_friendItem setRight:@"17"];
+
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
         @weakify(self);
-        [[_friendItem rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        [[tap rac_gestureSignal] subscribeNext:^(id x) {
+            
             @strongify(self);
             if (self.block) {
                 self.block(2);
             }
+            
         }];
         
+        [_friendItem addGestureRecognizer:tap];
+        
     }
-    return _dynamicItem;
+    return _friendItem;
 }
 
 @end

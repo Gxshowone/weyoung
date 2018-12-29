@@ -7,9 +7,8 @@
 //
 
 #import "WYPersonCenterController.h"
-#import "WYSettingViewController.h"
 #import "WYPersonCenterHeaderView.h"
-#import "WYEditViewController.h"
+
 @interface WYPersonCenterController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView * tableView;
@@ -26,7 +25,6 @@
     // Do any additional setup after loading the view.
     [self setNavTitle:@"个人中心"];
     [self setNavigationConfig];
-    [self registerGesture];
     [self.view addSubview:self.tableView];
  
 }
@@ -40,44 +38,36 @@
     self.messageButton.frame = CGRectMake(KScreenWidth-100, 20+KNaviBarSafeBottomMargin, 48,50);
 }
 
--(void)registerGesture
-{
-    // 注册手势驱动
-    __weak typeof(self)weakSelf = self;
-    [self cw_registerShowIntractiveWithEdgeGesture:NO transitionDirectionAutoBlock:^(CWDrawerTransitionDirection direction) {
-        if (direction == CWDrawerTransitionFromLeft) { // 左侧滑出
-            [weakSelf disMiss];
-        }
-    }];
-}
 
--(void)disMiss
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
-}
 
 -(void)setNavigationConfig
 {
     
-    @weakify(self);
     [[self.leftButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        @strongify(self);
-        NSLog(@"[gx] login click");
-        [self disMiss];
+       
+        [self gotoHomePage];
     }];
 
     [self.rightButton setImage:[UIImage imageNamed:@"navi_setting_btn"] forState:UIControlStateNormal];
    
     [[self.rightButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        @strongify(self);
-        NSLog(@"[gx] login click");
         
-         WYSettingViewController * settingVc = [[WYSettingViewController alloc]init];
-        [self.navigationController pushViewController:settingVc animated:YES];
+        if(self.delegate&&[self.delegate respondsToSelector:@selector(setting)])
+        {
+            [self.delegate setting];
+        }
+     
     }];
     
     [self.customNavigationBar addSubview:self.messageButton];
+}
+
+-(void)gotoHomePage
+{
+    if (self.delegate&&[self.delegate respondsToSelector:@selector(scrollToIndex:)]) {
+        [self.delegate scrollToIndex:1];
+    }
+   
 }
 
 
@@ -141,18 +131,26 @@
             switch (index) {
                 case 0:
                 {
-                    WYEditViewController * editVc = [[WYEditViewController alloc]init];
-                    [self.navigationController pushViewController:editVc animated:YES];
+                    if(self.delegate&&[self.delegate respondsToSelector:@selector(edit)])
+                    {
+                        [self.delegate edit];
+                    }
                 }
                     break;
                     case 1:
                 {
-                    
+                    if(self.delegate&&[self.delegate respondsToSelector:@selector(friendList)])
+                    {
+                        [self.delegate friendList];
+                    }
                 }
                     break;
                     case 2:
                 {
-                    
+                    if(self.delegate&&[self.delegate respondsToSelector:@selector(friendList)])
+                    {
+                        [self.delegate friendList];
+                    }
                 }
                     break;
                 default:

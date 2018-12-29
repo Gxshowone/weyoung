@@ -9,5 +9,8 @@
 #ifndef WYApi_h
 #define WYApi_h
 
+#define MainURL  @"http://62.234.134.129/request.action"
+
+
 
 #endif /* WYApi_h */

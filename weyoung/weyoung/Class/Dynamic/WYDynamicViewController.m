@@ -34,7 +34,6 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-     [self registerGesture];
 }
 
 -(void)setNaviGationConfig
@@ -44,32 +43,21 @@
     self.titleLabel.textAlignment = NSTextAlignmentLeft;
     self.leftButton.hidden = YES;
     [self.rightButton setImage:[UIImage imageNamed:@"navi_back_btn_right"] forState:UIControlStateNormal];
-    
-    @weakify(self);
+ 
+   
     [[self.rightButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        @strongify(self);
-        NSLog(@"[gx] login click");
-        [self disMiss];
+        
+        [self gotoHomePage];
     }];
-    
+ 
 }
 
--(void)registerGesture
+-(void)gotoHomePage
 {
-    // 注册手势驱动
-    __weak typeof(self)weakSelf = self;
-    [self cw_registerShowIntractiveWithEdgeGesture:NO transitionDirectionAutoBlock:^(CWDrawerTransitionDirection direction) {
-       
-        if (direction == CWDrawerTransitionFromRight) { // 右侧滑出
-            [weakSelf disMiss];
-        }
-    }];
-}
-
--(void)disMiss
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
+    NSLog(@"[gx] goto hp");
+    if (self.delegate&&[self.delegate respondsToSelector:@selector(scrollToIndex:)]) {
+        [self.delegate scrollToIndex:1];
+    }
 }
 
 

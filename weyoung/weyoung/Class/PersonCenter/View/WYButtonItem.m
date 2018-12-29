@@ -55,6 +55,7 @@
         _leftLabel.textColor = [[UIColor binaryColor:@"FFFFFF"] colorWithAlphaComponent:0.5];
         _leftLabel.font = [UIFont fontWithName:TextFontName_Light size:14];
         _leftLabel.textAlignment = NSTextAlignmentRight;
+        _leftLabel.userInteractionEnabled = YES;
     }
     return _leftLabel;
 }
@@ -66,6 +67,7 @@
         _rightLabel.textColor = [UIColor binaryColor:@"FFFFFF"];
         _rightLabel.font = [UIFont fontWithName:TextFontName_Helvetica size:15];
         _rightLabel.textAlignment = NSTextAlignmentLeft;
+        _rightLabel.userInteractionEnabled = YES;
     }
     return _rightLabel;
 }

@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
-NS_ASSUME_NONNULL_BEGIN
+#import "WYMainViewControllerDelegate.h"
 
 @interface WYPersonCenterController : WYBaseViewController
 
+@property(nonatomic,weak)id<WYMainViewControllerDelegate>delegate;
+
 @end
 
-NS_ASSUME_NONNULL_END

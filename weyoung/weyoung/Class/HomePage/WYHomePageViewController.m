@@ -7,9 +7,6 @@
 //
 
 #import "WYHomePageViewController.h"
-#import "WYDynamicViewController.h"
-#import "WYPersonCenterController.h"
-#import "WYConversationViewController.h"
 
 #define kPulseAnimation @"kPulseAnimation"
 
@@ -26,7 +23,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setNavigationConfig];
-    [self registerGesture];
     [self initUI];
     
 }
@@ -64,57 +60,35 @@
   
     [self.rightButton yy_setImageWithURL:[NSURL URLWithString:@"http://mmbiz.qpic.cn/mmbiz/PwIlO51l7wuFyoFwAXfqPNETWCibjNACIt6ydN7vw8LeIwT7IjyG3eeribmK4rhibecvNKiaT2qeJRIWXLuKYPiaqtQ/0"] forState:UIControlStateNormal options:YYWebImageOptionSetImageWithFadeAnimation];
     
-    @weakify(self);
+ 
     [[self.leftButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        @strongify(self);
-        NSLog(@"[gx] login click");
+     
         [self gotoDynamic];
     }];
-
     [[self.rightButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        @strongify(self);
-        NSLog(@"[gx] login click");
+    
         [self gotoPersonCenter];
     }];
     
 }
 
--(void)registerGesture
+-(void)gotoDynamic
 {
-    // 注册手势驱动
-    __weak typeof(self)weakSelf = self;
-    [self cw_registerShowIntractiveWithEdgeGesture:NO transitionDirectionAutoBlock:^(CWDrawerTransitionDirection direction) {
-        if (direction == CWDrawerTransitionFromLeft) { // 左侧滑出
-            [weakSelf gotoDynamic];
-        } else if (direction == CWDrawerTransitionFromRight) { // 右侧滑出
-            [weakSelf gotoPersonCenter];
-        }
-    }];
+   
+    if (self.delegate&&[self.delegate respondsToSelector:@selector(scrollToIndex:)]) {
+        [self.delegate scrollToIndex:0];
+    }
 }
 
-//
-- (void)gotoDynamic{
-    
-    // 强引用leftVC，不用每次创建新的,也可以每次在这里创建leftVC，抽屉收起的时候会释放掉
-    [self cw_showDefaultDrawerViewController:[[WYDynamicViewController alloc]init]];
- 
-}
 
 -(void)gotoPersonCenter
 {
-    WYPersonCenterController *vc = [[WYPersonCenterController alloc] init];
-    
-    UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:vc];
-    
-    CWLateralSlideConfiguration *conf = [CWLateralSlideConfiguration defaultConfiguration];
-    conf.direction = CWDrawerTransitionFromRight; // 从右边滑出
-    conf.finishPercent = 0.2f;
-    conf.showAnimDuration = 0.2;
-    conf.HiddenAnimDuration = 0.2;
-    conf.distance = KScreenWidth;
-    conf.maskAlpha = 0.1;
-    [self cw_showDrawerViewController:nav animationType:CWDrawerAnimationTypeDefault configuration:conf];
+    if (self.delegate&&[self.delegate respondsToSelector:@selector(scrollToIndex:)]) {
+        [self.delegate scrollToIndex:2];
+    }
 }
+
+
 
 -(UIImageView*)matchImageView
 {
@@ -127,12 +101,12 @@
         [[tap rac_gestureSignal] subscribeNext:^(id x) {
             NSLog(@"tap");
             @strongify(self);
-          //  [self modifyAnimationStatus:self->_matchImageView];
-            WYConversationViewController *conversationVC = [[WYConversationViewController alloc]init];
-            conversationVC.conversationType = ConversationType_PRIVATE;
-            conversationVC.targetId = @"2";
-            conversationVC.title = @"想显示的会话标题";
-            [self.navigationController pushViewController:conversationVC animated:YES];
+          
+            if(self.delegate&&[self.delegate respondsToSelector:@selector(conversation)])
+            {
+                [self.delegate conversation];
+            }
+            
             
         }];
         [_matchImageView addGestureRecognizer:tap];
@@ -145,58 +119,6 @@
 }
 
 
-//diameter 扩散的大小
-- (CALayer *)waveAnimationLayerWithView:(UIView *)view diameter:(CGFloat)diameter duration:(CGFloat)duration {
-    CALayer *waveLayer = [CALayer layer];
-    waveLayer.bounds = CGRectMake(0, 0, diameter, diameter);
-    waveLayer.cornerRadius = diameter / 2; //设置圆角变为圆形
-    waveLayer.position = view.center;
-    waveLayer.backgroundColor =  [UIColor whiteColor].CGColor;
-    [view.superview.layer insertSublayer:waveLayer below:view.layer];//把扩散层放到播放按钮下面
-    
-    CAAnimationGroup * animationGroup = [CAAnimationGroup animation];
-    animationGroup.duration = duration;
-    animationGroup.repeatCount = INFINITY; //重复无限次
-    animationGroup.removedOnCompletion = NO;
-    
-    CAMediaTimingFunction *defaultCurve = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
-    animationGroup.timingFunction = defaultCurve;
-    
-    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale.xy"];
-    scaleAnimation.fromValue = @0.7; //开始的大小
-    scaleAnimation.toValue = @1.0; //最后的大小
-    scaleAnimation.duration = duration;
-    scaleAnimation.removedOnCompletion = NO;
-    
-    CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    opacityAnimation.fromValue = @0.4; //开始的大小
-    opacityAnimation.toValue = @0.0; //最后的大小
-    opacityAnimation.duration = duration;
-    opacityAnimation.removedOnCompletion = NO;
-    
-    animationGroup.animations = @[scaleAnimation, opacityAnimation];
-    [waveLayer addAnimation:animationGroup forKey:kPulseAnimation];
-    
-    return waveLayer;
-}
-
-- (void)modifyAnimationStatus:(UIImageView*)imageView{
-    BOOL isAnimating = NO;
-    NSArray *layerArr = [NSArray arrayWithArray:imageView.superview.layer.sublayers];
-    
-    for (CALayer *layer in layerArr) {
-        if ([layer.animationKeys containsObject:kPulseAnimation]) {
-            isAnimating = YES;
-            [layer removeAllAnimations];
-            [layer removeFromSuperlayer];
-        }
-    }
-    
-    if (!isAnimating) {
-        [self waveAnimationLayerWithView:self.matchImageView diameter:160 duration:1.2];
-        [self waveAnimationLayerWithView:self.matchImageView diameter:115 duration:1.2];
-    }
-}
 
 
 

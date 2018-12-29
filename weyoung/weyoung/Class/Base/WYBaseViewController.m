@@ -181,7 +181,7 @@
 {
     if (!_customNavigationBar) {
         _customNavigationBar = [[UIImageView alloc]init];
-        _customNavigationBar.frame = CGRectMake(0, 0,KScreenWidth,64);
+        _customNavigationBar.frame = CGRectMake(0, 0,KScreenWidth,KNaviBarHeight);
         _customNavigationBar.userInteractionEnabled = YES;
         [_customNavigationBar setImage:[UIImage imageNamed:@"navigation_bar"]];
         [_customNavigationBar addSubview:self.rightButton];
@@ -206,8 +206,7 @@
         @weakify(self);
         [[_leftButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
-            NSLog(@"[gx] login click");
-            
+       
             [self.navigationController popViewControllerAnimated:YES];
             
         }];
@@ -233,7 +232,7 @@
 {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc]init];
-        _titleLabel.frame = CGRectMake(100, 20+KTabbarSafeBottomMargin,KScreenWidth-200, 44);
+        _titleLabel.frame = CGRectMake(100, KTabbarSafeBottomMargin,KScreenWidth-200, 64);
         _titleLabel.textColor = [UIColor whiteColor];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.font = [UIFont fontWithName:TextFontName size:16];

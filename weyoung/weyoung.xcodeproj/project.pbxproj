@@ -58,6 +58,13 @@
 		D230B83A21CE5B11004BC2F2 /* WYFriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D230B83921CE5B11004BC2F2 /* WYFriendTableViewCell.m */; };
 		D230F08921C8FA620055D5A0 /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D230F08821C8FA620055D5A0 /* NSString+Extension.m */; };
 		D26037AB21CE225E007CF066 /* WYReportCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D26037AA21CE225E007CF066 /* WYReportCollectionViewCell.m */; };
+		D2775D2D21D356EB001C4659 /* WYMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2775D2C21D356EB001C4659 /* WYMainViewController.m */; };
+		D283594E21D4B42500C6EB76 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = D283594B21D4B42500C6EB76 /* GTMBase64.m */; };
+		D283595121D4B43200C6EB76 /* NSString+AES.m in Sources */ = {isa = PBXBuildFile; fileRef = D283594F21D4B43200C6EB76 /* NSString+AES.m */; };
+		D283595821D4D30900C6EB76 /* WYCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D283595721D4D30900C6EB76 /* WYCommentViewController.m */; };
+		D283595B21D4D31500C6EB76 /* WYLikeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D283595A21D4D31500C6EB76 /* WYLikeViewController.m */; };
+		D283595E21D4D3A800C6EB76 /* WYCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D283595D21D4D3A800C6EB76 /* WYCommentTableViewCell.m */; };
+		D283596121D4D3B600C6EB76 /* WYLikeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D283596021D4D3B600C6EB76 /* WYLikeTableViewCell.m */; };
 		D287DE8C21BCE6C40048B5C2 /* WYSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DE8B21BCE6C40048B5C2 /* WYSettingViewController.m */; };
 		D287DE8F21BCE9510048B5C2 /* WYBlackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DE8E21BCE9510048B5C2 /* WYBlackListViewController.m */; };
 		D287DE9321BCE97A0048B5C2 /* WYAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D287DE9221BCE97A0048B5C2 /* WYAboutViewController.m */; };
@@ -206,6 +213,22 @@
 		D230F08821C8FA620055D5A0 /* NSString+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extension.m"; sourceTree = "<group>"; };
 		D26037A921CE225E007CF066 /* WYReportCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYReportCollectionViewCell.h; sourceTree = "<group>"; };
 		D26037AA21CE225E007CF066 /* WYReportCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYReportCollectionViewCell.m; sourceTree = "<group>"; };
+		D2775D2B21D356EB001C4659 /* WYMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYMainViewController.h; sourceTree = "<group>"; };
+		D2775D2C21D356EB001C4659 /* WYMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYMainViewController.m; sourceTree = "<group>"; };
+		D2775D3221D3798E001C4659 /* WYMainViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYMainViewControllerDelegate.h; sourceTree = "<group>"; };
+		D283594B21D4B42500C6EB76 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
+		D283594C21D4B42500C6EB76 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		D283594D21D4B42500C6EB76 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
+		D283594F21D4B43200C6EB76 /* NSString+AES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AES.m"; sourceTree = "<group>"; };
+		D283595021D4B43200C6EB76 /* NSString+AES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AES.h"; sourceTree = "<group>"; };
+		D283595621D4D30900C6EB76 /* WYCommentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYCommentViewController.h; sourceTree = "<group>"; };
+		D283595721D4D30900C6EB76 /* WYCommentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYCommentViewController.m; sourceTree = "<group>"; };
+		D283595921D4D31500C6EB76 /* WYLikeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYLikeViewController.h; sourceTree = "<group>"; };
+		D283595A21D4D31500C6EB76 /* WYLikeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYLikeViewController.m; sourceTree = "<group>"; };
+		D283595C21D4D3A800C6EB76 /* WYCommentTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYCommentTableViewCell.h; sourceTree = "<group>"; };
+		D283595D21D4D3A800C6EB76 /* WYCommentTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYCommentTableViewCell.m; sourceTree = "<group>"; };
+		D283595F21D4D3B600C6EB76 /* WYLikeTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYLikeTableViewCell.h; sourceTree = "<group>"; };
+		D283596021D4D3B600C6EB76 /* WYLikeTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYLikeTableViewCell.m; sourceTree = "<group>"; };
 		D287DE8A21BCE6C40048B5C2 /* WYSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYSettingViewController.h; sourceTree = "<group>"; };
 		D287DE8B21BCE6C40048B5C2 /* WYSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYSettingViewController.m; sourceTree = "<group>"; };
 		D287DE8D21BCE9510048B5C2 /* WYBlackListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYBlackListViewController.h; sourceTree = "<group>"; };
@@ -541,6 +564,7 @@
 		D2249FC021BA2018009B274C /* Unti */ = {
 			isa = PBXGroup;
 			children = (
+				D283594A21D4B41A00C6EB76 /* GTM */,
 				D229B79121CA165E006BCD39 /* HttpRequest */,
 			);
 			path = Unti;
@@ -604,6 +628,8 @@
 		D2249FCC21BA24AA009B274C /* NS */ = {
 			isa = PBXGroup;
 			children = (
+				D283595021D4B43200C6EB76 /* NSString+AES.h */,
+				D283594F21D4B43200C6EB76 /* NSString+AES.m */,
 				D22AF87821BF6D530004405B /* NSDate+Extension.h */,
 				D22AF87921BF6D530004405B /* NSDate+Extension.m */,
 				D22BDF0F21C7BA1F002269AC /* NSString+Validation.h */,
@@ -714,6 +740,57 @@
 			path = Report;
 			sourceTree = "<group>";
 		};
+		D2775D2A21D356DB001C4659 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				D2775D2B21D356EB001C4659 /* WYMainViewController.h */,
+				D2775D2C21D356EB001C4659 /* WYMainViewController.m */,
+				D2775D3221D3798E001C4659 /* WYMainViewControllerDelegate.h */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		D283594A21D4B41A00C6EB76 /* GTM */ = {
+			isa = PBXGroup;
+			children = (
+				D283594D21D4B42500C6EB76 /* GTMBase64.h */,
+				D283594B21D4B42500C6EB76 /* GTMBase64.m */,
+				D283594C21D4B42500C6EB76 /* GTMDefines.h */,
+			);
+			path = GTM;
+			sourceTree = "<group>";
+		};
+		D283595321D4D2B600C6EB76 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				D283595521D4D2D100C6EB76 /* View */,
+				D283595421D4D2C200C6EB76 /* Controller */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		D283595421D4D2C200C6EB76 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D283595621D4D30900C6EB76 /* WYCommentViewController.h */,
+				D283595721D4D30900C6EB76 /* WYCommentViewController.m */,
+				D283595921D4D31500C6EB76 /* WYLikeViewController.h */,
+				D283595A21D4D31500C6EB76 /* WYLikeViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		D283595521D4D2D100C6EB76 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D283595C21D4D3A800C6EB76 /* WYCommentTableViewCell.h */,
+				D283595D21D4D3A800C6EB76 /* WYCommentTableViewCell.m */,
+				D283595F21D4D3B600C6EB76 /* WYLikeTableViewCell.h */,
+				D283596021D4D3B600C6EB76 /* WYLikeTableViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		D287DE8921BCE68B0048B5C2 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
@@ -819,6 +896,8 @@
 		D2D7107621B9403200D78746 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				D283595321D4D2B600C6EB76 /* Message */,
+				D2775D2A21D356DB001C4659 /* Main */,
 				D224B2D821CCC53A00AF6330 /* Conversation */,
 				D2249FEA21BA8110009B274C /* Web */,
 				D2249FD321BA27C6009B274C /* Base */,
@@ -1103,7 +1182,9 @@
 			files = (
 				D226985021BBBDFD0091EE3B /* UIButton+ImagePosition.m in Sources */,
 				D287DEA521BCEBF60048B5C2 /* WYAboutHeaderView.m in Sources */,
+				D283595121D4B43200C6EB76 /* NSString+AES.m in Sources */,
 				D224039C21BBB10200001B83 /* WYEditViewController.m in Sources */,
+				D283595B21D4D31500C6EB76 /* WYLikeViewController.m in Sources */,
 				D230B83321CE45EE004BC2F2 /* WYMoreCollectionViewCell.m in Sources */,
 				D22403A521BBB1A600001B83 /* WYPersonCenterHeaderView.m in Sources */,
 				D22BDF0B21C79973002269AC /* UIView+Toast.m in Sources */,
@@ -1116,8 +1197,10 @@
 				D230B82B21CE4166004BC2F2 /* WYElasticView.m in Sources */,
 				D2249FBD21BA1A3F009B274C /* WYConfig.m in Sources */,
 				D2249FCA21BA2375009B274C /* WYNoDataView.m in Sources */,
+				D2775D2D21D356EB001C4659 /* WYMainViewController.m in Sources */,
 				D229B79D21CA1EF1006BCD39 /* WYCodeInputView.m in Sources */,
 				D2249FC721BA235D009B274C /* WYNoNetView.m in Sources */,
+				D283596121D4D3B600C6EB76 /* WYLikeTableViewCell.m in Sources */,
 				D2249FED21BA8337009B274C /* WYWebViewController.m in Sources */,
 				D22AF87A21BF6D530004405B /* NSDate+Extension.m in Sources */,
 				D2249FD621BA27F8009B274C /* WYBaseViewController.m in Sources */,
@@ -1147,13 +1230,16 @@
 				D22BDF1121C7BA1F002269AC /* NSString+Validation.m in Sources */,
 				D230B82321CE2C9E004BC2F2 /* WYReportView.m in Sources */,
 				D2D7104B21B9334B00D78746 /* main.m in Sources */,
+				D283595E21D4D3A800C6EB76 /* WYCommentTableViewCell.m in Sources */,
 				D2249FDC21BA2F7A009B274C /* WYCodeViewController.m in Sources */,
 				D229B79A21CA1CF9006BCD39 /* WYInputViewController.m in Sources */,
 				D226985A21BBDF250091EE3B /* WYEditTableViewCell.m in Sources */,
 				D287DE9F21BCE9F20048B5C2 /* WYFeedBackViewController.m in Sources */,
+				D283594E21D4B42500C6EB76 /* GTMBase64.m in Sources */,
 				D2249FD921BA2F5E009B274C /* WYLoginViewController.m in Sources */,
 				D2249FDF21BA2FAB009B274C /* WYPassWordViewController.m in Sources */,
 				D224038C21BB8B3C00001B83 /* WYPasswordInputView.m in Sources */,
+				D283595821D4D30900C6EB76 /* WYCommentViewController.m in Sources */,
 				D287DE9621BCE9BA0048B5C2 /* WYClauseViewController.m in Sources */,
 				D224039921BBAE1E00001B83 /* WYHomePageViewController.m in Sources */,
 				D287DE9321BCE97A0048B5C2 /* WYAboutViewController.m in Sources */,
@@ -1340,6 +1426,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/weyoung/weyoung-Prefix.pch";
 				INFOPLIST_FILE = weyoung/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1361,6 +1448,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/weyoung/weyoung-Prefix.pch";
 				INFOPLIST_FILE = weyoung/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

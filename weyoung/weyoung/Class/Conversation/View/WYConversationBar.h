@@ -15,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)UIButton * backButton;
 
 -(void)updateTitle:(NSString*)title;
-
 -(void)startTimer;
 -(void)stopTimer;
 

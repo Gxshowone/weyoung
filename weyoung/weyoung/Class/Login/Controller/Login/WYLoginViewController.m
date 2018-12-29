@@ -13,6 +13,7 @@
 #import "WYGradientButton.h"
 #import "NSString+Validation.h"
 #import <AudioToolbox/AudioToolbox.h>
+
 @interface WYLoginViewController ()
 
 @property(nonatomic,strong)UIImageView * bgImageView;
@@ -36,6 +37,29 @@
     [self.view addSubview:self.infoLabel];
     [self.view addSubview:self.clauseButton];
     [self.view addSubview:self.loginButton];
+  
+}
+
+-(void)checkUser
+{
+    NSDictionary * dict = @{@"phone":[self.phoneInputView inputText],@"zone_num":@"86",@"interface":@"Login@checkUser"};
+
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    
+    [request requestWithPragma:dict showLoading:NO];
+ 
+    
+    
+    //                WYCodeViewController * codeVc = [[WYCodeViewController alloc]init];
+    //                codeVc.phone = [self.phoneInputView inputText];
+    //                [self.navigationController pushViewController:codeVc animated:YES];
+    //
+//    WYInputViewController * inputVc = [WYInputViewController new];
+//    inputVc.phone =[self.phoneInputView inputText];
+//    [self.navigationController pushViewController:inputVc animated:YES];
+//    
+//    
+    
 }
 
 -(void)viewDidLayoutSubviews
@@ -49,9 +73,6 @@
     self.loginButton.frame = CGRectMake(KScreenWidth/2-40, KScreenHeight-KTabbarSafeBottomMargin-95-80, 80, 80);
     self.loginButton.style = WYGradientButtonCircle;
 }
-
-
-
 -(UIImageView *)bgImageView
 {
     if(!_bgImageView)
@@ -124,14 +145,7 @@
             NSLog(@"[gx] login click");
             if ([[self.phoneInputView inputText] isValidPhone]) {
                 
-//                WYCodeViewController * codeVc = [[WYCodeViewController alloc]init];
-//                codeVc.phone = [self.phoneInputView inputText];
-//                [self.navigationController pushViewController:codeVc animated:YES];
-//
-                WYInputViewController * inputVc = [WYInputViewController new];
-                inputVc.phone =[self.phoneInputView inputText];
-                [self.navigationController pushViewController:inputVc animated:YES];
-                
+                [self checkUser];
                 
             }else
                 

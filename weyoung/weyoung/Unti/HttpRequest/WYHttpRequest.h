@@ -17,26 +17,23 @@ typedef void(^successGetData)(id response);
 typedef void(^failureData)(id error);
 typedef void(^failureGetData)(id error);
 
-@property(nonatomic,strong) successGetData successBlock;
-@property(nonatomic,strong) failureData failureDataBlock;
-@property(nonatomic,strong) failureGetData failureBlock;
+@property(nonatomic,copy) successGetData successBlock;
+@property(nonatomic,copy) failureData failureDataBlock;
+@property(nonatomic,copy) failureGetData failureBlock;
 
 @property(nonatomic,copy)void(^FiledownloadedTo)(NSURL*);
 @property(nonatomic,copy)void(^FileuploadedTo)(id);
 
 
-//Get请求
--(void)requestDataWithUrl:(NSString*)urlString;
 //post请求
--(void)requestDataWithUrl:(NSString*)urlString pragma:(NSDictionary*)pragmaDict;
+-(void)requestWithPragma:(NSDictionary*)pragma
+             showLoading:(BOOL)show;
 //带图片Post请求
--(void)requestDataWithUrl:(NSString*)urlString pragma:(NSDictionary*)pragmaDict ImageDatas:(id)data imageName:(id)imageName;
-//下载
--(void)startDownloadTaskWithUrl:(NSString*)urlString;
-//上传
--(void)startUploadTaskTaskWithUrl:(NSString*)urlString;
-//结果回调
--(void)getResultWithSuccess:(successGetData)success DataFaiure:(failureData)datafailure Failure:(failureGetData)failure;
+-(void)requestWithPragma:(NSDictionary*)pragma
+             showLoading:(BOOL)show
+              ImageDatas:(id)data
+               imageName:(id)imageName;
+
 
 @end
 

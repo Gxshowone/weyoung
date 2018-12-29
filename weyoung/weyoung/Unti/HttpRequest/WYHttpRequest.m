@@ -7,180 +7,118 @@
 //
 
 #import "WYHttpRequest.h"
-
+#import "NSString+AES.h"
 @implementation WYHttpRequest
 
--(void)getResultWithSuccess:(successGetData)success DataFaiure:(failureData)datafailure Failure:(failureGetData)failure;
-{
-    _successBlock = success;
-    _failureDataBlock = datafailure;
-    _failureBlock = failure;
-}
-
-//Get 请求
--(void)requestDataWithUrl:(NSString*)urlString;
-{
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    
-    
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    
-    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    NSString * requestUrl = [self getEncodeurlStr:urlString];
-    
-    [manager GET:requestUrl parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-        NSLog(@"%@",downloadProgress);
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        if([jsonDict[@"state"] integerValue]==1){
-            if(self->_successBlock){
-                id response = jsonDict[@"data"];
-                self.successBlock(response);
-            }
-        }else{
-            if(self->_failureDataBlock){
-                self.failureDataBlock(jsonDict[@"msg"]);
-            }
-        }
-        
-        
-        
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
-        if(self->_failureBlock){
-            self.failureBlock(error);
-        }
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    }];
-}
 
 //不带图片post请求
--(void)requestDataWithUrl:(NSString*)urlString pragma:(NSDictionary*)pragmaDict;
+-(void)requestWithPragma:(NSDictionary*)pragma
+             showLoading:(BOOL)show
 {
-    [self requestDataWithUrl:urlString pragma:pragmaDict ImageDatas:nil imageName:nil];
+    [self requestWithPragma:pragma showLoading:show ImageDatas:nil imageName:nil];
 }
 
 
 //带图片Post 请求
--(void)requestDataWithUrl:(NSString*)urlString pragma:(NSDictionary*)pragmaDict ImageDatas:(id)data imageName:(id)imageName;
+-(void)requestWithPragma:(NSDictionary*)pragma
+             showLoading:(BOOL)show
+              ImageDatas:(id)data
+               imageName:(id)imageName
 {
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSString *requestUrl = [NSString stringWithFormat:@"%@",MainURL];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:requestUrl parameters:nil error:nil];
+    request.timeoutInterval= 10;
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    // 设置body
+    [request setHTTPBody:[self pragmaExchangeToBody:pragma]];
     
-    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    AFHTTPResponseSerializer *responseSerializer = [AFHTTPResponseSerializer serializer];
+    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",
+                                                 @"text/html",
+                                                 @"text/json",
+                                                 @"text/javascript",
+                                                 @"text/plain",
+                                                 nil];
+    manager.responseSerializer = responseSerializer;
     
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
- 
+    [[manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        
+
+        NSData * data = [NSData dataWithData:responseObject];
+     
+        NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+        
+        NSString * result = [str aci_decryptWithAES];
     
-    NSString * requestUrl = [self getEncodeurlStr:urlString];
-    
-    [manager POST:requestUrl parameters:pragmaDict constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        if(data==nil) ;
-        else if([data isKindOfClass:[NSData class]]){
-            [formData appendPartWithFileData:data name:imageName fileName:@"defult_placeImage.png" mimeType:@"png"];
-        }else if([data isKindOfClass:[NSMutableArray class]]){
-            //多张图片上传
-            [data enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                NSData *imgData = (NSData *)obj;
-                NSString *imgKey = [imageName isKindOfClass:[NSString class]]?imageName:imageName[idx];
-                [formData appendPartWithFileData:imgData name:imgKey fileName:@"defult_placeImage.png" mimeType:@"png"];
-            }];
-        }
+        NSDictionary * dict = [self dictionaryWithJsonString:result];
         
-    } progress:^(NSProgress * _Nonnull downloadProgress) {
-        NSLog(@"%f",downloadProgress.fractionCompleted);
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        if([jsonDict[@"code"] integerValue]==1){
-            if(_successBlock){
-                id response = jsonDict;
-                self.successBlock(response);
-            }
-        }else{
-            if(_failureDataBlock){
-                self.failureDataBlock(jsonDict[@"message"]);
-            }
-        }
-        
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        
-        
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
-        if(_failureBlock){
-            self.failureBlock(error);
-        }
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        
-        
-        NSLog(@"  %@ ",error);
-    }];
+        NSLog(@"[gx] resutlt dict %@",dict);
+     
+    }] resume];
+
+  
 }
 
-//下载
--(void)startDownloadTaskWithUrl:(NSString*)urlString;
+
+-(NSData*)pragmaExchangeToBody:(NSDictionary*)pragma
 {
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    //1 json 转字符串
+    NSString * pStr = [self convertToJsonData:pragma];
     
-    NSURL *URL = [NSURL URLWithString:urlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    //2 字符串加密
+    NSString * aes  = [pStr aci_encryptWithAES];
     
-    NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-        NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-        return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
-    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-        NSLog(@"File downloaded to: %@", filePath);
-        if(_FiledownloadedTo){
-            self.FiledownloadedTo(filePath);
-        }
-        
-    }];
-    [downloadTask resume];
+    //3 字符串转字典
+    NSData *data =[aes dataUsingEncoding:NSUTF8StringEncoding];
+    
+    return data;
 }
-//上传
--(void)startUploadTaskTaskWithUrl:(NSString*)urlString;
+
+//json 转串
+-(NSString *)convertToJsonData:(NSDictionary *)dict
 {
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString;
+    if (!jsonData) {
+        NSLog(@"%@",error);
+    }else{
+        jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
+    NSMutableString *mutStr = [NSMutableString stringWithString:jsonString];
+    NSRange range = {0,jsonString.length};
+    //去掉字符串中的空格
+    [mutStr replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:range];
+    NSRange range2 = {0,mutStr.length};
+    //去掉字符串中的换行符
+    [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
+    return mutStr;
     
-    NSURL *URL = [NSURL URLWithString:@"http://example.com/upload"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-    
-    NSURL *filePath = [NSURL fileURLWithPath:@"file://path/to/image.png"];
-    NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithRequest:request fromFile:filePath progress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-        if (error) {
-            NSLog(@"Error: %@", error);
-        } else {
-            NSLog(@"Success: %@ %@", response, responseObject);
-            if(self->_FileuploadedTo)
-            {
-                self.FileuploadedTo(responseObject);
-            }
-        }
-    }];
-    [uploadTask resume];
 }
 
 
-//将 UTF8编码
--(NSString *)getEncodeurlStr:(NSString *)urlstr;
+-(NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString
 {
-    NSString *encodeurlstr =  [urlstr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    return encodeurlstr;
+    if (jsonString == nil) {
+        return nil;
+    }
+    
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err;
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                        options:NSJSONReadingMutableContainers
+                                                          error:&err];
+    if(err)
+    {
+        NSLog(@"json解析失败：%@",err);
+        return nil;
+    }
+    return dic;
 }
-
 
 @end

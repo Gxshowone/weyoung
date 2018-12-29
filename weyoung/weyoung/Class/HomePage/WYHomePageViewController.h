@@ -7,11 +7,11 @@
 //
 
 #import "WYBaseViewController.h"
-
-NS_ASSUME_NONNULL_BEGIN
+#import "WYMainViewControllerDelegate.h"
 
 @interface WYHomePageViewController : WYBaseViewController
 
-@end
+@property(nonatomic,weak)id<WYMainViewControllerDelegate>delegate;
 
-NS_ASSUME_NONNULL_END
+
+@end
