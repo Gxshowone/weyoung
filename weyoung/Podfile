@@ -14,6 +14,7 @@ target 'weyoung' do
    pod 'WebViewJavascriptBridge'
    pod 'YYWebImage'
    pod 'IQKeyboardManager'
+   pod 'Masonry'
   # Pods for weyoung
 
   target 'weyoungTests' do

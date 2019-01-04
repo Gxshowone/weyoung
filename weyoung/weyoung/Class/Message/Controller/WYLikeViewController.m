@@ -20,8 +20,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    
     [self setNavTitle:@"点赞"];
     [self.view addSubview:self.tableView];
     
@@ -189,8 +187,7 @@
             [weakSelf loadMoreData];
             
         }];
-        
-        
+    
         [_tableView.mj_header beginRefreshing];
     }
     return _tableView;

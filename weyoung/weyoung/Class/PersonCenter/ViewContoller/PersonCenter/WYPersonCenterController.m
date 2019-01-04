@@ -8,7 +8,7 @@
 
 #import "WYPersonCenterController.h"
 #import "WYPersonCenterHeaderView.h"
-
+#import "WYMyDynamicTableViewCell.h"
 @interface WYPersonCenterController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView * tableView;
@@ -34,7 +34,6 @@
 -(void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    
     self.messageButton.frame = CGRectMake(KScreenWidth-100, 20+KNaviBarSafeBottomMargin, 48,50);
 }
 
@@ -50,7 +49,8 @@
 
     [self.rightButton setImage:[UIImage imageNamed:@"navi_setting_btn"] forState:UIControlStateNormal];
    
-    [[self.rightButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+    [[self.rightButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x)
+       {
         
         if(self.delegate&&[self.delegate respondsToSelector:@selector(setting)])
         {
@@ -103,12 +103,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 
 {
+    static NSString * cellid = @"WYMyDynamicTableViewCell";
     
-    static NSString * cellid = @"cellid";
-    
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellid];
+    WYMyDynamicTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellid];
     if (!cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        cell = [[WYMyDynamicTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
   
     return cell;

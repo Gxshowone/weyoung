@@ -66,6 +66,10 @@
 #define TextFontName_Helvetica @"Helvetica"
 
 
+#define kGAP 10
+#define kAvatar_Size 30
+
+
 
 
 #endif /* WYDefine_h */

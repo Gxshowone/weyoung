@@ -34,7 +34,7 @@
     
     _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     _window.backgroundColor = [UIColor whiteColor];
-      UINavigationController * rootNav   = [[UINavigationController alloc] initWithRootViewController:[[WYLoginViewController alloc]init]];
+      UINavigationController * rootNav   = [[UINavigationController alloc] initWithRootViewController:[[WYMainViewController alloc]init]];
     _window.rootViewController = rootNav;
     [_window makeKeyAndVisible];
 

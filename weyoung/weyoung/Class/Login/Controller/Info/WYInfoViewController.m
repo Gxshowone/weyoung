@@ -97,8 +97,7 @@
                 [self presentViewController:imgpicker animated:YES completion:nil];
             }
             
-            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-            
+           [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
             
             
         }
@@ -124,7 +123,6 @@
 didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-    
     [picker dismissViewControllerAnimated:YES completion:nil];
     [self UploadimageWithImage:image];
     
@@ -133,7 +131,6 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 //上传头像

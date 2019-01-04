@@ -52,12 +52,16 @@
         switch (register_status) {
             case 0:
             {
-                
+                WYCodeViewController * codeVc = [[WYCodeViewController alloc]init];
+                codeVc.phone = [self.phoneInputView inputText];
+                [self.navigationController pushViewController:codeVc animated:YES];
             }
                 break;
                 case 1:
             {
-                
+                WYInputViewController * inputVc = [WYInputViewController new];
+                inputVc.phone =[self.phoneInputView inputText];
+                [self.navigationController pushViewController:inputVc animated:YES];
             }
                 break;
                 case 2:
@@ -73,18 +77,7 @@
     request.failureDataBlock = ^(id  _Nonnull error) {
         
     };
- 
-    
-    
-    //                WYCodeViewController * codeVc = [[WYCodeViewController alloc]init];
-    //                codeVc.phone = [self.phoneInputView inputText];
-    //                [self.navigationController pushViewController:codeVc animated:YES];
-    //
-//    WYInputViewController * inputVc = [WYInputViewController new];
-//    inputVc.phone =[self.phoneInputView inputText];
-//    [self.navigationController pushViewController:inputVc animated:YES];
-//    
-//    
+   
     
 }
 
@@ -151,9 +144,7 @@
         @weakify(self);
         [[_clauseButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
-            
-          
-            
+    
         }];
     }
     return _clauseButton;
