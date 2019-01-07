@@ -71,6 +71,8 @@ NS_ASSUME_NONNULL_BEGIN
 //是否是vip
 @property(nonatomic,assign)BOOL vip;
 
+
+
 -(void)removeUserInfo;
 -(BOOL)isLogin;
 

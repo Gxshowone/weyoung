@@ -29,18 +29,33 @@
     
     //键盘管理器
     [self registerKeyboardManager];
-   
- 
-    
+
     _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     _window.backgroundColor = [UIColor whiteColor];
-      UINavigationController * rootNav   = [[UINavigationController alloc] initWithRootViewController:[[WYMainViewController alloc]init]];
-    _window.rootViewController = rootNav;
+    [self setRootController];
+    
     [_window makeKeyAndVisible];
 
     [self setNavigationBarConfig];
     
     return YES;
+}
+
+
+-(void)setRootController
+{
+    UINavigationController * rootNav;
+    
+    if ([[WYSession sharedSession] isLogin]) {
+        
+        rootNav   = [[UINavigationController alloc] initWithRootViewController:[[WYMainViewController alloc]init]];
+        _window.rootViewController = rootNav;
+    }else
+        
+    {
+        rootNav   = [[UINavigationController alloc] initWithRootViewController:[[WYLoginViewController alloc]init]];
+        _window.rootViewController = rootNav;
+    }
 }
 
 

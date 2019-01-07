@@ -9,6 +9,8 @@
 #import "WYCodeViewController.h"
 #import "WLUnitField.h"
 #import "WYPassWordViewController.h"
+#import <AudioToolbox/AudioToolbox.h>
+
 @interface WYCodeViewController ()<WLUnitFieldDelegate>
 
 @property(nonatomic,strong)UILabel     * inputLabel;
@@ -82,8 +84,26 @@
 -(void)unitFieldEditingChanged:(WLUnitField *)sender
 {
     if (sender.text.length == 4) {
-        [self.navigationController pushViewController:[WYPassWordViewController new] animated:YES];
+        
+        [self verification:sender.text];
     }
+}
+
+-(void)verification:(NSString*)code
+{
+    NSDictionary * dict = @{@"phone":self.phone,@"zone_num":@"86",@"interface":@"Login@register",@"step":@"2",@"code":code};
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+       
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+       
+        [self.view makeToast:[NSString stringWithFormat:@"%@",error]];
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    };
 }
 
 -(UILabel*)inputLabel

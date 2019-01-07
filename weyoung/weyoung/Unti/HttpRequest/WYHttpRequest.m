@@ -53,17 +53,20 @@
         NSString * result = [str aci_decryptWithAES];
         NSDictionary * dict = [self dictionaryWithJsonString:result];
         NSInteger status = [[dict valueForKey:@"status"] integerValue];
-        NSDictionary *obj = [dict valueForKey:@"data"];
-        
+       
         if (status==200) {
+            NSDictionary *obj = [dict valueForKey:@"data"];
             self.successBlock(obj);
         }else if(status==300)
         {
-            self.failureDataBlock(obj);
+             NSString * msg  = [dict valueForKey:@"msg"];
+            self.failureDataBlock(msg);
+          
         }
         
      
-    }] resume];
+    }]
+     resume];
 
   
 }

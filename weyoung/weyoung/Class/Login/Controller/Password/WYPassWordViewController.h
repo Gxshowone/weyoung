@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WYPassWordViewController : WYBaseViewController
 
 @property(nonatomic,copy)NSString * phone;
+@property(nonatomic,copy)NSString * code;
 
 @end
 
