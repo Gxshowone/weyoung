@@ -96,6 +96,7 @@
     [request requestWithPragma:dict showLoading:NO];
     request.successBlock = ^(id  _Nonnull response) {
         
+        [self gotoPasswordViewController];
        
     };
     
@@ -104,6 +105,31 @@
         [self.view makeToast:[NSString stringWithFormat:@"%@",error]];
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     };
+}
+
+-(void)sendCode
+{
+    NSDictionary * dict = @{@"phone":self.phone,@"zone_num":@"86",@"interface":@"Login@register",@"step":@"1"};
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+        [self startTime];
+        [self gotoPasswordViewController];
+        
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+    };
+}
+
+
+-(void)gotoPasswordViewController
+{
+    WYPassWordViewController * pwVc = [[WYPassWordViewController alloc]init];
+    pwVc.phone = self.phone;
+    [self.navigationController pushViewController:pwVc animated:YES];
 }
 
 -(UILabel*)inputLabel
@@ -159,11 +185,15 @@
         @weakify(self);
         [[_sendButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
+            
+            [self sendCode];
         
         }];
     }
     return _sendButton;
 }
+
+
 
 -(void)setPhone:(NSString *)phone
 {

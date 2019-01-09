@@ -28,11 +28,10 @@ typedef void(^failureGetData)(id error);
 //post请求
 -(void)requestWithPragma:(NSDictionary*)pragma
              showLoading:(BOOL)show;
-//带图片Post请求
--(void)requestWithPragma:(NSDictionary*)pragma
-             showLoading:(BOOL)show
-              ImageDatas:(id)data
-               imageName:(id)imageName;
+//带图片Put请求
+-(void)put_uploadFileWithURLString:(NSString *)URLString
+                            rename:(id)rename
+                        orFromData:(id)bodyData;
 
 
 @end

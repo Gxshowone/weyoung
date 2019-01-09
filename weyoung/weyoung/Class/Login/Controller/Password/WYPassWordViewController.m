@@ -90,7 +90,7 @@
             
             if ([[self.inputView inputText] isValidPassword] ) {
                 
-                [self.navigationController pushViewController:[[WYInfoViewController alloc]init] animated:YES];
+                [self registerUser];
                 
             }else
                 
@@ -108,6 +108,32 @@
         }];
     }
     return _nextButton;
+}
+
+
+-(void)registerUser
+{
+    NSDictionary * dict = @{@"phone":self.phone,@"zone_num":@"86",@"interface":@"Login@register",@"step":@"3",@"password":[self.inputView inputText]};
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+        NSString * uid = [response valueForKey:@"uid"];
+        [self gotoInfoViewController:uid];
+        
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+    };
+}
+
+-(void)gotoInfoViewController:(NSString*)uid
+{
+    WYInfoViewController * infoVc = [[WYInfoViewController alloc]init];
+    infoVc.uid = uid;
+    infoVc.phone = self.phone;
+    [self.navigationController pushViewController:infoVc animated:YES];
 }
 
 

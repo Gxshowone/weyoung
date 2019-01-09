@@ -14,6 +14,7 @@
 #import "WYGradientButton.h"
 #import "WYHomePageViewController.h"
 #import "WSDatePickerView.h"
+#import "NSString+Validation.h"
 @interface WYInfoViewController ()<UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
 
 @property(nonatomic,strong)UIButton * picButton;
@@ -22,6 +23,10 @@
 @property(nonatomic,strong)UIButton * manButton;
 @property(nonatomic,strong)UIButton * womanButton;
 @property(nonatomic,strong)WYGradientButton * startButton;
+@property(nonatomic,copy)NSString * dateString;
+@property(nonatomic,copy)NSString * sex;
+@property(nonatomic,copy)NSString * signUrl;
+@property(nonatomic,copy)NSString * avatar_str;
 
 @end
 
@@ -38,7 +43,10 @@
     [self.view addSubview:self.startButton];
     
     self.manButton.selected = YES;
+    self.sex = @"1";
+
 }
+
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 
@@ -136,7 +144,27 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 //上传头像
 -(void)UploadimageWithImage:(UIImage*)avatarImage
 {
-  
+    NSData * data = UIImageJPEGRepresentation(avatarImage, 1.0);
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request put_uploadFileWithURLString:self.signUrl rename:@"user_photo" orFromData:data];
+    
+}
+
+
+-(void)getSignUrl
+{
+
+    NSDictionary * dict = @{@"phone":self.phone,@"zone_num":@"86",@"interface":@"File@getUploadUrl",@"source":@"1",@"uid":self.uid};
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+        self.signUrl = [NSString stringWithFormat:@"%@",[response valueForKey:@"signedUrl"]];
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+    };
 }
 
 -(void)viewDidLayoutSubviews
@@ -163,9 +191,9 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     @weakify(self);
     WSDatePickerView *datepicker = [[WSDatePickerView alloc] initWithDateStyle:DateStyleShowYearMonthDay CompleteBlock:^(NSDate *selectDate) {
         @strongify(self);
-        NSString *dateString = [selectDate stringWithFormat:@"yyyy-MM-dd"];
-        NSLog(@"选择的日期：%@",dateString);
-        [self.dateButton setTitle:dateString forState:UIControlStateNormal];
+        self.dateString = [selectDate stringWithFormat:@"yyyy-MM-dd"];
+        NSLog(@"选择的日期：%@",self.dateString);
+        [self.dateButton setTitle:self.dateString forState:UIControlStateNormal];
         [self.dateButton setTitleColor:[UIColor binaryColor:@"FFFFFF"] forState:UIControlStateNormal];
     }];
     datepicker.doneButtonColor = [UIColor binaryColor:@"6950FB"];//确定按钮的颜色
@@ -261,6 +289,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
             self.womanButton.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.15].CGColor;
             self.womanButton.layer.borderWidth = 1;
             self.manButton.layer.borderWidth = 0;
+            self.sex = @"1";
         }];
     }
     return _manButton;
@@ -279,8 +308,6 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         
         [_womanButton setTitle:@"小姐姐" forState:UIControlStateNormal];
         _womanButton.titleLabel.font = [UIFont fontWithName:TextFontName_Light size:16];
-        
-        
         
         CGSize titleSize =_womanButton.titleLabel.bounds.size;
         CGSize imageSize = _womanButton.imageView.bounds.size;
@@ -307,6 +334,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
             self.womanButton.selected = YES;
             [self.womanButton setBackgroundColor:[[UIColor whiteColor] colorWithAlphaComponent:0.15]];
             [self.manButton setBackgroundColor:[UIColor clearColor]];
+            self.sex = @"2";
     
         }];
     }
@@ -325,24 +353,87 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         @weakify(self);
         [[_startButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
-            
-            WYHomePageViewController * hpVC = [WYHomePageViewController new];
-            UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:hpVC];
-            [UIApplication sharedApplication].keyWindow.rootViewController = nav;
+            [self checkUserInfo];
         }];
     }
     return _startButton;
     
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)checkUserInfo
+{
+  
+    if ([self.avatar_str isEmpty]) {
+        [self.view makeToast:@"请先上传头像" duration:3.0 position:CSToastPositionCenter];
+        return;
+        
+    }
+    
+    if ([[self.nickInputView inputText] isEmpty]) {
+        [self.view makeToast:@"请输入昵称" duration:3.0 position:CSToastPositionCenter];
+        return;
+        
+    }
+    
+    if ([self.dateString isEmpty]) {
+        [self.view makeToast:@"请选择生日" duration:3.0 position:CSToastPositionCenter];
+        return;
+        
+    }
+    
+    [self registerUser];
+    
 }
-*/
+
+-(void)registerUser;
+{
+  
+    NSDictionary * dict = @{@"header_url":self.avatar_str,@"nick_name":[self.nickInputView inputText],@"birthday":self.dateString,@"gender":self.sex, @"phone":self.phone,@"zone_num":@"86",@"interface":@"Login@register",@"step":@"4"};
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+        WYSession * session = [WYSession sharedSession];
+        [session updateUser:response];
+        
+        //链接容云
+        [self connectRcWithToken:session.rc_token];
+        
+        WYHomePageViewController * hpVC = [WYHomePageViewController new];
+        UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:hpVC];
+        [UIApplication sharedApplication].keyWindow.rootViewController = nav;
+        
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+    };
+}
+
+-(void)connectRcWithToken:(NSString*)rctoken
+{
+    [[RCIM sharedRCIM] connectWithToken:rctoken  success:^(NSString *userId) {
+        NSLog(@"登陆成功。当前登录的用户ID：%@", userId);
+    } error:^(RCConnectErrorCode status) {
+        NSLog(@"登陆的错误码为:%ld", (long)status);
+    } tokenIncorrect:^{
+        //token过期或者不正确。
+        //如果设置了token有效期并且token过期，请重新请求您的服务器获取新的token
+        //如果没有设置token有效期却提示token错误，请检查您客户端和服务器的appkey是否匹配，还有检查您获取token的流程。
+        NSLog(@"token错误");
+    }];
+}
+
+
+-(void)setUid:(NSString *)uid
+{
+    _uid = uid;
+}
+
+-(void)setPhone:(NSString *)phone
+{
+    _phone = phone;
+    [self getSignUrl];
+}
 
 @end

@@ -69,7 +69,6 @@
 #define kGAP 10
 #define kAvatar_Size 30
 
-
-
+#define kTestAvatar @"http://mmbiz.qpic.cn/mmbiz/PwIlO51l7wuFyoFwAXfqPNETWCibjNACIt6ydN7vw8LeIwT7IjyG3eeribmK4rhibecvNKiaT2qeJRIWXLuKYPiaqtQ/0"
 
 #endif /* WYDefine_h */

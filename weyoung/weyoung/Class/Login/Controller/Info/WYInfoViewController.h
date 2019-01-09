@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WYInfoViewController : WYBaseViewController
 
+@property(nonatomic,copy)NSString * phone;
+@property(nonatomic,copy)NSString * uid;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -13,6 +13,7 @@
 #import "WYAboutViewController.h"
 #import "WYEvaluateViewController.h"
 #import <StoreKit/StoreKit.h>
+#import "WYLoginViewController.h"
 @interface WYSettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView * tableView;
@@ -106,7 +107,7 @@
         case 0:
         {
             WYCodeViewController * codeVc = [[WYCodeViewController alloc]init];
-            codeVc.phone = @"18910026892";
+            codeVc.phone = [WYSession sharedSession].phone;
             [self.navigationController pushViewController:codeVc animated:YES];
         }
             break;
@@ -132,6 +133,12 @@
             break;
             case 5:
         {
+            [[WYSession sharedSession] removeUserInfo];
+            [[WYSession sharedSession] disconnectRc];
+            
+            WYLoginViewController * loginVC = [WYLoginViewController new];
+            UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+            [UIApplication sharedApplication].keyWindow.rootViewController = nav;
             
         }
             break;

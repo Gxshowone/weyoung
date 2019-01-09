@@ -15,17 +15,6 @@
 -(void)requestWithPragma:(NSDictionary*)pragma
              showLoading:(BOOL)show
 {
-    [self requestWithPragma:pragma showLoading:show ImageDatas:nil imageName:nil];
-}
-
-
-//带图片Post 请求
--(void)requestWithPragma:(NSDictionary*)pragma
-             showLoading:(BOOL)show
-              ImageDatas:(id)data
-               imageName:(id)imageName
-{
-    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
     NSString *requestUrl = [NSString stringWithFormat:@"%@",MainURL];
@@ -37,6 +26,13 @@
     // 设置body
     [request setHTTPBody:[self pragmaExchangeToBody:pragma]];
     
+    NSString * token = [WYSession sharedSession].token;
+    if (token) {
+       [request setValue:token forHTTPHeaderField:@"X-LOGON-TOKEN"];
+        
+    }
+    
+    
     AFHTTPResponseSerializer *responseSerializer = [AFHTTPResponseSerializer serializer];
     responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",
                                                  @"text/html",
@@ -46,30 +42,76 @@
                                                  nil];
     manager.responseSerializer = responseSerializer;
     
-    [[manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+   
+    [[manager dataTaskWithRequest:request uploadProgress:^(NSProgress * _Nonnull uploadProgress) {
         
+    } downloadProgress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         NSData * data = [NSData dataWithData:responseObject];
         NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
         NSString * result = [str aci_decryptWithAES];
         NSDictionary * dict = [self dictionaryWithJsonString:result];
         NSInteger status = [[dict valueForKey:@"status"] integerValue];
-       
-        if (status==200) {
-            NSDictionary *obj = [dict valueForKey:@"data"];
-            self.successBlock(obj);
-        }else if(status==300)
-        {
-             NSString * msg  = [dict valueForKey:@"msg"];
-            self.failureDataBlock(msg);
-          
+   
+        switch (status) {
+            case 200:
+            {
+                NSDictionary *obj = [dict valueForKey:@"data"];
+                self.successBlock(obj);
+            }
+                break;
+                case 300:
+            {
+                NSString * msg  = [dict valueForKey:@"msg"];
+                self.failureDataBlock(msg);
+                
+            }
+                break;
+            default:
+                break;
         }
         
-     
-    }]
-     resume];
-
-  
+    }] resume];
+    
+    
 }
+
+
+
+-(void)put_uploadFileWithURLString:(NSString *)URLString
+                            rename:(id)rename
+                        orFromData:(id)bodyData
+{
+    NSMutableURLRequest * request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"PUT" URLString:URLString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+       
+        
+        if(bodyData==nil) return ;
+        else if([bodyData isKindOfClass:[NSData class]]){
+            [formData appendPartWithFileData:bodyData name:rename fileName:@"defult_placeImage.png" mimeType:@"png"];
+        }else if([bodyData isKindOfClass:[NSMutableArray class]]){
+            //多张图片上传
+            [bodyData enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSData *imgData = (NSData *)obj;
+                NSString *imgKey = [rename isKindOfClass:[NSString class]]?rename:rename[idx];
+                [formData appendPartWithFileData:imgData name:imgKey fileName:@"defult_placeImage.png" mimeType:@"png"];
+            }];
+        }
+        
+    } error:nil];
+
+
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [[manager uploadTaskWithStreamedRequest:request progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+        NSLog(@"[gx] 上传进度 %@",uploadProgress);
+        
+    } completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        
+        
+    }] resume] ;
+}
+
 
 
 -(NSData*)pragmaExchangeToBody:(NSDictionary*)pragma
@@ -127,5 +169,6 @@
     }
     return dic;
 }
+
 
 @end

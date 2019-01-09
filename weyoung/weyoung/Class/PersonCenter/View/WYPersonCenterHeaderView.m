@@ -57,7 +57,7 @@
         _avatarItem = [[UIButton alloc]init];
         _avatarItem.layer.cornerRadius = 45;
         _avatarItem.layer.masksToBounds = YES;
-        [_avatarItem yy_setImageWithURL:[NSURL URLWithString:@"http://mmbiz.qpic.cn/mmbiz/PwIlO51l7wuFyoFwAXfqPNETWCibjNACIt6ydN7vw8LeIwT7IjyG3eeribmK4rhibecvNKiaT2qeJRIWXLuKYPiaqtQ/0"] forState:UIControlStateNormal options:YYWebImageOptionSetImageWithFadeAnimation];
+        [_avatarItem yy_setImageWithURL:[NSURL URLWithString:kTestAvatar] forState:UIControlStateNormal options:YYWebImageOptionSetImageWithFadeAnimation];
         @weakify(self);
         [[_avatarItem rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);

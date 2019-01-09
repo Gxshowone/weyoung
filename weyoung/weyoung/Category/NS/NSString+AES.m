@@ -13,6 +13,8 @@
 
 static NSString *const PSW_AES_KEY = @"nn-#IcoTW:[k&5gg";
 static NSString *const AES_IV_PARAMETER = @"ycdMOf!gxqA6IpuC";
+static NSString *const AES_SALT = @"zK6mLT#:jWU>I/C~rM`[04?uS@iadkeB";
+
 
 @implementation NSString (AES)
 
@@ -40,18 +42,16 @@ static NSString *const AES_IV_PARAMETER = @"ycdMOf!gxqA6IpuC";
     
     NSData *AESData_GTM = [self AES128operation:kCCDecrypt
                                            data:baseData_GTM
-                                            key:PSW_AES_KEY
-                                             iv:AES_IV_PARAMETER];
+                                            key:[NSString aesKey]
+                                             iv:[NSString aesIV]];
     NSData *AESData = [self AES128operation:kCCDecrypt
                                        data:baseData
-                                        key:PSW_AES_KEY
-                                         iv:AES_IV_PARAMETER];
+                                        key:[NSString aesKey]
+                                         iv:[NSString aesIV]];
     
     NSString *decStr_GTM = [[NSString alloc] initWithData:AESData_GTM encoding:NSUTF8StringEncoding];
     NSString *decStr = [[NSString alloc] initWithData:AESData encoding:NSUTF8StringEncoding];
     
-    NSLog(@"*****************\nGTMBase:%@\n*****************", decStr_GTM);
-    NSLog(@"*****************\niOSCode:%@\n*****************", decStr);
     
     return decStr;
 }
@@ -111,5 +111,51 @@ static NSString *const AES_IV_PARAMETER = @"ycdMOf!gxqA6IpuC";
     data = [GTMBase64 decodeData:data];
     return data;
 }
+
+
++(NSString*)aesKey
+{
+    NSString * key = [[NSString getMD5Sting] substringWithRange:NSMakeRange(0, 16)];
+    if ([WYSession sharedSession].isLogin==NO) {
+        return PSW_AES_KEY;
+    }
+    return key;
+}
+
++(NSString*)aesIV
+{
+    NSString * iv =  [[NSString getMD5Sting] substringWithRange:NSMakeRange(16, 16)];
+    
+    if ([WYSession sharedSession].isLogin==NO) {
+        return AES_IV_PARAMETER;
+    }
+    
+    return iv;
+}
+
+
++ (NSString *) md5:(NSString *) str
+{
+    const char *cStr = [str UTF8String];
+    unsigned char result[16];
+    CC_MD5(cStr, strlen(cStr), result); // This is the md5 call
+    return [NSString stringWithFormat:
+            @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+            result[0], result[1], result[2], result[3],
+            result[4], result[5], result[6], result[7],
+            result[8], result[9], result[10], result[11],
+            result[12], result[13], result[14], result[15]
+            ];
+}
+
++(NSString*)getMD5Sting
+{
+    NSString * string = [NSString stringWithFormat:@"%@%@%@",[WYSession sharedSession].phone,AES_SALT,[WYSession sharedSession].token];
+    NSString * md5String = [NSString md5:string];
+    
+    return md5String;
+    
+}
+
 
 @end

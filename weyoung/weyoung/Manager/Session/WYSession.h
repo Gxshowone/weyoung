@@ -38,17 +38,11 @@ NS_ASSUME_NONNULL_BEGIN
 /** 当前时间与本地时间的时间差 */
 @property(nonatomic, assign)NSInteger timeDifference;
 
-//用户账号
-@property(nonatomic,copy)NSString * userAccount;
-
 //用户密码
 @property(nonatomic,copy)NSString * passWord;
 
 //用户手机号
 @property(nonatomic,copy)NSString * phone;
-
-//用户email
-@property(nonatomic,copy)NSString * email;
 
 //用户token
 @property(nonatomic,copy)NSString * token;
@@ -68,12 +62,12 @@ NS_ASSUME_NONNULL_BEGIN
 //用户生日
 @property(nonatomic,copy)NSString * birthday;
 
-//是否是vip
-@property(nonatomic,assign)BOOL vip;
+//容云token
+@property(nonatomic,copy)NSString * rc_token;
 
-
-
--(void)removeUserInfo;
+-(void)updateUser:(NSDictionary*)dict;
+-(void) removeUserInfo;
+-(void)disconnectRc;
 -(BOOL)isLogin;
 
 

@@ -8,9 +8,7 @@
 
 #import "WYSession.h"
 
-static NSString *const kSessionAccount        = @"kSessionAccount";
 static NSString *const kSessionPassWord       = @"kSessionPassWord";
-static NSString *const kSessionEmail          = @"kSessionEmail";
 static NSString *const kSessionPhone          = @"kSessionPhone";
 static NSString *const kSessionToken          = @"kSessionToken";
 static NSString *const kSessionUid            = @"kSessionUid";
@@ -25,7 +23,8 @@ static NSString *const kSessionCountryCode    = @"kSessionCountryCode";
 static NSString *const kSessionCity           = @"kSessionCity";
 static NSString *const kSessionChannel        = @"kSessionChannel";
 static NSString *const kSessionTimeDifference = @"kSessionTimeDifference";
-static NSString *const kSeesionVip            = @"kSeesionVip";
+static NSString *const kSessionRcToken = @"kSessionRcToken";
+
 
 
 static WYSession *sharedManager=nil;
@@ -42,20 +41,26 @@ static WYSession *sharedManager=nil;
     return sharedManager;
 }
 
-#pragma mark set
--(void)setUserAccount:(NSString *)userAccount
+-(void)updateUser:(NSDictionary*)dict
 {
-    [self setValue:userAccount forKey:kSessionAccount];
+
+    self.token = [dict valueForKey:@"token"];
+    self.rc_token = [dict valueForKey:@"rc_token"];
+    self.uid  =  [dict valueForKey:@"uid"];
+    self.nickname = [dict valueForKey:@"nick_name"];
+    self.birthday  = [dict valueForKey:@"birthday"];
+    self.avatar  = [dict valueForKey:@"header_url"];
+    self.rc_token = [dict valueForKey:@"rc_token"];
+    self.timeDifference = [[dict valueForKey:@"lastlogin_time"] integerValue];
+    
 }
+
+#pragma mark set
+
 
 -(void)setPassWord:(NSString *)passWord
 {
     [self setValue:passWord forKey:kSessionPassWord];
-}
-
--(void)setEmail:(NSString *)email
-{
-    [self setValue:email forKey:kSessionEmail];
 }
 
 -(void)setPhone:(NSString *)phone
@@ -126,29 +131,19 @@ static WYSession *sharedManager=nil;
     [self setIntegerValue:timeDifference forkey:kSessionTimeDifference];
 }
 
-
-
--(void)setVip:(BOOL)vip
+-(void)setRc_token:(NSString *)rc_token
 {
-    [self setBoolValue:vip forkey:kSeesionVip];
+    [self setValue:rc_token forKey:kSessionRcToken];
 }
 
 
 #pragma mark get
--(NSString*)userAccount
-{
-    return [self getValueForKey:kSessionAccount];
-}
 
 -(NSString*)passWord
 {
     return [self getValueForKey:kSessionPassWord];
 }
 
--(NSString*)email
-{
-    return [self getValueForKey:kSessionEmail];
-}
 
 -(NSString*)phone
 {
@@ -224,11 +219,6 @@ static WYSession *sharedManager=nil;
 
 
 
--(BOOL)vip
-{
-    return [self getBoolValueForKey:kSeesionVip];
-}
-
 #pragma mark - islogin
 - (BOOL)isLogin{
     
@@ -290,6 +280,14 @@ static WYSession *sharedManager=nil;
     [self removeObjectForKey:kSessionAvatar];
     [self removeObjectForKey:kSessionNickName];
     [self removeObjectForKey:kSessionSex];
+    
+    [[RCIM sharedRCIM] disconnect];
+    
+}
+
+-(void)disconnectRc
+{
+    [[RCIM sharedRCIM] disconnect];
     
 }
 

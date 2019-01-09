@@ -13,7 +13,7 @@
 #import "WYGradientButton.h"
 #import "NSString+Validation.h"
 #import <AudioToolbox/AudioToolbox.h>
-
+#import "WYInfoViewController.h"
 @interface WYLoginViewController ()
 
 @property(nonatomic,strong)UIImageView * bgImageView;
@@ -37,7 +37,7 @@
     [self.view addSubview:self.infoLabel];
     [self.view addSubview:self.clauseButton];
     [self.view addSubview:self.loginButton];
-  
+ 
 }
 
 -(void)checkUser
@@ -48,25 +48,26 @@
     request.successBlock = ^(id  _Nonnull response) {
         
         NSInteger  register_status = [[response valueForKey:@"register_status"] integerValue];
-        
+  
         switch (register_status) {
             case 0:
             {
-                WYCodeViewController * codeVc = [[WYCodeViewController alloc]init];
-                codeVc.phone = [self.phoneInputView inputText];
-                [self.navigationController pushViewController:codeVc animated:YES];
+                [self sendCode];
+                [self gotoCodeViewController];
             }
                 break;
                 case 1:
             {
-                WYInputViewController * inputVc = [WYInputViewController new];
-                inputVc.phone =[self.phoneInputView inputText];
-                [self.navigationController pushViewController:inputVc animated:YES];
+                NSString * uid = [NSString stringWithFormat:@"%@",[response valueForKey:@"uid"]];
+                [self gotoInfoViewController:uid];
+                
             }
                 break;
                 case 2:
             {
-                
+                WYInputViewController * inputVc = [WYInputViewController new];
+                inputVc.phone =[self.phoneInputView inputText];
+                [self.navigationController pushViewController:inputVc animated:YES];
             }
                 break;
             default:
@@ -80,6 +81,37 @@
    
     
 }
+
+-(void)sendCode
+{
+    NSDictionary * dict = @{@"phone":[self.phoneInputView inputText],@"zone_num":@"86",@"interface":@"Login@register",@"step":@"1"};
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+    };
+}
+
+-(void)gotoCodeViewController
+{
+    WYCodeViewController * codeVc = [[WYCodeViewController alloc]init];
+    codeVc.phone = [self.phoneInputView inputText];
+    [self.navigationController pushViewController:codeVc animated:YES];
+    
+}
+
+-(void)gotoInfoViewController:(NSString*)uid
+{
+    WYInfoViewController * infoVc = [[WYInfoViewController alloc]init];
+    infoVc.uid = uid;
+    infoVc.phone = [self.phoneInputView inputText];
+    [self.navigationController pushViewController:infoVc animated:YES];
+}
+
 
 -(void)viewDidLayoutSubviews
 {

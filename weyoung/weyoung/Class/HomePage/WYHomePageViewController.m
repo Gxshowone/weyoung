@@ -58,7 +58,7 @@
  
     [self.leftButton setImage:[UIImage imageNamed:@"navi_dynamic_btn"] forState:UIControlStateNormal];
   
-    [self.rightButton yy_setImageWithURL:[NSURL URLWithString:@"http://mmbiz.qpic.cn/mmbiz/PwIlO51l7wuFyoFwAXfqPNETWCibjNACIt6ydN7vw8LeIwT7IjyG3eeribmK4rhibecvNKiaT2qeJRIWXLuKYPiaqtQ/0"] forState:UIControlStateNormal options:YYWebImageOptionSetImageWithFadeAnimation];
+    [self.rightButton yy_setImageWithURL:[NSURL URLWithString:[WYSession sharedSession].avatar] forState:UIControlStateNormal options:YYWebImageOptionSetImageWithFadeAnimation];
     
  
     [[self.leftButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
@@ -105,15 +105,10 @@
             if(self.delegate&&[self.delegate respondsToSelector:@selector(conversation)])
             {
                 [self.delegate conversation];
-            }
-            
-            
+            }   
         }];
         [_matchImageView addGestureRecognizer:tap];
-        
-        
-        
-      
+    
     }
     return _matchImageView;
 }
