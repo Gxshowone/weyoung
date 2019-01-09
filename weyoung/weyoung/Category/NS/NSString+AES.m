@@ -115,21 +115,13 @@ static NSString *const AES_SALT = @"zK6mLT#:jWU>I/C~rM`[04?uS@iadkeB";
 
 +(NSString*)aesKey
 {
-    NSString * key = [[NSString getMD5Sting] substringWithRange:NSMakeRange(0, 16)];
-    if ([WYSession sharedSession].isLogin==NO) {
-        return PSW_AES_KEY;
-    }
+    NSString * key = ([WYSession sharedSession].isLogin==NO)?PSW_AES_KEY:[[NSString getMD5Sting] substringWithRange:NSMakeRange(0, 16)];
     return key;
 }
 
 +(NSString*)aesIV
 {
-    NSString * iv =  [[NSString getMD5Sting] substringWithRange:NSMakeRange(16, 16)];
-    
-    if ([WYSession sharedSession].isLogin==NO) {
-        return AES_IV_PARAMETER;
-    }
-    
+    NSString * iv = ([WYSession sharedSession].isLogin==NO)?AES_IV_PARAMETER:[[NSString getMD5Sting] substringWithRange:NSMakeRange(16, 16)];
     return iv;
 }
 
@@ -152,7 +144,6 @@ static NSString *const AES_SALT = @"zK6mLT#:jWU>I/C~rM`[04?uS@iadkeB";
 {
     NSString * string = [NSString stringWithFormat:@"%@%@%@",[WYSession sharedSession].phone,AES_SALT,[WYSession sharedSession].token];
     NSString * md5String = [NSString md5:string];
-    
     return md5String;
     
 }

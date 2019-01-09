@@ -16,7 +16,7 @@
 #import "WYInfoViewController.h"
 @interface WYLoginViewController ()
 
-@property(nonatomic,strong)UIImageView * bgImageView;
+@property(nonatomic,strong)CAEmitterLayer *emitterLayer;
 @property(nonatomic,strong)UIImageView * logoImageView;
 @property(nonatomic,strong)WYPhoneInputView * phoneInputView;
 @property(nonatomic,strong)UILabel * infoLabel;
@@ -30,15 +30,103 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    [self.view addSubview:self.bgImageView];
+    [self.view.layer addSublayer:self.emitterLayer];
     [self.view addSubview:self.logoImageView];
     [self.view addSubview:self.phoneInputView];
     [self.view addSubview:self.infoLabel];
     [self.view addSubview:self.clauseButton];
     [self.view addSubview:self.loginButton];
+    [self animation];
+    self.leftButton.hidden = YES;
  
 }
+
+
+
+-(CAEmitterLayer *)emitterLayer
+{
+    UIImage * image = [self imageWithColor:[UIColor whiteColor]];
+    CAEmitterCell *subCell = [self cellWithImage:image];
+    subCell.name = @"white";
+    
+    _emitterLayer = [CAEmitterLayer layer];
+    _emitterLayer.emitterPosition = self.view.center;
+    _emitterLayer.emitterSize    = self.view.bounds.size;
+    _emitterLayer.emitterMode    = kCAEmitterLayerVolume;
+    _emitterLayer.emitterShape    = kCAEmitterLayerSphere;
+    _emitterLayer.renderMode        = kCAEmitterLayerOldestFirst;
+    _emitterLayer.emitterCells = @[subCell];
+    return _emitterLayer;
+}
+
+-(UIImage*)imageWithColor:(UIColor*)color
+{
+    CGRect rect = CGRectMake(0, 0,1,1);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
+-(CAEmitterCell *)cellWithImage:(UIImage*)image
+{
+    
+    CAEmitterCell * cell = [CAEmitterCell emitterCell];
+
+    
+    cell.name = @"heart";
+    cell.contents = (__bridge id _Nullable)image.CGImage;
+    
+    // 缩放比例
+    cell.scale      = 0.6;
+    cell.scaleRange = 0.6;
+    // 每秒产生的数量
+    cell.birthRate  = 10;
+    cell.lifetime   = 30;
+    // 每秒变透明的速度
+    //    snowCell.alphaSpeed = -0.7;
+    //    snowCell.redSpeed = 0.1;
+    // 秒速
+    cell.velocity      = 50;
+    cell.velocityRange = 200;
+    cell.yAcceleration = 9.8;
+    cell.xAcceleration = 0.0;
+    //掉落的角度范围
+    cell.emissionRange  = M_PI;
+    
+    cell.scaleSpeed        = -0.05;
+    ////    cell.alphaSpeed        = -0.3;
+    cell.spin            = 2 * M_PI;
+    cell.spinRange        = 2 * M_PI;
+    
+    return cell;
+}
+
+-(void)animation
+{
+    
+    CABasicAnimation *burst = [CABasicAnimation animationWithKeyPath:@"emitterCells.blue.birthRate"];
+    burst.fromValue        = [NSNumber numberWithFloat:30];
+    burst.toValue            = [NSNumber numberWithFloat:  0.0];
+    burst.duration        = 0.5;
+    burst.timingFunction    = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    
+    CABasicAnimation *starBurst = [CABasicAnimation animationWithKeyPath:@"emitterCells.star.birthRate"];
+    starBurst.fromValue        = [NSNumber numberWithFloat:30];
+    starBurst.toValue            = [NSNumber numberWithFloat:  0.0];
+    starBurst.duration        = 0.5;
+    starBurst.timingFunction    = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    
+    CAAnimationGroup *group = [CAAnimationGroup animation];
+    group.animations = @[burst];
+    
+    [self.emitterLayer addAnimation:group forKey:@"heartsBurst"];
+}
+
 
 -(void)checkUser
 {
@@ -48,7 +136,7 @@
     request.successBlock = ^(id  _Nonnull response) {
         
         NSInteger  register_status = [[response valueForKey:@"register_status"] integerValue];
-  
+        NSString * uid = [NSString stringWithFormat:@"%@",[response valueForKey:@"uid"]];
         switch (register_status) {
             case 0:
             {
@@ -58,16 +146,13 @@
                 break;
                 case 1:
             {
-                NSString * uid = [NSString stringWithFormat:@"%@",[response valueForKey:@"uid"]];
                 [self gotoInfoViewController:uid];
                 
             }
                 break;
                 case 2:
             {
-                WYInputViewController * inputVc = [WYInputViewController new];
-                inputVc.phone =[self.phoneInputView inputText];
-                [self.navigationController pushViewController:inputVc animated:YES];
+                [self gotoInputViewController];
             }
                 break;
             default:
@@ -100,6 +185,7 @@
 {
     WYCodeViewController * codeVc = [[WYCodeViewController alloc]init];
     codeVc.phone = [self.phoneInputView inputText];
+    codeVc.type = WYCodeTypeReg;
     [self.navigationController pushViewController:codeVc animated:YES];
     
 }
@@ -112,11 +198,17 @@
     [self.navigationController pushViewController:infoVc animated:YES];
 }
 
+-(void)gotoInputViewController
+{
+    WYInputViewController * inputVc = [WYInputViewController new];
+    inputVc.phone =[self.phoneInputView inputText];
+    [self.navigationController pushViewController:inputVc animated:YES];
+}
+
 
 -(void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    self.bgImageView.frame = self.view.bounds;
     self.logoImageView.frame = CGRectMake(KScreenWidth/2-20/5, 23+KNaviBarHeight, 41, 87);
     self.phoneInputView.frame = CGRectMake(27.5,KNaviBarHeight+196, KScreenWidth-55, 50);
     self.infoLabel.frame = CGRectMake((KScreenWidth -287)/2, CGRectGetMaxY(self.phoneInputView.frame)+15, 172, 20);
@@ -124,16 +216,7 @@
     self.loginButton.frame = CGRectMake(KScreenWidth/2-40, KScreenHeight-KTabbarSafeBottomMargin-95-80, 80, 80);
     self.loginButton.style = WYGradientButtonCircle;
 }
--(UIImageView *)bgImageView
-{
-    if(!_bgImageView)
-    {
-        _bgImageView = [[UIImageView alloc]init];
-        _bgImageView.userInteractionEnabled = YES;
-        _bgImageView.backgroundColor = [UIColor blackColor];
-    }
-    return _bgImageView;
-}
+
 
 -(UIImageView*)logoImageView
 {

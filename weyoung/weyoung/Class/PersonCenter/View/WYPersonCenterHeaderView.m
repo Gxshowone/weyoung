@@ -8,6 +8,7 @@
 
 #import "WYPersonCenterHeaderView.h"
 #import "WYButtonItem.h"
+#import "NSString+Extension.h"
 @interface WYPersonCenterHeaderView ()<UITextFieldDelegate>
 
 @property(nonatomic,strong)UIButton *  avatarItem;
@@ -32,9 +33,24 @@
         [self addSubview:self.dynamicItem];
         [self addSubview:self.friendItem];
       
+        [self update];
     }
     return self;
 }
+
+-(void)update
+{
+    NSString *bir = [WYSession sharedSession].birthday;
+    NSString * age = [NSString dateToOld:bir];
+    NSString * xing = [NSString getAstroWithBrith:bir];
+    NSString * info = [NSString stringWithFormat:@"%@岁  %@座",age,xing];
+
+    [self.avatarItem yy_setImageWithURL:[NSURL URLWithString:[WYSession sharedSession].avatar] forState:UIControlStateNormal options:YYWebImageOptionSetImageWithFadeAnimation];
+    self.nickLabel.text= [WYSession sharedSession].nickname;
+    self.infoLabel.text  = info;
+}
+
+
 
 
 -(void)layoutSubviews
@@ -56,8 +72,7 @@
     if (!_avatarItem) {
         _avatarItem = [[UIButton alloc]init];
         _avatarItem.layer.cornerRadius = 45;
-        _avatarItem.layer.masksToBounds = YES;
-        [_avatarItem yy_setImageWithURL:[NSURL URLWithString:kTestAvatar] forState:UIControlStateNormal options:YYWebImageOptionSetImageWithFadeAnimation];
+            _avatarItem.layer.masksToBounds = YES;
         @weakify(self);
         [[_avatarItem rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
@@ -75,7 +90,6 @@
 {
     if (!_nickLabel) {
         _nickLabel = [[UILabel alloc]init];
-        _nickLabel.text= @"昵称最多八个字";
         _nickLabel.font = [UIFont fontWithName:TextFontName size:18];
         _nickLabel.textColor = [UIColor whiteColor];
         _nickLabel.textAlignment = NSTextAlignmentCenter;
@@ -87,7 +101,6 @@
 {
     if (!_infoLabel) {
         _infoLabel = [[UILabel alloc]init];
-        _infoLabel.text = @"24岁   天蝎座";
         _infoLabel.textAlignment = NSTextAlignmentLeft;
         _infoLabel.font = [UIFont fontWithName:TextFontName_Light size:14];
         _infoLabel.textColor = [[UIColor binaryColor:@"FFFFFF"] colorWithAlphaComponent:0.5];

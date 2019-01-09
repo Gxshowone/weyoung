@@ -8,11 +8,18 @@
 
 #import "WYBaseViewController.h"
 
+typedef NS_ENUM(NSInteger, WYCodeType)
+{
+    WYCodeTypeReg=0,
+    WYCodeTypeLogin,
+    
+};
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WYCodeViewController : WYBaseViewController
 
 @property(nonatomic,copy)NSString * phone;
+@property(nonatomic,assign)WYCodeType type;
 
 @end
 

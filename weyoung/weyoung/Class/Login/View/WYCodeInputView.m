@@ -48,7 +48,7 @@
 {
     if (!_textField) {
         _textField = [[WYTextField alloc]init];
-        _textField.placeholder = @"设置密码";
+        _textField.placeholder = @"输入密码";
         _textField.delegate = self;
         _textField.keyboardType = UIKeyboardTypePhonePad;
         @weakify(self);

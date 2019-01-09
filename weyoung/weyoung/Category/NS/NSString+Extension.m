@@ -10,36 +10,7 @@
 
 @implementation NSString (Extension)
 
-/*
- m:月份
- d:日期
- */
-+(NSString *)getAstroWithMonth:(int)m day:(int)d{
-    
-    NSString *astroString = @"魔羯水瓶双鱼白羊金牛双子巨蟹狮子处女天秤天蝎射手魔羯";
-    NSString *astroFormat = @"102123444543";
-    NSString *result;
-    if (m<1||m>12||d<1||d>31){
-        
-        return @"日期格式有误";
-    }
-    if(m==2 && d>29){
-        return @"错误日期格式!!";
-    }
-    else if(m==4 || m==6 || m==9 || m==11) {
-        
-        if (d>30) {
-            return @"错误日期格式!!!";
-            
-        }
-        
-    }
-    
-    result=[NSString stringWithFormat:@"%@",[astroString substringWithRange:NSMakeRange(m*2-(d < [[astroFormat substringWithRange:NSMakeRange((m-1), 1)] intValue] - (-19))*2,2)]];
-    
-    return result;
-    
-}
+
 
 /**
  * 计算文字高度，可以处理计算带行间距的
@@ -142,6 +113,64 @@
     NSDictionary *dict = @{NSFontAttributeName: font};
     CGSize textSize = [self boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
     return textSize;
+}
+
++(NSString *)dateToOld:(NSString*)birth
+{
+    //获得当前系统时间
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate *birthDay = [dateFormatter dateFromString:birth];
+    
+    
+    NSDate *currentDate = [NSDate date];
+    //获得当前系统时间与出生日期之间的时间间隔
+    NSTimeInterval time = [currentDate timeIntervalSinceDate:birthDay];
+    //时间间隔以秒作为单位,求年的话除以60*60*24*356
+    int age = ((int)time)/(3600*24*365);
+    return [NSString stringWithFormat:@"%d",age];
+}
+
+
++(NSString *)getAstroWithBrith:(NSString*)brith{
+    
+    
+    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+    // 设置日期格式(为了转换成功)
+    fmt.dateFormat = @"yyyy-MM-dd";
+    
+    // NSString * -> NSDate *
+    NSDate *date = [fmt dateFromString:brith];
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:date];
+    int m = (int) [dateComponent month];
+    int d = (int) [dateComponent day];
+    
+    NSString *astroString = @"魔羯水瓶双鱼白羊金牛双子巨蟹狮子处女天秤天蝎射手魔羯";
+    NSString *astroFormat = @"102123444543";
+    NSString *result;
+    if (m<1||m>12||d<1||d>31){
+        
+        return @"日期格式有误";
+    }
+    if(m==2 && d>29){
+        return @"错误日期格式!!";
+    }
+    else if(m==4 || m==6 || m==9 || m==11) {
+        
+        if (d>30) {
+            return @"错误日期格式!!!";
+            
+        }
+        
+    }
+    
+    result=[NSString stringWithFormat:@"%@",[astroString substringWithRange:NSMakeRange(m*2-(d < [[astroFormat substringWithRange:NSMakeRange((m-1), 1)] intValue] - (-19))*2,2)]];
+    
+    return result;
+    
 }
 
 @end

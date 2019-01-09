@@ -12,8 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (Extension)
 
-+(NSString *)getAstroWithMonth:(int)m day:(int)d;//时间转换星座
-
 
 /**
  * 计算文字高度，可以处理计算带行间距的等属性
@@ -35,6 +33,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 - (CGSize)sizeWithFont:(UIFont *)font maxSize:(CGSize)maxSize;
+
+
+//计算年龄
++(NSString *)dateToOld:(NSString*)birth;
+
+//计算星座
++(NSString *)getAstroWithBrith:(NSString*)brith;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

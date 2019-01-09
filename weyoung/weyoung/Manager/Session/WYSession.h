@@ -65,8 +65,8 @@ NS_ASSUME_NONNULL_BEGIN
 //容云token
 @property(nonatomic,copy)NSString * rc_token;
 
--(void)updateUser:(NSDictionary*)dict;
--(void) removeUserInfo;
+-(void)loginUser:(NSDictionary*)dict;
+-(void)removeUserInfo;
 -(void)disconnectRc;
 -(BOOL)isLogin;
 

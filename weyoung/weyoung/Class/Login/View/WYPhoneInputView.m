@@ -8,6 +8,7 @@
 
 #import "WYPhoneInputView.h"
 #import "WYTextField.h"
+#import "NSString+Validation.h"
 @interface WYPhoneInputView ()<UITextFieldDelegate>
 
 @property(nonatomic,strong)UIButton * areaButton;
@@ -79,6 +80,13 @@
         _textField.delegate = self;
         _textField.keyboardType = UIKeyboardTypePhonePad;
       
+        @weakify(self);
+        [_textField.rac_textSignal subscribeNext:^(NSString * _Nullable x) {
+            NSLog(@"%@",x);
+            @strongify(self);
+          
+        }];
+        
     }
     return _textField;
     

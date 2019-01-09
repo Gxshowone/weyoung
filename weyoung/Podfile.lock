@@ -15,6 +15,7 @@ PODS:
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
   - IQKeyboardManager (6.2.0)
+  - lottie-ios (2.5.2)
   - Masonry (1.1.0)
   - MJExtension (3.0.15.1)
   - MJRefresh (3.1.15.7)
@@ -45,6 +46,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking
   - IQKeyboardManager
+  - lottie-ios
   - Masonry
   - MJExtension
   - MJRefresh
@@ -59,6 +61,7 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - AFNetworking
     - IQKeyboardManager
+    - lottie-ios
     - Masonry
     - MJExtension
     - MJRefresh
@@ -82,6 +85,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   IQKeyboardManager: 6194101620b73af5e67900b8f89707a99de0b804
+  lottie-ios: 3fef45d3fabe63e3c7c2eb603dd64ddfffc73062
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJExtension: 19bc33ce2eee2d319760f5622562cf581a6ff756
   MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
@@ -93,6 +97,6 @@ SPEC CHECKSUMS:
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: 098c21215e4c272d8f37c762e428a5180e8cc39f
+PODFILE CHECKSUM: 873ed241b731bd96eb0e9edc6b4957b50b6c3399
 
 COCOAPODS: 1.5.0

@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(NSString*)inputText;
 
+-(void)stopEdit;
+
 @end
 
 NS_ASSUME_NONNULL_END

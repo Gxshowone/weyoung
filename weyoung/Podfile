@@ -15,7 +15,8 @@ target 'weyoung' do
    pod 'YYWebImage'
    pod 'IQKeyboardManager'
    pod 'Masonry'
-  # Pods for weyoung
+   pod 'lottie-ios'
+   # Pods for weyoung
 
   target 'weyoungTests' do
     inherit! :search_paths

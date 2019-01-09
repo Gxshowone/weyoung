@@ -74,7 +74,7 @@
     CGFloat uw = KScreenWidth-135;
     self.unitField.frame = CGRectMake(KScreenWidth/2-uw/2, CGRectGetMaxY(self.phoneLabel.frame)+50,uw, 55);
     
-    CGFloat sy = KScreenHeight - KTabbarSafeBottomMargin- 278;
+    CGFloat sy = KScreenHeight - KTabbarSafeBottomMargin- 338;
     self.sendButton.frame = CGRectMake(KScreenWidth/2-50,sy,100,44);
     
     
@@ -85,11 +85,25 @@
 {
     if (sender.text.length == 4) {
         
-        [self verification:sender.text];
+        switch (self.type) {
+            case WYCodeTypeReg:
+            {
+                [self regVer:sender.text];
+            }
+                break;
+                case WYCodeTypeLogin:
+            {
+                [self loginVer:sender.text];
+            }
+                break;
+            default:
+                break;
+        }
     }
 }
 
--(void)verification:(NSString*)code
+
+-(void)regVer:(NSString*)code
 {
     NSDictionary * dict = @{@"phone":self.phone,@"zone_num":@"86",@"interface":@"Login@register",@"step":@"2",@"code":code};
     WYHttpRequest *request = [[WYHttpRequest alloc]init];
@@ -97,13 +111,30 @@
     request.successBlock = ^(id  _Nonnull response) {
         
         [self gotoPasswordViewController];
-       
+        
     };
     
     request.failureDataBlock = ^(id  _Nonnull error) {
-       
+        
         [self.view makeToast:[NSString stringWithFormat:@"%@",error]];
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    };
+}
+
+-(void)loginVer:(NSString*)code
+{
+    NSDictionary * dict = @{@"phone":self.phone,@"zone_num":@"86",@"interface":@"Login@login",@"type":@"2",@"step":@"2",@"code":code};
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+        WYSession * session = [WYSession sharedSession];
+        [session loginUser:response];
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+        
     };
 }
 

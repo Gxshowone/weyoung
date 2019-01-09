@@ -84,32 +84,17 @@
                         orFromData:(id)bodyData
 {
     NSMutableURLRequest * request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"PUT" URLString:URLString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-       
-        
-        if(bodyData==nil) return ;
-        else if([bodyData isKindOfClass:[NSData class]]){
-            [formData appendPartWithFileData:bodyData name:rename fileName:@"defult_placeImage.png" mimeType:@"png"];
-        }else if([bodyData isKindOfClass:[NSMutableArray class]]){
-            //多张图片上传
-            [bodyData enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                NSData *imgData = (NSData *)obj;
-                NSString *imgKey = [rename isKindOfClass:[NSString class]]?rename:rename[idx];
-                [formData appendPartWithFileData:imgData name:imgKey fileName:@"defult_placeImage.png" mimeType:@"png"];
-            }];
-        }
-        
+
+
     } error:nil];
 
+    [request setValue:@"image/jpeg" forHTTPHeaderField:@"Content-Type"];
 
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    [[manager uploadTaskWithStreamedRequest:request progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-        NSLog(@"[gx] 上传进度 %@",uploadProgress);
-        
-    } completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-        
-        
-    }] resume] ;
+    [[manager uploadTaskWithRequest:request fromData:bodyData progress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        NSLog(@"[gx] %@",response);
+    }] resume];
+
 }
 
 

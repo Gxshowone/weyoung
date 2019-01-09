@@ -114,17 +114,7 @@
     WSDatePickerView *datepicker = [[WSDatePickerView alloc] initWithDateStyle:DateStyleShowYearMonthDay CompleteBlock:^(NSDate *selectDate) {
         @strongify(self);
         NSString *dateString = [selectDate stringWithFormat:@"yyyy-MM-dd"];
-
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
-        [formatter setDateFormat:@"yyyy-MM-dd"];
-        
-        NSDate *mydate=[formatter dateFromString:dateString];
-        [formatter setDateFormat:@"MM"];
-        int currentMonth=[[formatter stringFromDate:mydate]intValue];
-        [formatter setDateFormat:@"dd"];
-        int currentDay=[[formatter stringFromDate:mydate] intValue];
-     
-        NSString * constellation = [NSString getAstroWithMonth:currentMonth day:currentDay];
+        NSString * constellation = [NSString getAstroWithBrith:dateString];
         
         [self.dataArray replaceObjectAtIndex:2 withObject:dateString];
         [self.dataArray replaceObjectAtIndex:3 withObject:constellation];

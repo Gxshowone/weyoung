@@ -49,7 +49,7 @@
 {
     if (!_inputLabel) {
         _inputLabel = [[UILabel alloc]init];
-        _inputLabel.text = @"设置密码";
+        _inputLabel.text = @"输入密码";
         _inputLabel.font = [UIFont fontWithName:TextFontName_Light size:24];
         _inputLabel.textAlignment = NSTextAlignmentCenter;
         _inputLabel.textColor = [UIColor binaryColor:@"FFFFFF"];
@@ -64,10 +64,8 @@
         @weakify(self);
         [[_inputView.codeButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
-            WYCodeViewController * codeVc = [WYCodeViewController new];
-            codeVc.phone = self.phone;
-            [self.navigationController pushViewController:codeVc animated:YES];
-
+            
+            [self sendCode];
         }];
     }
     return _inputView;
@@ -85,11 +83,6 @@
         @weakify(self);
         [[_forgetButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
-            
-            WYCodeViewController * codeVc = [WYCodeViewController new];
-            codeVc.phone = self.phone;
-            [self.navigationController pushViewController:codeVc animated:YES];
-            
         }];
     }
     return _forgetButton;
@@ -109,13 +102,61 @@
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
             }else
             {
-                [self.view makeToast:@"密码不正确" duration:3.0 position:CSToastPositionTop];
-                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+                [self login];
             }
     
         }];
     }
     return _nextButton;
 }
+
+-(void)sendCode
+{
+    NSDictionary * dict = @{@"phone":self.phone,@"zone_num":@"86",@"interface":@"Login@login",@"type":@"2",@"step":@"1"};
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+        WYCodeViewController * codeVc = [[WYCodeViewController alloc]init];
+        codeVc.phone = self.phone;
+        codeVc.type = WYCodeTypeLogin;
+        [self.navigationController pushViewController:codeVc animated:YES];
+        
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+       
+    };
+}
+
+
+-(void)login
+{
+    NSDictionary * dict = @{@"phone":self.phone,@"zone_num":@"86",@"interface":@"Login@login",@"type":@"1",@"password":[self.inputView inputText]};
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+        WYSession * session = [WYSession sharedSession];
+        [session loginUser:response];
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+        [self.view makeToast:@"密码不正确" duration:3.0 position:CSToastPositionTop];
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        
+    };
+}
+
+
+
+-(void)setPhone:(NSString *)phone
+{
+    _phone = phone;
+}
+
+
 
 @end

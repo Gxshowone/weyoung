@@ -12,7 +12,6 @@
 #import <AVFoundation/AVCaptureDevice.h>
 #import <AVFoundation/AVMediaFormat.h>
 #import "WYGradientButton.h"
-#import "WYHomePageViewController.h"
 #import "WSDatePickerView.h"
 #import "NSString+Validation.h"
 @interface WYInfoViewController ()<UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
@@ -27,6 +26,7 @@
 @property(nonatomic,copy)NSString * sex;
 @property(nonatomic,copy)NSString * signUrl;
 @property(nonatomic,copy)NSString * avatar_str;
+@property(nonatomic,copy)NSString * key;
 
 @end
 
@@ -144,7 +144,10 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 //上传头像
 -(void)UploadimageWithImage:(UIImage*)avatarImage
 {
-    NSData * data = UIImageJPEGRepresentation(avatarImage, 1.0);
+   
+    [self.picButton setImage:avatarImage forState:UIControlStateNormal];
+  
+    NSData * data = UIImageJPEGRepresentation(avatarImage, 0.5);
     WYHttpRequest *request = [[WYHttpRequest alloc]init];
     [request put_uploadFileWithURLString:self.signUrl rename:@"user_photo" orFromData:data];
     
@@ -159,6 +162,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     [request requestWithPragma:dict showLoading:NO];
     request.successBlock = ^(id  _Nonnull response) {
         
+        self.key = [NSString stringWithFormat:@"%@",[response valueForKey:@"key"]];
         self.signUrl = [NSString stringWithFormat:@"%@",[response valueForKey:@"signedUrl"]];
     };
     
@@ -172,6 +176,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     [super viewDidLayoutSubviews];
     
     self.picButton.frame = CGRectMake(KScreenWidth/2-43, KNaviBarHeight+52, 86, 86);
+    self.picButton.layer.masksToBounds = YES;
+    self.picButton.layer.cornerRadius = 43;
     self.nickInputView.frame =   CGRectMake(27.5, KNaviBarHeight+196, KScreenWidth-55, 50);
     
     self.dateButton.frame = CGRectMake(27.5, CGRectGetMaxY(self.nickInputView.frame)+21, KScreenWidth-55, 50);
@@ -181,7 +187,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     self.womanButton.frame =  CGRectMake(CGRectGetMaxX(self.manButton.frame)+20, CGRectGetMaxY(self.picButton.frame)+199, w, 50);
     
     self.startButton.frame = CGRectMake(35.5, KScreenHeight-KTabbarSafeBottomMargin-158, KScreenWidth-71, 50);
-     self.startButton.style = WYGradientButtonRectangle;
+    
+    self.startButton.style = WYGradientButtonRectangle;
 
 }
 
@@ -243,6 +250,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         @weakify(self);
         [[_dateButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
+            [self.nickInputView stopEdit];
             [self showDataPicker];
         }];
         
@@ -385,24 +393,16 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     
 }
 
--(void)registerUser;
+-(void)registerUser
 {
   
-    NSDictionary * dict = @{@"header_url":self.avatar_str,@"nick_name":[self.nickInputView inputText],@"birthday":self.dateString,@"gender":self.sex, @"phone":self.phone,@"zone_num":@"86",@"interface":@"Login@register",@"step":@"4"};
+    NSDictionary * dict = @{@"header_url":self.key,@"nick_name":[self.nickInputView inputText],@"birthday":self.dateString,@"gender":self.sex, @"phone":self.phone,@"zone_num":@"86",@"interface":@"Login@register",@"step":@"4",@"uid":self.uid};
     WYHttpRequest *request = [[WYHttpRequest alloc]init];
     [request requestWithPragma:dict showLoading:NO];
     request.successBlock = ^(id  _Nonnull response) {
         
         WYSession * session = [WYSession sharedSession];
-        [session updateUser:response];
-        
-        //链接容云
-        [self connectRcWithToken:session.rc_token];
-        
-        WYHomePageViewController * hpVC = [WYHomePageViewController new];
-        UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:hpVC];
-        [UIApplication sharedApplication].keyWindow.rootViewController = nav;
-        
+        [session loginUser:response];
     };
     
     request.failureDataBlock = ^(id  _Nonnull error) {
@@ -410,19 +410,6 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     };
 }
 
--(void)connectRcWithToken:(NSString*)rctoken
-{
-    [[RCIM sharedRCIM] connectWithToken:rctoken  success:^(NSString *userId) {
-        NSLog(@"登陆成功。当前登录的用户ID：%@", userId);
-    } error:^(RCConnectErrorCode status) {
-        NSLog(@"登陆的错误码为:%ld", (long)status);
-    } tokenIncorrect:^{
-        //token过期或者不正确。
-        //如果设置了token有效期并且token过期，请重新请求您的服务器获取新的token
-        //如果没有设置token有效期却提示token错误，请检查您客户端和服务器的appkey是否匹配，还有检查您获取token的流程。
-        NSLog(@"token错误");
-    }];
-}
 
 
 -(void)setUid:(NSString *)uid
