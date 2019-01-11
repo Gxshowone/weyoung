@@ -25,7 +25,7 @@
  
    
     //注册容云
-    [self registerRongCloud];
+    [self registerRongCloud:launchOptions];
     
     //键盘管理器
     [self registerKeyboardManager];
@@ -38,7 +38,46 @@
 
     [self setNavigationBarConfig];
     
+    if ([application
+         respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        //注册推送, 用于iOS8以及iOS8之后的系统
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings
+                                                settingsForTypes:(UIUserNotificationTypeBadge |
+                                                                  UIUserNotificationTypeSound |
+                                                                  UIUserNotificationTypeAlert)
+                                                categories:nil];
+        [application registerUserNotificationSettings:settings];
+    } else {
+        //注册推送，用于iOS8之前的系统
+        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge |
+        UIRemoteNotificationTypeAlert |
+        UIRemoteNotificationTypeSound;
+        [application registerForRemoteNotificationTypes:myTypes];
+    }
+    
+    
     return YES;
+}
+
+//注册用户通知设置
+- (void)application:(UIApplication *)application
+didRegisterUserNotificationSettings:
+(UIUserNotificationSettings *)notificationSettings {
+    // register to receive notifications
+    [application registerForRemoteNotifications];
+}
+
+- (void)application:(UIApplication *)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSString *token =
+    [[[[deviceToken description] stringByReplacingOccurrencesOfString:@"<"
+                                                           withString:@""]
+      stringByReplacingOccurrencesOfString:@">"
+      withString:@""]
+     stringByReplacingOccurrencesOfString:@" "
+     withString:@""];
+    
+    [[RCIMClient sharedRCIMClient] setDeviceToken:token];
 }
 
 

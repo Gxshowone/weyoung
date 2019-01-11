@@ -23,14 +23,15 @@
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:requestUrl parameters:nil error:nil];
     request.timeoutInterval= 10;
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    // 设置body
-    [request setHTTPBody:[self pragmaExchangeToBody:pragma]];
     
     NSString * token = [WYSession sharedSession].token;
     if (token) {
        [request setValue:token forHTTPHeaderField:@"X-LOGON-TOKEN"];
         
     }
+    // 设置body
+    [request setHTTPBody:[self pragmaExchangeToBody:pragma]];
+    
     
     
     AFHTTPResponseSerializer *responseSerializer = [AFHTTPResponseSerializer serializer];

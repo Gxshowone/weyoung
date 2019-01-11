@@ -402,7 +402,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     request.successBlock = ^(id  _Nonnull response) {
         
         WYSession * session = [WYSession sharedSession];
-        [session loginUser:response];
+        [session loginUser:response phone:self.phone];
     };
     
     request.failureDataBlock = ^(id  _Nonnull error) {

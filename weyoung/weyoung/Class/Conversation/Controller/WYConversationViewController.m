@@ -54,6 +54,32 @@
     [self.view addSubview:self.navigationBar];
 }
 
+- (void)willDisplayMessageCell:(RCMessageBaseCell *)cell
+
+                   atIndexPath:(NSIndexPath *)indexPath
+
+{
+    
+    
+    
+    if ([cell isMemberOfClass:[RCTextMessageCell class]]) {
+        
+        RCTextMessageCell *textCell=(RCTextMessageCell *)cell;
+        
+        //      自定义气泡图片的适配
+        
+        UIImage *image=textCell.bubbleBackgroundView.image;
+        
+        textCell.bubbleBackgroundView.image=[textCell.bubbleBackgroundView.image resizableImageWithCapInsets:UIEdgeInsetsMake(image.size.height * 0.8, image.size.width * 0.8,image.size.height * 0.2, image.size.width * 0.2)];
+        
+        //      更改字体的颜色
+        
+        textCell.textLabel.textColor=[UIColor whiteColor];
+        
+    }
+    
+}
+
 -(WYConversationBar*)navigationBar
 {
     if (!_navigationBar) {

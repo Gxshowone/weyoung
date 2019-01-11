@@ -16,6 +16,7 @@ typedef void (^PersonCenterClickBlock)(NSInteger index);
 
 @property(nonatomic,copy)PersonCenterClickBlock block;
 
+-(void)reload;
 @end
 
 NS_ASSUME_NONNULL_END

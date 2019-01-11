@@ -24,8 +24,8 @@ static NSString *const AES_SALT = @"zK6mLT#:jWU>I/C~rM`[04?uS@iadkeB";
     NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
     NSData *AESData = [self AES128operation:kCCEncrypt
                                        data:data
-                                        key:PSW_AES_KEY
-                                         iv:AES_IV_PARAMETER];
+                                        key:[NSString aesKey]
+                                         iv:[NSString aesIV]];
     NSString *baseStr_GTM = [self encodeBase64Data:AESData];
     NSString *baseStr = [AESData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     
@@ -115,29 +115,33 @@ static NSString *const AES_SALT = @"zK6mLT#:jWU>I/C~rM`[04?uS@iadkeB";
 
 +(NSString*)aesKey
 {
-    NSString * key = ([WYSession sharedSession].isLogin==NO)?PSW_AES_KEY:[[NSString getMD5Sting] substringWithRange:NSMakeRange(0, 16)];
+    NSString * md5key = [NSString getMD5Sting];
+    NSString * key = ([WYSession sharedSession].isLogin==NO)?PSW_AES_KEY:[md5key substringWithRange:NSMakeRange(0, 16)];
     return key;
 }
 
 +(NSString*)aesIV
 {
-    NSString * iv = ([WYSession sharedSession].isLogin==NO)?AES_IV_PARAMETER:[[NSString getMD5Sting] substringWithRange:NSMakeRange(16, 16)];
+   
+    NSString * md5iv = [NSString getMD5Sting];
+    NSString * iv = ([WYSession sharedSession].isLogin==NO)?AES_IV_PARAMETER:[md5iv substringWithRange:NSMakeRange(16, 16)];
     return iv;
 }
 
 
 + (NSString *) md5:(NSString *) str
 {
-    const char *cStr = [str UTF8String];
-    unsigned char result[16];
-    CC_MD5(cStr, strlen(cStr), result); // This is the md5 call
-    return [NSString stringWithFormat:
-            @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
-            result[0], result[1], result[2], result[3],
-            result[4], result[5], result[6], result[7],
-            result[8], result[9], result[10], result[11],
-            result[12], result[13], result[14], result[15]
-            ];
+    //要进行UTF8的转码
+    const char* input = [str UTF8String];
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(input, (CC_LONG)strlen(input), result);
+    
+    NSMutableString *digest = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    for (NSInteger i = 0; i < CC_MD5_DIGEST_LENGTH; i++) {
+        [digest appendFormat:@"%02x", result[i]];
+    }
+    
+    return digest;
 }
 
 +(NSString*)getMD5Sting

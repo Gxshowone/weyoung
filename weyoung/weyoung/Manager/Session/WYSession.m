@@ -26,9 +26,20 @@ static NSString *const kSessionChannel        = @"kSessionChannel";
 static NSString *const kSessionTimeDifference = @"kSessionTimeDifference";
 static NSString *const kSessionRcToken = @"kSessionRcToken";
 
+static NSString *const kSessionDynamicCount = @"kSessionDynamicCount";
+static NSString *const kSessionFriendCount = @"kSessionFriendCount";
 
 
 static WYSession *sharedManager=nil;
+
+@interface WYSession ()<RCIMConnectionStatusDelegate>
+
+@property (nonatomic, assign) NSUInteger retryCount;
+@property (nonatomic, copy) NSData *deviceToken;
+@property (nonatomic, assign) BOOL bRegisterDeviceToken;    //是否已经注册deviceToken
+
+@end
+
 @implementation WYSession
 + (WYSession *)sharedSession{
     
@@ -42,10 +53,11 @@ static WYSession *sharedManager=nil;
     return sharedManager;
 }
 
-
--(void)loginUser:(NSDictionary*)dict
+-(void)updateUser:(NSDictionary*)dict
 {
-
+    self.dynamic_count  = [[dict valueForKey:@"dynamic_count"] integerValue];
+    self.friend_count  = [[dict valueForKey:@"friend_count"] integerValue];
+    self.phone = [dict valueForKey:@"phone"];
     self.token = [dict valueForKey:@"token"];
     self.rc_token = [dict valueForKey:@"rc_token"];
     self.uid  =  [dict valueForKey:@"uid"];
@@ -55,24 +67,112 @@ static WYSession *sharedManager=nil;
     self.rc_token = [dict valueForKey:@"rc_token"];
     self.timeDifference = [[dict valueForKey:@"lastlogin_time"] integerValue];
     
-    [self connectRcWithToken:self.rc_token];
+}
+
+-(void)loginUser:(NSDictionary*)dict
+           phone:(NSString*)phone
+{
+ 
+    self.phone = phone;
+    self.token = [dict valueForKey:@"token"];
+    self.rc_token = [dict valueForKey:@"rc_token"];
+    self.uid  =  [dict valueForKey:@"uid"];
+    self.nickname = [dict valueForKey:@"nick_name"];
+    self.birthday  = [dict valueForKey:@"birthday"];
+    self.avatar  = [dict valueForKey:@"header_url"];
+    self.rc_token = [dict valueForKey:@"rc_token"];
+    self.timeDifference = [[dict valueForKey:@"lastlogin_time"] integerValue];
     
     [self updateRootController];
+
+    [self connectRc];
 }
 
 
--(void)connectRcWithToken:(NSString*)rctoken
+-(void)connectRc
 {
-    [[RCIM sharedRCIM] connectWithToken:rctoken  success:^(NSString *userId) {
+    
+    [[RCIM sharedRCIM] connectWithToken:self.rc_token  success:^(NSString *userId) {
         NSLog(@"登陆成功。当前登录的用户ID：%@", userId);
+        
+        RCUserInfo *_currentUserInfo = [[RCUserInfo alloc] initWithUserId:userId name:self.nickname portrait:self.avatar];
+        [RCIM sharedRCIM].currentUserInfo = _currentUserInfo;
+        
     } error:^(RCConnectErrorCode status) {
         NSLog(@"登陆的错误码为:%ld", (long)status);
+        
+          [[RCIM sharedRCIM] setConnectionStatusDelegate:self];
+          [self retryConnect];
+        
     } tokenIncorrect:^{
         //token过期或者不正确。
         //如果设置了token有效期并且token过期，请重新请求您的服务器获取新的token
         //如果没有设置token有效期却提示token错误，请检查您客户端和服务器的appkey是否匹配，还有检查您获取token的流程。
-        NSLog(@"token错误");
+        NSLog(@"登陆token错误");
     }];
+}
+
+- (void)onRCIMConnectionStatusChanged:(RCConnectionStatus)status
+{
+    switch (status) {
+        case ConnectionStatus_Connected:    //  连接成功
+        {
+            NSLog(@"[gx] 链接成功");
+        }
+            break;
+        case ConnectionStatus_Connecting:   //  连接中
+        {
+          NSLog(@"[gx] 链接中");
+        }
+            break;
+        case ConnectionStatus_Unconnected:  //  连接失败或未连接
+        {
+           NSLog(@"[gx] 链接失败");
+        }
+            break;
+        case ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT:   //  当前用户在其他设备上登录，此设备被踢下线
+        {
+             NSLog(@"[gx] 被踢下线");
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)retryConnect
+{
+    
+    if (self.retryCount > 3) {
+        NSLog(@"融云登录失败达到3次");
+        return;
+    }
+    
+    _retryCount++;
+    
+    dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, 2*NSEC_PER_SEC);
+    dispatch_after(time, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        [self connectRc];
+    });
+}
+
+- (void)setDeviceToken:(NSData *)deviceToken
+{
+    if (self.bRegisterDeviceToken) {
+        return;
+    }
+    
+    if ([self bConnected]&&deviceToken!=nil) {
+        NSString *token = [deviceToken description];
+        token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
+        token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
+        token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+        [[RCIMClient sharedRCIMClient] setDeviceToken:token];
+        self.bRegisterDeviceToken = YES;
+    }else{
+        _deviceToken = deviceToken;
+    }
 }
 
 -(void)updateRootController
@@ -163,8 +263,19 @@ static WYSession *sharedManager=nil;
     [self setValue:rc_token forKey:kSessionRcToken];
 }
 
+-(void)setDynamic_count:(NSInteger)dynamic_count
+{
+    [self setIntegerValue:dynamic_count forkey:kSessionDynamicCount];
+}
+
+-(void)setFriend_count:(NSInteger)friend_count
+{
+    [self setIntegerValue:friend_count forkey:kSessionFriendCount];
+}
 
 #pragma mark get
+
+
 
 -(NSString*)passWord
 {
@@ -249,6 +360,15 @@ static WYSession *sharedManager=nil;
     return [self getValueForKey:kSessionRcToken];
 }
 
+-(NSInteger)dynamic_count
+{
+    return [self getIntegerValue:kSessionDynamicCount];
+}
+
+-(NSInteger)friend_count
+{
+    return [self getIntegerValue:kSessionFriendCount];
+}
 
 #pragma mark - islogin
 - (BOOL)isLogin{
@@ -305,7 +425,7 @@ static WYSession *sharedManager=nil;
 
 -(void)removeUserInfo
 {
-    
+    [self removeObjectForKey:kSessionPhone];
     [self removeObjectForKey:kSessionUid];
     [self removeObjectForKey:kSessionToken];
     [self removeObjectForKey:kSessionAvatar];
@@ -322,5 +442,10 @@ static WYSession *sharedManager=nil;
     
 }
 
+-(BOOL)bConnected
+{
+    RCConnectionStatus status = [[RCIMClient sharedRCIMClient] getConnectionStatus];
+    return (ConnectionStatus_Connected == status);
+}
 
 @end

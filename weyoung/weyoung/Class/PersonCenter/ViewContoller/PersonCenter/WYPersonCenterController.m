@@ -15,6 +15,7 @@
 @property(nonatomic,strong)WYPersonCenterHeaderView * headerView;
 @property(nonatomic,strong)NSMutableArray * dataArray;
 @property(nonatomic,strong)UIButton * messageButton;
+@property(nonatomic,strong)UIView       * pointView;
 
 @end
 @implementation WYPersonCenterController
@@ -29,14 +30,18 @@
  
 }
 
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
 
 -(void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
+    
+    self.pointView.frame = CGRectMake(KScreenWidth-70, 30+KNaviBarSafeBottomMargin, 9, 9);
     self.messageButton.frame = CGRectMake(KScreenWidth-100, 20+KNaviBarSafeBottomMargin, 48,50);
 }
-
 
 
 -(void)setNavigationConfig
@@ -60,6 +65,11 @@
     }];
     
     [self.customNavigationBar addSubview:self.messageButton];
+    [self.customNavigationBar addSubview:self.pointView];
+    
+    int totalUnreadCount = [[RCIMClient sharedRCIMClient] getTotalUnreadCount];
+    self.pointView.hidden = (totalUnreadCount==0)?YES:NO;
+    
 }
 
 -(void)gotoHomePage
@@ -68,6 +78,24 @@
         [self.delegate scrollToIndex:1];
     }
    
+}
+
+-(void)getUserInfo
+{
+    NSDictionary * dict = @{@"interface":@"User@getUserInfo"};
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+        WYSession * session = [WYSession sharedSession];
+        [session updateUser:response];
+
+        [self.headerView reload];
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+    };
 }
 
 
@@ -189,11 +217,26 @@
         [[_messageButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
             NSLog(@"[gx] goto message");
+             if(self.delegate)
+             {
+                 [self.delegate message];
+             }
             
         }];
     }
     return _messageButton;
 }
 
+-(UIView*)pointView
+{
+    if (!_pointView) {
+        _pointView = [[UIView alloc]init];
+        _pointView.backgroundColor = [UIColor binaryColor:@"F64F6E"];
+        _pointView.layer.cornerRadius = 4.5;
+        _pointView.layer.masksToBounds = YES;
+        
+    }
+    return _pointView;
+}
 
 @end

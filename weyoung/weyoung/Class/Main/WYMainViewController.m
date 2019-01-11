@@ -14,11 +14,18 @@
 #import "WYSettingViewController.h"
 #import "WYEditViewController.h"
 #import "WYFriendViewController.h"
-
+#import "WYMessageListViewController.h"
 
 @interface WYMainViewController ()<UIScrollViewDelegate,WYMainViewControllerDelegate>
+{
+    WYDynamicViewController * dyVc;
+    WYHomePageViewController * hpVc;
+    WYPersonCenterController * perVc;
+}
 
 @property(nonatomic,strong)UIScrollView * scrollView;
+
+
 
 @end
 
@@ -42,15 +49,15 @@
 -(void)addChildControllers
 {
     
-    WYDynamicViewController * dyVc = [[WYDynamicViewController alloc] init];
+    dyVc = [[WYDynamicViewController alloc] init];
     dyVc.view.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
     dyVc.delegate = self;
     
-    WYHomePageViewController * hpVc = [[WYHomePageViewController alloc] init];
+    hpVc = [[WYHomePageViewController alloc] init];
     hpVc.view.frame = CGRectMake(KScreenWidth, 0, KScreenWidth, KScreenHeight);
     hpVc.delegate = self;
     
-    WYPersonCenterController * perVc = [[WYPersonCenterController alloc]init];
+    perVc = [[WYPersonCenterController alloc]init];
     perVc.view.frame = CGRectMake(KScreenWidth*2, 0, KScreenWidth, KScreenHeight);
     perVc.delegate = self;
     [self.scrollView addSubview:dyVc.view];
@@ -69,20 +76,24 @@
  
     CGFloat x = index * KScreenWidth;
     [self.scrollView setContentOffset:CGPointMake(x, 0) animated:YES];
+    
+    
 }
 
 -(void)conversation
 {
+    
     WYConversationViewController *conversationVC = [[WYConversationViewController alloc]init];
     conversationVC.conversationType = ConversationType_PRIVATE;
-    conversationVC.targetId = @"2";
+    conversationVC.targetId = @"100016";
     conversationVC.title = @"想显示的会话标题";
     [self.navigationController pushViewController:conversationVC animated:YES];
      
 }
 -(void)message
 {
-    
+    WYMessageListViewController * messageVc = [[WYMessageListViewController alloc]init];
+    [self.navigationController pushViewController:messageVc animated:YES];
 }
 
 -(void)setting
@@ -108,6 +119,15 @@
     [super viewDidLayoutSubviews];
     
     self.scrollView.frame = self.view.bounds;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    CGFloat cx = scrollView.contentOffset.x;
+    if (cx == KScreenWidth *2 ) {
+        
+        [perVc getUserInfo];
+    }
 }
 
 

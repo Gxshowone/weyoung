@@ -33,23 +33,30 @@
         [self addSubview:self.dynamicItem];
         [self addSubview:self.friendItem];
       
-        [self update];
+        [self reload];
     }
     return self;
 }
 
--(void)update
+
+
+-(void)reload
 {
     NSString *bir = [WYSession sharedSession].birthday;
     NSString * age = [NSString dateToOld:bir];
     NSString * xing = [NSString getAstroWithBrith:bir];
     NSString * info = [NSString stringWithFormat:@"%@岁  %@座",age,xing];
-
+    NSString * imageName = ([[WYSession sharedSession].sex isEqualToString:@"1"])?@"personal_male":@"personal_female";
+    
     [self.avatarItem yy_setImageWithURL:[NSURL URLWithString:[WYSession sharedSession].avatar] forState:UIControlStateNormal options:YYWebImageOptionSetImageWithFadeAnimation];
+    self.sexImageView.image = [UIImage imageNamed:imageName];
     self.nickLabel.text= [WYSession sharedSession].nickname;
     self.infoLabel.text  = info;
+    
+    [self.dynamicItem setRight:[NSString stringWithFormat:@"%ld",[WYSession sharedSession].dynamic_count]];
+    
+     [self.friendItem setRight:[NSString stringWithFormat:@"%ld",[WYSession sharedSession].friend_count]];
 }
-
 
 
 
@@ -59,11 +66,12 @@
     self.avatarItem.frame = CGRectMake(KScreenWidth/2-45,20, 90, 90);
     self.nickLabel.frame = CGRectMake(50, CGRectGetMaxY(self.avatarItem.frame)+11, KScreenWidth-100, 27);
     self.infoLabel.frame = CGRectMake(KScreenWidth/2-35, CGRectGetMaxY(self.nickLabel.frame)+2, 91, 26);
-    self.sexImageView.frame = CGRectMake(KScreenWidth/2-45, CGRectGetMaxY(self.nickLabel.frame)+10, 10, 10);
+    self.sexImageView.frame = CGRectMake(KScreenWidth/2-48, CGRectGetMaxY(self.nickLabel.frame)+10, 10, 10);
     
     self.dynamicItem.frame = CGRectMake(KScreenWidth/2-100, CGRectGetMaxY(self.infoLabel.frame)+5, 80, 44);
     self.friendItem.frame = CGRectMake(KScreenWidth/2+20, CGRectGetMaxY(self.infoLabel.frame)+5, 80, 44);
     
+ 
 }
 
 
@@ -97,6 +105,14 @@
     return _nickLabel;
 }
 
+-(UIImageView*)sexImageView
+{
+    if (!_sexImageView) {
+        _sexImageView = [[UIImageView alloc]init];
+    }
+    return _sexImageView;
+}
+
 -(UILabel*)infoLabel
 {
     if (!_infoLabel) {
@@ -114,7 +130,7 @@
         _dynamicItem = [[WYButtonItem alloc] init];
         _dynamicItem.userInteractionEnabled = YES;
         [_dynamicItem setLeft:@"动态"];
-        [_dynamicItem setRight:@"23"];
+        [_dynamicItem setRight:@"0"];
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
         @weakify(self);
@@ -138,7 +154,7 @@
         _friendItem = [[WYButtonItem alloc] init];
         _friendItem.userInteractionEnabled = YES;
         [_friendItem setLeft:@"好友"];
-        [_friendItem setRight:@"17"];
+        [_friendItem setRight:@"0"];
 
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
         @weakify(self);
@@ -156,5 +172,7 @@
     }
     return _friendItem;
 }
+
+
 
 @end

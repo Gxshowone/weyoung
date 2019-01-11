@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WYMainViewController : WYBaseViewController
 
+-(void)getUserInfo;
+
 @end
 
 NS_ASSUME_NONNULL_END

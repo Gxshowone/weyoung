@@ -38,6 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 /** 当前时间与本地时间的时间差 */
 @property(nonatomic, assign)NSInteger timeDifference;
 
+@property(nonatomic, assign)NSInteger dynamic_count;
+@property(nonatomic, assign)NSInteger friend_count;
+
 //用户密码
 @property(nonatomic,copy)NSString * passWord;
 
@@ -65,7 +68,13 @@ NS_ASSUME_NONNULL_BEGIN
 //容云token
 @property(nonatomic,copy)NSString * rc_token;
 
--(void)loginUser:(NSDictionary*)dict;
+-(void)loginUser:(NSDictionary*)dict
+           phone:(NSString*)phone;
+
+-(void)updateUser:(NSDictionary*)dict;
+
+-(void)connectRc;
+
 -(void)removeUserInfo;
 -(void)disconnectRc;
 -(BOOL)isLogin;

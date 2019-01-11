@@ -86,7 +86,7 @@
 {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc]init];
-        _titleLabel.frame = CGRectMake(100, KTabbarSafeBottomMargin,KScreenWidth-200, 64);
+        _titleLabel.frame = CGRectMake(100,20+KNaviBarSafeBottomMargin,KScreenWidth-200, 44);
         _titleLabel.textColor = [UIColor whiteColor];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.font = [UIFont fontWithName:TextFontName size:16];

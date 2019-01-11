@@ -13,7 +13,9 @@
 
 @interface WYHomePageViewController ()
 
+@property(nonatomic,strong)UIImageView * bgIV;
 @property(nonatomic,strong)CAEmitterLayer *emitterLayer;
+@property(nonatomic,strong)UIImageView * quanquan;
 
 @end
 
@@ -32,17 +34,20 @@
 {
     [super viewDidLayoutSubviews];
     
-   
+    self.bgIV.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
+    self.quanquan.frame = CGRectMake(KScreenWidth/2-36, KScreenHeight-KTabbarSafeBottomMargin-37-72, 72, 72);
 }
 
 -(void)initUI
 {
+   
     [self.view.layer addSublayer:self.emitterLayer];
     [self animation];
+    [self.view addSubview:self.bgIV];
     [self playChildren];
-    [self playQuanQuan];
+    [self.view addSubview:self.quanquan];
     [self.view bringSubviewToFront:self.customNavigationBar];
-  
+
 }
 
 
@@ -90,6 +95,16 @@
     }
 }
 
+-(UIImageView*)bgIV
+{
+    if (!_bgIV) {
+        _bgIV = [[UIImageView alloc]init];
+        NSString * iname = (KScreenHeight<812)?@"home_bg":@"home_bg_x";
+        _bgIV.image = [UIImage imageNamed:iname];
+        _bgIV.contentMode = UIViewContentModeScaleToFill;
+    }
+    return _bgIV;
+}
 
 
 -(CAEmitterLayer *)emitterLayer
@@ -190,36 +205,45 @@
 }
 
 
-
--(void)playQuanQuan
+-(UIImageView*)quanquan
 {
-    
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"guagnquan"ofType:@"json"];
-    NSArray *components = [filePath componentsSeparatedByString:@"/"];
-    NSString * name = [components lastObject];
-    LOTAnimationView * laAnimation = [LOTAnimationView animationNamed:name];
-    laAnimation.contentMode = UIViewContentModeScaleAspectFit;
-    laAnimation.frame = self.view.bounds;
-    [self.view addSubview:laAnimation];
-    laAnimation.loopAnimation = YES;
-    [laAnimation play];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
-    @weakify(self);
-    [[tap rac_gestureSignal] subscribeNext:^(id x) {
-        NSLog(@"tap");
-        @strongify(self);
-       // [laAnimation play];
-//        if(self.delegate&&[self.delegate respondsToSelector:@selector(conversation)])
-//        {
-//            [self.delegate conversation];
-//        }
-    }];
-    
-    laAnimation.userInteractionEnabled = YES;
-    [laAnimation addGestureRecognizer:tap];
-   
-    
+    if (!_quanquan) {
+        _quanquan = [[UIImageView alloc]init];
+        _quanquan.image = [UIImage imageNamed:@""];
+        
+        NSMutableArray * qa = [NSMutableArray array];
+        
+        for (int i = 0; i < 24; i ++) {
+            
+            NSString * qn = [NSString stringWithFormat:@"home_quanquan_%d",i];
+            UIImage  * qi = [UIImage imageNamed:qn];
+            [qa addObject:qi];
+        }
+        
+        _quanquan.animationImages = qa;
+        _quanquan.animationDuration = 1.0;
+        _quanquan.animationRepeatCount = 0;
+      
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+        @weakify(self);
+        [[tap rac_gestureSignal] subscribeNext:^(id x) {
+            NSLog(@"tap");
+            @strongify(self);
+            
+
+            if(self.delegate&&[self.delegate respondsToSelector:@selector(conversation)])
+            {
+                [self.delegate conversation];
+            }
+        }];
+        
+        _quanquan.userInteractionEnabled = YES;
+        [_quanquan addGestureRecognizer:tap];
+        
+        [_quanquan startAnimating];
+        
+    }
+    return _quanquan;
 }
 
 
