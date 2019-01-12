@@ -51,9 +51,7 @@
 		D22BDF0E21C79A94002269AC /* AppDelegate+NetWork.m in Sources */ = {isa = PBXBuildFile; fileRef = D22BDF0D21C79A94002269AC /* AppDelegate+NetWork.m */; };
 		D22BDF1121C7BA1F002269AC /* NSString+Validation.m in Sources */ = {isa = PBXBuildFile; fileRef = D22BDF1021C7BA1F002269AC /* NSString+Validation.m */; };
 		D22BDF1421C7D2CD002269AC /* WYDynamicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D22BDF1321C7D2CD002269AC /* WYDynamicViewController.m */; };
-		D22E375421E5F22600292FB3 /* guagnquan.json in Resources */ = {isa = PBXBuildFile; fileRef = D22E375221E5F22600292FB3 /* guagnquan.json */; };
 		D22E375621E6027900292FB3 /* child.json in Resources */ = {isa = PBXBuildFile; fileRef = D22E375521E6027900292FB3 /* child.json */; };
-		D22E375921E61E7700292FB3 /* 001.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D22E375821E61E7700292FB3 /* 001.jpg */; };
 		D22F08E421E721B300FE9331 /* WYMessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D22F08E321E721B300FE9331 /* WYMessageListViewController.m */; };
 		D22F08E721E7241500FE9331 /* WYMessageNaviBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D22F08E621E7241500FE9331 /* WYMessageNaviBar.m */; };
 		D22F08EC21E7532300FE9331 /* WYIMDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D22F08EB21E7532300FE9331 /* WYIMDataSource.m */; };
@@ -235,9 +233,7 @@
 		D22BDF1021C7BA1F002269AC /* NSString+Validation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Validation.m"; sourceTree = "<group>"; };
 		D22BDF1221C7D2CD002269AC /* WYDynamicViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYDynamicViewController.h; sourceTree = "<group>"; };
 		D22BDF1321C7D2CD002269AC /* WYDynamicViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYDynamicViewController.m; sourceTree = "<group>"; };
-		D22E375221E5F22600292FB3 /* guagnquan.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = guagnquan.json; sourceTree = "<group>"; };
 		D22E375521E6027900292FB3 /* child.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = child.json; sourceTree = "<group>"; };
-		D22E375821E61E7700292FB3 /* 001.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 001.jpg; sourceTree = "<group>"; };
 		D22F08E221E721B300FE9331 /* WYMessageListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYMessageListViewController.h; sourceTree = "<group>"; };
 		D22F08E321E721B300FE9331 /* WYMessageListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYMessageListViewController.m; sourceTree = "<group>"; };
 		D22F08E521E7241500FE9331 /* WYMessageNaviBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYMessageNaviBar.h; sourceTree = "<group>"; };
@@ -823,9 +819,7 @@
 		D22E375021E5F20100292FB3 /* Res */ = {
 			isa = PBXGroup;
 			children = (
-				D22E375821E61E7700292FB3 /* 001.jpg */,
 				D22E375521E6027900292FB3 /* child.json */,
-				D22E375221E5F22600292FB3 /* guagnquan.json */,
 			);
 			path = Res;
 			sourceTree = "<group>";
@@ -1341,13 +1335,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D23AE8FC21DCA5D900D79007 /* HZPhotoBrowser.bundle in Resources */,
-				D22E375421E5F22600292FB3 /* guagnquan.json in Resources */,
 				D2D7104821B9334B00D78746 /* LaunchScreen.storyboard in Resources */,
 				D2D7104521B9334B00D78746 /* Assets.xcassets in Resources */,
 				D22AF87F21BF6EEC0004405B /* WSDatePickerView.xib in Resources */,
 				D22E375621E6027900292FB3 /* child.json in Resources */,
 				D2D7104321B9334900D78746 /* Main.storyboard in Resources */,
-				D22E375921E61E7700292FB3 /* 001.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
