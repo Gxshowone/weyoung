@@ -9,8 +9,14 @@
 #import "WYMessageListViewController.h"
 #import "WYMessageNaviBar.h"
 #import "WYConversationViewController.h"
-@interface WYMessageListViewController ()<UITableViewDelegate,UITableViewDataSource>
+#import "WYMessageHeaderView.h"
+#import "WYChatListTableViewCell.h"
 
+#import "WYCommentViewController.h"
+#import "WYLikeViewController.h"
+@interface WYMessageListViewController ()<UITableViewDelegate,UITableViewDataSource,WYMessageHeaderViewDelegate>
+
+@property(nonatomic,strong)WYMessageHeaderView * headerView;
 @property(nonatomic,strong)WYMessageNaviBar * navBar;
 @property(nonatomic, assign) BOOL isClick;
 
@@ -26,12 +32,20 @@
     [self.view addSubview:self.navBar];
     
     [self setConversationType];
+    [self customUI];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     _isClick = YES;
   
+}
+
+-(void)customUI
+{
+    self.conversationListTableView.backgroundColor = [UIColor clearColor];
+    self.conversationListTableView.tableHeaderView = self.headerView;
+    self.conversationListTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 -(void)setConversationType
@@ -76,18 +90,58 @@
     [self.conversationListTableView reloadData];
 }
 
-
+- (void)willDisplayConversationTableCell:(RCConversationBaseCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    
+    ((RCConversationCell *)cell).contentView.backgroundColor = [UIColor blackColor];
+    ((RCConversationCell *)cell).conversationTitle.textColor = [UIColor whiteColor];
+    ((RCConversationCell *)cell).messageContentLabel.textColor  =[[UIColor whiteColor] colorWithAlphaComponent:0.5];
+     ((RCConversationCell *)cell).messageCreatedTimeLabel.textColor  =[[UIColor whiteColor] colorWithAlphaComponent:0.5];
+    ((RCConversationCell *)cell).selectionStyle = UITableViewCellSelectionStyleNone;
+    
+}
+-(void)didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.row) {
+        case 0:
+        {
+            
+        }
+            break;
+            case 1:
+        {
+            [self.navigationController pushViewController:[WYCommentViewController new] animated:YES];
+        }
+            break;
+            case 2:
+        {
+             [self.navigationController pushViewController:[WYLikeViewController new] animated:YES];
+        }
+            break;
+        default:
+            break;
+    }
+}
 
 -(void)viewDidLayoutSubviews
 
 {
     [super viewDidLayoutSubviews];
     self.navBar.frame = CGRectMake(0, 0, KScreenWidth, KNaviBarHeight);
+    self.headerView.frame = CGRectMake(0, 0, KScreenWidth, 270);
     self.conversationListTableView.frame = CGRectMake(0, KNaviBarHeight, KScreenWidth, KScreenHeight-KNaviBarHeight);
 }
 
 
-
+-(WYMessageHeaderView*)headerView
+{
+    if(!_headerView)
+    {
+        _headerView = [[WYMessageHeaderView alloc]init];
+        _headerView.delegate = self;
+    }
+    return _headerView;
+}
 
 -(WYMessageNaviBar*)navBar
 {

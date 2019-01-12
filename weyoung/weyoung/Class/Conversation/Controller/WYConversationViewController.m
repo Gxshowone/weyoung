@@ -59,8 +59,7 @@
                    atIndexPath:(NSIndexPath *)indexPath
 
 {
-    
-    
+
     
     if ([cell isMemberOfClass:[RCTextMessageCell class]]) {
         

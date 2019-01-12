@@ -10,7 +10,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol WYMessageHeaderViewDelegate <NSObject>
+
+@optional
+
+-(void)didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+
+@end
+
+
 @interface WYMessageHeaderView : UITableView
+
+@property (weak,nonatomic) id<WYMessageHeaderViewDelegate> delegate;
 
 
 @end

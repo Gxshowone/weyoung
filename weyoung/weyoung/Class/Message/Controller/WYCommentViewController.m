@@ -22,7 +22,7 @@
     // Do any additional setup after loading the view.
     
     
-    [self setNavTitle:@"点赞"];
+    [self setNavTitle:@"评论"];
     [self.view addSubview:self.tableView];
     
 }
