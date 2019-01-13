@@ -93,9 +93,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(self.delegate)
+    if(self.prtocal)
     {
-        [self.delegate didSelectRowAtIndexPath:indexPath];
+        [self.prtocal didSelectRowAtIndexPath:indexPath];
     }
 }
 

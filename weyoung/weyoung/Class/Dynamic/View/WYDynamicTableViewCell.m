@@ -27,6 +27,8 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
       
+        self.backgroundColor = [UIColor blackColor];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         [self.contentView addSubview:self.avatarIV];
         [self.contentView addSubview:self.userNameLabel];
         [self.contentView addSubview:self.timeStampLabel];
@@ -38,6 +40,26 @@
         [self.contentView addSubview:self.sepLine];
     }
     return self;
+}
+
+-(void)setModel:(WYDynamicModel *)model
+{
+    _model = model;
+    
+    [self.avatarIV yy_setImageWithURL:[NSURL URLWithString:model.header_url] options:0];
+    self.userNameLabel.text = [NSString stringWithFormat:@"%@",model.nick_name];
+    self.messageTextLabel.text = [NSString stringWithFormat:@"%@",model.content];
+    
+    NSString * image = [NSString stringWithFormat:@"%@",model.image];
+    self.jggView.dataSource = @[image];
+    
+    [self.userNameLabel sizeToFit];
+    
+    self.friendLabel.x = CGRectGetMaxX(self.userNameLabel.frame)+5;
+    
+    NSString * likeIN = (model.praise_count==0)?@"dynamic_like_select_btn":@"dynamic_like_select_btn";
+    [self.likeBtn setImage:[UIImage imageNamed:likeIN] forState:UIControlStateNormal];
+    
 }
 
 -(void)layoutSubviews

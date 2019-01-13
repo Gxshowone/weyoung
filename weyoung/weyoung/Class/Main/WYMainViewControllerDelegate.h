@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WYDynamicModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)friendList;//朋友列表
 
+-(void)gotoComment:(WYDynamicModel*)model;//评论列表页
 
 
 @end

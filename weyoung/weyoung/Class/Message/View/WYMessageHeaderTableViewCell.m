@@ -75,6 +75,9 @@
         _unreadLabel.font = [UIFont fontWithName:TextFontName_Light size:12];
         _unreadLabel.textColor = [UIColor whiteColor];
         _unreadLabel.textAlignment = NSTextAlignmentCenter;
+        _unreadLabel.layer.cornerRadius = 9;
+        _unreadLabel.layer.masksToBounds = YES;
+        _unreadLabel.text = @"1";
     }
     return _unreadLabel;
 }

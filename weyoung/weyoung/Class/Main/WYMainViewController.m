@@ -15,7 +15,7 @@
 #import "WYEditViewController.h"
 #import "WYFriendViewController.h"
 #import "WYMessageListViewController.h"
-
+#import "WYCommentController.h"
 @interface WYMainViewController ()<UIScrollViewDelegate,WYMainViewControllerDelegate>
 {
     WYDynamicViewController * dyVc;
@@ -113,6 +113,12 @@
     [self.navigationController pushViewController:friendVc animated:YES];
 }
 
+-(void)gotoComment:(WYDynamicModel*)model
+{
+    WYCommentController * commentVc = [[WYCommentController alloc]init];
+    commentVc.model = model;
+    [self.navigationController pushViewController:commentVc animated:YES];
+}
 
 -(void)viewDidLayoutSubviews
 {

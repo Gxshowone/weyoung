@@ -46,6 +46,8 @@
     self.conversationListTableView.backgroundColor = [UIColor clearColor];
     self.conversationListTableView.tableHeaderView = self.headerView;
     self.conversationListTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    self.emptyConversationView.hidden = YES;
 }
 
 -(void)setConversationType
@@ -138,7 +140,7 @@
     if(!_headerView)
     {
         _headerView = [[WYMessageHeaderView alloc]init];
-        _headerView.delegate = self;
+        _headerView.prtocal = self;
     }
     return _headerView;
 }

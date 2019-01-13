@@ -9,6 +9,6 @@
 #ifndef WYNotifacation_h
 #define WYNotifacation_h
 
-
+#define WYNotifacationUserInfoChange @"WYNotifacationUserInfoChange"
 
 #endif /* WYNotifacation_h */

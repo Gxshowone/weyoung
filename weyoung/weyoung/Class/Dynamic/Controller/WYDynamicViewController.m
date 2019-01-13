@@ -15,6 +15,7 @@
 @property(nonatomic,strong)UITableView * tableView;
 @property(nonatomic,strong)NSMutableArray * dataArray;
 @property(nonatomic,strong)UIButton * sendButton;
+@property(nonatomic,assign)int page;
 
 @end
 @implementation WYDynamicViewController
@@ -68,7 +69,7 @@
 
 -(void)initUI
 {
-   // [self.view addSubview:self.tableView];
+    [self.view addSubview:self.tableView];
     [self.view addSubview:self.sendButton];
 }
 
@@ -89,24 +90,40 @@
     [self hideNoNetWorkView];
     [self hideNoDataView];
     
-    NSMutableArray * modelArray; //模型数组；
-    if (type == 1) {
-        
-        //首先要清空id 数组 和数据源数组
-        self.dataArray = [NSMutableArray arrayWithArray:modelArray];
-        
-    }else if(type == 2){
-        
-        NSMutableArray * Array = [[NSMutableArray alloc] init];
-        [Array addObjectsFromArray:self.dataArray];
-        [Array addObjectsFromArray:modelArray];
-        self.dataArray = Array;
-        
-    }
+    NSString * pageStr = [NSString stringWithFormat:@"%d",_page];
+    NSDictionary * dict=@{@"page":pageStr,@"interface":@"Dynamic@getDynamicList",@"is_mine":@"0"};
+
     
-    [self stopLoadData];
-    [self nodata];
-    [self nomoredata:modelArray];
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+      
+        NSArray * array  = (NSArray*)response;
+        NSMutableArray * modelArray = [WYDynamicModel mj_objectArrayWithKeyValuesArray:array];
+        if (type == 1) {
+            
+            //首先要清空id 数组 和数据源数组
+            self.dataArray = [NSMutableArray arrayWithArray:modelArray];
+            
+        }else if(type == 2){
+            
+            NSMutableArray * Array = [[NSMutableArray alloc] init];
+            [Array addObjectsFromArray:self.dataArray];
+            [Array addObjectsFromArray:modelArray];
+            self.dataArray = Array;
+            
+        }
+        
+        [self stopLoadData];
+        [self nodata];
+        [self nomoredata:modelArray];
+        
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+    };
+    
     
 }
 -(void)nodata
@@ -149,7 +166,9 @@
 -(void)retryToGetData
 {
     
-    [self requestDataWithType:1 ];
+    _page = 0;
+    
+    [self requestDataWithType:1];
     
     __weak __typeof(self) weakSelf = self;
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
@@ -162,6 +181,7 @@
 
 -(void)loadMoreData
 {
+    _page ++;
     [self requestDataWithType:2];
 }
 
@@ -207,36 +227,22 @@
         cell = [[WYDynamicTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
     
+    cell.model = self.dataArray[indexPath.row];
+    
     return cell;
     
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-//定义编辑样式
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellEditingStyleDelete;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return @"解除好友";
-}
-- (BOOL)tableView: (UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
-    return NO;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    //在这里实现删除操作
-    
-    //删除数据，和删除动画
-    [self.dataArray removeObjectAtIndex:0];
-    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
-}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"[gx] goto chat");
+    
+    WYDynamicModel * model  = self.dataArray[indexPath.row];
+    if (self.delegate) {
+        [self.delegate gotoComment:model];
+    }
+ 
 }
 
 -(UITableView*)tableView

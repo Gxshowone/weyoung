@@ -55,7 +55,7 @@
 {
     if (!_countLabel) {
         _countLabel = [[UILabel alloc]init];
-        _countLabel.text = @"0/500";
+        _countLabel.text = @"0/220";
         _countLabel.font = [UIFont fontWithName:TextFontName size:12];
         _countLabel.textColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
         _countLabel.textAlignment = NSTextAlignmentRight;

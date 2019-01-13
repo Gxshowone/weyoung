@@ -10,9 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^WYComposePhotosViewBlock)(NSInteger count);
+
 @interface WYComposePhotosView : UIView
 
+@property(nonatomic,copy)WYComposePhotosViewBlock block;
+
 -(void)setData:(NSMutableArray*)array;
+
+-(BOOL)hasImage;
 
 @end
 

@@ -7,10 +7,13 @@
 //
 
 #import "WYEditTableViewCell.h"
-@interface WYEditTableViewCell()
+#import "WYTextField.h"
+@interface WYEditTableViewCell()<UITextFieldDelegate>
 
 @property(nonatomic,strong)UILabel * titleLabel;
 @property(nonatomic,strong)UILabel * contentLabel;
+@property(nonatomic,strong)WYTextField * textField;
+
 
 @end
 @implementation WYEditTableViewCell
@@ -20,8 +23,18 @@
       
         [self.contentView addSubview:self.titleLabel];
         [self.contentView addSubview:self.contentLabel];
+        [self.contentView addSubview:self.textField];
+        
     }
     return self;
+}
+
+-(void)setCanEdit:(BOOL)canEdit
+{
+    _canEdit = canEdit;
+    
+    self.textField.hidden = !canEdit;
+    self.contentLabel.hidden = canEdit;
 }
 
 -(void)setTitle:(NSString*)text
@@ -31,7 +44,21 @@
 -(void)setContent:(NSString*)text
 {
     self.contentLabel.text = text;
+    self.textField.text = text;
 }
+
+
+-(void)stopEdit
+{
+    [self.textField resignFirstResponder];
+}
+
+-(NSString*)inputText
+{
+    return self.textField.text;
+}
+
+
 
 -(void)layoutSubviews
 {
@@ -39,6 +66,8 @@
     
     self.titleLabel.frame = CGRectMake(20, 15, 26, 17);
     self.contentLabel.frame = CGRectMake(20, 33.5,200, 22);
+    self.textField.frame = CGRectMake(20, 33.5,200, 22);
+    
 }
 
 -(UILabel*)titleLabel
@@ -63,6 +92,24 @@
     }
     return _contentLabel;
 }
+
+-(WYTextField*)textField
+{
+    if (!_textField) {
+        _textField = [[WYTextField alloc]init];
+        _textField.delegate = self;
+        _textField.keyboardType = UIKeyboardTypeDefault;
+        @weakify(self);
+        [_textField.rac_textSignal subscribeNext:^(NSString * _Nullable x) {
+            NSLog(@"%@",x);
+            @strongify(self);
+            
+        }];
+    }
+    return _textField;
+    
+}
+
 
 
 @end

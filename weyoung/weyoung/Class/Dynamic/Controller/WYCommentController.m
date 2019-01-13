@@ -10,6 +10,7 @@
 #import "WYCommentToolBar.h"
 #import "WYCommentCell.h"
 #import "WYCommentHeader.h"
+#import "WYCommentModel.h"
 @interface WYCommentController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)WYCommentHeader * headerView;
@@ -18,6 +19,9 @@
 @property(nonatomic,strong)NSMutableArray * dataArray;
 //是否正在切换键盘
 @property (nonatomic ,assign, getter=isChangingKeyboard) BOOL ChangingKeyboard;
+
+@property(nonatomic,assign)int page;
+
 
 @end
 
@@ -39,9 +43,7 @@
 {
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.toolBar];
-    // 4.监听键盘
- 
-    
+  
 }
 
 -(void)addNotification
@@ -101,6 +103,7 @@
 }
 
 
+
 -(void)requestDataWithType:(int)type
 {
     
@@ -108,24 +111,40 @@
     [self hideNoNetWorkView];
     [self hideNoDataView];
     
-    NSMutableArray * modelArray; //模型数组；
-    if (type == 1) {
-        
-        //首先要清空id 数组 和数据源数组
-        self.dataArray = [NSMutableArray arrayWithArray:modelArray];
-        
-    }else if(type == 2){
-        
-        NSMutableArray * Array = [[NSMutableArray alloc] init];
-        [Array addObjectsFromArray:self.dataArray];
-        [Array addObjectsFromArray:modelArray];
-        self.dataArray = Array;
-        
-    }
+    NSString * pageStr = [NSString stringWithFormat:@"%d",_page];
+    NSDictionary * dict=@{@"page":pageStr,@"interface":@"Dynamic@getCommentList",@"d_id":self.model.d_id,@"type":@"1"};
     
-    [self stopLoadData];
-    [self nodata];
-    [self nomoredata:modelArray];
+    
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+        NSArray * array  = (NSArray*)response;
+        NSMutableArray * modelArray = [WYCommentModel mj_objectArrayWithKeyValuesArray:array];
+        if (type == 1) {
+            
+            //首先要清空id 数组 和数据源数组
+            self.dataArray = [NSMutableArray arrayWithArray:modelArray];
+            
+        }else if(type == 2){
+            
+            NSMutableArray * Array = [[NSMutableArray alloc] init];
+            [Array addObjectsFromArray:self.dataArray];
+            [Array addObjectsFromArray:modelArray];
+            self.dataArray = Array;
+            
+        }
+        
+        [self stopLoadData];
+        [self nodata];
+        [self nomoredata:modelArray];
+        
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+    };
+    
     
 }
 -(void)nodata
@@ -168,7 +187,9 @@
 -(void)retryToGetData
 {
     
-    [self requestDataWithType:1 ];
+    _page = 0;
+    
+    [self requestDataWithType:1];
     
     __weak __typeof(self) weakSelf = self;
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
@@ -181,6 +202,7 @@
 
 -(void)loadMoreData
 {
+    _page ++;
     [self requestDataWithType:2];
 }
 
@@ -231,6 +253,8 @@
         cell = [[WYCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
     
+    cell.model = self.dataArray[indexPath.row];
+    
     return cell;
     
 }
@@ -238,6 +262,14 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
    
+}
+
+-(WYCommentHeader*)headerView
+{
+    if (!_headerView) {
+        _headerView = [[WYCommentHeader alloc]init];
+    }
+    return _headerView;
 }
 
 -(UITableView*)tableView
@@ -249,6 +281,7 @@
         _tableView.delegate=self;
         _tableView.dataSource=self;
         _tableView.backgroundColor=[UIColor clearColor];
+        _tableView.tableHeaderView = self.headerView;
         
         __weak __typeof(self) weakSelf = self;
         
@@ -262,8 +295,7 @@
             
         }];
         
-        
-        [_tableView.mj_header beginRefreshing];
+     
     }
     return _tableView;
 }
@@ -276,5 +308,13 @@
     return _toolBar;
 }
 
+-(void)setModel:(WYDynamicModel *)model
+{
+    _model = model;
+    
+    self.headerView.model = model;
+
+    [self.tableView.mj_header beginRefreshing];
+}
 
 @end

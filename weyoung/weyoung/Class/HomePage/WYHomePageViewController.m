@@ -26,9 +26,20 @@
     // Do any additional setup after loading the view.
     [self setNavigationConfig];
     [self initUI];
+    [self addNotification];
     
 }
 
+-(void)addNotification
+{
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:WYNotifacationUserInfoChange object:nil] subscribeNext:^(NSNotification * _Nullable x) {
+        NSLog(@"%@",x);
+        
+        [self.rightButton yy_setImageWithURL:[NSURL URLWithString:[WYSession sharedSession].avatar] forState:UIControlStateNormal options:YYWebImageOptionSetImageWithFadeAnimation];
+        
+    }];
+    
+}
 
 -(void)viewDidLayoutSubviews
 {

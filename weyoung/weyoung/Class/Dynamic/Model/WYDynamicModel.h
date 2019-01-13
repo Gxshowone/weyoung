@@ -12,27 +12,26 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WYDynamicModel : NSObject
 
-@property(nonatomic,assign)BOOL isFriend;
 
-@property(nonatomic,assign)BOOL isLike;
+@property(nonatomic,assign)NSInteger praise_count; //点赞数
 
-@property (nonatomic,assign)BOOL isExpand;
+@property(nonatomic,copy)NSString * uid; //发布者id
 
-@property(nonatomic,copy)NSString *dynamicId; //发布者id
+@property(nonatomic,assign)NSInteger type; //动态类型
 
-@property(nonatomic,copy)NSString *dynamicUserId; //发布者id
+@property(nonatomic,copy)NSString *d_id; //动态id
 
-@property(nonatomic,copy)NSString *dynamicUserName; //发布者昵称
+@property(nonatomic,copy)NSString *nick_name; //发布者昵称
 
-@property(nonatomic,copy)NSString *dynamicAvatar;//发布者头像
+@property(nonatomic,copy)NSString *header_url;//发布者头像
 
-@property(nonatomic,copy)NSString *dynamicTime; //动态时间
+@property(nonatomic,copy)NSString * create_time; //动态时间
 
-@property(nonatomic,copy)NSString *dynamicText; 
+@property(nonatomic,copy)NSString * content; //动态详情
 
 @property(nonatomic,copy)NSAttributedString *attributedText;
 
-@property(nonatomic,strong)NSMutableArray *picArray;
+@property(nonatomic,copy)NSString * image;
 
 @property (nonatomic, assign)CGFloat rowHeight;
 
@@ -41,7 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 ///九宫格的布局
 @property (nonatomic, strong) WYLayout *jggLayout;
 
--(instancetype)initWithDic:(NSDictionary *)dic;
 
 @end
 

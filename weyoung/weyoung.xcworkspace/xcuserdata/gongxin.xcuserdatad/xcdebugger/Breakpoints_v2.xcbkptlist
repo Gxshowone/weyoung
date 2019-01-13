@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "weyoung/Class/Main/WYMainViewController.m"
-            timestampString = "568820427.325196"
+            timestampString = "569059336.399984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "8"
@@ -41,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "weyoung/Manager/Session/WYSession.m"
-            timestampString = "568820427.325505"
+            filePath = "weyoung/Class/PersonCenter/ViewContoller/Edit/WYEditViewController.m"
+            timestampString = "569059336.400067"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "-onRCIMConnectionStatusChanged:"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "-changeUserInfo"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -57,13 +57,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "weyoung/Manager/Session/WYSession.m"
-            timestampString = "568820427.325752"
+            filePath = "weyoung/Class/PersonCenter/ViewContoller/Edit/WYEditViewController.m"
+            timestampString = "569059336.4001189"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "-changeUserInfo"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "weyoung/Class/PersonCenter/ViewContoller/Edit/WYEditViewController.m"
+            timestampString = "569059336.400162"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "-changeUserInfo"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "weyoung/Class/Dynamic/Controller/WYComposeViewController.m"
+            timestampString = "569069670.790749"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "125"
             endingLineNumber = "125"
-            landmarkName = "-onRCIMConnectionStatusChanged:"
+            landmarkName = "-sendDynamic"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -73,13 +105,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "weyoung/Manager/Session/WYSession.m"
-            timestampString = "568820427.325811"
+            filePath = "weyoung/Class/Dynamic/Controller/WYComposeViewController.m"
+            timestampString = "569069670.790832"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
-            landmarkName = "-onRCIMConnectionStatusChanged:"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "-sendDynamic"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -89,13 +121,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "weyoung/Manager/Session/WYSession.m"
-            timestampString = "568820427.325861"
+            filePath = "weyoung/Class/Dynamic/Controller/WYComposeViewController.m"
+            timestampString = "569069670.79089"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
-            landmarkName = "-onRCIMConnectionStatusChanged:"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "-sendDynamic"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "weyoung/Class/Dynamic/Controller/WYCommentController.m"
+            timestampString = "569070812.41852"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "-requestDataWithType:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
