@@ -41,7 +41,12 @@ NS_ASSUME_NONNULL_BEGIN
 //计算星座
 +(NSString *)getAstroWithBrith:(NSString*)brith;
 
++(NSString*)timeIntervaltoString:(NSString*)timeStampString;
++(NSString *)inputTimeStr:(NSString *)timeStr withFormat:(NSString *)format;
 
++(NSString*)timeToMonth:(NSString*)timeStampString;
+
++(NSString*)timeToDay:(NSString*)timeStampString;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -10,7 +10,18 @@
 #import "WYDynamicModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
+
+@protocol WYDynamicTableViewCellDelegate <NSObject>
+
+-(void)moreDynamic:(WYDynamicModel*)model;
+-(void)likeDynamic:(WYDynamicModel*)model;
+
+
+@end
+
 @interface WYDynamicTableViewCell : UITableViewCell
+
+@property (nonatomic,weak) id<WYDynamicTableViewCellDelegate> delegate;
 
 @property(nonatomic,strong)WYDynamicModel * model;
 @property(nonatomic,strong)UIButton *likeBtn;

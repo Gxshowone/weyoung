@@ -1,8 +1,8 @@
 //
-//  WYDynamicModel.h
+//  WYMYDynamicModel.h
 //  weyoung
 //
-//  Created by gongxin on 2019/1/2.
+//  Created by 巩鑫 on 2019/1/14.
 //  Copyright © 2019 SouYu. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 #import "WYLayout.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WYDynamicModel : NSObject
+@interface WYMYDynamicModel : NSObject
 
 @property(nonatomic,copy)NSString * image;
 
@@ -38,7 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) WYLayout *textLayout;
 ///九宫格的布局
 @property (nonatomic, strong) WYLayout *jggLayout;
-
 
 @end
 

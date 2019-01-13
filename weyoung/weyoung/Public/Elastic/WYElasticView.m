@@ -66,6 +66,7 @@
             
             self.frame = CGRectMake(0, self->mSuperView.height - self->mViewHeight, self->mSuperView.width, self->mViewHeight);
             
+            
         } completion:^(BOOL finished) {
             
             [self modalViewDidAppare];

@@ -1,21 +1,21 @@
 //
-//  WYDynamicModel.m
+//  WYMYDynamicModel.m
 //  weyoung
 //
-//  Created by gongxin on 2019/1/2.
+//  Created by 巩鑫 on 2019/1/14.
 //  Copyright © 2019 SouYu. All rights reserved.
 //
 
-#import "WYDynamicModel.h"
+#import "WYMYDynamicModel.h"
 #import "NSString+Extension.h"
 
-@implementation WYDynamicModel
+@implementation WYMYDynamicModel
 
 
 -(void)setContent:(NSString *)content
 {
     _content = content;
-
+    
     
     NSMutableParagraphStyle *muStyle = [[NSMutableParagraphStyle alloc]init];
     UIFont *font = [UIFont systemFontOfSize:14.0];
@@ -35,8 +35,8 @@
     
     //算text的layout
     CGFloat textHeight = [attrString.string boundingRectWithSize:CGSizeMake(KScreenWidth-67-20, CGFLOAT_MAX) font:font lineSpacing:3.0].height+0.5;
-
-    self.textLayout.frameLayout = CGRectMake(67, 63.9, KScreenWidth-67-20, textHeight);
+    
+    self.textLayout.frameLayout = CGRectMake(67, 2, KScreenWidth-67-20, textHeight);
     
     //算九宫格的layout
     CGFloat jgg_Width = KScreenWidth-67-20;
@@ -48,12 +48,12 @@
     {
         jgg_height = image_Width;
     }
- 
-    self.jggLayout.frameLayout =  CGRectMake(self.textLayout.frameLayout.origin.x,63.9 + textHeight+5.5, jgg_Width, jgg_height);
     
-    CGFloat rowHeight = 63.9 + textHeight + jgg_height + 5.5;
-    NSLog(@"[gx] rowheight %f",rowHeight);
-    self.rowHeight =rowHeight;
+    self.jggLayout.frameLayout =  CGRectMake(self.textLayout.frameLayout.origin.x,2 + textHeight+5.5, jgg_Width, jgg_height);
+    
+    CGFloat rowHeight = 2 + textHeight + jgg_height + 5.5;
+
+    self.rowHeight = (rowHeight>40)?rowHeight:40;
 }
 
 

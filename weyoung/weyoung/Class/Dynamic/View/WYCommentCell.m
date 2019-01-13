@@ -7,7 +7,7 @@
 //
 
 #import "WYCommentCell.h"
-
+#import "NSString+Extension.h"
 #import "WYCopyLabel.h"
 @interface WYCommentCell ()
 
@@ -22,7 +22,11 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.backgroundColor = [UIColor blackColor];
         [self.contentView addSubview:self.avatarIV];
+        [self.contentView addSubview:self.userNameLabel];
+        [self.contentView addSubview:self.timeStampLabel];
         [self.contentView addSubview:self.contentLabel];
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapComment:)];
@@ -44,9 +48,25 @@
     self.avatarIV.frame = CGRectMake(20, 17.4, 32, 32);
     self.userNameLabel.frame = CGRectMake(67, 12.3, 120, 27);
     self.timeStampLabel.frame = CGRectMake(KScreenWidth-120, 14.5, 100, 27);
-    self.contentLabel.frame = CGRectMake(68, 42.5, KScreenWidth-88, 54);
+    self.contentLabel.frame = CGRectMake(68, 29, KScreenWidth-88, 54);
 }
 
+-(void)setModel:(WYCommentModel *)model
+{
+    _model = model;
+    
+    [self.avatarIV yy_setImageWithURL:[NSURL URLWithString:model.header_url] options:0];
+    
+    self.userNameLabel.text = model.nick_name;
+    
+    
+    NSString * time = [NSString timeIntervaltoString:model.create_time];
+    self.timeStampLabel.text = [NSString inputTimeStr:time withFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    self.contentLabel.attributedText = model.attributedText;
+    
+    
+}
 -(UIImageView*)avatarIV
 {
     if (!_avatarIV) {

@@ -11,8 +11,12 @@
 #import "WYCommentCell.h"
 #import "WYCommentHeader.h"
 #import "WYCommentModel.h"
-@interface WYCommentController ()<UITableViewDelegate,UITableViewDataSource>
+#import "WYMoreView.h"
 
+@interface WYCommentController ()<UITableViewDelegate,UITableViewDataSource,WYCommentToolBarDelegate,WYCommentHeaderDelegate>
+
+
+@property(nonatomic,strong)WYMoreView * moreView;
 @property(nonatomic,strong)WYCommentHeader * headerView;
 @property(nonatomic,strong)WYCommentToolBar * toolBar;
 @property(nonatomic,strong)UITableView * tableView;
@@ -22,6 +26,7 @@
 
 @property(nonatomic,assign)int page;
 
+@property(nonatomic,strong)WYCommentModel * selectModel;
 
 @end
 
@@ -43,6 +48,12 @@
 {
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.toolBar];
+    
+    @weakify(self);
+    [[self.leftButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        @strongify(self);
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
   
 }
 
@@ -66,10 +77,10 @@
         self.ChangingKeyboard = NO;
         return;
     }
-    
+
     // 1.键盘弹出需要的时间
     CGFloat duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    
+ 
     // 2.动画
     [UIView animateWithDuration:duration animations:^{
         self.toolBar.transform = CGAffineTransformIdentity;//回复之前的位置
@@ -84,6 +95,7 @@
     // 1.键盘弹出需要的时间
     CGFloat duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     
+   
     // 2.动画
     [UIView animateWithDuration:duration animations:^{
         // 取出键盘高度
@@ -97,12 +109,10 @@
 {
     [super viewDidLayoutSubviews];
     
-    self.tableView.frame = CGRectMake(0, KNaviBarHeight, KScreenWidth, KTabBarHeight-KNaviBarHeight-KTabbarSafeBottomMargin-58);
+    self.tableView.frame = CGRectMake(0, KNaviBarHeight, KScreenWidth, KScreenHeight-KNaviBarHeight-KTabbarSafeBottomMargin-58);
     self.toolBar.frame = CGRectMake(0, KScreenHeight-KTabbarSafeBottomMargin-58, KScreenWidth, 58+KTabbarSafeBottomMargin);
     
 }
-
-
 
 -(void)requestDataWithType:(int)type
 {
@@ -112,7 +122,7 @@
     [self hideNoDataView];
     
     NSString * pageStr = [NSString stringWithFormat:@"%d",_page];
-    NSDictionary * dict=@{@"page":pageStr,@"interface":@"Dynamic@getCommentList",@"d_id":self.model.d_id,@"type":@"1"};
+    NSDictionary * dict=@{@"interface":@"Dynamic@getCommentList",@"d_id":self.model.d_id,@"type":@"1"};
     
     
     WYHttpRequest *request = [[WYHttpRequest alloc]init];
@@ -143,6 +153,7 @@
     
     request.failureDataBlock = ^(id  _Nonnull error) {
         
+          [self stopLoadData];
     };
     
     
@@ -210,7 +221,9 @@
 #pragma mark - TabelView delegate 代理
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    return 80;
+    WYCommentModel * model = self.dataArray[indexPath.row];
+    return model.rowHeight;
+
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -261,13 +274,58 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   
+    self.selectModel = self.dataArray[indexPath.row];
+    [self.toolBar beginEdit];
 }
+
+
+-(void)moreDynamic:(WYDynamicModel*)model
+
+{
+    [self.moreView show];
+}
+-(void)likeDynamic:(WYDynamicModel*)model
+{
+    
+    NSDictionary * dict = @{@"interface":@"Dynamic@doComment" ,@"d_id":model.d_id,@"type":@"2"};
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+        
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+        
+    };
+}
+
+-(void)sendCommon:(NSString*)text
+{
+    
+    NSString * c_uid = (!self.selectModel)?self.model.uid:self.selectModel.uid;
+    NSDictionary * dict = @{@"interface":@"Dynamic@doComment",@"d_id":self.model.d_id,@"type":@"1",@"comment":text,@"c_uid":c_uid};
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+        [self retryToGetData];
+        
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+        
+    };
+}
+
 
 -(WYCommentHeader*)headerView
 {
     if (!_headerView) {
         _headerView = [[WYCommentHeader alloc]init];
+        _headerView.delegate= self;
     }
     return _headerView;
 }
@@ -304,6 +362,7 @@
 {
     if (!_toolBar) {
         _toolBar = [[WYCommentToolBar alloc]init];
+        _toolBar.delegate = self;
     }
     return _toolBar;
 }
@@ -313,8 +372,23 @@
     _model = model;
     
     self.headerView.model = model;
+    self.headerView.height = model.rowHeight;
 
     [self.tableView.mj_header beginRefreshing];
+    
+}
+
+-(WYMoreView*)moreView
+{
+    if (!_moreView) {
+        
+        _moreView = [[WYMoreView alloc]initWithSuperView:self.view.superview
+                                         animationTravel:0.3
+                                              viewHeight:160];
+        _moreView.type =  WYMoreViewType_Dynamic;
+        
+    }
+    return _moreView;
 }
 
 @end

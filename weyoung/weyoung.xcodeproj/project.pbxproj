@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		8A5E27B8018E295784CC6DCF /* libPods-weyoungUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 942E09A90DF1D4B8E22A6637 /* libPods-weyoungUITests.a */; };
 		BCBCE70B1410216BED5305A4 /* libPods-weyoung.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0481827233D893221E297107 /* libPods-weyoung.a */; };
+		D205A24621EB9F3D0096CD28 /* WYUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D205A24521EB9F3D0096CD28 /* WYUserModel.m */; };
+		D205A24A21EBB1430096CD28 /* WYFriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D205A24921EBB1430096CD28 /* WYFriendModel.m */; };
+		D205A24D21EBB3980096CD28 /* WYMYDynamicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D205A24C21EBB3980096CD28 /* WYMYDynamicModel.m */; };
 		D212A91221CE0E42004D3DC0 /* WYConversationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D212A91121CE0E42004D3DC0 /* WYConversationBar.m */; };
 		D222AB8821DF2FFC004ADFD8 /* WYMyDynamicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D222AB8721DF2FFC004ADFD8 /* WYMyDynamicTableViewCell.m */; };
 		D222AB8C21DF4A8F004ADFD8 /* WYSignViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D222AB8B21DF4A8F004ADFD8 /* WYSignViewController.m */; };
@@ -150,6 +153,12 @@
 		942E09A90DF1D4B8E22A6637 /* libPods-weyoungUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-weyoungUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1EEBF3ACFD18510BE5999FE /* Pods-weyoungUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weyoungUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-weyoungUITests/Pods-weyoungUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C7C14D2704F1BFDDE69D0458 /* Pods-weyoungTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weyoungTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-weyoungTests/Pods-weyoungTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D205A24421EB9F3D0096CD28 /* WYUserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYUserModel.h; sourceTree = "<group>"; };
+		D205A24521EB9F3D0096CD28 /* WYUserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYUserModel.m; sourceTree = "<group>"; };
+		D205A24821EBB1430096CD28 /* WYFriendModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYFriendModel.h; sourceTree = "<group>"; };
+		D205A24921EBB1430096CD28 /* WYFriendModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYFriendModel.m; sourceTree = "<group>"; };
+		D205A24B21EBB3980096CD28 /* WYMYDynamicModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYMYDynamicModel.h; sourceTree = "<group>"; };
+		D205A24C21EBB3980096CD28 /* WYMYDynamicModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYMYDynamicModel.m; sourceTree = "<group>"; };
 		D212A91021CE0E42004D3DC0 /* WYConversationBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYConversationBar.h; sourceTree = "<group>"; };
 		D212A91121CE0E42004D3DC0 /* WYConversationBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYConversationBar.m; sourceTree = "<group>"; };
 		D222AB8621DF2FFC004ADFD8 /* WYMyDynamicTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYMyDynamicTableViewCell.h; sourceTree = "<group>"; };
@@ -421,6 +430,17 @@
 				00866CE0E2E78C1FC63C837A /* Pods-weyoungUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		D205A24721EBB1300096CD28 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D205A24821EBB1430096CD28 /* WYFriendModel.h */,
+				D205A24921EBB1430096CD28 /* WYFriendModel.m */,
+				D205A24B21EBB3980096CD28 /* WYMYDynamicModel.h */,
+				D205A24C21EBB3980096CD28 /* WYMYDynamicModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		D212A90E21CE0E17004D3DC0 /* Controller */ = {
@@ -1189,6 +1209,8 @@
 			children = (
 				D224039721BBAE1E00001B83 /* WYHomePageViewController.h */,
 				D224039821BBAE1E00001B83 /* WYHomePageViewController.m */,
+				D205A24421EB9F3D0096CD28 /* WYUserModel.h */,
+				D205A24521EB9F3D0096CD28 /* WYUserModel.m */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -1196,6 +1218,7 @@
 		D2D7107921B9558400D78746 /* PersonCenter */ = {
 			isa = PBXGroup;
 			children = (
+				D205A24721EBB1300096CD28 /* Model */,
 				D22403A221BBB15300001B83 /* View */,
 				D224039D21BBB10F00001B83 /* ViewContoller */,
 			);
@@ -1499,10 +1522,12 @@
 				D283596121D4D3B600C6EB76 /* WYLikeTableViewCell.m in Sources */,
 				D2249FED21BA8337009B274C /* WYWebViewController.m in Sources */,
 				D22AF87A21BF6D530004405B /* NSDate+Extension.m in Sources */,
+				D205A24A21EBB1430096CD28 /* WYFriendModel.m in Sources */,
 				D2249FD621BA27F8009B274C /* WYBaseViewController.m in Sources */,
 				D23AE8DD21DC6C1E00D79007 /* WYMatchingSusscesView.m in Sources */,
 				D2249FE221BA2FBB009B274C /* WYInfoViewController.m in Sources */,
 				D23AE8FB21DCA5D900D79007 /* HZPhotoBrowser.m in Sources */,
+				D205A24621EB9F3D0096CD28 /* WYUserModel.m in Sources */,
 				D230315721DE375E00E0DBF2 /* WYCommentTableViewCell.m in Sources */,
 				D224B2DB21CCC56300AF6330 /* WYConversationViewController.m in Sources */,
 				D22BDF1421C7D2CD002269AC /* WYDynamicViewController.m in Sources */,
@@ -1550,6 +1575,7 @@
 				D2249FDF21BA2FAB009B274C /* WYPassWordViewController.m in Sources */,
 				D224038C21BB8B3C00001B83 /* WYPasswordInputView.m in Sources */,
 				D23AE90421DCB6B000D79007 /* WYTextView.m in Sources */,
+				D205A24D21EBB3980096CD28 /* WYMYDynamicModel.m in Sources */,
 				D283595821D4D30900C6EB76 /* WYCommentViewController.m in Sources */,
 				D287DE9621BCE9BA0048B5C2 /* WYClauseViewController.m in Sources */,
 				D224039921BBAE1E00001B83 /* WYHomePageViewController.m in Sources */,

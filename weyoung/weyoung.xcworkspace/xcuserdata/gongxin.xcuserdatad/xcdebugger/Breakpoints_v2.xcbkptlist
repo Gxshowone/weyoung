@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "weyoung/Class/Main/WYMainViewController.m"
-            timestampString = "569059336.399984"
+            timestampString = "569096704.523773"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "8"
@@ -90,7 +90,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "weyoung/Class/Dynamic/Controller/WYComposeViewController.m"
-            timestampString = "569069670.790749"
+            timestampString = "569091792.8176579"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "125"
@@ -106,7 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "weyoung/Class/Dynamic/Controller/WYComposeViewController.m"
-            timestampString = "569069670.790832"
+            timestampString = "569091792.817716"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "119"
@@ -122,7 +122,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "weyoung/Class/Dynamic/Controller/WYComposeViewController.m"
-            timestampString = "569069670.79089"
+            timestampString = "569091792.817778"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "114"
@@ -137,13 +137,61 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "weyoung/Class/Dynamic/Controller/WYCommentController.m"
-            timestampString = "569070812.41852"
+            filePath = "weyoung/Class/HomePage/WYHomePageViewController.m"
+            timestampString = "569096704.524036"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
-            landmarkName = "-requestDataWithType:"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "-matchUser"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "weyoung/Class/HomePage/WYHomePageViewController.m"
+            timestampString = "569096704.524098"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "-matchUser"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "weyoung/Class/Dynamic/Controller/WYDynamicViewController.m"
+            timestampString = "569096704.524152"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "263"
+            endingLineNumber = "263"
+            landmarkName = "-likeDynamic:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "weyoung/Class/Dynamic/Controller/WYDynamicViewController.m"
+            timestampString = "569096704.524209"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "269"
+            endingLineNumber = "269"
+            landmarkName = "-likeDynamic:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

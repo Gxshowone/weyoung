@@ -10,8 +10,10 @@
 #import "WYDynamicTableViewCell.h"
 #import "WYDynamicModel.h"
 #import "WYComposeViewController.h"
-@interface WYDynamicViewController ()<UITableViewDelegate,UITableViewDataSource>
+#import "WYMoreView.h"
+@interface WYDynamicViewController ()<UITableViewDelegate,UITableViewDataSource,WYDynamicTableViewCellDelegate>
 
+@property(nonatomic,strong)WYMoreView * moreView;
 @property(nonatomic,strong)UITableView * tableView;
 @property(nonatomic,strong)NSMutableArray * dataArray;
 @property(nonatomic,strong)UIButton * sendButton;
@@ -228,10 +230,11 @@
     }
     
     cell.model = self.dataArray[indexPath.row];
-    
+    cell.delegate = self;
     return cell;
     
 }
+
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -244,6 +247,29 @@
     }
  
 }
+
+-(void)moreDynamic:(WYDynamicModel*)model
+
+{
+    [self.moreView show];
+}
+-(void)likeDynamic:(WYDynamicModel*)model
+{
+    
+    NSDictionary * dict = @{@"interface":@"Dynamic@doComment" ,@"d_id":model.d_id,@"type":@"2"};
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+   
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+      
+    };
+}
+
 
 -(UITableView*)tableView
 {
@@ -293,6 +319,18 @@
 }
 
 
+-(WYMoreView*)moreView
+{
+    if (!_moreView) {
+        
+        _moreView = [[WYMoreView alloc]initWithSuperView:self.view.superview
+                                         animationTravel:0.3
+                                              viewHeight:160];
+        _moreView.type =  WYMoreViewType_Dynamic;
+        
+    }
+    return _moreView;
+}
 
 
 @end

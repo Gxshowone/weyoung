@@ -26,29 +26,23 @@
 -(void)setDataSource:(NSArray *)dataSource{
     _dataSource = dataSource;
     //单张图片的大小
-    CGFloat jgg_width = KScreenWidth-2*kGAP-kAvatar_Size-50;
+    CGFloat jgg_width = KScreenWidth-67-20;;
     
-    CGFloat imageWidth =  (jgg_width-2*kGAP)/3;
+    CGFloat imageWidth =  jgg_width;
     CGFloat imageHeight =  imageWidth;
-    for (NSUInteger i=0; i<dataSource.count; i++) {
-        YYAnimatedImageView *iv = [[YYAnimatedImageView alloc]initWithFrame:CGRectMake(0+(imageWidth+kGAP)*(i%3),floorf(i/3.0)*(imageHeight+kGAP),imageWidth, imageHeight)];
-        if ([dataSource[i] isKindOfClass:[UIImage class]]) {
-            iv.image = dataSource[i];
-        }else if ([dataSource[i] isKindOfClass:[NSString class]]){
-           
-            [iv yy_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",dataSource[i]]] placeholder:nil];
-      
-        }else if ([dataSource[i] isKindOfClass:[NSURL class]]){
-        
-            [iv yy_setImageWithURL:dataSource[i] placeholder:nil];
-        }
-        iv.userInteractionEnabled = YES;//默认关闭NO，打开就可以接受点击事件
-        iv.tag = i;
-        iv.autoPlayAnimatedImage = YES;
-        [self addSubview:iv];
-        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapImageAction:)];
-        [iv addGestureRecognizer:singleTap];
-    }
+    UIImageView *iv = [[UIImageView alloc]initWithFrame:CGRectMake(0,0,imageWidth, imageHeight)];
+ 
+    NSString * urlString = [NSString stringWithFormat:@"%@",dataSource[0]];
+    NSURL * url  = [NSURL URLWithString:urlString];
+    [iv yy_setImageWithURL:url options:0];
+    
+    iv.userInteractionEnabled = YES;//默认关闭NO，打开就可以接受点击事件
+    iv.tag = 0;
+    iv.layer.cornerRadius = 10;
+    iv.layer.masksToBounds = YES;
+    [self addSubview:iv];
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapImageAction:)];
+    [iv addGestureRecognizer:singleTap];
 }
 
 @end

@@ -10,7 +10,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+@protocol WYCommentToolBarDelegate <NSObject>
+
+-(void)sendCommon:(NSString*)text;
+
+
+@end
 @interface WYCommentToolBar : UIView
+
+@property (nonatomic,weak) id<WYCommentToolBarDelegate> delegate;
+
+-(void)beginEdit;
 
 @end
 

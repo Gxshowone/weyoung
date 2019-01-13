@@ -28,6 +28,11 @@
     return self;
 }
 
+-(void)setModel:(WYFriendModel *)model
+{
+    _model = model;
+}
+
 -(void)layoutSubviews
 {
     [super layoutSubviews];

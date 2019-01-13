@@ -80,7 +80,7 @@
     
 }
 
--(void)conversation
+-(void)conversation:(WYUserModel*)model
 {
     
     WYConversationViewController *conversationVC = [[WYConversationViewController alloc]init];
