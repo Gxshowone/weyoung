@@ -25,8 +25,6 @@
 @property(nonatomic,copy)NSString * signUrl;
 @property(nonatomic,copy)NSString * key;
 
-
-
 @end
 
 @implementation WYComposeViewController

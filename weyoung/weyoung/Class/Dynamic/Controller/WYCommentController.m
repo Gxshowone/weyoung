@@ -122,7 +122,7 @@
     [self hideNoDataView];
     
     NSString * pageStr = [NSString stringWithFormat:@"%d",_page];
-    NSDictionary * dict=@{@"interface":@"Dynamic@getCommentList",@"d_id":self.model.d_id,@"type":@"1"};
+    NSDictionary * dict=@{@"page":pageStr,@"interface":@"Dynamic@getCommentList",@"d_id":self.model.d_id,@"type":@"1"};
     
     
     WYHttpRequest *request = [[WYHttpRequest alloc]init];
@@ -198,16 +198,10 @@
 -(void)retryToGetData
 {
     
-    _page = 0;
+    _page = 1;
     
     [self requestDataWithType:1];
-    
-    __weak __typeof(self) weakSelf = self;
-    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        
-        [weakSelf loadMoreData];
-        
-    }];
+  
 }
 
 

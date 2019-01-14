@@ -26,6 +26,7 @@
 @property(nonatomic,copy)NSString * signUrl;
 @property(nonatomic,copy)NSString * avatar_str;
 @property(nonatomic,copy)NSString * key;
+@property(nonatomic,assign)BOOL avatarChange;
 
 @end
 
@@ -77,8 +78,9 @@
 -(void)changeUserInfo
 {
     [self stopEdit];
+ 
     
-    NSDictionary * dict = @{@"header_url":self.key,@"nick_name":[self nick],@"birthday":self.dateString,@"interface":@"User@changeUserInfo"};
+    NSDictionary * dict =(_avatarChange)?@{@"header_url":self.key,@"nick_name":[self nick],@"birthday":self.dateString,@"interface":@"User@changeUserInfo"}:@{@"nick_name":[self nick],@"birthday":self.dateString,@"interface":@"User@changeUserInfo"};
     WYHttpRequest *request = [[WYHttpRequest alloc]init];
     [request requestWithPragma:dict showLoading:NO];
     request.successBlock = ^(id  _Nonnull response) {
@@ -92,6 +94,9 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:WYNotifacationUserInfoChange object:nil];
             
         }
+        
+        RCUserInfo * info  =[[RCUserInfo alloc]initWithUserId:[WYSession sharedSession].uid name:[WYSession sharedSession].nickname portrait:avatar];
+        [[RCIM sharedRCIM] refreshUserInfoCache:info withUserId:[WYSession sharedSession].uid];
 
         [self.view makeToast:@"修改成功"];
     };
@@ -215,6 +220,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 //上传头像
 -(void)UploadimageWithImage:(UIImage*)avatarImage
 {
+    _avatarChange = YES;
     
     [self.headerView.avatarButton setImage:avatarImage forState:UIControlStateNormal];
 
@@ -320,7 +326,11 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
   
         [self.dataArray replaceObjectAtIndex:2 withObject:self.dateString];
         [self.dataArray replaceObjectAtIndex:3 withObject:xingzuo];
-        [self.tableView reloadData];
+     
+        NSIndexPath *indexPath2 = [NSIndexPath indexPathForRow:2 inSection:0];
+        NSIndexPath *indexPath3 = [NSIndexPath indexPathForRow:3 inSection:0];
+    
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath2, indexPath3,nil] withRowAnimation:UITableViewRowAnimationFade];
 
     }];
     datepicker.doneButtonColor = [UIColor binaryColor:@"6950FB"];//确定按钮的颜色

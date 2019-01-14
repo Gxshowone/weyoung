@@ -486,4 +486,35 @@
     
 }
 
++(NSString*)exchangeToEngMonth:(NSString*)cn
+{
+    if ([cn isEqualToString:@"01"]) {
+        return @"Jan.";
+    }else if ([cn isEqualToString:@"02"]) {
+        return @"Feb.";
+    }else if ([cn isEqualToString:@"03"]) {
+        return @"Mar.";
+    }else if ([cn isEqualToString:@"04"]) {
+        return @"Apr";
+    }else if ([cn isEqualToString:@"05"]) {
+        return @"May.";
+    }else if ([cn isEqualToString:@"06"]) {
+        return @"Jun.";
+    }else if ([cn isEqualToString:@"07"]) {
+        return @"Jul.";
+    }else if ([cn isEqualToString:@"08"]) {
+        return @"Aug.";
+    }else if ([cn isEqualToString:@"09"]) {
+        return @"Sep.";
+    }else if ([cn isEqualToString:@"10"]) {
+        return @"Oct.";
+    }else if ([cn isEqualToString:@"11"]) {
+        return @"Nov.";
+    }else if ([cn isEqualToString:@"12"]) {
+        return @"Dec.";
+    }
+    
+    return @"Jan.";
+}
+
 @end

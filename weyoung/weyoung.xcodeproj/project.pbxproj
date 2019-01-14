@@ -59,7 +59,6 @@
 		D22E375621E6027900292FB3 /* child.json in Resources */ = {isa = PBXBuildFile; fileRef = D22E375521E6027900292FB3 /* child.json */; };
 		D22F08E421E721B300FE9331 /* WYMessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D22F08E321E721B300FE9331 /* WYMessageListViewController.m */; };
 		D22F08E721E7241500FE9331 /* WYMessageNaviBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D22F08E621E7241500FE9331 /* WYMessageNaviBar.m */; };
-		D22F08EC21E7532300FE9331 /* WYIMDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D22F08EB21E7532300FE9331 /* WYIMDataSource.m */; };
 		D22F08F021E77D0A00FE9331 /* WYSystemMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D22F08EF21E77D0A00FE9331 /* WYSystemMessage.m */; };
 		D22F08F321E77DDF00FE9331 /* WYLikeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D22F08F221E77DDF00FE9331 /* WYLikeMessage.m */; };
 		D22F08F621E77E3A00FE9331 /* WYCommonMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D22F08F521E77E3A00FE9331 /* WYCommonMessage.m */; };
@@ -78,6 +77,8 @@
 		D230B83721CE5AFB004BC2F2 /* WYFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D230B83621CE5AFB004BC2F2 /* WYFriendViewController.m */; };
 		D230B83A21CE5B11004BC2F2 /* WYFriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D230B83921CE5B11004BC2F2 /* WYFriendTableViewCell.m */; };
 		D230F08921C8FA620055D5A0 /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D230F08821C8FA620055D5A0 /* NSString+Extension.m */; };
+		D23124A321EC612E00D2BA35 /* RCDataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D23124A221EC612E00D2BA35 /* RCDataBaseManager.m */; };
+		D23124A621EC75C500D2BA35 /* WYUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D23124A521EC75C500D2BA35 /* WYUserInfo.m */; };
 		D23AE8D621DC618B00D79007 /* WYMatchingFailureView.m in Sources */ = {isa = PBXBuildFile; fileRef = D23AE8D521DC618B00D79007 /* WYMatchingFailureView.m */; };
 		D23AE8D921DC687700D79007 /* WYApplyView.m in Sources */ = {isa = PBXBuildFile; fileRef = D23AE8D821DC687700D79007 /* WYApplyView.m */; };
 		D23AE8DD21DC6C1E00D79007 /* WYMatchingSusscesView.m in Sources */ = {isa = PBXBuildFile; fileRef = D23AE8DC21DC6C1E00D79007 /* WYMatchingSusscesView.m */; };
@@ -254,8 +255,6 @@
 		D22F08E521E7241500FE9331 /* WYMessageNaviBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYMessageNaviBar.h; sourceTree = "<group>"; };
 		D22F08E621E7241500FE9331 /* WYMessageNaviBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYMessageNaviBar.m; sourceTree = "<group>"; };
 		D22F08E821E7260500FE9331 /* weyoung.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = weyoung.entitlements; sourceTree = "<group>"; };
-		D22F08EA21E7532300FE9331 /* WYIMDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYIMDataSource.h; sourceTree = "<group>"; };
-		D22F08EB21E7532300FE9331 /* WYIMDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYIMDataSource.m; sourceTree = "<group>"; };
 		D22F08EE21E77D0A00FE9331 /* WYSystemMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYSystemMessage.h; sourceTree = "<group>"; };
 		D22F08EF21E77D0A00FE9331 /* WYSystemMessage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYSystemMessage.m; sourceTree = "<group>"; };
 		D22F08F121E77DDF00FE9331 /* WYLikeMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYLikeMessage.h; sourceTree = "<group>"; };
@@ -292,6 +291,10 @@
 		D230B83921CE5B11004BC2F2 /* WYFriendTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYFriendTableViewCell.m; sourceTree = "<group>"; };
 		D230F08721C8FA620055D5A0 /* NSString+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Extension.h"; sourceTree = "<group>"; };
 		D230F08821C8FA620055D5A0 /* NSString+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extension.m"; sourceTree = "<group>"; };
+		D23124A121EC612E00D2BA35 /* RCDataBaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCDataBaseManager.h; sourceTree = "<group>"; };
+		D23124A221EC612E00D2BA35 /* RCDataBaseManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCDataBaseManager.m; sourceTree = "<group>"; };
+		D23124A421EC75C500D2BA35 /* WYUserInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYUserInfo.h; sourceTree = "<group>"; };
+		D23124A521EC75C500D2BA35 /* WYUserInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYUserInfo.m; sourceTree = "<group>"; };
 		D23AE8D421DC618B00D79007 /* WYMatchingFailureView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYMatchingFailureView.h; sourceTree = "<group>"; };
 		D23AE8D521DC618B00D79007 /* WYMatchingFailureView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYMatchingFailureView.m; sourceTree = "<group>"; };
 		D23AE8D721DC687700D79007 /* WYApplyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYApplyView.h; sourceTree = "<group>"; };
@@ -554,7 +557,7 @@
 		D2249FA821BA12D4009B274C /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				D22F08E921E752F900FE9331 /* WYImDataSource */,
+				D23124A021EC610B00D2BA35 /* RCData */,
 				D2249FB721BA1A0B009B274C /* Config */,
 				D2249FB621BA19FB009B274C /* Session */,
 			);
@@ -850,15 +853,6 @@
 			path = Res;
 			sourceTree = "<group>";
 		};
-		D22F08E921E752F900FE9331 /* WYImDataSource */ = {
-			isa = PBXGroup;
-			children = (
-				D22F08EA21E7532300FE9331 /* WYIMDataSource.h */,
-				D22F08EB21E7532300FE9331 /* WYIMDataSource.m */,
-			);
-			path = WYImDataSource;
-			sourceTree = "<group>";
-		};
 		D22F08ED21E77CDE00FE9331 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -899,6 +893,17 @@
 				D230B83621CE5AFB004BC2F2 /* WYFriendViewController.m */,
 			);
 			path = Friend;
+			sourceTree = "<group>";
+		};
+		D23124A021EC610B00D2BA35 /* RCData */ = {
+			isa = PBXGroup;
+			children = (
+				D23124A121EC612E00D2BA35 /* RCDataBaseManager.h */,
+				D23124A221EC612E00D2BA35 /* RCDataBaseManager.m */,
+				D23124A421EC75C500D2BA35 /* WYUserInfo.h */,
+				D23124A521EC75C500D2BA35 /* WYUserInfo.m */,
+			);
+			path = RCData;
 			sourceTree = "<group>";
 		};
 		D23AE8CF21DC610C00D79007 /* addFriend */ = {
@@ -1512,6 +1517,7 @@
 				D2249FCA21BA2375009B274C /* WYNoDataView.m in Sources */,
 				D2775D2D21D356EB001C4659 /* WYMainViewController.m in Sources */,
 				D23AE91021DCB9A200D79007 /* WYComposeToolBar.m in Sources */,
+				D23124A621EC75C500D2BA35 /* WYUserInfo.m in Sources */,
 				D230314B21DDC5D700E0DBF2 /* WYCopyLabel.m in Sources */,
 				D23AE90D21DCB84B00D79007 /* WYAssets.m in Sources */,
 				D23AE90121DCB66400D79007 /* WYComposeViewController.m in Sources */,
@@ -1567,10 +1573,10 @@
 				D22F08F021E77D0A00FE9331 /* WYSystemMessage.m in Sources */,
 				D2249FDC21BA2F7A009B274C /* WYCodeViewController.m in Sources */,
 				D229B79A21CA1CF9006BCD39 /* WYInputViewController.m in Sources */,
+				D23124A321EC612E00D2BA35 /* RCDataBaseManager.m in Sources */,
 				D226985A21BBDF250091EE3B /* WYEditTableViewCell.m in Sources */,
 				D287DE9F21BCE9F20048B5C2 /* WYFeedBackViewController.m in Sources */,
 				D283594E21D4B42500C6EB76 /* GTMBase64.m in Sources */,
-				D22F08EC21E7532300FE9331 /* WYIMDataSource.m in Sources */,
 				D2249FD921BA2F5E009B274C /* WYLoginViewController.m in Sources */,
 				D2249FDF21BA2FAB009B274C /* WYPassWordViewController.m in Sources */,
 				D224038C21BB8B3C00001B83 /* WYPasswordInputView.m in Sources */,
@@ -1771,7 +1777,10 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/weyoung/weyoung-Prefix.pch";
 				INFOPLIST_FILE = weyoung/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.supe.weyoung;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1791,7 +1800,10 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/weyoung/weyoung-Prefix.pch";
 				INFOPLIST_FILE = weyoung/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.supe.weyoung;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1806,7 +1818,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5CL2WH5NRG;
 				INFOPLIST_FILE = weyoungTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.supe.weyoungTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1822,7 +1838,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5CL2WH5NRG;
 				INFOPLIST_FILE = weyoungTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.supe.weyoungTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1837,7 +1857,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5CL2WH5NRG;
 				INFOPLIST_FILE = weyoungUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.supe.weyoungUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1852,7 +1876,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5CL2WH5NRG;
 				INFOPLIST_FILE = weyoungUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.supe.weyoungUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";

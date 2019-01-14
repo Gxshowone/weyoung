@@ -187,16 +187,11 @@
 -(void)retryToGetData
 {
     
-    _page = 0;
+    _page = 1;
     
     [self requestDataWithType:1];
     
-    __weak __typeof(self) weakSelf = self;
-    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        
-        [weakSelf loadMoreData];
-        
-    }];
+
 }
 
 
@@ -312,7 +307,7 @@
         _tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
         _tableView.delegate=self;
         _tableView.dataSource=self;
-        _tableView.backgroundColor = WYRandomColor;
+        _tableView.backgroundColor = [UIColor clearColor];
         _tableView.tableHeaderView = self.headerView;
         
         __weak __typeof(self) weakSelf = self;

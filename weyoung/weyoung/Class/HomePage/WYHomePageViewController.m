@@ -7,7 +7,7 @@
 //
 
 #import "WYHomePageViewController.h"
-
+#import <AudioToolbox/AudioToolbox.h>
 #define kPulseAnimation @"kPulseAnimation"
 
 
@@ -101,6 +101,12 @@
         
         [self.quanquan stopAnimating];
         
+        NSDictionary * dict = (NSDictionary*)response;
+        if ([dict count]==0) {
+            
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+            [self.view makeToast:@"怎么会没有人？"];
+        }
         
 //        if(self.delegate&&[self.delegate respondsToSelector:@selector(conversation:)])
 //        {

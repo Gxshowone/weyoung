@@ -47,6 +47,9 @@ NS_ASSUME_NONNULL_BEGIN
 +(NSString*)timeToMonth:(NSString*)timeStampString;
 
 +(NSString*)timeToDay:(NSString*)timeStampString;
+
++(NSString*)exchangeToEngMonth:(NSString*)cn;
+
 @end
 
 NS_ASSUME_NONNULL_END

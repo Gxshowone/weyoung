@@ -10,7 +10,7 @@
 #import "WYCopyLabel.h"
 #import "WYJPPView.h"
 #import "NSString+Extension.h"
-@interface WYDynamicTableViewCell ()
+@interface WYDynamicTableViewCell ()<CAAnimationDelegate>
 
 @property(nonatomic,strong)UIView *sepLine;
 @property(nonatomic,strong)UIImageView *avatarIV;
@@ -21,6 +21,7 @@
 @property(nonatomic,assign)BOOL isExpandNow;
 @property(nonatomic,assign)NSInteger headerSection;
 @property(nonatomic,strong)WYJPPView *jggView;
+@property(nonatomic,strong)UILabel * addLabel;
 
 @end
 @implementation WYDynamicTableViewCell
@@ -39,6 +40,7 @@
         [self.contentView addSubview:self.messageTextLabel];
         [self.contentView addSubview:self.jggView];
         [self.contentView addSubview:self.sepLine];
+        [self.contentView addSubview:self.addLabel];
     }
     return self;
 }
@@ -57,10 +59,7 @@
     NSString * image = [NSString stringWithFormat:@"%@",model.image];
     self.jggView.dataSource = @[image];
 
-  
-    NSString * likeIN = (model.praise_count==0)?@"dynamic_like_select_btn":@"dynamic_like_select_btn";
-    [self.likeBtn setImage:[UIImage imageNamed:likeIN] forState:UIControlStateNormal];
-    
+    [self setIsLike:model.praise_count];
     
     self.friendLabel.hidden = YES;
     
@@ -72,6 +71,12 @@
     self.jggView.dataSource = @[model.image];
     self.jggView.frame = model.jggLayout.frameLayout;
     
+}
+
+-(void)setIsLike:(NSInteger)praise_count
+{
+    NSString * likeIN = (praise_count==0)?@"dynamic_like_btn":@"dynamic_like_select_btn";
+    [self.likeBtn setImage:[UIImage imageNamed:likeIN] forState:UIControlStateNormal];
 }
 
 -(void)layoutSubviews
@@ -93,6 +98,43 @@
     self.messageTextLabel.lineBreakMode = NSLineBreakByCharWrapping;
     self.messageTextLabel.numberOfLines = 0;
     
+    self.addLabel.frame = CGRectMake(KScreenWidth-88, -20, 44, 44);
+    
+}
+
+- (void)addZanAnimation
+{
+    //关键帧动画
+    //用动画完成放大的效果
+    CAKeyframeAnimation *animation=[CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+    //需要给他设置一个关键帧的值,这个值就是变化过程
+    //values是一个数组
+    animation.values=@[@(0.5),@(1.0),@(1.5)];
+    //设置动画的时长
+    animation.duration=0.2;
+    //加到button上
+    [self.likeBtn.layer addAnimation:animation forKey:@"animation"];
+    
+    NSString * likeIN = @"dynamic_like_select_btn";
+    [self.likeBtn setImage:[UIImage imageNamed:likeIN] forState:UIControlStateNormal];
+    
+    self.likeBtn.alpha = 1;
+    CAKeyframeAnimation *animation2=[CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+    //需要给他设置一个关键帧的值,这个值就是变化过程
+    //values是一个数组
+    animation2.values=@[@(0.4),@(0.6),@(1.0),@(1.4)];
+    //设置动画的时长
+    animation2.duration=0.4;
+    animation2.delegate = self;
+    //加到button上
+    [self.likeBtn.layer addAnimation:animation2 forKey:@"animation"];
+}
+
+- (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag {
+    //clearMemory
+    //结束事件
+    
+    self.addLabel.alpha = 0;
     
 }
 
@@ -152,7 +194,13 @@
         @weakify(self);
         [[_likeBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
-          
+            
+            if (self.model.praise_count>0) {
+                return ;
+            }
+            
+            [self addZanAnimation];
+            
             if (self.delegate) {
                 [self.delegate likeDynamic:self.model];
             }
@@ -202,6 +250,19 @@
         _sepLine = [[UIView alloc]init];
     }
     return _sepLine;
+}
+
+-(UILabel*)addLabel
+{
+    if (!_addLabel) {
+        _addLabel =[[UILabel alloc] initWithFrame:CGRectMake(100, 80, 80, 20)];
+        _addLabel.text = @"+ 1";
+        _addLabel.textColor = [UIColor redColor];
+        _addLabel.textAlignment = NSTextAlignmentCenter;
+        _addLabel.font = [UIFont systemFontOfSize:15];
+        _addLabel.alpha = 0;
+    }
+    return _addLabel;
 }
 
 @end

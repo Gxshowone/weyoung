@@ -16,6 +16,8 @@ target 'weyoung' do
    pod 'lottie-ios'
    pod 'RongCloudIM/IMLib'
    pod 'RongCloudIM/IMKit'
+   pod 'FMDB'
+   pod 'YYCache'
    # Pods for weyoung
 
   target 'weyoungTests' do
