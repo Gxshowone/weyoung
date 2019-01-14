@@ -8,14 +8,14 @@ target 'weyoung' do
    pod 'AFNetworking'
    pod 'MJRefresh'
    pod 'MJExtension'
-   pod 'RongCloudIM/IMLib'
-   pod 'RongCloudIM/IMKit'
    pod 'NJKWebViewProgress'
    pod 'WebViewJavascriptBridge'
    pod 'YYWebImage'
    pod 'IQKeyboardManager'
    pod 'Masonry'
    pod 'lottie-ios'
+   pod 'RongCloudIM/IMLib'
+   pod 'RongCloudIM/IMKit'
    # Pods for weyoung
 
   target 'weyoungTests' do

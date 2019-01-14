@@ -138,7 +138,7 @@
     if(!_headerView)
     {
         _headerView = [[WYMessageHeaderView alloc]init];
-        _headerView.delegate = self;
+        _headerView.protocal = self;
     }
     return _headerView;
 }

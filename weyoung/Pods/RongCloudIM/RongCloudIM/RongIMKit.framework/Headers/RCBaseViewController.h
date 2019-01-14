@@ -8,15 +8,13 @@
 
 #import <RongIMLib/RongIMLib.h>
 #import <UIKit/UIKit.h>
-#import "WYBaseViewController.h"
+
 /*!
  IMKit ViewController基类
 
  @discussion 主要定义了View的默认大小。
  */
 @interface RCBaseViewController : UIViewController
-
-
 
 ///*!
 // 是否开启左滑返回手势,默认是 NO ,关闭状态，可以在页面 viewDidLoad 里开启

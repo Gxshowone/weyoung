@@ -45,6 +45,7 @@
     self.icon.frame = CGRectMake(20, 12.5, 45, 45);
     self.titleLabel.frame = CGRectMake(80.3, 22, 100, 26);
     self.unreadLabel.frame = CGRectMake(KScreenWidth-18-20, 26, 18, 18);
+
 }
 
 -(UIImageView*)icon
@@ -75,6 +76,9 @@
         _unreadLabel.font = [UIFont fontWithName:TextFontName_Light size:12];
         _unreadLabel.textColor = [UIColor whiteColor];
         _unreadLabel.textAlignment = NSTextAlignmentCenter;
+        _unreadLabel.layer.cornerRadius = 9;
+        _unreadLabel.layer.masksToBounds = YES;
+        _unreadLabel.text = @"1";
     }
     return _unreadLabel;
 }
