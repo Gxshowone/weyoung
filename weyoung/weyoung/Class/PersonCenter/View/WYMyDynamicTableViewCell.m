@@ -9,6 +9,7 @@
 #import "WYMyDynamicTableViewCell.h"
 #import "WYCopyLabel.h"
 #import "WYJPPView.h"
+#import "NSString+Extension.h"
 @interface WYMyDynamicTableViewCell()
 
 @property(nonatomic,strong)UILabel * dayLabel;
@@ -16,28 +17,54 @@
 @property(nonatomic,strong)WYCopyLabel *messageTextLabel;
 @property(nonatomic,strong)WYJPPView *jggView;
 
+
 @end
 @implementation WYMyDynamicTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.backgroundColor = [UIColor blackColor];
         [self.contentView addSubview:self.dayLabel];
         [self.contentView addSubview:self.monthLabel];
         [self.contentView addSubview:self.messageTextLabel];
         [self.contentView addSubview:self.jggView];
+        
+
+        
     }
     return self;
+}
+
+-(void)setModel:(WYMYDynamicModel *)model
+{
+    _model = model;
+    
+    self.monthLabel.text= [NSString timeToMonth:model.create_time];
+    self.dayLabel.text = [NSString timeToDay:model.create_time];
+    
+    
+    NSString * image = [NSString stringWithFormat:@"%@",model.image];
+    self.jggView.dataSource = @[image];
+  
+    self.messageTextLabel.attributedText = model.attributedText;
+    self.messageTextLabel.frame = model.textLayout.frameLayout;
+    
+    ///解决图片复用问题
+    [self.jggView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    self.jggView.dataSource = @[model.image];
+    self.jggView.frame = model.jggLayout.frameLayout;
+    
 }
 
 -(void)layoutSubviews
 {
     [super layoutSubviews];
     
-    self.dayLabel.frame = CGRectMake(19.5, 23.5, 24, 28);
+    self.dayLabel.frame = CGRectMake(19.5, 0, 24, 28);
     self.monthLabel.frame = CGRectMake(19,CGRectGetMaxY(self.dayLabel.frame), 23, 16);
-    self.messageTextLabel.frame = CGRectMake(68, 23.5, KScreenWidth-88, 100);
-    
+
 }
 
 -(UILabel*)dayLabel

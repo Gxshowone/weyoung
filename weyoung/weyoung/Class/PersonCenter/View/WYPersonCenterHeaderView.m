@@ -34,10 +34,25 @@
         [self addSubview:self.friendItem];
       
         [self reload];
+        [self addNotification];
     }
     return self;
 }
 
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+-(void)addNotification
+{
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:WYNotifacationUserInfoChange object:nil] subscribeNext:^(NSNotification * _Nullable x) {
+        NSLog(@"%@",x);
+        
+       [self.avatarItem yy_setImageWithURL:[NSURL URLWithString:[WYSession sharedSession].avatar] forState:UIControlStateNormal options:YYWebImageOptionSetImageWithFadeAnimation];
+    }];
+    
+}
 
 
 -(void)reload

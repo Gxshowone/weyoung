@@ -8,10 +8,12 @@
 
 #import "WYFriendViewController.h"
 #import "WYFriendTableViewCell.h"
+#import "WYFriendModel.h"
 @interface WYFriendViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView * tableView;
 @property(nonatomic,strong)NSMutableArray * dataArray;
+@property(nonatomic,assign)int page;
 
 @end
 
@@ -28,30 +30,46 @@
 
 -(void)requestDataWithType:(int)type
 {
-  
+    
     //停止loading
     [self hideNoNetWorkView];
     [self hideNoDataView];
-
-    NSMutableArray * modelArray; //模型数组；
-    if (type == 1) {
+    
+    NSString * pageStr = [NSString stringWithFormat:@"%d",_page];
+    NSDictionary * dict=@{@"interface":@"Friend@getFriendList"};
+    
+    
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
         
-        //首先要清空id 数组 和数据源数组
-        self.dataArray = [NSMutableArray arrayWithArray:modelArray];
+        NSArray * array  = (NSArray*)response;
+        NSMutableArray * modelArray = [WYFriendModel mj_objectArrayWithKeyValuesArray:array];
+        if (type == 1) {
+            
+            //首先要清空id 数组 和数据源数组
+            self.dataArray = [NSMutableArray arrayWithArray:modelArray];
+            
+        }else if(type == 2){
+            
+            NSMutableArray * Array = [[NSMutableArray alloc] init];
+            [Array addObjectsFromArray:self.dataArray];
+            [Array addObjectsFromArray:modelArray];
+            self.dataArray = Array;
+            
+        }
         
-    }else if(type == 2){
+        [self stopLoadData];
+        [self nodata];
+        [self nomoredata:modelArray];
         
-        NSMutableArray * Array = [[NSMutableArray alloc] init];
-        [Array addObjectsFromArray:self.dataArray];
-        [Array addObjectsFromArray:modelArray];
-        self.dataArray = Array;
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
         
-    }
-
-    [self stopLoadData];
-    [self nodata];
-    [self nomoredata:modelArray];
-
+    };
+    
+    
 }
 -(void)nodata
 {
@@ -68,6 +86,7 @@
 -(void)nomoredata:(NSMutableArray*)array
 {
     if ([array count]==0) {
+        
         
         self.tableView.mj_footer = nil;
     }
@@ -93,19 +112,22 @@
 -(void)retryToGetData
 {
     
-    [self requestDataWithType:1 ];
+    _page = 0;
     
-    __weak __typeof(self) weakSelf = self;
-    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        
-        [weakSelf loadMoreData];
-        
-    }];
+    [self requestDataWithType:1];
+    
+//    __weak __typeof(self) weakSelf = self;
+//    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+//
+//        [weakSelf loadMoreData];
+//
+//    }];
 }
 
 
 -(void)loadMoreData
 {
+    _page ++;
     [self requestDataWithType:2];
 }
 
@@ -156,6 +178,8 @@
         cell = [[WYFriendTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
     
+    cell.model = self.dataArray[indexPath.row];
+    
     return cell;
     
 }
@@ -178,9 +202,27 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     //在这里实现删除操作
     
+    WYFriendModel * model = self.dataArray[indexPath.row];
+    [self deleteUser:model];
+    
     //删除数据，和删除动画
     [self.dataArray removeObjectAtIndex:0];
     [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
+}
+
+-(void)deleteUser:(WYFriendModel*)model
+{
+   
+    NSDictionary * dict=@{@"interface":@"Friend@delFriend",@"to_uid":@"to_uid"};
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+    };
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

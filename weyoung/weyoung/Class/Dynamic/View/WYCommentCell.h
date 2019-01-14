@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "WYCommentModel.h"
 NS_ASSUME_NONNULL_BEGIN
 @class WYCommentModel;
 @class WYCommentCell;

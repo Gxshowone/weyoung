@@ -10,7 +10,6 @@
 
 @interface WYEditHeaderView()
 
-@property(nonatomic,strong)UIButton * avatarButton;
 @property(nonatomic,strong)UILabel  * alertLabel;
 
 @end
@@ -23,9 +22,13 @@
         
         [self addSubview:self.avatarButton];
         [self addSubview:self.alertLabel];
+       
     }
     return self;
 }
+
+
+
 
 -(void)layoutSubviews
 {
@@ -34,20 +37,20 @@
     self.alertLabel.frame = CGRectMake(KScreenWidth/2-44, CGRectGetMaxY(self.avatarButton.frame)+10.8, 88, 26);
     
 }
+-(void)setAvatar:(NSString*)avatar
+{
+    [self.avatarButton yy_setImageWithURL:[NSURL URLWithString:avatar] forState:UIControlStateNormal placeholder:[UIImage imageNamed:@"login_pic_btn"]];
+}
 
 
 -(UIButton*)avatarButton
 {
     if (!_avatarButton) {
         _avatarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _avatarButton.layer.cornerRadius = 45;
+        _avatarButton.layer.masksToBounds = YES;
         [_avatarButton setImage:[UIImage imageNamed:@"login_pic_btn"] forState:UIControlStateNormal];
-        
-        @weakify(self);
-        [[_avatarButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-            @strongify(self);
-       
-            
-        }];
+
     }
     return _avatarButton;
 }

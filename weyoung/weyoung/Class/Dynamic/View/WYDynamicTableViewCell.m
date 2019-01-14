@@ -9,6 +9,7 @@
 #import "WYDynamicTableViewCell.h"
 #import "WYCopyLabel.h"
 #import "WYJPPView.h"
+#import "NSString+Extension.h"
 @interface WYDynamicTableViewCell ()
 
 @property(nonatomic,strong)UIView *sepLine;
@@ -27,6 +28,8 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
       
+        self.backgroundColor = [UIColor blackColor];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         [self.contentView addSubview:self.avatarIV];
         [self.contentView addSubview:self.userNameLabel];
         [self.contentView addSubview:self.timeStampLabel];
@@ -40,16 +43,57 @@
     return self;
 }
 
+-(void)setModel:(WYDynamicModel *)model
+{
+    _model = model;
+    
+    [self.avatarIV yy_setImageWithURL:[NSURL URLWithString:model.header_url] options:0];
+    self.userNameLabel.text = [NSString stringWithFormat:@"%@",model.nick_name];
+    
+    NSString * time = [NSString timeIntervaltoString:model.create_time];
+    self.timeStampLabel.text = [NSString inputTimeStr:time withFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    
+    NSString * image = [NSString stringWithFormat:@"%@",model.image];
+    self.jggView.dataSource = @[image];
+
+  
+    NSString * likeIN = (model.praise_count==0)?@"dynamic_like_select_btn":@"dynamic_like_select_btn";
+    [self.likeBtn setImage:[UIImage imageNamed:likeIN] forState:UIControlStateNormal];
+    
+    
+    self.friendLabel.hidden = YES;
+    
+    self.messageTextLabel.attributedText = model.attributedText;
+    self.messageTextLabel.frame = model.textLayout.frameLayout;
+    
+    ///解决图片复用问题
+    [self.jggView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    self.jggView.dataSource = @[model.image];
+    self.jggView.frame = model.jggLayout.frameLayout;
+    
+}
+
 -(void)layoutSubviews
 {
     [super layoutSubviews];
     self.avatarIV.frame = CGRectMake(20, 17.4, 32, 32);
     self.userNameLabel.frame = CGRectMake(67, 12.3, 120, 27);
     self.timeStampLabel.frame = CGRectMake(67, 31.4, 100, 27);
-    self.friendLabel.frame = CGRectMake(CGRectGetMaxX(self.userNameLabel.frame)+5, 18, 30, 14);
+    
+    [self.userNameLabel sizeToFit];
+    
+    self.friendLabel.frame = CGRectMake(CGRectGetMaxX(self.userNameLabel.frame)+5, 16, 30, 14);
     self.likeBtn.frame = CGRectMake(KScreenWidth-88, 0, 44, 44);
     self.moreBtn.frame = CGRectMake(KScreenWidth-44, 0, 44, 44);
     self.sepLine.frame = CGRectMake(20, self.height, KScreenWidth-20, 1);
+    
+    
+    self.messageTextLabel.preferredMaxLayoutWidth = KScreenWidth- 67-20;
+    self.messageTextLabel.lineBreakMode = NSLineBreakByCharWrapping;
+    self.messageTextLabel.numberOfLines = 0;
+    
+    
 }
 
 -(UIImageView*)avatarIV
@@ -105,6 +149,14 @@
     if (!_likeBtn) {
         _likeBtn =[UIButton buttonWithType:UIButtonTypeCustom];
         
+        @weakify(self);
+        [[_likeBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+            @strongify(self);
+          
+            if (self.delegate) {
+                [self.delegate likeDynamic:self.model];
+            }
+        }];
     }
     return _likeBtn;
 }
@@ -114,6 +166,15 @@
     if (!_moreBtn) {
         _moreBtn =[UIButton buttonWithType:UIButtonTypeCustom];
         [_moreBtn setImage:[UIImage imageNamed:@"dynamic_more_btn"] forState:UIControlStateNormal];
+        
+        @weakify(self);
+        [[_moreBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+            @strongify(self);
+            if (self.delegate) {
+                [self.delegate moreDynamic:self.model];
+            }
+            
+        }];
     }
     return _moreBtn;
 }

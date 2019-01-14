@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WYMessageHeaderView : UITableView
 
-@property (weak,nonatomic) id<WYMessageHeaderViewDelegate> protocal;
+@property (weak,nonatomic) id<WYMessageHeaderViewDelegate> prtocal;
 
 
 @end

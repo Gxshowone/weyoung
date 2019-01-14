@@ -9,6 +9,7 @@
 #import "WYCommentHeader.h"
 #import "WYCopyLabel.h"
 #import "WYJPPView.h"
+#import "NSString+Extension.h"
 @interface WYCommentHeader ()
 @property(nonatomic,strong)UIView *sepLine;
 @property(nonatomic,strong)UIImageView *avatarIV;
@@ -40,6 +41,38 @@
     }
     return self;
 }
+
+-(void)setModel:(WYDynamicModel *)model
+{
+    _model = model;
+    
+    [self.avatarIV yy_setImageWithURL:[NSURL URLWithString:model.header_url] options:0];
+    self.userNameLabel.text = [NSString stringWithFormat:@"%@",model.nick_name];
+    
+    NSString * time = [NSString timeIntervaltoString:model.create_time];
+    self.timeStampLabel.text = [NSString inputTimeStr:time withFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    
+    NSString * image = [NSString stringWithFormat:@"%@",model.image];
+    self.jggView.dataSource = @[image];
+    
+    
+    NSString * likeIN = (model.praise_count==0)?@"dynamic_like_select_btn":@"dynamic_like_select_btn";
+    [self.likeBtn setImage:[UIImage imageNamed:likeIN] forState:UIControlStateNormal];
+    
+    
+    self.friendLabel.hidden = YES;
+    
+    self.messageTextLabel.attributedText = model.attributedText;
+    self.messageTextLabel.frame = model.textLayout.frameLayout;
+    
+    ///解决图片复用问题
+    [self.jggView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    self.jggView.dataSource = @[model.image];
+    self.jggView.frame = model.jggLayout.frameLayout;
+    
+}
+
 
 -(void)layoutSubviews
 {
@@ -101,20 +134,21 @@
     return _timeStampLabel;
 }
 
--(UIButton*)likeBtn
-{
-    if (!_likeBtn) {
-        _likeBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-        
-    }
-    return _likeBtn;
-}
 
 -(UIButton*)moreBtn
 {
     if (!_moreBtn) {
         _moreBtn =[UIButton buttonWithType:UIButtonTypeCustom];
         [_moreBtn setImage:[UIImage imageNamed:@"dynamic_more_btn"] forState:UIControlStateNormal];
+        
+        @weakify(self);
+        [[_moreBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+            @strongify(self);
+            if (self.delegate) {
+                [self.delegate moreDynamic:self.model];
+            }
+            
+        }];
     }
     return _moreBtn;
 }

@@ -7,14 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "WYDynamicModel.h"
+#import "WYUserModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol WYMainViewControllerDelegate <NSObject>
 
 -(void)scrollToIndex:(NSInteger)index;
 
--(void)conversation; //进入会话页面
+-(void)conversation:(WYUserModel*)model; //进入会话页面
 
 -(void)message; //进入消息列表页面
 
@@ -24,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)friendList;//朋友列表
 
+-(void)gotoComment:(WYDynamicModel*)model;//评论列表页
 
 
 @end

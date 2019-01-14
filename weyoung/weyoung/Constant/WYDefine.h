@@ -12,7 +12,7 @@
 
 #pragma mark -
 #pragma mark 打印日志
-#define GTDEBUG 1
+#define GTDEBUG 0
 #if GTDEBUG
 #define NSLog(...) NSLog(__VA_ARGS__)
 #else

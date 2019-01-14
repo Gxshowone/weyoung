@@ -12,6 +12,7 @@
 #import "WYComposeToolBar.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "WYAssets.h"
+
 @interface WYComposeViewController ()<UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic , strong) WYTextView *textView;
@@ -20,6 +21,11 @@
 
 //是否正在切换键盘
 @property (nonatomic ,assign, getter=isChangingKeyboard) BOOL ChangingKeyboard;
+
+@property(nonatomic,copy)NSString * signUrl;
+@property(nonatomic,copy)NSString * key;
+
+
 
 @end
 
@@ -32,6 +38,25 @@
     [self setupTextView];
     [self setupPhotosView];
     [self setupToolbar];
+    [self getSignUrl];
+    
+}
+
+-(void)getSignUrl
+{
+    
+    NSDictionary * dict = @{@"interface":@"File@getUploadUrl",@"source":@"2"};
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+        self.key = [NSString stringWithFormat:@"%@",[response valueForKey:@"key"]];
+        self.signUrl = [NSString stringWithFormat:@"%@",[response valueForKey:@"signedUrl"]];
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+    };
 }
 
 -(void)viewDidLayoutSubviews
@@ -62,6 +87,44 @@
         @strongify(self);
           [self dismissViewControllerAnimated:YES completion:nil];
     }];
+    
+    [[self.rightButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        @strongify(self);
+        
+        [self sendDynamic];
+        
+    }];
+    
+    self.rightButton.alpha = 0.3;
+    self.rightButton.userInteractionEnabled = NO;
+}
+
+-(void)sendDynamic
+{
+
+    NSString * type = ([self.photosView hasImage])?@"2":@"1";
+    
+    NSDictionary * dict ;
+    if ([type isEqualToString:@"1"]) {
+         dict = @{@"content":self.textView.text,@"interface":@"Dynamic@PubDynamic",@"type":type};
+    }else if([type isEqualToString:@"2"])
+    {
+        dict = @{@"image":self.key,@"content":self.textView.text,@"interface":@"Dynamic@PubDynamic",@"type":type};
+    }
+    
+
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+       
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+    };
+    
 }
 
 
@@ -129,6 +192,16 @@
     // 键盘即将隐藏, 就会发出UIKeyboardWillHideNotification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
+    @weakify(self);
+    [self.textView.rac_textSignal subscribeNext:^(NSString * _Nullable x) {
+        NSLog(@"%@",x);
+        @strongify(self);
+        
+        self.rightButton.alpha = (IsStrEmpty(x))?0.3:1.0;
+        self.rightButton.userInteractionEnabled = (IsStrEmpty(x))?NO:YES;
+        
+    }];
+    
     
 }
 
@@ -136,10 +209,27 @@
 - (void)setupPhotosView {
     
     WYComposePhotosView *photosView = [[WYComposePhotosView alloc] initWithFrame:CGRectMake(0, 166+KNaviBarHeight, KScreenWidth, 130)];
+    @weakify(self);
+    photosView.block = ^(NSInteger count) {
+         @strongify(self);
+        
+        self.rightButton.alpha = (count==0)?0.3:1.0;
+        self.rightButton.userInteractionEnabled = (count==0)?NO:YES;
+        
+    };
     [self.view addSubview:photosView];
     self.photosView = photosView;
 }
 
+
+
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
 
 
 - (void)imagePickerController:(UIImagePickerController *)picker
@@ -150,16 +240,23 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     asset.photo = image;
     NSMutableArray * array = [NSMutableArray arrayWithObjects:asset, nil];
     [self.photosView setData:array];
-    
     [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    [self uploadimageWithImage:image];
+
   
 }
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+
+//上传头像
+-(void)uploadimageWithImage:(UIImage*)avatarImage
 {
+
+    NSData * data = UIImageJPEGRepresentation(avatarImage, 0.5);
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request put_uploadFileWithURLString:self.signUrl rename:@"user_photo" orFromData:data];
     
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    [picker dismissViewControllerAnimated:YES completion:nil];
 }
+
 
 #pragma mark - 键盘处理
 /**

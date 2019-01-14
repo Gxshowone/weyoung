@@ -8,10 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "WYDynamicModel.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol WYCommentHeaderDelegate <NSObject>
+
+-(void)moreDynamic:(WYDynamicModel*)model;
+-(void)likeDynamic:(WYDynamicModel*)model;
+
+
+@end
 @interface WYCommentHeader : UIView
 
+@property (nonatomic,weak) id<WYCommentHeaderDelegate> delegate;
 @property(nonatomic,strong)WYDynamicModel * model;
 @property(nonatomic,strong)UIButton *likeBtn;
 @property(nonatomic,strong)UIButton *moreBtn;

@@ -11,12 +11,21 @@
 #import "WYEditTableViewCell.h"
 #import "WSDatePickerView.h"
 #import "NSString+Extension.h"
-@interface WYEditViewController ()<UITableViewDelegate,UITableViewDataSource>
+#import <AssetsLibrary/AssetsLibrary.h>
+#import <AVFoundation/AVCaptureDevice.h>
+#import <AVFoundation/AVMediaFormat.h>
+@interface WYEditViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
 
 @property(nonatomic,strong)UITableView * tableView;
 @property(nonatomic,strong)WYEditHeaderView * headerView;
 @property(nonatomic,strong)NSArray * titleArray;
 @property(nonatomic,strong)NSMutableArray * dataArray;
+
+@property(nonatomic,copy)NSString * dateString;
+@property(nonatomic,copy)NSString * sex;
+@property(nonatomic,copy)NSString * signUrl;
+@property(nonatomic,copy)NSString * avatar_str;
+@property(nonatomic,copy)NSString * key;
 
 @end
 
@@ -27,22 +36,212 @@
     // Do any additional setup after loading the view.
     [self.view addSubview:self.tableView];
     [self initData];
+    [self initUI];
+    [self getSignUrl];
 }
 
 -(void)initUI
 {
-   
     [self.rightButton setTitle:@"保存" forState:UIControlStateNormal];
+    
+    @weakify(self);
+    [[self.rightButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        @strongify(self);
+        
+        [self changeUserInfo];
+        
+    }];
 }
 -(void)initData
 {
+    
     self.titleArray = @[@"昵称",@"性别",@"生日",@"星座"];
-    [self.dataArray addObject:@"昵称最多八个字"];
-    [self.dataArray addObject:@"小哥哥"];
-    [self.dataArray addObject:@"1991-03-20"];
-    [self.dataArray addObject:@"双鱼座"];
+    
+    NSString * nick = [WYSession sharedSession].nickname;
+    BOOL isMan =  [[WYSession sharedSession].sex isEqualToString:@"1"];
+    NSString * gender = (isMan)?@"小哥哥":@"小姐姐";
+    self.dateString = [WYSession sharedSession].birthday;
+    NSString * xingzuo = [NSString stringWithFormat:@"%@座",[NSString getAstroWithBrith:self.dateString]];
+    
+    [self.dataArray addObject:nick];
+    [self.dataArray addObject:gender];
+    [self.dataArray addObject:self.dateString];
+    [self.dataArray addObject:xingzuo];
+
     [self.tableView reloadData];
+    
+    NSString * avatar = [WYSession sharedSession].avatar;
+    [self.headerView setAvatar:avatar];
 }
+
+-(void)changeUserInfo
+{
+    [self stopEdit];
+    
+    NSDictionary * dict = @{@"header_url":self.key,@"nick_name":[self nick],@"birthday":self.dateString,@"interface":@"User@changeUserInfo"};
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+        [WYSession sharedSession].nickname = [self nick];
+        [WYSession sharedSession].birthday = self.dateString;
+        NSString * avatar = [NSString stringWithFormat:@"%@",[response valueForKey:@"header_url"]];
+
+        if (IsStrEmpty(avatar)==NO) {
+            [WYSession sharedSession].avatar  = avatar;
+            [[NSNotificationCenter defaultCenter] postNotificationName:WYNotifacationUserInfoChange object:nil];
+            
+        }
+
+        [self.view makeToast:@"修改成功"];
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+         [self.view makeToast:@"修改失败"];
+    };
+    
+    
+}
+
+
+-(void)stopEdit
+{
+    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:0  inSection:0];
+    WYEditTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    [cell stopEdit];
+}
+
+-(NSString*)nick
+{
+    
+    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:0  inSection:0];
+    WYEditTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    return  [cell inputText];
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+
+{
+    UIImagePickerController *imgpicker = [[UIImagePickerController alloc]init];
+    switch (buttonIndex) {
+        case 0:
+        {
+            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+            {
+                AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+                if (authStatus == AVAuthorizationStatusRestricted || authStatus ==AVAuthorizationStatusDenied)
+                {
+                    //无权限
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请在设备的设置-隐私-相机中允许访问相机!" preferredStyle:UIAlertControllerStyleAlert];
+                    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+                    [self presentViewController:alert animated:YES completion:nil];
+                    
+                }else{
+                    UIImagePickerController *imgpicker = [[UIImagePickerController alloc]init];
+                    imgpicker.sourceType=UIImagePickerControllerSourceTypeCamera;
+                    imgpicker.allowsEditing = YES;
+                    imgpicker.delegate = self;
+                    [[imgpicker navigationBar] setTintColor:[UIColor blackColor]];
+                    [self presentViewController:imgpicker animated:YES completion:nil];
+                }
+            }
+            else
+            {
+                
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"本设备不支持相机模式" preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleCancel handler:nil]];
+                [self presentViewController:alert animated:YES completion:nil];
+                
+                return;
+            }
+        }
+            break;
+        case 1:{
+            NSLog(@"相册");
+            ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
+            if (author == ALAuthorizationStatusRestricted || author ==ALAuthorizationStatusDenied)
+            {
+                //无权限
+                
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请先在隐私中设置相册权限" preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleCancel handler:nil]];
+                [self presentViewController:alert animated:YES completion:nil];
+                
+                
+            }else{
+                imgpicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                imgpicker.allowsEditing = YES;
+                imgpicker.delegate = self;
+                [[imgpicker navigationBar] setTintColor:[UIColor blackColor]];
+                [self presentViewController:imgpicker animated:YES completion:nil];
+            }
+            
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+            
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+}
+
+#pragma mark imagePickerController methods
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo NS_DEPRECATED_IOS(2_0,3_0)
+{
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    [self UploadimageWithImage:image];
+    
+}
+#pragma mark Camera View Delegate Methods
+- (void)imagePickerController:(UIImagePickerController *)picker
+didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    [self UploadimageWithImage:image];
+    
+}
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+//上传头像
+-(void)UploadimageWithImage:(UIImage*)avatarImage
+{
+    
+    [self.headerView.avatarButton setImage:avatarImage forState:UIControlStateNormal];
+
+    NSData * data = UIImageJPEGRepresentation(avatarImage, 0.5);
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request put_uploadFileWithURLString:self.signUrl rename:@"user_photo" orFromData:data];
+    
+}
+
+
+-(void)getSignUrl
+{
+
+    NSDictionary * dict = @{@"interface":@"File@getUploadUrl",@"source":@"1"};
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+        self.key = [NSString stringWithFormat:@"%@",[response valueForKey:@"key"]];
+        self.signUrl = [NSString stringWithFormat:@"%@",[response valueForKey:@"signedUrl"]];
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+    };
+}
+
 
 #pragma mark - TabelView delegate 代理
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
@@ -92,12 +291,15 @@
     }
     
     cell.backgroundColor = [UIColor clearColor];
+    
+    cell.canEdit = (indexPath.row==0)?YES:NO;
     [cell setTitle:self.titleArray[indexPath.row]];
     [cell setContent:self.dataArray[indexPath.row]];
     
     return cell;
     
 }
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -113,11 +315,11 @@
     @weakify(self);
     WSDatePickerView *datepicker = [[WSDatePickerView alloc] initWithDateStyle:DateStyleShowYearMonthDay CompleteBlock:^(NSDate *selectDate) {
         @strongify(self);
-        NSString *dateString = [selectDate stringWithFormat:@"yyyy-MM-dd"];
-        NSString * constellation = [NSString getAstroWithBrith:dateString];
-        
-        [self.dataArray replaceObjectAtIndex:2 withObject:dateString];
-        [self.dataArray replaceObjectAtIndex:3 withObject:constellation];
+        self.dateString = [selectDate stringWithFormat:@"yyyy-MM-dd"];
+        NSString * xingzuo = [NSString stringWithFormat:@"%@座",[NSString getAstroWithBrith:self.dateString]];
+  
+        [self.dataArray replaceObjectAtIndex:2 withObject:self.dateString];
+        [self.dataArray replaceObjectAtIndex:3 withObject:xingzuo];
         [self.tableView reloadData];
 
     }];
@@ -130,7 +332,17 @@
 {
     if (!_headerView) {
         _headerView = [[WYEditHeaderView alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, 184)];
-    
+        
+        @weakify(self);
+        [[_headerView.avatarButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+            @strongify(self);
+            
+            UIActionSheet*actionSheet =[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照",@"从相册中选取", nil];
+            actionSheet.delegate = self;
+            actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+            [actionSheet showInView:self.view];
+            
+        }];
     }
     return _headerView;
 

@@ -12,8 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WYEditTableViewCell : UITableViewCell
 
+@property(nonatomic,assign)BOOL canEdit;
 -(void)setTitle:(NSString*)text;
 -(void)setContent:(NSString*)text;
+-(NSString*)inputText;
+-(void)stopEdit;
+
 
 @end
 

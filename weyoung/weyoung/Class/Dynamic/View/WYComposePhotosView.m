@@ -33,7 +33,15 @@
 {
     self.assetsArray = array;
     [self.collectionView reloadData];
+    
+    if (self.block) {
+        self.block([self.assetsArray count]);
+    }
 
+}
+-(BOOL)hasImage
+{
+    return ([self.assetsArray count]==0)?NO:YES;
 }
 
 -(void)runInMainQueue:(void (^)())queue{
@@ -90,6 +98,10 @@ static NSString *kPhotoCellIdentifier = @"kPhotoCellIdentifier";
                 }completion:^(BOOL finished) {
                     
                 }];
+                
+                if (self.block) {
+                    self.block([self.assetsArray count]);
+                }
                 
             }
             

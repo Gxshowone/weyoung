@@ -26,9 +26,20 @@
     // Do any additional setup after loading the view.
     [self setNavigationConfig];
     [self initUI];
+    [self addNotification];
     
 }
 
+-(void)addNotification
+{
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:WYNotifacationUserInfoChange object:nil] subscribeNext:^(NSNotification * _Nullable x) {
+        NSLog(@"%@",x);
+        
+        [self.rightButton yy_setImageWithURL:[NSURL URLWithString:[WYSession sharedSession].avatar] forState:UIControlStateNormal options:YYWebImageOptionSetImageWithFadeAnimation];
+        
+    }];
+    
+}
 
 -(void)viewDidLayoutSubviews
 {
@@ -79,6 +90,31 @@
     
 }
 
+-(void)matchUser
+{
+    [self.quanquan startAnimating];
+    
+    NSDictionary * dict = @{@"interface":@"Match@doMatch"};
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+        [self.quanquan stopAnimating];
+        
+        
+//        if(self.delegate&&[self.delegate respondsToSelector:@selector(conversation:)])
+//        {
+//            [self.delegate conversation:nil];
+//        }
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+        [self.quanquan stopAnimating];
+        
+    };
+}
+
 -(void)gotoDynamic
 {
    
@@ -86,6 +122,7 @@
         [self.delegate scrollToIndex:0];
     }
 }
+
 
 
 -(void)gotoPersonCenter
@@ -209,7 +246,7 @@
 {
     if (!_quanquan) {
         _quanquan = [[UIImageView alloc]init];
-        _quanquan.image = [UIImage imageNamed:@""];
+        _quanquan.image = [UIImage imageNamed:@"home_quanquan_0"];
         
         NSMutableArray * qa = [NSMutableArray array];
         
@@ -230,22 +267,18 @@
             NSLog(@"tap");
             @strongify(self);
             
+            [self matchUser];
 
-            if(self.delegate&&[self.delegate respondsToSelector:@selector(conversation)])
-            {
-                [self.delegate conversation];
-            }
+         
         }];
         
         _quanquan.userInteractionEnabled = YES;
         [_quanquan addGestureRecognizer:tap];
         
-        [_quanquan startAnimating];
-        
+    
     }
     return _quanquan;
 }
-
 
 
 

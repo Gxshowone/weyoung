@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WYNoDataView : UIView
 
-@property (nonatomic,strong) id<WYNoDataViewDelegate> delegate;
+@property (nonatomic,weak) id<WYNoDataViewDelegate> delegate;
 
 
 -(void)showNoDataView:(UIView*)superView noDataString:(NSString *)noDataString noDataImage:(NSString*)imageName imageViewFrame:(CGRect)rect;

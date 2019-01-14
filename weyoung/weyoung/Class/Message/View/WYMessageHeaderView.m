@@ -44,8 +44,6 @@
     [self.dataArray addObject:common];
     [self.dataArray addObject:like];
     
-  
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -95,9 +93,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(self.protocal)
+    if(self.prtocal)
     {
-        [self.protocal didSelectRowAtIndexPath:indexPath];
+        [self.prtocal didSelectRowAtIndexPath:indexPath];
     }
 }
 
