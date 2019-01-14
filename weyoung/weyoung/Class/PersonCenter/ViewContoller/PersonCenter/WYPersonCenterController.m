@@ -312,7 +312,7 @@
         _tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
         _tableView.delegate=self;
         _tableView.dataSource=self;
-        _tableView.backgroundColor = WYRandomColor;
+        _tableView.backgroundColor = [UIColor clearColor];
         _tableView.tableHeaderView = self.headerView;
         
         __weak __typeof(self) weakSelf = self;
