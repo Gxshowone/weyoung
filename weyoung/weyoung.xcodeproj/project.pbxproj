@@ -127,7 +127,6 @@
 		D2D7104B21B9334B00D78746 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7104A21B9334B00D78746 /* main.m */; };
 		D2D7105521B9334B00D78746 /* weyoungTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7105421B9334B00D78746 /* weyoungTests.m */; };
 		D2D7106021B9334B00D78746 /* weyoungUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7105F21B9334B00D78746 /* weyoungUITests.m */; };
-		D2E1BEEF21ED9B5C0031638A /* child_secdon_wait.json in Resources */ = {isa = PBXBuildFile; fileRef = D2E1BEEE21ED9B5C0031638A /* child_secdon_wait.json */; };
 		D2E1BEF421EDE0450031638A /* WYSignView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E1BEF321EDE0450031638A /* WYSignView.m */; };
 		D2E1BEF821EDE1490031638A /* WYExcessiveView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E1BEF721EDE1490031638A /* WYExcessiveView.m */; };
 		F46B1DAF6D982978150D94E8 /* libPods-weyoungTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56F90376F343EEDEA9D80858 /* libPods-weyoungTests.a */; };
@@ -400,7 +399,6 @@
 		D2D7107321B93BE700D78746 /* WYNotifacation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYNotifacation.h; sourceTree = "<group>"; };
 		D2D7107421B93BFE00D78746 /* WYApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYApi.h; sourceTree = "<group>"; };
 		D2D7107521B93C2D00D78746 /* WYDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYDefine.h; sourceTree = "<group>"; };
-		D2E1BEEE21ED9B5C0031638A /* child_secdon_wait.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = child_secdon_wait.json; sourceTree = "<group>"; };
 		D2E1BEF221EDE0450031638A /* WYSignView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYSignView.h; sourceTree = "<group>"; };
 		D2E1BEF321EDE0450031638A /* WYSignView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYSignView.m; sourceTree = "<group>"; };
 		D2E1BEF621EDE1490031638A /* WYExcessiveView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYExcessiveView.h; sourceTree = "<group>"; };
@@ -852,7 +850,6 @@
 		D22E375021E5F20100292FB3 /* Res */ = {
 			isa = PBXGroup;
 			children = (
-				D2E1BEEE21ED9B5C0031638A /* child_secdon_wait.json */,
 				D2237BC821ED93CE002A11B9 /* first_wait.json */,
 				D2237BC421ED93CE002A11B9 /* first_walk.json */,
 				D2237BC721ED93CE002A11B9 /* flight.json */,
@@ -1412,7 +1409,6 @@
 				D2237BCB21ED93CE002A11B9 /* second_wait.json in Resources */,
 				D23AE8FC21DCA5D900D79007 /* HZPhotoBrowser.bundle in Resources */,
 				D2D7104821B9334B00D78746 /* LaunchScreen.storyboard in Resources */,
-				D2E1BEEF21ED9B5C0031638A /* child_secdon_wait.json in Resources */,
 				D2D7104521B9334B00D78746 /* Assets.xcassets in Resources */,
 				D2237BCD21ED93CE002A11B9 /* first_wait.json in Resources */,
 				D22AF87F21BF6EEC0004405B /* WSDatePickerView.xib in Resources */,

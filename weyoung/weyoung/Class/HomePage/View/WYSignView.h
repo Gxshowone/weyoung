@@ -10,7 +10,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+@protocol WYSignViewDelegate <NSObject>
+
+-(void)signHide;
+
+
+@end
 @interface WYSignView : UIView
+
+@property (nonatomic,weak) id<WYSignViewDelegate> delegate;
 
 @end
 

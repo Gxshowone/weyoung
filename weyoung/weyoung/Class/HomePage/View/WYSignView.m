@@ -9,38 +9,51 @@
 #import "WYSignView.h"
 @interface WYSignView ()
 
+@property(nonatomic,strong)UIImageView * bgImageView;
+@property(nonatomic,strong)UIImageView * grassView;
 @property(nonatomic,strong)UILabel * dayLabel;
 @property(nonatomic,strong)UILabel * weekLabel;
 @property(nonatomic,strong)UILabel * monthLabel;
 @property(nonatomic,strong)UILabel * infoLabel;
 @property(nonatomic,strong)UIButton * signButton;
-
+@property(nonatomic,strong)LOTAnimationView * childAnimation;
 @end
 @implementation WYSignView
 
--(id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
+-(id)init{
+
+    self = [super init];
     if (self) {
-        
         self.backgroundColor = [UIColor blackColor];
+        
+        [self addSubview:self.bgImageView];
+        [self addSubview:self.childAnimation];
         [self addSubview:self.dayLabel];
         [self addSubview:self.weekLabel];
         [self addSubview:self.monthLabel];
         [self addSubview:self.infoLabel];
         [self addSubview:self.signButton];
+        [self addSubview:self.grassView];
+        
+        [self.childAnimation play];
+
     }
     return self;
 }
 
+
 -(void)layoutSubviews
 {
     [super layoutSubviews];
+    self.bgImageView.frame= self.bounds;
+    self.childAnimation.frame = self.bounds;
     self.dayLabel.frame = CGRectMake(25, KNaviBarHeight+7, 53, 62);
     self.weekLabel.frame = CGRectMake(CGRectGetMaxX(self.dayLabel.frame)+8.5, KNaviBarHeight+23, 42, 20);
     self.monthLabel.frame = CGRectMake(CGRectGetMaxX(self.dayLabel.frame)+4.5, CGRectGetMaxY(self.weekLabel.frame), 50, 14);
     self.infoLabel.frame = CGRectMake(25, 127+KNaviBarHeight, KScreenWidth-50, 84);
     self.signButton.frame = CGRectMake(KScreenWidth/2-75, CGRectGetMaxY(self.infoLabel.frame), 150, 40);
+    self.grassView.frame =  CGRectMake(0, KScreenHeight-KTabBarHeight-125, 211, 125);
+    
 }
 
 -(UILabel*)dayLabel
@@ -106,9 +119,67 @@
         [[_signButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
             
+            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"first_walk" ofType:@"json"];
+            NSArray *components = [filePath componentsSeparatedByString:@"/"];
+            NSString * name = [components lastObject];
+            [self.childAnimation setAnimation:name];
+            [self.childAnimation play];
+            [self backToHomePage];
         }];
     }
     return _signButton;
     
 }
+
+-(void)backToHomePage
+{
+    __weak typeof(self)weakSelf = self;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
+        if (weakSelf.delegate) {
+            [weakSelf.delegate signHide];
+        }
+        [weakSelf removeFromSuperview];
+    
+    });
+    
+   
+}
+
+-(UIImageView*)bgImageView
+{
+    if (!_bgImageView) {
+        _bgImageView= [[UIImageView alloc]init];
+        _bgImageView.image = [UIImage imageNamed:@"home_sign_bg"];
+        
+    }
+    return _bgImageView;
+}
+
+-(UIImageView*)grassView
+{
+    if(!_grassView)
+    {
+        _grassView = [[UIImageView alloc]init];
+        _grassView.image = [UIImage imageNamed:@"home_sign_grass"];
+    }
+    return _grassView;
+}
+
+-(LOTAnimationView *)childAnimation
+{
+    if (!_childAnimation) {
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"first_wait" ofType:@"json"];
+        NSArray *components = [filePath componentsSeparatedByString:@"/"];
+        NSString * name = [components lastObject];
+        _childAnimation = [LOTAnimationView animationNamed:name];
+        _childAnimation.contentMode = UIViewContentModeScaleAspectFit;
+        _childAnimation.loopAnimation = YES;
+      
+    }
+    return _childAnimation;
+}
+
+
 @end

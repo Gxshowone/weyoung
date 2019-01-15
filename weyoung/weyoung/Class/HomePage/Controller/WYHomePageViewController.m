@@ -16,6 +16,8 @@
 @property(nonatomic,strong)UIImageView * bgIV;
 @property(nonatomic,strong)CAEmitterLayer *emitterLayer;
 @property(nonatomic,strong)UIImageView * quanquan;
+@property(nonatomic,strong)LOTAnimationView * childAnimation;
+@property(nonatomic,strong)UIImageView * meteor1,*meteor2,*meteor3;
 
 @end
 
@@ -46,7 +48,17 @@
     [super viewDidLayoutSubviews];
     
     self.bgIV.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
+    self.childAnimation.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
     self.quanquan.frame = CGRectMake(KScreenWidth/2-36, KScreenHeight-KTabbarSafeBottomMargin-37-72, 72, 72);
+    
+//    第0秒      第一个流星位置：X=216 Y=318
+//    第1.2秒   第二个流星位置：X=504 Y=1022
+//    第2.7秒   第三个流星位置：X=562 Y=772
+//
+    self.meteor1.center = CGPointMake(125,KNaviBarHeight+68);
+    self.meteor2.center = CGPointMake(KScreenWidth/2,426);
+    self.meteor3.center = CGPointMake(KScreenWidth/2, 562);
+    
 }
 
 -(void)initUI
@@ -55,13 +67,95 @@
     [self.view.layer addSublayer:self.emitterLayer];
     [self animation];
     [self.view addSubview:self.bgIV];
-    [self playChildren];
+    [self.view addSubview:self.childAnimation];
     [self.view addSubview:self.quanquan];
+    [self.view addSubview:self.meteor1];
+    [self.view addSubview:self.meteor2];
+    [self.view addSubview:self.meteor3];
     [self.view bringSubviewToFront:self.customNavigationBar];
+ 
+}
 
+-(void)meteor:(UIImageView*)imageView
+{
+  
+    NSMutableArray * ma = [NSMutableArray array];
+    
+    for (int i = 0; i < 11; i ++) {
+        
+        NSString * mn = [NSString stringWithFormat:@"home_meteor_%d",i];
+        UIImage  * mi = [UIImage imageNamed:mn];
+        [ma addObject:mi];
+    }
+    
+    imageView.animationImages = ma;
+    imageView.animationDuration = 2.0;
+    imageView.animationRepeatCount = 0;
+    
+    switch (imageView.tag) {
+        case 1001:
+        {
+            [self meteorAnimation:imageView time:0.1];
+        }
+            break;
+        case 1002:
+        {
+            [self meteorAnimation:imageView time:1.2];
+        }
+            break;
+        case 1003:
+        {
+            [self meteorAnimation:imageView time:2.7];
+        }
+            break;
+        default:
+            break;
+    }
+    
+}
+
+-(void)meteorAnimation:(UIImageView*)imageView
+                 time:(float)time
+{
+ 
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+         [imageView startAnimating];
+        
+    });
 }
 
 
+-(void)childWalk
+{
+    
+    
+    [self meteor:self.meteor1];
+    [self meteor:self.meteor2];
+    [self meteor:self.meteor3];
+    
+    self.childAnimation.loopAnimation = NO;
+    [self.childAnimation play];
+    
+    __weak typeof(self)weakSelf = self;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [weakSelf childWait];
+      
+    });
+}
+
+-(void)childWait
+{
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"second_wait" ofType:@"json"];
+    NSArray *components = [filePath componentsSeparatedByString:@"/"];
+    NSString * name = [components lastObject];
+    [self.childAnimation setAnimation:name];
+    self.childAnimation.loopAnimation = YES;
+    [self.childAnimation play];
+}
 
 -(void)setNavigationConfig
 {
@@ -238,17 +332,18 @@
     [self.emitterLayer addAnimation:group forKey:@"heartsBurst"];
 }
 
--(void)playChildren
+-(LOTAnimationView *)childAnimation
 {
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"second_wait"ofType:@"json"];
-    NSArray *components = [filePath componentsSeparatedByString:@"/"];
-    NSString * name = [components lastObject];
-    LOTAnimationView * childAnimation = [LOTAnimationView animationNamed:name];
-    childAnimation.contentMode = UIViewContentModeScaleAspectFit;
-    childAnimation.frame = self.view.bounds;
-    [self.view addSubview:childAnimation];
-    childAnimation.loopAnimation = YES;
-    [childAnimation play];
+    if (!_childAnimation) {
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"second_walk" ofType:@"json"];
+        NSArray *components = [filePath componentsSeparatedByString:@"/"];
+        NSString * name = [components lastObject];
+        _childAnimation = [LOTAnimationView animationNamed:name];
+        _childAnimation.contentMode = UIViewContentModeScaleAspectFit;
+        _childAnimation.loopAnimation = YES;
+        
+    }
+    return _childAnimation;
 }
 
 
@@ -278,8 +373,6 @@
             @strongify(self);
             
             [self matchUser];
-
-         
         }];
         
         _quanquan.userInteractionEnabled = YES;
@@ -291,6 +384,39 @@
 }
 
 
+-(UIImageView*)meteor1
+{
+    if (!_meteor1) {
+        _meteor1 = [[UIImageView alloc]init];
+        _meteor1.width = 250;
+        _meteor1.height = 136;
+        _meteor1.tag = 1001;
+    }
+    return _meteor1;
+}
+
+-(UIImageView*)meteor2
+{
+    if (!_meteor2) {
+        _meteor2 = [[UIImageView alloc]init];
+        _meteor2.width = 250;
+        _meteor2.height = 136;
+        _meteor2.tag = 1002;
+    }
+    return _meteor2;
+}
+
+-(UIImageView*)meteor3
+{
+    if (!_meteor3) {
+        _meteor3 = [[UIImageView alloc]init];
+        _meteor3.width = 250;
+        _meteor3.height = 136;
+        _meteor3.tag = 1003;
+
+    }
+    return _meteor3;
+}
 
 
 @end
