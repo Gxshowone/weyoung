@@ -1,14 +1,13 @@
 //
-//  WYSignViewController.m
+//  WYSignView.m
 //  weyoung
 //
-//  Created by gongxin on 2019/1/4.
+//  Created by gongxin on 2019/1/15.
 //  Copyright © 2019 SouYu. All rights reserved.
 //
 
-#import "WYSignViewController.h"
-
-@interface WYSignViewController ()
+#import "WYSignView.h"
+@interface WYSignView ()
 
 @property(nonatomic,strong)UILabel * dayLabel;
 @property(nonatomic,strong)UILabel * weekLabel;
@@ -17,35 +16,31 @@
 @property(nonatomic,strong)UIButton * signButton;
 
 @end
+@implementation WYSignView
 
-@implementation WYSignViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self initUI];
+-(id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        
+        self.backgroundColor = [UIColor blackColor];
+        [self addSubview:self.dayLabel];
+        [self addSubview:self.weekLabel];
+        [self addSubview:self.monthLabel];
+        [self addSubview:self.infoLabel];
+        [self addSubview:self.signButton];
+    }
+    return self;
 }
 
--(void)initUI
+-(void)layoutSubviews
 {
-    [self.view addSubview:self.dayLabel];
-    [self.view addSubview:self.weekLabel];
-    [self.view addSubview:self.monthLabel];
-    [self.view addSubview:self.infoLabel];
-    [self.view addSubview:self.signButton];
-
-}
-
--(void)viewDidLayoutSubviews
-{
-    [super viewDidLayoutSubviews];
-    
+    [super layoutSubviews];
     self.dayLabel.frame = CGRectMake(25, KNaviBarHeight+7, 53, 62);
     self.weekLabel.frame = CGRectMake(CGRectGetMaxX(self.dayLabel.frame)+8.5, KNaviBarHeight+23, 42, 20);
     self.monthLabel.frame = CGRectMake(CGRectGetMaxX(self.dayLabel.frame)+4.5, CGRectGetMaxY(self.weekLabel.frame), 50, 14);
     self.infoLabel.frame = CGRectMake(25, 127+KNaviBarHeight, KScreenWidth-50, 84);
     self.signButton.frame = CGRectMake(KScreenWidth/2-75, CGRectGetMaxY(self.infoLabel.frame), 150, 40);
-
 }
 
 -(UILabel*)dayLabel
@@ -116,16 +111,4 @@
     return _signButton;
     
 }
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

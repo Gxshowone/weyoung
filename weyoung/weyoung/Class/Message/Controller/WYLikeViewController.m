@@ -95,12 +95,6 @@
     
     [self requestDataWithType:1 ];
     
-    __weak __typeof(self) weakSelf = self;
-    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        
-        [weakSelf loadMoreData];
-        
-    }];
 }
 
 

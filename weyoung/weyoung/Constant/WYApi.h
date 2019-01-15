@@ -9,7 +9,7 @@
 #ifndef WYApi_h
 #define WYApi_h
 
-#define MainURL  @"http://62.234.134.129/request.action"
+#define MainURL  @"http://api.supe.tv/request.action"
 
 
 

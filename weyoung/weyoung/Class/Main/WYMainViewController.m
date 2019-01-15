@@ -36,8 +36,43 @@
     // Do any additional setup after loading the view.
 
     [self initUI];
+    
+    NSString * str = ([self isNight])?@"夜晚":@"白天";
+    
 }
 
+
+
+- (NSDate *)getCustomDateWithHour:(NSInteger)hour
+
+{
+    //获取当前时间
+    NSDate * destinationDateNow = [NSDate date];
+    NSCalendar *currentCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *currentComps = [[NSDateComponents alloc] init];
+    NSInteger unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+    currentComps = [currentCalendar components:unitFlags fromDate:destinationDateNow];
+    NSDateComponents *resultComps = [[NSDateComponents alloc] init];
+    [resultComps setYear:[currentComps year]];
+    [resultComps setMonth:[currentComps month]];
+    [resultComps setDay:[currentComps day]];
+    [resultComps setHour:hour];
+    NSCalendar *resultCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+      return [resultCalendar dateFromComponents:resultComps];
+    
+}
+
+-(BOOL)isNight
+{
+    NSDate * currentDate = [NSDate date];
+    if ([currentDate compare:[self getCustomDateWithHour:2]] == NSOrderedDescending && [currentDate compare:[self getCustomDateWithHour:20]] == NSOrderedAscending)
+        
+    {
+        return NO;
+    }
+    return YES;
+    
+}
 
 -(void)initUI
 {
@@ -153,6 +188,8 @@
     }
     return _scrollView;
 }
+
+
 
 /*
 #pragma mark - Navigation

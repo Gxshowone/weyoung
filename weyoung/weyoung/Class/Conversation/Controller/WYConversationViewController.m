@@ -9,13 +9,13 @@
 #import "WYConversationViewController.h"
 #import "WYConversationBar.h"
 #import <IQKeyboardManager.h>
-
+#import "WYApplyView.h"
 #define kInputBarHeight 49.5
 
-@interface WYConversationViewController ()
+@interface WYConversationViewController ()<WYConversationBarDelegate>
 
 @property(nonatomic,strong)WYConversationBar * navigationBar;
-
+@property(nonatomic,strong)WYApplyView * applyView;
 @end
 
 @implementation WYConversationViewController
@@ -35,10 +35,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self initUI];
-
-  
 }
 
 -(void)viewWillLayoutSubviews
@@ -79,10 +76,16 @@
     
 }
 
+-(void)stopConversation
+{
+    [self.applyView show];
+}
+
 -(WYConversationBar*)navigationBar
 {
     if (!_navigationBar) {
         _navigationBar = [[WYConversationBar alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, KNaviBarHeight)];
+        _navigationBar.delegate = self;
          @weakify(self);
         [[_navigationBar.backButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
@@ -93,6 +96,13 @@
     return _navigationBar;
 }
 
+-(WYApplyView*)applyView
+{
+    if (!_applyView) {
+        _applyView = [[WYApplyView alloc]init];
+    }
+    return _applyView;
+}
 
 
 

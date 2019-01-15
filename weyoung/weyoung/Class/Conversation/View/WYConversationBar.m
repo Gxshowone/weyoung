@@ -33,10 +33,22 @@
         [self addSubview:self.timerButton];
         [self addSubview:self.moreButton];
         [self addSubview:self.progressView];
-        [self startTimer];
-       
+    
     }
     return self;
+}
+
+-(void)setIsFriend:(BOOL)isFriend
+{
+    _isFriend = isFriend;
+    
+    if (!_isFriend) {
+        
+        [self startTimer];
+    }else
+    {
+        [self.timerButton setTitle:@"解除好友" forState:UIControlStateNormal];
+    }
 }
 
 -(void)dealloc
@@ -79,6 +91,11 @@
     
     if(_seconds ==0){
         [_countDownTimer invalidate];
+        
+        if(self.delegate)
+        {
+            [self.delegate stopConversation];
+        }
     }
 }
 
@@ -103,6 +120,15 @@
         [_timerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _timerButton.titleLabel.font = [UIFont fontWithName:TextFontName_Medium size:16];
         _timerButton.titleLabel.textAlignment = NSTextAlignmentRight;
+        
+        @weakify(self);
+        [[_timerButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+            @strongify(self);
+            if (self.isFriend==NO) {
+                return ;
+            }
+            
+        }];
     }
     return _timerButton;
 }

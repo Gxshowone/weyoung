@@ -41,7 +41,8 @@
 {
     _model = model;
     
-    self.monthLabel.text= [NSString timeToMonth:model.create_time];
+    NSString * month =[NSString timeToMonth:model.create_time];
+    self.monthLabel.text= [NSString exchangeToEngMonth:month];
     self.dayLabel.text = [NSString timeToDay:model.create_time];
     
     

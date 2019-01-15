@@ -21,7 +21,7 @@
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:requestUrl parameters:nil error:nil];
-    request.timeoutInterval= 10;
+    request.timeoutInterval= 20;
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
     NSString * token = [WYSession sharedSession].token;

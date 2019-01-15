@@ -112,16 +112,10 @@
 -(void)retryToGetData
 {
     
-    _page = 0;
+    _page = 1;
     
     [self requestDataWithType:1];
-    
-//    __weak __typeof(self) weakSelf = self;
-//    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-//
-//        [weakSelf loadMoreData];
-//
-//    }];
+
 }
 
 

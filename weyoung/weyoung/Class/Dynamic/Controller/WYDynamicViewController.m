@@ -11,6 +11,7 @@
 #import "WYDynamicModel.h"
 #import "WYComposeViewController.h"
 #import "WYMoreView.h"
+#import <YYCache/YYCache.h>
 @interface WYDynamicViewController ()<UITableViewDelegate,UITableViewDataSource,WYDynamicTableViewCellDelegate>
 
 @property(nonatomic,strong)WYMoreView * moreView;
@@ -83,6 +84,23 @@
     }
 }
 
+
+-(void)getCacheData
+{
+    YYCache *cache = [[YYCache alloc] initWithName:@"ALLDynamicListCache"];
+    cache.memoryCache.shouldRemoveAllObjectsOnMemoryWarning = YES;
+    cache.memoryCache.shouldRemoveAllObjectsWhenEnteringBackground = YES;
+    NSString * cacheKey = @"ALLDynamicList";
+    id cacheData;
+    //根据网址从Cache中取数据
+    cacheData = [cache objectForKey:cacheKey];
+
+    if (cacheData != 0) {
+        //将数据统一处理
+        self.dataArray = (NSMutableArray*)cacheData;
+        [self stopLoadData];
+    }
+}
 
 
 -(void)requestDataWithType:(int)type
@@ -168,16 +186,9 @@
 -(void)retryToGetData
 {
     
-    _page = 0;
-    
+    _page = 1;
     [self requestDataWithType:1];
-    
-    __weak __typeof(self) weakSelf = self;
-    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        
-        [weakSelf loadMoreData];
-        
-    }];
+
 }
 
 
