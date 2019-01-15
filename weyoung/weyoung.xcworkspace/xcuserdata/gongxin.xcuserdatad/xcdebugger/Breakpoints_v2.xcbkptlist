@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "weyoung/Class/Main/WYMainViewController.m"
-            timestampString = "568820427.325196"
+            timestampString = "569237174.081836"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "8"
@@ -52,11 +52,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "weyoung/Class/HomePage/WYHomePageViewController.m"
-            timestampString = "569153307.7911"
+            timestampString = "569237174.0822411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "-matchUser"
             landmarkType = "7">
          </BreakpointContent>
@@ -67,13 +67,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "weyoung/Class/HomePage/WYHomePageViewController.m"
-            timestampString = "569153307.791177"
+            filePath = "weyoung/Class/Login/Controller/Input/WYInputViewController.m"
+            timestampString = "569236178.817183"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
-            landmarkName = "-matchUser"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
+            landmarkName = "-login"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -83,13 +83,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "weyoung/Unti/HttpRequest/WYHttpRequest.m"
-            timestampString = "569161478.414609"
+            filePath = "weyoung/Class/Main/WYMainViewController.m"
+            timestampString = "569237174.082324"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
-            landmarkName = "-requestWithPragma:showLoading:"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "-viewDidLoad"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

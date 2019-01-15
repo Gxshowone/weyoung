@@ -92,6 +92,8 @@
 
 -(void)matchUser
 {
+    self.quanquan.userInteractionEnabled = NO;
+    
     [self.quanquan startAnimating];
     
     NSDictionary * dict = @{@"interface":@"Match@doMatch"};
@@ -99,10 +101,10 @@
     [request requestWithPragma:dict showLoading:NO];
     request.successBlock = ^(id  _Nonnull response) {
         
+        self.quanquan.userInteractionEnabled = YES;
         [self.quanquan stopAnimating];
         
-        NSDictionary * dict = (NSDictionary*)response;
-        if ([dict count]==0) {
+        if ([response count]==0) {
             
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
             [self.view makeToast:@"怎么会没有人？"];
@@ -115,6 +117,8 @@
     };
     
     request.failureDataBlock = ^(id  _Nonnull error) {
+        
+        self.quanquan.userInteractionEnabled = YES;
         
         [self.quanquan stopAnimating];
         
@@ -236,7 +240,7 @@
 
 -(void)playChildren
 {
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"child"ofType:@"json"];
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"second_wait"ofType:@"json"];
     NSArray *components = [filePath componentsSeparatedByString:@"/"];
     NSString * name = [components lastObject];
     LOTAnimationView * childAnimation = [LOTAnimationView animationNamed:name];

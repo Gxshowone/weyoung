@@ -82,6 +82,7 @@ static WYSession *sharedManager=nil;
     self.avatar  = [dict valueForKey:@"header_url"];
     self.rc_token = [dict valueForKey:@"rc_token"];
     self.timeDifference = [[dict valueForKey:@"lastlogin_time"] integerValue];
+    self.sex  = [dict valueForKey:@"gender"];
     
     [self updateRootController];
 

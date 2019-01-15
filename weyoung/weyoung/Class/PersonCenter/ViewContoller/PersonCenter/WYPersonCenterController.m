@@ -136,7 +136,7 @@
         }
         
         [self stopLoadData];
-        [self nodata];
+       // [self nodata];
         [self nomoredata:modelArray];
         
     };
