@@ -81,7 +81,7 @@
   
     NSMutableArray * ma = [NSMutableArray array];
     
-    for (int i = 0; i < 11; i ++) {
+    for (int i = 0; i < 24; i ++) {
         
         NSString * mn = [NSString stringWithFormat:@"home_meteor_%d",i];
         UIImage  * mi = [UIImage imageNamed:mn];
@@ -140,7 +140,7 @@
     
     __weak typeof(self)weakSelf = self;
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         [weakSelf childWait];
       
