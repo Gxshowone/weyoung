@@ -16,7 +16,10 @@
 #import "WYFriendViewController.h"
 #import "WYMessageListViewController.h"
 #import "WYCommentController.h"
-@interface WYMainViewController ()<UIScrollViewDelegate,WYMainViewControllerDelegate>
+
+#import "WYSignView.h"
+#import "WYExcessiveView.h"
+@interface WYMainViewController ()<UIScrollViewDelegate,WYMainViewControllerDelegate,WYSignViewDelegate>
 {
     WYDynamicViewController * dyVc;
     WYHomePageViewController * hpVc;
@@ -24,8 +27,8 @@
 }
 
 @property(nonatomic,strong)UIScrollView * scrollView;
-
-
+@property(nonatomic,strong)WYSignView * signView;
+@property(nonatomic,strong)WYExcessiveView * excessView;
 
 @end
 
@@ -34,44 +37,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
     [self initUI];
-    
-    NSString * str = ([self isNight])?@"夜晚":@"白天";
-    
+
 }
 
-
-
-- (NSDate *)getCustomDateWithHour:(NSInteger)hour
-
+-(void)viewDidLayoutSubviews
 {
-    //获取当前时间
-    NSDate * destinationDateNow = [NSDate date];
-    NSCalendar *currentCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    NSDateComponents *currentComps = [[NSDateComponents alloc] init];
-    NSInteger unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
-    currentComps = [currentCalendar components:unitFlags fromDate:destinationDateNow];
-    NSDateComponents *resultComps = [[NSDateComponents alloc] init];
-    [resultComps setYear:[currentComps year]];
-    [resultComps setMonth:[currentComps month]];
-    [resultComps setDay:[currentComps day]];
-    [resultComps setHour:hour];
-    NSCalendar *resultCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-      return [resultCalendar dateFromComponents:resultComps];
+    [super viewDidLayoutSubviews];
     
-}
-
--(BOOL)isNight
-{
-    NSDate * currentDate = [NSDate date];
-    if ([currentDate compare:[self getCustomDateWithHour:2]] == NSOrderedDescending && [currentDate compare:[self getCustomDateWithHour:20]] == NSOrderedAscending)
-        
-    {
-        return NO;
-    }
-    return YES;
-    
+    self.signView.frame = self.view.bounds;
+    self.excessView.frame = self.view.bounds;
+    self.scrollView.frame = self.view.bounds;
 }
 
 -(void)initUI
@@ -79,7 +55,16 @@
     
     [self.view addSubview:self.scrollView];
     [self addChildControllers];
+    
+    //判断是白天还是黑夜
+    if ([self isNight]) {
+        [self.view addSubview:self.signView];
+    }else
+    {
+        [self.view addSubview:self.excessView];
+    }
 }
+
 
 -(void)addChildControllers
 {
@@ -105,6 +90,11 @@
 }
 
 #pragma mark delelgate
+
+-(void)signHide
+{
+    [hpVc childWalk];
+}
 
 -(void)scrollToIndex:(NSInteger)index
 {
@@ -155,11 +145,36 @@
     [self.navigationController pushViewController:commentVc animated:YES];
 }
 
--(void)viewDidLayoutSubviews
+
+- (NSDate *)getCustomDateWithHour:(NSInteger)hour
+
 {
-    [super viewDidLayoutSubviews];
+    //获取当前时间
+    NSDate * destinationDateNow = [NSDate date];
+    NSCalendar *currentCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *currentComps = [[NSDateComponents alloc] init];
+    NSInteger unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+    currentComps = [currentCalendar components:unitFlags fromDate:destinationDateNow];
+    NSDateComponents *resultComps = [[NSDateComponents alloc] init];
+    [resultComps setYear:[currentComps year]];
+    [resultComps setMonth:[currentComps month]];
+    [resultComps setDay:[currentComps day]];
+    [resultComps setHour:hour];
+    NSCalendar *resultCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+      return [resultCalendar dateFromComponents:resultComps];
     
-    self.scrollView.frame = self.view.bounds;
+}
+
+-(BOOL)isNight
+{
+    NSDate * currentDate = [NSDate date];
+    if ([currentDate compare:[self getCustomDateWithHour:2]] == NSOrderedDescending && [currentDate compare:[self getCustomDateWithHour:20]] == NSOrderedAscending)
+        
+    {
+        return NO;
+    }
+    return YES;
+    
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -187,6 +202,23 @@
         _scrollView.contentSize = CGSizeMake(KScreenWidth*3,KScreenHeight-KNaviBarHeight-KTabBarHeight);
     }
     return _scrollView;
+}
+
+-(WYSignView*)signView
+{
+    if (!_signView) {
+        _signView = [[WYSignView alloc]init];
+        _signView.delegate = self;
+    }
+    return _signView;
+}
+
+-(WYExcessiveView*)excessView
+{
+    if (!_excessView) {
+        _excessView = [[WYExcessiveView alloc]init];
+    }
+    return _excessView;
 }
 
 

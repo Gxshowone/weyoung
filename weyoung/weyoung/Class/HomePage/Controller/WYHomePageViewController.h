@@ -13,5 +13,7 @@
 
 @property(nonatomic,weak)id<WYMainViewControllerDelegate>delegate;
 
+-(void)childWalk;
+
 
 @end
