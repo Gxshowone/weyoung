@@ -7,6 +7,7 @@
 //
 
 #import "WYSignView.h"
+#import "NSString+Extension.h"
 @interface WYSignView ()
 
 @property(nonatomic,strong)UIImageView * bgImageView;
@@ -34,11 +35,24 @@
         [self addSubview:self.infoLabel];
         [self addSubview:self.signButton];
         [self addSubview:self.grassView];
-        
         [self.childAnimation play];
+        [self initData];
 
     }
     return self;
+}
+
+-(void)initData
+{
+    self.infoLabel.text = @"孤独本身没什么不好，让它不好的，是害怕孤独，今天很重要，今天的你也很重要";
+    NSString * time = [NSString getNowTimeTimestamp];
+    NSString * month =[NSString timeToMonth:time];
+    NSString * year = [NSString timeToYear:time];
+    NSString * my = [NSString stringWithFormat:@"%@%@",[NSString exchangeToEngMonth:month],year];
+    self.monthLabel.text= my;
+    self.dayLabel.text = [NSString timeToDay:time];
+    self.weekLabel.text = [NSString weekdayStringFromDate:[NSDate date]];
+//
 }
 
 
@@ -52,6 +66,8 @@
     self.monthLabel.frame = CGRectMake(CGRectGetMaxX(self.dayLabel.frame)+4.5, CGRectGetMaxY(self.weekLabel.frame), 50, 14);
     self.infoLabel.frame = CGRectMake(25, 127+KNaviBarHeight, KScreenWidth-50, 84);
     self.signButton.frame = CGRectMake(KScreenWidth/2-75, CGRectGetMaxY(self.infoLabel.frame), 150, 40);
+    
+    CGFloat gy =  KScreenHeight-KTabBarHeight-125;
     self.grassView.frame =  CGRectMake(0, KScreenHeight-KTabBarHeight-125, 211, 125);
     
 }
@@ -99,6 +115,7 @@
         _infoLabel.font = [UIFont fontWithName:TextFontName_Light size:16];
         _infoLabel.textColor = [UIColor whiteColor];
         _infoLabel.textAlignment = NSTextAlignmentCenter;
+        _infoLabel.numberOfLines= 2;
     }
     return _infoLabel;
     

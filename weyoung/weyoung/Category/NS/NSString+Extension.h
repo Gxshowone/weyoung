@@ -45,11 +45,11 @@ NS_ASSUME_NONNULL_BEGIN
 +(NSString *)inputTimeStr:(NSString *)timeStr withFormat:(NSString *)format;
 
 +(NSString*)timeToMonth:(NSString*)timeStampString;
-
 +(NSString*)timeToDay:(NSString*)timeStampString;
-
++(NSString*)timeToYear:(NSString*)timeStampString;
 +(NSString*)exchangeToEngMonth:(NSString*)cn;
-
++(NSString *)getNowTimeTimestamp;
++(NSString*)weekdayStringFromDate:(NSDate*)inputDate;
 @end
 
 NS_ASSUME_NONNULL_END
