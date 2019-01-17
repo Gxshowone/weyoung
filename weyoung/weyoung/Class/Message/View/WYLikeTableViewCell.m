@@ -7,6 +7,7 @@
 //
 
 #import "WYLikeTableViewCell.h"
+#import "NSString+Extension.h"
 @interface WYLikeTableViewCell()
 
 @property(nonatomic,strong)UIImageView * avatarImageView;
@@ -23,22 +24,38 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
+        self.backgroundColor = [UIColor blackColor];
+        self.selectionStyle  = UITableViewCellSelectionStyleNone;
+        
         [self.contentView addSubview:self.avatarImageView];
         [self.contentView addSubview:self.nickLabel];
         [self.contentView addSubview:self.heartImageView];
         [self.contentView addSubview:self.contentLabel];
         [self.contentView addSubview:self.timeLabel];
-        [self.contentView addSubview:self.photoImageView];
-        [self.contentView addSubview:self.themeLabel];
+//        [self.contentView addSubview:self.photoImageView];
+//        [self.contentView addSubview:self.themeLabel];
     }
     return self;
+}
+
+-(void)setModel:(WYLikeMessage *)model
+{
+    _model = model;
+    
+    [self.avatarImageView yy_setImageWithURL:[NSURL URLWithString:model.header_url] placeholder:nil];
+    self.nickLabel.text = [NSString stringWithFormat:@"%@",model.nick_name];
+    
+    
+    NSString * time = [NSString timeIntervaltoString:model.create_time];
+    self.timeLabel.text = [NSString inputTimeStr:time withFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
 }
 
 -(void)layoutSubviews
 {
     [super layoutSubviews];
     
-    self.avatarImageView.frame = CGRectMake(20, 17.5, 32, 32);
+    self.avatarImageView.frame = CGRectMake(20, 28.5, 32, 32);
     self.nickLabel.frame = CGRectMake(CGRectGetMaxX(self.avatarImageView.frame)+16,21, 150, 27);
     self.heartImageView.frame = CGRectMake(CGRectGetMaxX(self.avatarImageView.frame)+16, CGRectGetMaxY(self.nickLabel.frame)+7.8, 15, 13.5);
     self.contentLabel.frame = CGRectMake(CGRectGetMaxX(self.heartImageView.frame)+4, CGRectGetMaxY(self.nickLabel.frame)+1, 150, 27);
@@ -52,6 +69,8 @@
 {
     if (!_avatarImageView) {
         _avatarImageView = [[UIImageView alloc]init];
+        _avatarImageView.layer.cornerRadius = 16;
+        _avatarImageView.layer.masksToBounds = YES;
     }
     return _avatarImageView;
 }

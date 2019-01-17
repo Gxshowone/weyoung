@@ -58,7 +58,7 @@
     
     //判断是白天还是黑夜
 //    if ([self isNight]) {
-    [self.view addSubview:self.signView];
+ //   [self.view addSubview:self.signView];
 //    }else
 //    {
 //        [self.view addSubview:self.excessView];

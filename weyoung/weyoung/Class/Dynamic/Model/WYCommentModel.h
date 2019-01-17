@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WYCommentModel : NSObject
 
+
 @property(nonatomic,copy)NSString *c_header_url;
 @property(nonatomic,copy)NSString *c_id;
 @property(nonatomic,copy)NSString *c_nick_name;

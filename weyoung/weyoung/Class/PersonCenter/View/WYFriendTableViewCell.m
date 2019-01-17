@@ -7,6 +7,7 @@
 //
 
 #import "WYFriendTableViewCell.h"
+#import "NSString+Extension.h"
 @interface WYFriendTableViewCell()
 
 @property(nonatomic,strong)UIImageView * avatarImageView;
@@ -31,6 +32,15 @@
 -(void)setModel:(WYFriendModel *)model
 {
     _model = model;
+    
+    [self.avatarImageView yy_setImageWithURL:[NSURL URLWithString:model.header_url] placeholder:nil];
+    
+    self.nickLabel.text = [NSString stringWithFormat:@"%@",model.nick_name];
+    
+    NSString *bir =  [NSString stringWithFormat:@"%@",model.birthday];
+    NSString * age = [NSString dateToOld:bir];
+    NSString * xing = [NSString getAstroWithBrith:bir];
+    self.contentLabel.text = [NSString stringWithFormat:@"%@岁  %@座",age,xing];
 }
 
 -(void)layoutSubviews

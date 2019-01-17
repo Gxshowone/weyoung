@@ -7,6 +7,7 @@
 //
 
 #import "WYCommentTableViewCell.h"
+#import "NSString+Extension.h"
 @interface WYCommentTableViewCell()
 
 @property(nonatomic,strong)UIImageView * avatarImageView;
@@ -33,12 +34,27 @@
     return self;
 }
 
+-(void)setModel:(WYCommonMessage *)model
+{
+    _model = model;
+    
+    [self.avatarImageView yy_setImageWithURL:[NSURL URLWithString:model.header_url] placeholder:nil];
+    self.nickLabel.text = [NSString stringWithFormat:@"%@",model.nick_name];
+    
+    self.contentLabel.text = [NSString stringWithFormat:@"回复:%@",model.comment];
+    
+    NSString * time = [NSString timeIntervaltoString:model.create_time];
+    self.timeLabel.text = [NSString inputTimeStr:time withFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+}
+
 -(void)layoutSubviews
 {
     [super layoutSubviews];
     
-    self.avatarImageView.frame = CGRectMake(20, 17.5, 32, 32);
+    self.avatarImageView.frame = CGRectMake(20, 28.5, 32, 32);
     self.nickLabel.frame = CGRectMake(CGRectGetMaxX(self.avatarImageView.frame)+16,21, 150, 27);
+ 
     self.contentLabel.frame = CGRectMake(CGRectGetMaxX(self.avatarImageView.frame)+16, CGRectGetMaxY(self.nickLabel.frame)+1, 150, 27);
     self.timeLabel.frame = CGRectMake(CGRectGetMaxX(self.avatarImageView.frame)+16, CGRectGetMaxY(self.contentLabel.frame)+4, 150, 27);
     

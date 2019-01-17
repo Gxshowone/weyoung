@@ -12,6 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WYFriendModel : NSObject
 
+@property(nonatomic,copy)NSString * uid;
+@property(nonatomic,copy)NSString * nick_name;
+@property(nonatomic,copy)NSString * header_url;
+@property(nonatomic,copy)NSString * gender;
+@property(nonatomic,copy)NSString * birthday;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

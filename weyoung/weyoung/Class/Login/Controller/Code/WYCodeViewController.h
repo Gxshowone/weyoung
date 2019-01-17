@@ -12,6 +12,8 @@ typedef NS_ENUM(NSInteger, WYCodeType)
 {
     WYCodeTypeReg=0,
     WYCodeTypeLogin,
+    WYCodeTypeForget,
+    WYCodeTypeChange,
     
 };
 NS_ASSUME_NONNULL_BEGIN

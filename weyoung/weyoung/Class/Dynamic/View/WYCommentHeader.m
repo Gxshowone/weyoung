@@ -21,6 +21,7 @@
 @property(nonatomic,assign)NSInteger headerSection;
 @property(nonatomic,strong)WYJPPView *jggView;
 @property(nonatomic,strong)UILabel * addLabel;
+@property(nonatomic,strong)UILabel * commentLabel;
 
 @end
 @implementation WYCommentHeader
@@ -41,6 +42,7 @@
         [self addSubview:self.jggView];
         [self addSubview:self.sepLine];
         [self addSubview:self.addLabel];
+        [self addSubview:self.commentLabel];
     }
     return self;
 }
@@ -72,6 +74,8 @@
     self.jggView.dataSource = @[model.image];
     self.jggView.frame = model.jggLayout.frameLayout;
     
+    self.sepLine.frame = CGRectMake(20, CGRectGetMaxY(self.jggView.frame)+20, KScreenWidth-20, 1);
+    self.commentLabel.frame = CGRectMake(20,CGRectGetMaxY(self.sepLine.frame), KScreenWidth-40, 60);
 }
 
 -(void)setIsLike:(NSInteger)praise_count
@@ -90,9 +94,8 @@
     self.friendLabel.frame = CGRectMake(CGRectGetMaxX(self.userNameLabel.frame)+5, 18, 30, 14);
     self.likeBtn.frame = CGRectMake(KScreenWidth-88, 0, 44, 44);
     self.moreBtn.frame = CGRectMake(KScreenWidth-44, 0, 44, 44);
-    self.sepLine.frame = CGRectMake(20, self.height, KScreenWidth-20, 1);
-    self.addLabel.frame = CGRectMake(KScreenWidth-88, -20, 44, 44);
-    
+    self.sepLine.frame = CGRectMake(20, self.height-60, KScreenWidth-20, 1);
+    self.commentLabel.frame = CGRectMake(20,CGRectGetMaxY(self.sepLine.frame), KScreenWidth-40, 60);
 }
 
 
@@ -245,9 +248,23 @@
 {
     if (!_sepLine) {
         _sepLine = [[UIView alloc]init];
+        _sepLine.backgroundColor = [[UIColor binaryColor:@"ffffff"] colorWithAlphaComponent:0.1];
     }
     return _sepLine;
 }
 
+
+-(UILabel*)commentLabel
+{
+    if (!_commentLabel) {
+       
+        _commentLabel = [[UILabel alloc]init];
+        _commentLabel.text = @"评论";
+        _commentLabel.textColor = [UIColor whiteColor];
+        _commentLabel.font = [UIFont fontWithName:TextFontName size:18];
+    
+    }
+    return _commentLabel;
+}
 
 @end

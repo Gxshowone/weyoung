@@ -35,7 +35,7 @@
     self.titleLabel.text = [NSString stringWithFormat:@"%@",[data valueForKey:@"title"]];
     [self.icon setImage:[UIImage imageNamed:[data valueForKey:@"image"]]];
     
-    
+    self.unreadLabel.hidden = YES;
 }
 
 -(void)layoutSubviews

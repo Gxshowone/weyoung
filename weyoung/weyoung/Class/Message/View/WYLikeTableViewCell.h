@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "WYLikeMessage.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WYLikeTableViewCell : UITableViewCell
+
+@property(nonatomic,strong)WYLikeMessage * model;
 
 @end
 

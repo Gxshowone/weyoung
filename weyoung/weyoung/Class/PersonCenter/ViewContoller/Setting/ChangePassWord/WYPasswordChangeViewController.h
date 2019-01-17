@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WYPasswordChangeViewController : WYBaseViewController
 
+@property(nonatomic,copy)NSString * phone;
+@property(nonatomic,copy)NSString * code;
+
 @end
 
 NS_ASSUME_NONNULL_END

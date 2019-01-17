@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "WYCommonMessage.h"
 NS_ASSUME_NONNULL_BEGIN
 
+
 @interface WYCommentTableViewCell : UITableViewCell
+
+@property(nonatomic,strong)WYCommonMessage * model;
 
 @end
 

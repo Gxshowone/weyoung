@@ -222,12 +222,12 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [self.dataArray count];
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return [self.dataArray count];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -260,6 +260,7 @@
         cell = [[WYCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
     
+
     cell.model = self.dataArray[indexPath.row];
     
     return cell;
@@ -366,7 +367,7 @@
     _model = model;
     
     self.headerView.model = model;
-    self.headerView.height = model.rowHeight;
+    self.headerView.height = model.rowHeight+60;
 
     [self.tableView.mj_header beginRefreshing];
     

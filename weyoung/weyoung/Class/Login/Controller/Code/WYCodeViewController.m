@@ -10,7 +10,7 @@
 #import "WLUnitField.h"
 #import "WYPassWordViewController.h"
 #import <AudioToolbox/AudioToolbox.h>
-
+#import "WYPasswordChangeViewController.h"
 @interface WYCodeViewController ()<WLUnitFieldDelegate>
 
 @property(nonatomic,strong)UILabel     * inputLabel;
@@ -96,11 +96,30 @@
                 [self loginVer:sender.text];
             }
                 break;
+                case WYCodeTypeChange:
+            {
+                [self changePassWord:sender.text];
+            }
+                break;
+                case WYCodeTypeForget:
+            {
+                [self changePassWord:sender.text];
+            }
+                break;
             default:
                 break;
         }
     }
 }
+
+-(void)changePassWord:(NSString*)code
+{
+    WYPasswordChangeViewController * pwcVC = [[WYPasswordChangeViewController alloc]init];
+    pwcVC.phone = self.phone;
+    pwcVC.code = code;
+    [self.navigationController pushViewController:pwcVC animated:YES];
+}
+
 
 
 -(void)regVer:(NSString*)code

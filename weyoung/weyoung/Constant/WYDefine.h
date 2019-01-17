@@ -20,10 +20,10 @@
 #endif
 
 #define KTabBarHeight                       (49.0f + KTabbarSafeBottomMargin)
-#define KNaviBarHeight                      ((__IphoneX__==YES || IS_IPHONE_Xr ==YES || IS_IPHONE_Xs_Max== YES) ? 88.0 : 64.0)
-#define KTabbarSafeBottomMargin             ((__IphoneX__==YES || IS_IPHONE_Xr ==YES || IS_IPHONE_Xs_Max== YES) ? 34 : 0)
-#define KNaviBarSafeBottomMargin            ((__IphoneX__==YES || IS_IPHONE_Xr ==YES || IS_IPHONE_Xs_Max== YES) ? 24 : 0 )
-#define __IphoneX__                         ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) && !isPad : NO)
+#define KNaviBarHeight                      ((IS_IPHONE_X==YES || IS_IPHONE_Xr ==YES || IS_IPHONE_Xs_Max== YES) ? 88.0 : 64.0)
+#define KTabbarSafeBottomMargin             ((IS_IPHONE_X==YES || IS_IPHONE_Xr ==YES || IS_IPHONE_Xs_Max== YES) ? 34 : 0)
+#define KNaviBarSafeBottomMargin            ((IS_IPHONE_X==YES || IS_IPHONE_Xr ==YES || IS_IPHONE_Xs_Max== YES) ? 24 : 0 )
+#define IS_IPHONE_X                        ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) && !isPad : NO)
 //判断是否是ipad
 #define isPad                               ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
 //判断iPHoneXr
