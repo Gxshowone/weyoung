@@ -205,7 +205,8 @@
         if ([response count]==0) {
             
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-            [self.view makeToast:@"怎么会没有人？"];
+            [self.view makeToast:@"怎么会没有人？" duration:0.3 position:CSToastPositionCenter];
+            [self childWait];
     
         }
         
