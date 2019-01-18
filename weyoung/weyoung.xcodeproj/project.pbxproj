@@ -67,6 +67,7 @@
 		D22F08F321E77DDF00FE9331 /* WYLikeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D22F08F221E77DDF00FE9331 /* WYLikeMessage.m */; };
 		D22F08F621E77E3A00FE9331 /* WYCommonMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D22F08F521E77E3A00FE9331 /* WYCommonMessage.m */; };
 		D22F090621E789D900FE9331 /* WYMessageHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D22F090521E789D900FE9331 /* WYMessageHeaderView.m */; };
+		D22FFBD721F18D92003F565B /* flight.json in Resources */ = {isa = PBXBuildFile; fileRef = D22FFBD621F18D92003F565B /* flight.json */; };
 		D230314B21DDC5D700E0DBF2 /* WYCopyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D230314A21DDC5D700E0DBF2 /* WYCopyLabel.m */; };
 		D230315121DDE28F00E0DBF2 /* WYCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D230315021DDE28F00E0DBF2 /* WYCommentModel.m */; };
 		D230315421DDED1700E0DBF2 /* WYCommentToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D230315321DDED1700E0DBF2 /* WYCommentToolBar.m */; };
@@ -272,6 +273,7 @@
 		D22F08F521E77E3A00FE9331 /* WYCommonMessage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYCommonMessage.m; sourceTree = "<group>"; };
 		D22F090421E789D900FE9331 /* WYMessageHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYMessageHeaderView.h; sourceTree = "<group>"; };
 		D22F090521E789D900FE9331 /* WYMessageHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYMessageHeaderView.m; sourceTree = "<group>"; };
+		D22FFBD621F18D92003F565B /* flight.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = flight.json; sourceTree = "<group>"; };
 		D230314921DDC5D700E0DBF2 /* WYCopyLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYCopyLabel.h; sourceTree = "<group>"; };
 		D230314A21DDC5D700E0DBF2 /* WYCopyLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYCopyLabel.m; sourceTree = "<group>"; };
 		D230314F21DDE28F00E0DBF2 /* WYCommentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYCommentModel.h; sourceTree = "<group>"; };
@@ -852,6 +854,7 @@
 		D22E375021E5F20100292FB3 /* Res */ = {
 			isa = PBXGroup;
 			children = (
+				D22FFBD621F18D92003F565B /* flight.json */,
 				D229525221F06D3400EA73D3 /* first_wait_x.json */,
 				D229525321F06D3500EA73D3 /* first_walk_x.json */,
 				D2237BC821ED93CE002A11B9 /* first_wait.json */,
@@ -1417,6 +1420,7 @@
 				D22AF87F21BF6EEC0004405B /* WSDatePickerView.xib in Resources */,
 				D2D7104321B9334900D78746 /* Main.storyboard in Resources */,
 				D2237BC921ED93CE002A11B9 /* first_walk.json in Resources */,
+				D22FFBD721F18D92003F565B /* flight.json in Resources */,
 				D229525521F06D3500EA73D3 /* first_walk_x.json in Resources */,
 				D2237BCA21ED93CE002A11B9 /* second_walk.json in Resources */,
 			);
