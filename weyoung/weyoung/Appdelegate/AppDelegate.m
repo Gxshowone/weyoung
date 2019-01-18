@@ -13,6 +13,7 @@
 
 #import "WYLoginViewController.h"
 #import "WYMainViewController.h"
+#import <KSGuaidViewManager.h>
 @interface AppDelegate ()
 
 @end
@@ -29,6 +30,8 @@
     
     //键盘管理器
     [self registerKeyboardManager];
+    
+    [self creatGuide];
 
     _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     _window.backgroundColor = [UIColor whiteColor];
@@ -57,6 +60,22 @@
     
     
     return YES;
+}
+
+-(void)creatGuide
+{
+  
+    NSString * guideCache = [[NSUserDefaults standardUserDefaults] valueForKey:@"guideCache"];
+    
+    if (IsStrEmpty(guideCache)) {
+        NSArray * normalArray =@[[UIImage imageNamed:@"guide_1"],[UIImage imageNamed:@"guide_2"],[UIImage imageNamed:@"guide_3"]];
+        NSArray * xArray  = @[[UIImage imageNamed:@"guide_x_1"],[UIImage imageNamed:@"guide_x_2"],[UIImage imageNamed:@"guide_x_3"]];
+        KSGuaidManager.images = (IS_IPHONE_X==YES || IS_IPHONE_Xr ==YES || IS_IPHONE_Xs_Max== YES)?xArray:normalArray;
+        KSGuaidManager.shouldDismissWhenDragging = YES;
+        [KSGuaidManager begin];
+        [[NSUserDefaults standardUserDefaults] setValue:@"1.0.0" forKey:@"guideCache"];
+    }
+    
 }
 
 //注册用户通知设置

@@ -70,6 +70,9 @@
     [self.jggView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     self.jggView.dataSource = @[model.image];
     self.jggView.frame = model.jggLayout.frameLayout;
+   
+    
+    self.sepLine.frame = CGRectMake(20, CGRectGetMaxY(self.jggView.frame)+20, KScreenWidth-20, 1);
     
 }
 
@@ -248,6 +251,7 @@
 {
     if (!_sepLine) {
         _sepLine = [[UIView alloc]init];
+        _sepLine.backgroundColor = [[UIColor binaryColor:@"ffffff"] colorWithAlphaComponent:0.1];
     }
     return _sepLine;
 }

@@ -18,6 +18,7 @@ target 'weyoung' do
    pod 'RongCloudIM/IMKit'
    pod 'FMDB'
    pod 'YYCache'
+   pod 'KSGuaidView'
    # Pods for weyoung
 
   target 'weyoungTests' do

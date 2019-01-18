@@ -106,9 +106,23 @@
     switch (indexPath.row) {
         case 0:
         {
-            WYCodeViewController * codeVc = [[WYCodeViewController alloc]init];
-            codeVc.phone = [WYSession sharedSession].phone;
-            [self.navigationController pushViewController:codeVc animated:YES];
+            
+            NSString * phone = [WYSession sharedSession].phone;
+            NSDictionary * dict = @{@"phone":phone,@"zone_num":@"86",@"interface":@"Login@forgetPassword",@"step":@"1"};
+            WYHttpRequest *request = [[WYHttpRequest alloc]init];
+            [request requestWithPragma:dict showLoading:NO];
+            request.successBlock = ^(id  _Nonnull response) {
+                
+                WYCodeViewController * codeVc = [[WYCodeViewController alloc]init];
+                codeVc.phone = phone;
+                codeVc.type = WYCodeTypeChange;
+                [self.navigationController pushViewController:codeVc animated:YES];
+            };
+            
+            request.failureDataBlock = ^(id  _Nonnull error) {
+                
+            };
+        
         }
             break;
             case 1:

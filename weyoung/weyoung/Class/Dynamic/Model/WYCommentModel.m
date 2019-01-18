@@ -15,18 +15,20 @@
 -(void)setComment:(NSString *)comment
 {
     _comment = comment;
-    
-    //开始提前计算rowHeight和attributedText
+     
+  
     NSString *str  = nil;
+
     if (![self.nick_name isEqualToString:@""]) {
         
-        str= [NSString stringWithFormat:@"%@：%@",
-              self.c_nick_name, self.comment];
+        str= [NSString stringWithFormat:@"%@",_comment];
         
     }else{
-        str= [NSString stringWithFormat:@"%@回复%@：%@",
-              self.c_nick_name, self.nick_name, self.comment];
+        str= [NSString stringWithFormat:@"%@回复%@:%@",
+              self.c_nick_name, self.nick_name, _comment];
     }
+    
+    
     NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:str];
     [text addAttribute:NSForegroundColorAttributeName
                  value:[UIColor whiteColor]
@@ -43,7 +45,9 @@
     }
     
     [text addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, text.string.length)];
-    self.rowHeight = [text.string boundingRectWithSize:CGSizeMake(KScreenWidth-68-20, CGFLOAT_MAX) font:font lineSpacing:3.0].height+0.5+3.0+29;//5.0为最后一行行间距
+    
+    
+    self.rowHeight = [text.string boundingRectWithSize:CGSizeMake(KScreenWidth-68-20, CGFLOAT_MAX) font:font lineSpacing:3.0].height+53;//5.0为最后一行行间距
     self.attributedText = text;
 }
 @end

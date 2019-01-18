@@ -51,8 +51,7 @@
  
     self.jggLayout.frameLayout =  CGRectMake(self.textLayout.frameLayout.origin.x,63.9 + textHeight+5.5, jgg_Width, jgg_height);
     
-    CGFloat rowHeight = 63.9 + textHeight + jgg_height + 5.5;
-    NSLog(@"[gx] rowheight %f",rowHeight);
+    CGFloat rowHeight = 63.9 + textHeight + jgg_height + 5.5 + 20;
     self.rowHeight =rowHeight;
 }
 

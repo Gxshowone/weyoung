@@ -12,6 +12,7 @@
 #import "WYCodeViewController.h"
 #import "NSString+Validation.h"
 #import <AudioToolbox/AudioToolbox.h>
+
 @interface WYInputViewController ()
 
 
@@ -38,7 +39,7 @@
 {
     [super viewDidLayoutSubviews];
     self.inputLabel.frame = CGRectMake(KScreenWidth/2-61.5, KNaviBarHeight+66, 123, 33);
-    self.forgetButton.frame = CGRectMake(KScreenWidth/2-118, CGRectGetMaxY(self.inputLabel.frame),236, 40);
+    self.forgetButton.frame = CGRectMake(KScreenWidth/2-118, CGRectGetMaxY(self.inputLabel.frame),236, 44);
      self.inputView.frame = CGRectMake(27.5, KNaviBarHeight+196, KScreenWidth-55, 50);
     self.nextButton.frame = CGRectMake(KScreenWidth/2-40, KScreenHeight-KTabbarSafeBottomMargin-95-80, 80, 80);
     self.nextButton.style = WYGradientButtonCircle;
@@ -83,6 +84,26 @@
         @weakify(self);
         [[_forgetButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
+            
+//            NSDictionary * dict = @{@"phone":self.phone,@"zone_num":@"86",@"interface":@"Login@forgetPassword",@"step":@"1"};
+//            WYHttpRequest *request = [[WYHttpRequest alloc]init];
+//            [request requestWithPragma:dict showLoading:NO];
+//            request.successBlock = ^(id  _Nonnull response) {
+//                
+//                WYCodeViewController * codeVc = [[WYCodeViewController alloc]init];
+//                codeVc.phone = self.phone;
+//                codeVc.type = WYCodeTypeForget;
+//                [self.navigationController pushViewController:codeVc animated:YES];
+//            };
+//            
+//            request.failureDataBlock = ^(id  _Nonnull error) {
+//                
+//            };
+            
+            WYCodeViewController * codeVc = [[WYCodeViewController alloc]init];
+            codeVc.phone = self.phone;
+            codeVc.type = WYCodeTypeForget;
+            [self.navigationController pushViewController:codeVc animated:YES];
         }];
     }
     return _forgetButton;

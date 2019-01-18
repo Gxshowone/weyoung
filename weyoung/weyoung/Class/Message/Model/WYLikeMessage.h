@@ -10,7 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WYLikeMessage : RCMessageContent
+@interface WYLikeMessage : NSObject
+
+@property(nonatomic,copy)NSString * c_id;
+@property(nonatomic,copy)NSString * create_time;
+@property(nonatomic,copy)NSString * d_id;
+@property(nonatomic,copy)NSString * header_url;
+@property(nonatomic,copy)NSString * nick_name;
+@property(nonatomic,copy)NSString * uid;
 
 @end
 

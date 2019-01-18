@@ -50,11 +50,6 @@
     self.bgIV.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
     self.childAnimation.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
     self.quanquan.frame = CGRectMake(KScreenWidth/2-36, KScreenHeight-KTabbarSafeBottomMargin-37-72, 72, 72);
-    
-//    第0秒      第一个流星位置：X=216 Y=318
-//    第1.2秒   第二个流星位置：X=504 Y=1022
-//    第2.7秒   第三个流星位置：X=562 Y=772
-//
     self.meteor1.center = CGPointMake(125,KNaviBarHeight+68);
     self.meteor2.center = CGPointMake(KScreenWidth/2,426);
     self.meteor3.center = CGPointMake(KScreenWidth/2, 562);
@@ -140,7 +135,7 @@
     
     __weak typeof(self)weakSelf = self;
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         [weakSelf childWait];
       
@@ -157,6 +152,17 @@
     [self.childAnimation play];
 }
 
+
+-(void)matchWait
+{
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"flight" ofType:@"json"];
+    NSArray *components = [filePath componentsSeparatedByString:@"/"];
+    NSString * name = [components lastObject];
+    [self.childAnimation setAnimation:name];
+    self.childAnimation.loopAnimation = YES;
+    [self.childAnimation play];
+}
+
 -(void)setNavigationConfig
 {
     self.leftButton.x = 10;
@@ -166,10 +172,8 @@
     self.rightButton.layer.cornerRadius = 15;
     self.rightButton.layer.masksToBounds = YES;
     
-    [self setNavTitle:@"Explore"];
- 
+    [self setNavTitle:@"未央"];
     [self.leftButton setImage:[UIImage imageNamed:@"navi_dynamic_btn"] forState:UIControlStateNormal];
-  
     [self.rightButton yy_setImageWithURL:[NSURL URLWithString:[WYSession sharedSession].avatar] forState:UIControlStateNormal options:YYWebImageOptionSetImageWithFadeAnimation];
     
  
@@ -187,8 +191,8 @@
 -(void)matchUser
 {
     self.quanquan.userInteractionEnabled = NO;
-    
     [self.quanquan startAnimating];
+    [self matchWait];
     
     NSDictionary * dict = @{@"interface":@"Match@doMatch"};
     WYHttpRequest *request = [[WYHttpRequest alloc]init];
@@ -202,6 +206,7 @@
             
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
             [self.view makeToast:@"怎么会没有人？"];
+    
         }
         
 //        if(self.delegate&&[self.delegate respondsToSelector:@selector(conversation:)])
@@ -213,8 +218,8 @@
     request.failureDataBlock = ^(id  _Nonnull error) {
         
         self.quanquan.userInteractionEnabled = YES;
-        
         [self.quanquan stopAnimating];
+        [self childWait];
         
     };
 }
@@ -240,7 +245,7 @@
 {
     if (!_bgIV) {
         _bgIV = [[UIImageView alloc]init];
-        NSString * iname = (KScreenHeight<812)?@"home_bg":@"home_bg_x";
+        NSString * iname = (IS_IPHONE_X==YES || IS_IPHONE_Xr ==YES || IS_IPHONE_Xs_Max== YES)?@"home_bg_x":@"home_bg";
         _bgIV.image = [UIImage imageNamed:iname];
         _bgIV.contentMode = UIViewContentModeScaleToFill;
     }

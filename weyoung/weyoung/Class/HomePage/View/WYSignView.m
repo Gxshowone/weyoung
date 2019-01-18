@@ -169,7 +169,7 @@
 {
     if (!_bgImageView) {
         _bgImageView= [[UIImageView alloc]init];
-        NSString * iname = (KScreenHeight<812)?@"home_sign_bg":@"home_sign_bg_iphonex";
+        NSString * iname = (IS_IPHONE_X==YES || IS_IPHONE_Xr ==YES || IS_IPHONE_Xs_Max== YES)?@"home_sign_bg_iphonex":@"home_sign_bg";
         _bgImageView.image = [UIImage imageNamed:iname];
         
     }
