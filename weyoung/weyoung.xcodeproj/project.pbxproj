@@ -125,7 +125,6 @@
 		D2D7104021B9334900D78746 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7103F21B9334900D78746 /* ViewController.m */; };
 		D2D7104321B9334900D78746 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2D7104121B9334900D78746 /* Main.storyboard */; };
 		D2D7104521B9334B00D78746 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2D7104421B9334B00D78746 /* Assets.xcassets */; };
-		D2D7104821B9334B00D78746 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2D7104621B9334B00D78746 /* LaunchScreen.storyboard */; };
 		D2D7104B21B9334B00D78746 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7104A21B9334B00D78746 /* main.m */; };
 		D2D7105521B9334B00D78746 /* weyoungTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7105421B9334B00D78746 /* weyoungTests.m */; };
 		D2D7106021B9334B00D78746 /* weyoungUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7105F21B9334B00D78746 /* weyoungUITests.m */; };
@@ -389,7 +388,6 @@
 		D2D7103F21B9334900D78746 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		D2D7104221B9334900D78746 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D2D7104421B9334B00D78746 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		D2D7104721B9334B00D78746 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D2D7104921B9334B00D78746 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2D7104A21B9334B00D78746 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D2D7105021B9334B00D78746 /* weyoungTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = weyoungTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1166,7 +1164,6 @@
 				D2D7103F21B9334900D78746 /* ViewController.m */,
 				D2D7104121B9334900D78746 /* Main.storyboard */,
 				D2D7104421B9334B00D78746 /* Assets.xcassets */,
-				D2D7104621B9334B00D78746 /* LaunchScreen.storyboard */,
 				D2D7104921B9334B00D78746 /* Info.plist */,
 				D2D7104A21B9334B00D78746 /* main.m */,
 			);
@@ -1414,7 +1411,6 @@
 				D2237BCB21ED93CE002A11B9 /* second_wait.json in Resources */,
 				D23AE8FC21DCA5D900D79007 /* HZPhotoBrowser.bundle in Resources */,
 				D229525421F06D3500EA73D3 /* first_wait_x.json in Resources */,
-				D2D7104821B9334B00D78746 /* LaunchScreen.storyboard in Resources */,
 				D2D7104521B9334B00D78746 /* Assets.xcassets in Resources */,
 				D2237BCD21ED93CE002A11B9 /* first_wait.json in Resources */,
 				D22AF87F21BF6EEC0004405B /* WSDatePickerView.xib in Resources */,
@@ -1687,14 +1683,6 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		D2D7104621B9334B00D78746 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D2D7104721B9334B00D78746 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -1815,6 +1803,7 @@
 			baseConfigurationReference = 8500BC18BC018E71B72E4B22 /* Pods-weyoung.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = weyoung/weyoung.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -1838,6 +1827,7 @@
 			baseConfigurationReference = 6EB149B22711847C894B22B6 /* Pods-weyoung.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = weyoung/weyoung.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;

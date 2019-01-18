@@ -300,7 +300,10 @@
 {
     
     NSString * c_uid = (!self.selectModel)?self.model.uid:self.selectModel.uid;
-    NSDictionary * dict = @{@"interface":@"Dynamic@doComment",@"d_id":self.model.d_id,@"type":@"1",@"comment":text,@"c_uid":c_uid};
+    
+    BOOL same = ([c_uid isEqualToString:[WYSession sharedSession].uid]);
+    
+    NSDictionary * dict = (same)?@{@"interface":@"Dynamic@doComment",@"d_id":self.model.d_id,@"type":@"1",@"comment":text}:@{@"interface":@"Dynamic@doComment",@"d_id":self.model.d_id,@"type":@"1",@"comment":text,@"c_uid":c_uid};
     WYHttpRequest *request = [[WYHttpRequest alloc]init];
     [request requestWithPragma:dict showLoading:NO];
     request.successBlock = ^(id  _Nonnull response) {

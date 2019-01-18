@@ -85,6 +85,7 @@
     [request requestWithPragma:dict showLoading:NO];
     request.successBlock = ^(id  _Nonnull response) {
         
+       self.avatarChange = NO;
         [WYSession sharedSession].nickname = [self nick];
         [WYSession sharedSession].birthday = self.dateString;
         NSString * avatar = [NSString stringWithFormat:@"%@",[response valueForKey:@"header_url"]];

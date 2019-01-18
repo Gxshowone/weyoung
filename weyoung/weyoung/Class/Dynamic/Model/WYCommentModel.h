@@ -16,13 +16,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *c_header_url;
 @property(nonatomic,copy)NSString *c_id;
 @property(nonatomic,copy)NSString *c_nick_name;
+@property(nonatomic,copy)NSString *nick_name;
 @property(nonatomic,copy)NSString *c_uid;
 @property(nonatomic,copy)NSString *comment;
 @property(nonatomic,copy)NSString *create_time;
 @property(nonatomic,copy)NSString *d_id;
 @property(nonatomic,copy)NSString *uid;
 @property(nonatomic,copy)NSString *header_url;
-@property(nonatomic,copy)NSString *nick_name;
+
 
 @property(nonatomic,copy)NSAttributedString *attributedText;
 @property (nonatomic, assign)CGFloat rowHeight;

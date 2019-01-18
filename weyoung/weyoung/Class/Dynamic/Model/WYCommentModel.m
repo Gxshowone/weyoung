@@ -15,16 +15,16 @@
 -(void)setComment:(NSString *)comment
 {
     _comment = comment;
-     
-  
+    
+
     NSString *str  = nil;
 
-    if (![self.nick_name isEqualToString:@""]) {
+    if (IsStrEmpty(self.c_uid)) {
         
         str= [NSString stringWithFormat:@"%@",_comment];
         
     }else{
-        str= [NSString stringWithFormat:@"%@回复%@:%@",
+        str= [NSString stringWithFormat:@"%@回复:%@%@",
               self.c_nick_name, self.nick_name, _comment];
     }
     
