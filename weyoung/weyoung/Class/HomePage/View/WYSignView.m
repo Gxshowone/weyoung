@@ -136,7 +136,8 @@
         [[_signButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
             
-            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"first_walk" ofType:@"json"];
+            NSString * fname = (KScreenHeight<812)?@"first_walk":@"first_walk_x";
+            NSString *filePath = [[NSBundle mainBundle] pathForResource:fname ofType:@"json"];
             NSArray *components = [filePath componentsSeparatedByString:@"/"];
             NSString * name = [components lastObject];
             [self.childAnimation setAnimation:name];
@@ -188,7 +189,9 @@
 -(LOTAnimationView *)childAnimation
 {
     if (!_childAnimation) {
-        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"first_wait" ofType:@"json"];
+        
+        NSString * fname = (KScreenHeight<812)?@"first_wait":@"first_wait_x";
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:fname ofType:@"json"];
         NSArray *components = [filePath componentsSeparatedByString:@"/"];
         NSString * name = [components lastObject];
         _childAnimation = [LOTAnimationView animationNamed:name];

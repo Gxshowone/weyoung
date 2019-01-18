@@ -48,6 +48,10 @@
 		D226985421BBC6AA0091EE3B /* WYButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D226985321BBC6AA0091EE3B /* WYButtonItem.m */; };
 		D226985721BBDA600091EE3B /* WYEditHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D226985621BBDA600091EE3B /* WYEditHeaderView.m */; };
 		D226985A21BBDF250091EE3B /* WYEditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D226985921BBDF250091EE3B /* WYEditTableViewCell.m */; };
+		D229525421F06D3500EA73D3 /* first_wait_x.json in Resources */ = {isa = PBXBuildFile; fileRef = D229525221F06D3400EA73D3 /* first_wait_x.json */; };
+		D229525521F06D3500EA73D3 /* first_walk_x.json in Resources */ = {isa = PBXBuildFile; fileRef = D229525321F06D3500EA73D3 /* first_walk_x.json */; };
+		D229525821F077E500EA73D3 /* match_sussces.json in Resources */ = {isa = PBXBuildFile; fileRef = D229525621F077E500EA73D3 /* match_sussces.json */; };
+		D229525921F077E500EA73D3 /* match_wait.json in Resources */ = {isa = PBXBuildFile; fileRef = D229525721F077E500EA73D3 /* match_wait.json */; };
 		D229B79421CA175B006BCD39 /* WYHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D229B79321CA175B006BCD39 /* WYHttpRequest.m */; };
 		D229B79A21CA1CF9006BCD39 /* WYInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D229B79921CA1CF9006BCD39 /* WYInputViewController.m */; };
 		D229B79D21CA1EF1006BCD39 /* WYCodeInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = D229B79C21CA1EF1006BCD39 /* WYCodeInputView.m */; };
@@ -234,6 +238,10 @@
 		D226985621BBDA600091EE3B /* WYEditHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYEditHeaderView.m; sourceTree = "<group>"; };
 		D226985821BBDF250091EE3B /* WYEditTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYEditTableViewCell.h; sourceTree = "<group>"; };
 		D226985921BBDF250091EE3B /* WYEditTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYEditTableViewCell.m; sourceTree = "<group>"; };
+		D229525221F06D3400EA73D3 /* first_wait_x.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = first_wait_x.json; sourceTree = "<group>"; };
+		D229525321F06D3500EA73D3 /* first_walk_x.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = first_walk_x.json; sourceTree = "<group>"; };
+		D229525621F077E500EA73D3 /* match_sussces.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = match_sussces.json; sourceTree = "<group>"; };
+		D229525721F077E500EA73D3 /* match_wait.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = match_wait.json; sourceTree = "<group>"; };
 		D229B79221CA175B006BCD39 /* WYHttpRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYHttpRequest.h; sourceTree = "<group>"; };
 		D229B79321CA175B006BCD39 /* WYHttpRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYHttpRequest.m; sourceTree = "<group>"; };
 		D229B79821CA1CF9006BCD39 /* WYInputViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYInputViewController.h; sourceTree = "<group>"; };
@@ -850,6 +858,10 @@
 		D22E375021E5F20100292FB3 /* Res */ = {
 			isa = PBXGroup;
 			children = (
+				D229525621F077E500EA73D3 /* match_sussces.json */,
+				D229525721F077E500EA73D3 /* match_wait.json */,
+				D229525221F06D3400EA73D3 /* first_wait_x.json */,
+				D229525321F06D3500EA73D3 /* first_walk_x.json */,
 				D2237BC821ED93CE002A11B9 /* first_wait.json */,
 				D2237BC421ED93CE002A11B9 /* first_walk.json */,
 				D2237BC721ED93CE002A11B9 /* flight.json */,
@@ -1407,13 +1419,17 @@
 			files = (
 				D2237BCC21ED93CE002A11B9 /* flight.json in Resources */,
 				D2237BCB21ED93CE002A11B9 /* second_wait.json in Resources */,
+				D229525921F077E500EA73D3 /* match_wait.json in Resources */,
 				D23AE8FC21DCA5D900D79007 /* HZPhotoBrowser.bundle in Resources */,
+				D229525421F06D3500EA73D3 /* first_wait_x.json in Resources */,
 				D2D7104821B9334B00D78746 /* LaunchScreen.storyboard in Resources */,
 				D2D7104521B9334B00D78746 /* Assets.xcassets in Resources */,
 				D2237BCD21ED93CE002A11B9 /* first_wait.json in Resources */,
 				D22AF87F21BF6EEC0004405B /* WSDatePickerView.xib in Resources */,
 				D2D7104321B9334900D78746 /* Main.storyboard in Resources */,
 				D2237BC921ED93CE002A11B9 /* first_walk.json in Resources */,
+				D229525821F077E500EA73D3 /* match_sussces.json in Resources */,
+				D229525521F06D3500EA73D3 /* first_walk_x.json in Resources */,
 				D2237BCA21ED93CE002A11B9 /* second_walk.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

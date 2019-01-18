@@ -133,12 +133,35 @@
             break;
             case 5:
         {
-            [[WYSession sharedSession] removeUserInfo];
-            [[WYSession sharedSession] disconnectRc];
             
-            WYLoginViewController * loginVC = [WYLoginViewController new];
-            UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
-            [UIApplication sharedApplication].keyWindow.rootViewController = nav;
+            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"记得回来看我哦～" preferredStyle:UIAlertControllerStyleAlert];
+            //解决ipad 上面的崩溃
+            alert.popoverPresentationController.sourceView = self.view;
+            alert.popoverPresentationController.sourceRect = CGRectMake(0,0,1.0,1.0);
+            
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消"
+                                                             style:UIAlertActionStyleCancel
+                                                           handler:^(UIAlertAction * _Nonnull action) {
+                                                           }];
+            
+            UIAlertAction *logOut = [UIAlertAction actionWithTitle:@"确定"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * _Nonnull action) {
+                                                               
+                                                               [[WYSession sharedSession] removeUserInfo];
+                                                               [[WYSession sharedSession] disconnectRc];
+                                                               
+                                                               WYLoginViewController * loginVC = [WYLoginViewController new];
+                                                               UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+                                                               [UIApplication sharedApplication].keyWindow.rootViewController = nav;
+                                                               
+                                                           }];
+            
+            [alert addAction:cancel];
+            [alert addAction:logOut];
+            [self presentViewController:alert animated:YES completion:nil];
+        
             
         }
             break;
