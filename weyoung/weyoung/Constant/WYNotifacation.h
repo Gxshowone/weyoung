@@ -11,4 +11,6 @@
 
 #define WYNotifacationUserInfoChange @"WYNotifacationUserInfoChange"
 
+#define WYComposeSusscess @"WYComposeSusscess"
+
 #endif /* WYNotifacation_h */

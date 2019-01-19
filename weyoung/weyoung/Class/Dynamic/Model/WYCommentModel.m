@@ -24,15 +24,19 @@
         str= [NSString stringWithFormat:@"%@",_comment];
         
     }else{
-        str= [NSString stringWithFormat:@"%@回复:%@%@",
-              self.c_nick_name, self.nick_name, _comment];
+        str= [NSString stringWithFormat:@"回复 :%@ %@",
+             self.nick_name, _comment];
     }
     
     
     NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:str];
-    [text addAttribute:NSForegroundColorAttributeName
-                 value:[UIColor whiteColor]
-                 range:NSMakeRange(self.c_nick_name.length + 2, self.nick_name.length)];
+    
+    if ([str containsString:@"回复"]) {
+        [text addAttribute:NSForegroundColorAttributeName
+                     value:[UIColor whiteColor]
+                     range:NSMakeRange(4, self.nick_name.length)];
+    }
+   
     UIFont *font = [UIFont fontWithName:TextFontName_Light size:15];
     
     [text addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, str.length)];

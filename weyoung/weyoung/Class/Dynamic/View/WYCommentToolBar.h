@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)beginEdit;
 
+-(void)stopEdit;
+
 @end
 
 NS_ASSUME_NONNULL_END

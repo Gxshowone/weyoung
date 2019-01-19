@@ -8,6 +8,8 @@
 
 #import "WYBaseViewController.h"
 
+
+typedef void(^TapCommentBlock)();
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WYComposeViewController : WYBaseViewController

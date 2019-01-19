@@ -12,7 +12,7 @@
 #import "WYCommentHeader.h"
 #import "WYCommentModel.h"
 #import "WYMoreView.h"
-
+#import "NSString+Extension.h"
 @interface WYCommentController ()<UITableViewDelegate,UITableViewDataSource,WYCommentToolBarDelegate,WYCommentHeaderDelegate>
 
 
@@ -27,6 +27,7 @@
 @property(nonatomic,assign)int page;
 
 @property(nonatomic,strong)WYCommentModel * selectModel;
+@property(nonatomic,assign)BOOL commonMaster;
 
 @end
 
@@ -42,6 +43,8 @@
     [self setNavTitle:@"详情"];
     [self initUI];
     [self addNotification];
+    
+    self.commonMaster = YES;
 }
 
 -(void)initUI
@@ -84,6 +87,7 @@
     // 2.动画
     [UIView animateWithDuration:duration animations:^{
         self.toolBar.transform = CGAffineTransformIdentity;//回复之前的位置
+        self.commonMaster = YES;
     }];
 }
 
@@ -146,7 +150,7 @@
         }
         
         [self stopLoadData];
-        [self nodata];
+   //     [self nodata];
         [self nomoredata:modelArray];
         
     };
@@ -271,6 +275,7 @@
 {
     self.selectModel = self.dataArray[indexPath.row];
     [self.toolBar beginEdit];
+    self.commonMaster = NO;
 }
 
 
@@ -298,18 +303,31 @@
 
 -(void)sendCommon:(NSString*)text
 {
-    
-    NSString * c_uid = (!self.selectModel)?self.model.uid:self.selectModel.uid;
-    
-    BOOL same = ([c_uid isEqualToString:[WYSession sharedSession].uid]);
-    
-    NSDictionary * dict = (same)?@{@"interface":@"Dynamic@doComment",@"d_id":self.model.d_id,@"type":@"1",@"comment":text}:@{@"interface":@"Dynamic@doComment",@"d_id":self.model.d_id,@"type":@"1",@"comment":text,@"c_uid":c_uid};
+    BOOL needC_uid = (self.commonMaster==NO&&[self.selectModel.uid isEqualToString:[WYSession sharedSession].uid]==NO)?YES:NO;
+    NSDictionary * dict = (needC_uid)?@{@"interface":@"Dynamic@doComment",@"d_id":self.model.d_id,@"type":@"1",@"comment":text,@"c_uid":self.selectModel.uid}:@{@"interface":@"Dynamic@doComment",@"d_id":self.model.d_id,@"type":@"1",@"comment":text};
     WYHttpRequest *request = [[WYHttpRequest alloc]init];
     [request requestWithPragma:dict showLoading:NO];
     request.successBlock = ^(id  _Nonnull response) {
         
-        [self retryToGetData];
+    
+        [self.toolBar stopEdit];
         
+        
+        WYCommentModel * model = [[WYCommentModel alloc]init];
+        model.c_header_url = (needC_uid)?self.selectModel.header_url:@"";
+        model.c_uid = (needC_uid)?self.selectModel.uid:@"";
+        model.c_nick_name = (needC_uid)?self.selectModel.nick_name:@"";
+        model.nick_name = [WYSession sharedSession].nickname;
+        model.c_id = @"";
+        model.comment = text;
+        model.create_time = [NSString getNowTimeTimestamp];
+        model.d_id = @"";
+        model.uid = [WYSession sharedSession].uid;
+        model.header_url = [WYSession sharedSession].avatar;
+        
+        [self.dataArray insertObject:model atIndex:0];
+        [self.tableView reloadData];
+
     };
     
     request.failureDataBlock = ^(id  _Nonnull error) {

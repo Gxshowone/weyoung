@@ -12,7 +12,8 @@
 #import "WYComposeToolBar.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "WYAssets.h"
-
+#import "WYDynamicModel.h"
+#import "NSString+Extension.h"
 @interface WYComposeViewController ()<UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic , strong) WYTextView *textView;
@@ -115,8 +116,20 @@
     [request requestWithPragma:dict showLoading:NO];
     request.successBlock = ^(id  _Nonnull response) {
         
+        WYDynamicModel * model = [[WYDynamicModel alloc]init];
+        model.image = ([self.photosView hasImage])?@"":nil;
+        model.praise_count = 0;
+        model.uid = [WYSession sharedSession].uid;
+        model.type = [type integerValue];
+        model.d_id = @"";
+        model.nick_name = [WYSession sharedSession].nickname;
+        model.header_url = [WYSession sharedSession].avatar;
+        model.create_time = [NSString getNowTimeTimestamp];
+        model.content = self.textView.text;
+        [[NSNotificationCenter defaultCenter] postNotificationName:WYComposeSusscess object:model];
+        
         [self dismissViewControllerAnimated:YES completion:nil];
-       
+        
     };
     
     request.failureDataBlock = ^(id  _Nonnull error) {

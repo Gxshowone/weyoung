@@ -12,8 +12,13 @@
 #import "WYComposeViewController.h"
 #import "WYMoreView.h"
 #import <YYCache/YYCache.h>
-@interface WYDynamicViewController ()<UITableViewDelegate,UITableViewDataSource,WYDynamicTableViewCellDelegate>
 
+static NSString * const cacheKey = @"WYALLDynamicList";
+
+@interface WYDynamicViewController ()<UITableViewDelegate,UITableViewDataSource,WYDynamicTableViewCellDelegate>
+{
+    YYCache *cache ;
+}
 @property(nonatomic,strong)WYMoreView * moreView;
 @property(nonatomic,strong)UITableView * tableView;
 @property(nonatomic,strong)NSMutableArray * dataArray;
@@ -42,6 +47,8 @@
     [self setNavTitle:@"动态"];
     [self setNaviGationConfig];
     [self initUI];
+    [self addNotification];
+    [self initData];
 
 }
 
@@ -70,35 +77,37 @@
  
 }
 
+-(void)addNotification
+{
+    @weakify(self);
+    [[[NSNotificationCenter defaultCenter]rac_addObserverForName:WYComposeSusscess object:nil] subscribeNext:^(id x) {
+        @strongify(self);
+        
+        WYDynamicModel * model = (WYDynamicModel *)[x object];
+        
+        [self.dataArray insertObject:model atIndex:0];
+        [self.tableView reloadData];
+        
+    }];
+    
+}
+
 -(void)initUI
 {
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.sendButton];
 }
+-(void)initData
+{
 
+   [self.tableView.mj_header beginRefreshing];
+    
+}
 -(void)gotoHomePage
 {
     NSLog(@"[gx] goto hp");
     if (self.delegate&&[self.delegate respondsToSelector:@selector(scrollToIndex:)]) {
         [self.delegate scrollToIndex:1];
-    }
-}
-
-
--(void)getCacheData
-{
-    YYCache *cache = [[YYCache alloc] initWithName:@"ALLDynamicListCache"];
-    cache.memoryCache.shouldRemoveAllObjectsOnMemoryWarning = YES;
-    cache.memoryCache.shouldRemoveAllObjectsWhenEnteringBackground = YES;
-    NSString * cacheKey = @"ALLDynamicList";
-    id cacheData;
-    //根据网址从Cache中取数据
-    cacheData = [cache objectForKey:cacheKey];
-
-    if (cacheData != 0) {
-        //将数据统一处理
-        self.dataArray = (NSMutableArray*)cacheData;
-        [self stopLoadData];
     }
 }
 
@@ -134,8 +143,9 @@
             
         }
         
+        
         [self stopLoadData];
-        [self nodata];
+      //  [self nodata];
         [self nomoredata:modelArray];
         
     };
@@ -179,6 +189,9 @@
     [_tableView.mj_header endRefreshing];
     [_tableView.mj_footer endRefreshing];
     [_tableView reloadData];
+    
+   [self->cache setObject:self.dataArray forKey:cacheKey];
+
     
 }
 
@@ -305,7 +318,7 @@
         }];
         
         
-        [_tableView.mj_header beginRefreshing];
+
     }
     return _tableView;
 }

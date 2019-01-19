@@ -41,6 +41,13 @@
 
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [hpVc childWait];
+}
+
 -(void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];

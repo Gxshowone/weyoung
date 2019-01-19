@@ -42,6 +42,12 @@
     [self.textView becomeFirstResponder];
 }
 
+-(void)stopEdit
+{
+    self.textView.text = @"";
+    [self.textView resignFirstResponder];
+    
+}
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     self.sendButton.hidden = NO;

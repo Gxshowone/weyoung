@@ -55,9 +55,11 @@
 {
     _model = model;
     
-    [self.avatarIV yy_setImageWithURL:[NSURL URLWithString:model.header_url] options:0];
+    NSString * avatar = model.header_url;
+    [self.avatarIV yy_setImageWithURL:[NSURL URLWithString:avatar] placeholder:nil];
     
-    self.userNameLabel.text = model.nick_name;
+    NSString*nick =model.nick_name;
+    self.userNameLabel.text = nick;
     
     
     NSString * time = [NSString timeIntervaltoString:model.create_time];

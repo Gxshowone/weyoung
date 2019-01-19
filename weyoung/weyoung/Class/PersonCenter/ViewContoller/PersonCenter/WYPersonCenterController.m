@@ -30,7 +30,7 @@
     [self setNavTitle:@"个人中心"];
     [self setNavigationConfig];
     [self.view addSubview:self.tableView];
- 
+    [self addNotification];
 }
 
 
@@ -48,7 +48,20 @@
     self.headerView.frame =CGRectMake(0, 0, KScreenWidth, 231);
 }
 
-
+-(void)addNotification
+{
+    @weakify(self);
+    [[[NSNotificationCenter defaultCenter]rac_addObserverForName:WYComposeSusscess object:nil] subscribeNext:^(id x) {
+        @strongify(self);
+        
+        WYDynamicModel * model = (WYDynamicModel *)[x object];
+        
+        [self.dataArray insertObject:model atIndex:0];
+        [self.tableView reloadData];
+        
+    }];
+    
+}
 -(void)setNavigationConfig
 {
     
@@ -271,10 +284,7 @@
                     break;
                     case 1:
                 {
-                    if(self.delegate&&[self.delegate respondsToSelector:@selector(friendList)])
-                    {
-                        [self.delegate friendList];
-                    }
+                    NSLog(@"dynamic");
                 }
                     break;
                     case 2:

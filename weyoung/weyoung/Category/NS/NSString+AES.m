@@ -122,7 +122,7 @@ static NSString *const AES_SALT = @"zK6mLT#:jWU>I/C~rM`[04?uS@iadkeB";
 
 +(NSString*)aesIV
 {
-   
+    
     NSString * md5iv = [NSString getMD5Sting];
     NSString * iv = ([WYSession sharedSession].isLogin==NO)?AES_IV_PARAMETER:[md5iv substringWithRange:NSMakeRange(16, 16)];
     return iv;
