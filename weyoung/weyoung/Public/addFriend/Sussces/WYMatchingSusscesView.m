@@ -24,6 +24,16 @@
         [self addSubview:self.heartImageView];
         [self addSubview:self.infoLabel];
         
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+        @weakify(self);
+        [[tap rac_gestureSignal] subscribeNext:^(id x) {
+            NSLog(@"tap");
+            @strongify(self);
+            
+            [self hide];
+        }];
+        
+        [self addGestureRecognizer:tap];
     }
     
     return self;

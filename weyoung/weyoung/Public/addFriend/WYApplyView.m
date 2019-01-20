@@ -10,6 +10,10 @@
 #import "WYPanImageView.h"
 @interface WYApplyView ()
 
+{
+    CGPoint _last;
+}
+
 @property(nonatomic,strong)UILabel     * timeLabel;
 @property(nonatomic,strong)UILabel     * addLabel;
 @property(nonatomic,strong)WYPanImageView * blueImageView;
@@ -17,6 +21,8 @@
 @property(nonatomic,strong)UILabel     * infoLabel;
 @property(nonatomic,weak)NSTimer * countDownTimer;
 @property(nonatomic,assign)NSInteger seconds;
+
+@property(nonatomic,assign)BOOL request;
 
 @end
 @implementation WYApplyView
@@ -40,8 +46,91 @@
     return self;
 }
 
+//点击屏幕的瞬间，手指刚刚碰到屏幕
 
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
 
+    UITouch*touch = [touches anyObject];
+    _last = [touch locationInView:self];
+ 
+}
+
+//手指没离开屏幕，手指在屏幕上的时候调用，可以获得手指移动时候的数据
+
+-(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    UITouch*touch =[touches anyObject];
+    CGPoint pt = [touch locationInView:self];
+    float xOffset=pt.x-_last.x;
+    float yOffset=pt.y-_last.y;
+    _last=pt;
+    self.blueImageView.frame = CGRectMake(self.blueImageView.frame.origin.x+xOffset ,self.blueImageView.frame.origin.y+yOffset, self.blueImageView.frame.size.width, self.blueImageView.frame.size.height);
+    
+}
+
+//手指离开屏幕
+
+-(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+  NSLog(@"手指离开屏幕")
+    
+    BOOL contains = CGRectIntersectsRect(self.redImageView.frame, self.blueImageView.frame);
+    
+    if (contains) {
+        
+        [self applyFriend];
+        
+    }else
+    {
+        [self makeToast:@"请将蓝色视图拖拽到红色区域"];
+    }
+    
+    
+}
+
+-(void)applyFriend
+{
+    _request = YES;
+    
+    NSString * to_uid  = self.userInfo.userId;
+    NSDictionary * dict = @{@"interface":@"Friend@addFriend",@"to_uid":to_uid};
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+        [self hide];
+        
+        if(self.delegate)
+        {
+            [self.delegate addFriendSussces];
+        }
+        
+        self->_request = NO;
+        
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+        [self hide];
+        
+        
+        if(self.delegate)
+        {
+            [self.delegate addFriendFail];
+        }
+   
+        self->_request = NO;
+        
+    };
+
+}
+
+//特殊情况，中断现在的触屏事件，比如玩游戏来电话了
+
+-(void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+  NSLog(@"取消点击事件");
+ 
+}
 
 -(void)layoutSubviews
 {
@@ -49,13 +138,13 @@
     
     self.timeLabel.frame = CGRectMake(KScreenWidth/2-38, 95+KNaviBarHeight, 76, 76);
     self.addLabel.frame = CGRectMake(KScreenWidth/2-95,CGRectGetMaxY(self.timeLabel.frame)+33, 190, 40);
-    self.blueImageView.frame = CGRectMake(KScreenWidth/2-95,CGRectGetMaxY(self.addLabel.frame)+49.1,100, 100);
-    self.redImageView.frame = CGRectMake(KScreenWidth/2-130,CGRectGetMaxY(self.addLabel.frame)+114, 100, 100);
-    self.infoLabel.frame = CGRectMake(KScreenWidth/2+30,KScreenHeight-KTabbarSafeBottomMargin-138,132,20);
+    self.blueImageView.frame = CGRectMake(KScreenWidth/2-130,CGRectGetMaxY(self.addLabel.frame)+49.1,100, 100);
+    self.redImageView.frame = CGRectMake(KScreenWidth/2+30,CGRectGetMaxY(self.addLabel.frame)+114, 100, 100);
+    self.infoLabel.frame = CGRectMake(KScreenWidth/2-66,KScreenHeight-KTabbarSafeBottomMargin-138,132,20);
 }
 - (void)show
 {
-    
+    _request =  NO;
     UIWindow *rootWindow = [UIApplication sharedApplication].keyWindow;
     [rootWindow addSubview:self];
     [self showAnimation];
@@ -64,6 +153,7 @@
 }
 -(void)hide
 {
+    _request = NO;
     [self stopTimer];
     [self removeFromSuperview];
 }
@@ -174,13 +264,21 @@
     self.timeLabel.text = [NSString stringWithFormat:@"%@",strTime];
     self.timeLabel.userInteractionEnabled = NO;
     
-    //更新进度条
+
     if(_seconds ==0){
         [_countDownTimer invalidate];
+        
+        if (_request==NO) {
+            [self hide];
+            [self.delegate addFriendFail];
+        }
     }
 }
 
 
-
+-(void)setUserInfo:(RCUserInfo *)userInfo
+{
+    _userInfo = userInfo;
+}
 
 @end

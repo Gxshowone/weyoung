@@ -9,6 +9,7 @@
 #import "WYMoreView.h"
 #import "WYMoreCollectionViewCell.h"
 #import "WYReportView.h"
+#import "WYDataBaseManager.h"
 @interface  WYMoreView()<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (nonatomic,strong) NSArray *titleArray;
@@ -98,8 +99,17 @@
             break;
             case 1:
         {
-    
-        
+            
+             [self hide];
+            [[WYDataBaseManager shareInstance] insertBlackListToDB:self.user];
+            [[RCIMClient sharedRCIMClient] addToBlacklist:self.user.userId success:^{
+               
+                
+                
+            } error:^(RCErrorCode status) {
+                
+            }];
+         
         }
             break;
             case 2:
@@ -112,6 +122,15 @@
             break;
     }
    
+}
+
+-(void)setIsFriend:(BOOL)isFriend
+{
+    _isFriend = isFriend;
+    
+    self.titleArray =(isFriend==YES)?@[@"举报",@"拉黑",@"解除好友"]:@[@"举报",@"拉黑"];
+    self.imageArray = (isFriend==YES)?@[@"more_report",@"more_black",@"more_delete"]:@[@"more_report",@"more_black"];
+    [self.collectionView reloadData];
 }
 
 -(void)setType:(WYMoreViewType)type
@@ -192,4 +211,6 @@
     }
     return _shapeLayer;
 }
+
+
 @end

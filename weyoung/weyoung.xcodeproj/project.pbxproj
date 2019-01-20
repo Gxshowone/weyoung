@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		8A5E27B8018E295784CC6DCF /* libPods-weyoungUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 942E09A90DF1D4B8E22A6637 /* libPods-weyoungUITests.a */; };
 		BCBCE70B1410216BED5305A4 /* libPods-weyoung.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0481827233D893221E297107 /* libPods-weyoung.a */; };
-		D205A24621EB9F3D0096CD28 /* WYUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D205A24521EB9F3D0096CD28 /* WYUserModel.m */; };
-		D205A24A21EBB1430096CD28 /* WYFriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D205A24921EBB1430096CD28 /* WYFriendModel.m */; };
 		D205A24D21EBB3980096CD28 /* WYMYDynamicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D205A24C21EBB3980096CD28 /* WYMYDynamicModel.m */; };
 		D212A91221CE0E42004D3DC0 /* WYConversationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D212A91121CE0E42004D3DC0 /* WYConversationBar.m */; };
 		D222AB8821DF2FFC004ADFD8 /* WYMyDynamicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D222AB8721DF2FFC004ADFD8 /* WYMyDynamicTableViewCell.m */; };
@@ -82,8 +80,10 @@
 		D230B83721CE5AFB004BC2F2 /* WYFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D230B83621CE5AFB004BC2F2 /* WYFriendViewController.m */; };
 		D230B83A21CE5B11004BC2F2 /* WYFriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D230B83921CE5B11004BC2F2 /* WYFriendTableViewCell.m */; };
 		D230F08921C8FA620055D5A0 /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D230F08821C8FA620055D5A0 /* NSString+Extension.m */; };
-		D23124A321EC612E00D2BA35 /* RCDataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D23124A221EC612E00D2BA35 /* RCDataBaseManager.m */; };
-		D23124A621EC75C500D2BA35 /* WYUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D23124A521EC75C500D2BA35 /* WYUserInfo.m */; };
+		D23487A821F3823E0024E1CA /* WYMatchUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D23487A721F3823E0024E1CA /* WYMatchUserModel.m */; };
+		D23487B721F454DE0024E1CA /* WYDataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D23487B621F454DE0024E1CA /* WYDataBaseManager.m */; };
+		D23487C121F4601E0024E1CA /* WYUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D23487C021F4601E0024E1CA /* WYUserInfo.m */; };
+		D23487CA21F4C1CA0024E1CA /* WYBlackListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D23487C921F4C1CA0024E1CA /* WYBlackListTableViewCell.m */; };
 		D23AE8D621DC618B00D79007 /* WYMatchingFailureView.m in Sources */ = {isa = PBXBuildFile; fileRef = D23AE8D521DC618B00D79007 /* WYMatchingFailureView.m */; };
 		D23AE8D921DC687700D79007 /* WYApplyView.m in Sources */ = {isa = PBXBuildFile; fileRef = D23AE8D821DC687700D79007 /* WYApplyView.m */; };
 		D23AE8DD21DC6C1E00D79007 /* WYMatchingSusscesView.m in Sources */ = {isa = PBXBuildFile; fileRef = D23AE8DC21DC6C1E00D79007 /* WYMatchingSusscesView.m */; };
@@ -160,10 +160,6 @@
 		942E09A90DF1D4B8E22A6637 /* libPods-weyoungUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-weyoungUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1EEBF3ACFD18510BE5999FE /* Pods-weyoungUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weyoungUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-weyoungUITests/Pods-weyoungUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C7C14D2704F1BFDDE69D0458 /* Pods-weyoungTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weyoungTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-weyoungTests/Pods-weyoungTests.debug.xcconfig"; sourceTree = "<group>"; };
-		D205A24421EB9F3D0096CD28 /* WYUserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYUserModel.h; sourceTree = "<group>"; };
-		D205A24521EB9F3D0096CD28 /* WYUserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYUserModel.m; sourceTree = "<group>"; };
-		D205A24821EBB1430096CD28 /* WYFriendModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYFriendModel.h; sourceTree = "<group>"; };
-		D205A24921EBB1430096CD28 /* WYFriendModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYFriendModel.m; sourceTree = "<group>"; };
 		D205A24B21EBB3980096CD28 /* WYMYDynamicModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYMYDynamicModel.h; sourceTree = "<group>"; };
 		D205A24C21EBB3980096CD28 /* WYMYDynamicModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYMYDynamicModel.m; sourceTree = "<group>"; };
 		D212A91021CE0E42004D3DC0 /* WYConversationBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYConversationBar.h; sourceTree = "<group>"; };
@@ -301,10 +297,14 @@
 		D230B83921CE5B11004BC2F2 /* WYFriendTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYFriendTableViewCell.m; sourceTree = "<group>"; };
 		D230F08721C8FA620055D5A0 /* NSString+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Extension.h"; sourceTree = "<group>"; };
 		D230F08821C8FA620055D5A0 /* NSString+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extension.m"; sourceTree = "<group>"; };
-		D23124A121EC612E00D2BA35 /* RCDataBaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCDataBaseManager.h; sourceTree = "<group>"; };
-		D23124A221EC612E00D2BA35 /* RCDataBaseManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCDataBaseManager.m; sourceTree = "<group>"; };
-		D23124A421EC75C500D2BA35 /* WYUserInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYUserInfo.h; sourceTree = "<group>"; };
-		D23124A521EC75C500D2BA35 /* WYUserInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYUserInfo.m; sourceTree = "<group>"; };
+		D23487A621F3823E0024E1CA /* WYMatchUserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYMatchUserModel.h; sourceTree = "<group>"; };
+		D23487A721F3823E0024E1CA /* WYMatchUserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYMatchUserModel.m; sourceTree = "<group>"; };
+		D23487B521F454DE0024E1CA /* WYDataBaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYDataBaseManager.h; sourceTree = "<group>"; };
+		D23487B621F454DE0024E1CA /* WYDataBaseManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYDataBaseManager.m; sourceTree = "<group>"; };
+		D23487BF21F4601E0024E1CA /* WYUserInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYUserInfo.h; sourceTree = "<group>"; };
+		D23487C021F4601E0024E1CA /* WYUserInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYUserInfo.m; sourceTree = "<group>"; };
+		D23487C821F4C1CA0024E1CA /* WYBlackListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYBlackListTableViewCell.h; sourceTree = "<group>"; };
+		D23487C921F4C1CA0024E1CA /* WYBlackListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYBlackListTableViewCell.m; sourceTree = "<group>"; };
 		D23AE8D421DC618B00D79007 /* WYMatchingFailureView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYMatchingFailureView.h; sourceTree = "<group>"; };
 		D23AE8D521DC618B00D79007 /* WYMatchingFailureView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYMatchingFailureView.m; sourceTree = "<group>"; };
 		D23AE8D721DC687700D79007 /* WYApplyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYApplyView.h; sourceTree = "<group>"; };
@@ -451,8 +451,6 @@
 		D205A24721EBB1300096CD28 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D205A24821EBB1430096CD28 /* WYFriendModel.h */,
-				D205A24921EBB1430096CD28 /* WYFriendModel.m */,
 				D205A24B21EBB3980096CD28 /* WYMYDynamicModel.h */,
 				D205A24C21EBB3980096CD28 /* WYMYDynamicModel.m */,
 			);
@@ -554,6 +552,8 @@
 				D230B83921CE5B11004BC2F2 /* WYFriendTableViewCell.m */,
 				D222AB8621DF2FFC004ADFD8 /* WYMyDynamicTableViewCell.h */,
 				D222AB8721DF2FFC004ADFD8 /* WYMyDynamicTableViewCell.m */,
+				D23487C821F4C1CA0024E1CA /* WYBlackListTableViewCell.h */,
+				D23487C921F4C1CA0024E1CA /* WYBlackListTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -713,6 +713,10 @@
 			children = (
 				D283594A21D4B41A00C6EB76 /* GTM */,
 				D229B79121CA165E006BCD39 /* HttpRequest */,
+				D23487B521F454DE0024E1CA /* WYDataBaseManager.h */,
+				D23487B621F454DE0024E1CA /* WYDataBaseManager.m */,
+				D23487BF21F4601E0024E1CA /* WYUserInfo.h */,
+				D23487C021F4601E0024E1CA /* WYUserInfo.m */,
 			);
 			path = Unti;
 			sourceTree = "<group>";
@@ -908,12 +912,17 @@
 		D23124A021EC610B00D2BA35 /* RCData */ = {
 			isa = PBXGroup;
 			children = (
-				D23124A121EC612E00D2BA35 /* RCDataBaseManager.h */,
-				D23124A221EC612E00D2BA35 /* RCDataBaseManager.m */,
-				D23124A421EC75C500D2BA35 /* WYUserInfo.h */,
-				D23124A521EC75C500D2BA35 /* WYUserInfo.m */,
 			);
 			path = RCData;
+			sourceTree = "<group>";
+		};
+		D23487A521F382200024E1CA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D23487A621F3823E0024E1CA /* WYMatchUserModel.h */,
+				D23487A721F3823E0024E1CA /* WYMatchUserModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		D23AE8CF21DC610C00D79007 /* addFriend */ = {
@@ -1220,11 +1229,9 @@
 		D2D7107821B9557700D78746 /* HomePage */ = {
 			isa = PBXGroup;
 			children = (
-				D2E1BEF521EDE0500031638A /* Model */,
+				D23487A521F382200024E1CA /* Model */,
 				D2E1BEF121EDE02C0031638A /* View */,
 				D2E1BEF021EDE0190031638A /* Controller */,
-				D205A24421EB9F3D0096CD28 /* WYUserModel.h */,
-				D205A24521EB9F3D0096CD28 /* WYUserModel.m */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -1276,13 +1283,6 @@
 				D2E1BEF721EDE1490031638A /* WYExcessiveView.m */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		D2E1BEF521EDE0500031638A /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		D4967980E70942476893307D /* Frameworks */ = {
@@ -1557,24 +1557,23 @@
 				D2249FBD21BA1A3F009B274C /* WYConfig.m in Sources */,
 				D2249FCA21BA2375009B274C /* WYNoDataView.m in Sources */,
 				D2775D2D21D356EB001C4659 /* WYMainViewController.m in Sources */,
+				D23487CA21F4C1CA0024E1CA /* WYBlackListTableViewCell.m in Sources */,
 				D23AE91021DCB9A200D79007 /* WYComposeToolBar.m in Sources */,
-				D23124A621EC75C500D2BA35 /* WYUserInfo.m in Sources */,
 				D230314B21DDC5D700E0DBF2 /* WYCopyLabel.m in Sources */,
 				D23AE90D21DCB84B00D79007 /* WYAssets.m in Sources */,
 				D23AE90121DCB66400D79007 /* WYComposeViewController.m in Sources */,
 				D23AE8E721DC8CCB00D79007 /* WYDynamicTableViewCell.m in Sources */,
 				D229B79D21CA1EF1006BCD39 /* WYCodeInputView.m in Sources */,
 				D230315121DDE28F00E0DBF2 /* WYCommentModel.m in Sources */,
+				D23487A821F3823E0024E1CA /* WYMatchUserModel.m in Sources */,
 				D2249FC721BA235D009B274C /* WYNoNetView.m in Sources */,
 				D283596121D4D3B600C6EB76 /* WYLikeTableViewCell.m in Sources */,
 				D2249FED21BA8337009B274C /* WYWebViewController.m in Sources */,
 				D22AF87A21BF6D530004405B /* NSDate+Extension.m in Sources */,
-				D205A24A21EBB1430096CD28 /* WYFriendModel.m in Sources */,
 				D2249FD621BA27F8009B274C /* WYBaseViewController.m in Sources */,
 				D23AE8DD21DC6C1E00D79007 /* WYMatchingSusscesView.m in Sources */,
 				D2249FE221BA2FBB009B274C /* WYInfoViewController.m in Sources */,
 				D23AE8FB21DCA5D900D79007 /* HZPhotoBrowser.m in Sources */,
-				D205A24621EB9F3D0096CD28 /* WYUserModel.m in Sources */,
 				D230315721DE375E00E0DBF2 /* WYCommentTableViewCell.m in Sources */,
 				D224B2DB21CCC56300AF6330 /* WYConversationViewController.m in Sources */,
 				D22BDF1421C7D2CD002269AC /* WYDynamicViewController.m in Sources */,
@@ -1613,7 +1612,6 @@
 				D22F08F021E77D0A00FE9331 /* WYSystemMessage.m in Sources */,
 				D2249FDC21BA2F7A009B274C /* WYCodeViewController.m in Sources */,
 				D229B79A21CA1CF9006BCD39 /* WYInputViewController.m in Sources */,
-				D23124A321EC612E00D2BA35 /* RCDataBaseManager.m in Sources */,
 				D2E1BEF821EDE1490031638A /* WYExcessiveView.m in Sources */,
 				D226985A21BBDF250091EE3B /* WYEditTableViewCell.m in Sources */,
 				D287DE9F21BCE9F20048B5C2 /* WYFeedBackViewController.m in Sources */,
@@ -1632,8 +1630,10 @@
 				D23AE8E221DC88AE00D79007 /* WYPanImageView.m in Sources */,
 				D230B82621CE3A29004BC2F2 /* WYProgressView.m in Sources */,
 				D2E1BEF421EDE0450031638A /* WYSignView.m in Sources */,
+				D23487B721F454DE0024E1CA /* WYDataBaseManager.m in Sources */,
 				D2249FBA21BA1A32009B274C /* WYSession.m in Sources */,
 				D23AE8FE21DCA5D900D79007 /* HZWaitingView.m in Sources */,
+				D23487C121F4601E0024E1CA /* WYUserInfo.m in Sources */,
 				D2249FCF21BA2519009B274C /* UIView+Extension.m in Sources */,
 				D230B83A21CE5B11004BC2F2 /* WYFriendTableViewCell.m in Sources */,
 				D287DE9921BCE9CB0048B5C2 /* WYPolicyViewController.m in Sources */,

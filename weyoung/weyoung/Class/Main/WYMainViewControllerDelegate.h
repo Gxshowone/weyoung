@@ -8,14 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "WYDynamicModel.h"
-#import "WYUserModel.h"
+#import "WYMatchUserModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol WYMainViewControllerDelegate <NSObject>
 
 -(void)scrollToIndex:(NSInteger)index;
 
--(void)conversation:(WYUserModel*)model; //进入会话页面
+-(void)conversation:(WYMatchUserModel*)model; //进入会话页面
 
 -(void)message; //进入消息列表页面
 

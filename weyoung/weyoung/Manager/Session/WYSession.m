@@ -8,7 +8,8 @@
 
 #import "WYSession.h"
 #import "WYMainViewController.h"
-
+#import "WYDataBaseManager.h"
+#import "WYUserInfo.h"
 static NSString *const kSessionPassWord       = @"kSessionPassWord";
 static NSString *const kSessionPhone          = @"kSessionPhone";
 static NSString *const kSessionToken          = @"kSessionToken";
@@ -87,8 +88,50 @@ static WYSession *sharedManager=nil;
     [self updateRootController];
 
     [self connectRc];
+    
+    [self getFriendList];
 }
 
+
+-(void)getFriendList
+{
+    
+    NSDictionary * dict=@{@"interface":@"Friend@getFriendList"};
+
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+        NSArray * array  = (NSArray*)response;
+        NSMutableArray * friendList = [NSMutableArray array];
+        
+        for (NSDictionary * dict in array) {
+        
+            WYUserInfo * user = [[WYUserInfo alloc]init];
+            user.userId =  [dict valueForKey:@"uid"];
+            user.name   =  [dict valueForKey:@"nick_name"];
+            user.portraitUri  = [dict valueForKey:@"header_url"];
+            user.brithday  = [dict valueForKey:@"birthday"];
+            user.updatedAt = @"";
+            user.status    = @"0";
+            [friendList addObject:user];
+            
+        }
+        
+        [self saveFriend:friendList];
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+    
+    };
+}
+
+-(void)saveFriend:(NSMutableArray*)firendList
+{ 
+    [[WYDataBaseManager shareInstance] insertFriendListToDB:firendList complete:^(BOOL result) {
+        
+    }];
+}
 
 -(void)connectRc
 {
@@ -432,8 +475,9 @@ static WYSession *sharedManager=nil;
     [self removeObjectForKey:kSessionAvatar];
     [self removeObjectForKey:kSessionNickName];
     [self removeObjectForKey:kSessionSex];
-    
     [[RCIM sharedRCIM] disconnect];
+    [[WYDataBaseManager shareInstance] clearFriendsData];
+    [[WYDataBaseManager shareInstance] clearBlackListData];
     
 }
 

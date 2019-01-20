@@ -24,12 +24,15 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
+        self.backgroundColor = [UIColor blackColor];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         [self.contentView addSubview:self.avatarImageView];
         [self.contentView addSubview:self.nickLabel];
         [self.contentView addSubview:self.contentLabel];
         [self.contentView addSubview:self.timeLabel];
-        [self.contentView addSubview:self.photoImageView];
-        [self.contentView addSubview:self.themeLabel];
+//        [self.contentView addSubview:self.photoImageView];
+//        [self.contentView addSubview:self.themeLabel];
     }
     return self;
 }
@@ -41,10 +44,15 @@
     [self.avatarImageView yy_setImageWithURL:[NSURL URLWithString:model.header_url] placeholder:nil];
     self.nickLabel.text = [NSString stringWithFormat:@"%@",model.nick_name];
     
-    self.contentLabel.text = [NSString stringWithFormat:@"回复:%@",model.comment];
+    NSString * string = (IsStrEmpty(self.model.c_uid))?@"评论":@"回复";
+    
+    self.contentLabel.text = [NSString stringWithFormat:@"%@:%@",string,model.comment];
     
     NSString * time = [NSString timeIntervaltoString:model.create_time];
     self.timeLabel.text = [NSString inputTimeStr:time withFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    
+    //self.themeLabel.hidden = YES;
     
 }
 
@@ -66,6 +74,8 @@
 {
     if (!_avatarImageView) {
         _avatarImageView = [[UIImageView alloc]init];
+        _avatarImageView.layer.cornerRadius = 16;
+        _avatarImageView.layer.masksToBounds = YES;
     }
     return _avatarImageView;
 }

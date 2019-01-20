@@ -37,6 +37,19 @@
 
 @implementation WYCommentController
 
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -57,6 +70,10 @@
         @strongify(self);
         [self.navigationController popViewControllerAnimated:YES];
     }];
+    
+    
+    self.tableView.frame = CGRectMake(0, KNaviBarHeight, KScreenWidth, KScreenHeight-KNaviBarHeight-KTabbarSafeBottomMargin-58);
+    self.toolBar.frame = CGRectMake(0, KScreenHeight-KTabbarSafeBottomMargin-58, KScreenWidth, 58+KTabbarSafeBottomMargin);
   
 }
 
@@ -113,8 +130,6 @@
 {
     [super viewDidLayoutSubviews];
     
-    self.tableView.frame = CGRectMake(0, KNaviBarHeight, KScreenWidth, KScreenHeight-KNaviBarHeight-KTabbarSafeBottomMargin-58);
-    self.toolBar.frame = CGRectMake(0, KScreenHeight-KTabbarSafeBottomMargin-58, KScreenWidth, 58+KTabbarSafeBottomMargin);
     
 }
 
@@ -203,7 +218,6 @@
 {
     
     _page = 1;
-    
     [self requestDataWithType:1];
   
 }
@@ -327,6 +341,7 @@
         
         [self.dataArray insertObject:model atIndex:0];
         [self.tableView reloadData];
+        [self.tableView scrollsToTop];
 
     };
     
@@ -389,8 +404,7 @@
     
     self.headerView.model = model;
     self.headerView.height = model.rowHeight+60;
-
-    [self.tableView.mj_header beginRefreshing];
+    [self retryToGetData];
     
 }
 

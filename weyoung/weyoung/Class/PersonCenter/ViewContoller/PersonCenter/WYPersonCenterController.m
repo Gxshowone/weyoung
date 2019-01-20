@@ -31,6 +31,7 @@
     [self setNavigationConfig];
     [self.view addSubview:self.tableView];
     [self addNotification];
+    [self retryToGetData];
 }
 
 
@@ -55,11 +56,18 @@
         @strongify(self);
         
         WYDynamicModel * model = (WYDynamicModel *)[x object];
-        
         [self.dataArray insertObject:model atIndex:0];
         [self.tableView reloadData];
         
     }];
+    
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:WYUnreadMessageUpdate object:nil]
+     subscribeNext:^(id x) {
+         @strongify(self);
+         
+         [self checkUnreadMessage];
+     }];
+    
     
 }
 -(void)setNavigationConfig
@@ -84,10 +92,19 @@
     
     [self.customNavigationBar addSubview:self.messageButton];
     [self.customNavigationBar addSubview:self.pointView];
+    [self checkUnreadMessage];
+}
+
+-(void)checkUnreadMessage
+{
     
     int totalUnreadCount = [[RCIMClient sharedRCIMClient] getTotalUnreadCount];
-    self.pointView.hidden = (totalUnreadCount==0)?YES:NO;
     
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // UI更新代码
+        self.pointView.hidden = (totalUnreadCount==0)?YES:NO;
+        
+    });
 }
 
 -(void)gotoHomePage
@@ -331,9 +348,7 @@
             [weakSelf loadMoreData];
             
         }];
-        
-        
-        [_tableView.mj_header beginRefreshing];
+   
     }
     return _tableView;
 }

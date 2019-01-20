@@ -58,7 +58,7 @@
         switch (status) {
             case 200:
             {
-                NSDictionary *obj = [dict valueForKey:@"data"];
+                id obj = [dict valueForKey:@"data"];
                 self.successBlock(obj);
             }
                 break;

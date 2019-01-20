@@ -11,6 +11,7 @@
 #import "WYMoreView.h"
 @interface WYConversationBar ()
 
+@property(nonatomic,strong)RCUserInfo * user;
 @property(nonatomic,strong)WYMoreView * moreView;
 @property(nonatomic,strong)WYProgressView * progressView;
 @property(nonatomic,strong)UIButton * timerButton;
@@ -38,18 +39,7 @@
     return self;
 }
 
--(void)setIsFriend:(BOOL)isFriend
-{
-    _isFriend = isFriend;
-    
-    if (!_isFriend) {
-        
-        [self startTimer];
-    }else
-    {
-        [self.timerButton setTitle:@"解除好友" forState:UIControlStateNormal];
-    }
-}
+
 
 -(void)dealloc
 {
@@ -64,7 +54,7 @@
 
 -(void)startTimer
 {
-    _seconds = 180;//180秒倒计时
+    _seconds = 10;//180秒倒计时
     _countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES];
 
 }
@@ -163,7 +153,7 @@
             @strongify(self);
             
             [self.moreView show];
-            
+            self.moreView.user = self.user;
         }];
     }
     
@@ -198,4 +188,23 @@
     
 }
 
+-(void)setIsFriend:(BOOL)isFriend
+{
+    _isFriend = isFriend;
+    
+   // self.moreView.isFriend =isFriend;
+    
+    if (!isFriend) {
+        
+        [self startTimer];
+    }else
+    {
+        [self.timerButton setTitle:@"解除好友" forState:UIControlStateNormal];
+    }
+}
+
+-(void)setMoreUser:(RCUserInfo*)user
+{
+    _user = user;
+}
 @end

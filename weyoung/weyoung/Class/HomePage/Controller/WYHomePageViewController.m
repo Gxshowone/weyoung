@@ -8,6 +8,8 @@
 
 #import "WYHomePageViewController.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import "WYMatchUserModel.h"
+#import "WYDataBaseManager.h"
 #define kPulseAnimation @"kPulseAnimation"
 
 
@@ -190,38 +192,52 @@
 
 -(void)matchUser
 {
+  
     self.quanquan.userInteractionEnabled = NO;
     [self.quanquan startAnimating];
     [self matchWait];
-    
+
     NSDictionary * dict = @{@"interface":@"Match@doMatch"};
     WYHttpRequest *request = [[WYHttpRequest alloc]init];
     [request requestWithPragma:dict showLoading:NO];
     request.successBlock = ^(id  _Nonnull response) {
-        
+
         self.quanquan.userInteractionEnabled = YES;
         [self.quanquan stopAnimating];
-        
+
         if ([response count]==0) {
-            
+
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-            [self.view makeToast:@"怎么会没有人？" duration:0.3 position:CSToastPositionCenter];
+            [self.childAnimation makeToast:@"怎么会没有人？" duration:0.3 position:CSToastPositionCenter];
+            
             [self childWait];
-    
+
+        }else
+        {
+            WYMatchUserModel * model = [WYMatchUserModel mj_objectWithKeyValues:response];
+            
+            //缓存数据
+            RCUserInfo * userInfo = [[RCUserInfo alloc] initWithUserId:model.uid name:model.nick_name portrait:model.header_url];
+            
+            [[WYDataBaseManager shareInstance] insertUserToDB:userInfo];
+            
+            
+            if(self.delegate&&[self.delegate respondsToSelector:@selector(conversation:)])
+            {
+                [self.delegate conversation:model];
+            }
+            
         }
-        
-//        if(self.delegate&&[self.delegate respondsToSelector:@selector(conversation:)])
-//        {
-//            [self.delegate conversation:nil];
-//        }
-    };
     
+
+    };
+
     request.failureDataBlock = ^(id  _Nonnull error) {
-        
+
         self.quanquan.userInteractionEnabled = YES;
         [self.quanquan stopAnimating];
         [self childWait];
-        
+
     };
 }
 

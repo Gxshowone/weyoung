@@ -116,8 +116,10 @@
     [request requestWithPragma:dict showLoading:NO];
     request.successBlock = ^(id  _Nonnull response) {
         
+        
+    
         WYDynamicModel * model = [[WYDynamicModel alloc]init];
-        model.image = ([self.photosView hasImage])?@"":nil;
+        model.image = ([self.photosView hasImage])?[response valueForKey:@"image"]:@"";
         model.praise_count = 0;
         model.uid = [WYSession sharedSession].uid;
         model.type = [type integerValue];

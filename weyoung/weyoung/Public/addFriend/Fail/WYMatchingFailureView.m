@@ -23,6 +23,17 @@
         self.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.8];
         [self addSubview:self.heartImageView];
         [self addSubview:self.infoLabel];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+        @weakify(self);
+        [[tap rac_gestureSignal] subscribeNext:^(id x) {
+            NSLog(@"tap");
+            @strongify(self);
+            
+            [self hide];
+        }];
+        
+        [self addGestureRecognizer:tap];
    
     }
     
@@ -46,6 +57,9 @@
 }
 -(void)hide
 {
+    if (self.delegate) {
+        [self.delegate endChat];
+    }
     [self removeFromSuperview];
 }
 - (void)showAnimation

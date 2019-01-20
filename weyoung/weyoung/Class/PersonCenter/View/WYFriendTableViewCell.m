@@ -21,6 +21,8 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
+        self.backgroundColor = [UIColor blackColor];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         [self.contentView addSubview:self.avatarImageView];
         [self.contentView addSubview:self.nickLabel];
         [self.contentView addSubview:self.contentLabel];
@@ -29,15 +31,15 @@
     return self;
 }
 
--(void)setModel:(WYFriendModel *)model
+-(void)setModel:(WYUserInfo *)model
 {
     _model = model;
     
-    [self.avatarImageView yy_setImageWithURL:[NSURL URLWithString:model.header_url] placeholder:nil];
+    [self.avatarImageView yy_setImageWithURL:[NSURL URLWithString:model.portraitUri] placeholder:nil];
     
-    self.nickLabel.text = [NSString stringWithFormat:@"%@",model.nick_name];
+    self.nickLabel.text = [NSString stringWithFormat:@"%@",model.name];
     
-    NSString *bir =  [NSString stringWithFormat:@"%@",model.birthday];
+    NSString *bir =  [NSString stringWithFormat:@"%@",model.brithday];
     NSString * age = [NSString dateToOld:bir];
     NSString * xing = [NSString getAstroWithBrith:bir];
     self.contentLabel.text = [NSString stringWithFormat:@"%@岁  %@座",age,xing];
@@ -48,8 +50,8 @@
     [super layoutSubviews];
     
     self.avatarImageView.frame = CGRectMake(20, 17.5, 45, 45);
-    self.nickLabel.frame = CGRectMake(CGRectGetMaxX(self.avatarImageView.frame)+15, 17.5, 150, 27);
-    self.contentLabel.frame = CGRectMake(CGRectGetMaxX(self.avatarImageView.frame)+15, CGRectGetMaxY(self.avatarImageView.frame)+1, 150, 27);
+    self.nickLabel.frame = CGRectMake(CGRectGetMaxX(self.avatarImageView.frame)+15, 17.5, 150, 22.5);
+    self.contentLabel.frame = CGRectMake(CGRectGetMaxX(self.avatarImageView.frame)+15, CGRectGetMaxY(self.nickLabel.frame)+1, 150, 22.5);
     self.chatButton.frame = CGRectMake(KScreenWidth-75, 27, 55, 26);
 }
 
@@ -57,6 +59,8 @@
 {
     if (!_avatarImageView) {
         _avatarImageView = [[UIImageView alloc]init];
+        _avatarImageView.layer.cornerRadius = 22.5;
+        _avatarImageView.layer.masksToBounds= YES;
     }
     return _avatarImageView;
 }
@@ -89,8 +93,11 @@
         _chatButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_chatButton setTitle:@"聊天" forState:UIControlStateNormal];
         _chatButton.layer.cornerRadius = 13;
-        _chatButton.layer.borderWidth = 1;
+        _chatButton.layer.borderWidth = 0.5;
         _chatButton.layer.masksToBounds = YES;
+        [_chatButton setTitleColor:[UIColor binaryColor:@"979797"] forState:UIControlStateNormal];
+        _chatButton.layer.borderColor = [UIColor binaryColor:@"979797"].CGColor;
+        _chatButton.titleLabel.font = [UIFont systemFontOfSize:12];
         
     }
     return _chatButton;

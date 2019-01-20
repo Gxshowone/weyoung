@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)updateTitle:(NSString*)title;
 -(void)startTimer;
 -(void)stopTimer;
+-(void)setMoreUser:(RCUserInfo*)user;
 
 @end
 
