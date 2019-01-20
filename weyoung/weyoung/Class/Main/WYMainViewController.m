@@ -44,6 +44,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [hpVc childWait];
 
 }
 
@@ -63,12 +65,12 @@
     [self addChildControllers];
     
     //判断是白天还是黑夜
-//    if ([self isNight]) {
-//    [self.view addSubview:self.signView];
-//    }else
-//    {
-//        [self.view addSubview:self.excessView];
-//    }
+    if ([self isNight]) {
+    [self.view addSubview:self.signView];
+    }else
+    {
+        [self.view addSubview:self.excessView];
+    }
 }
 
 
@@ -201,7 +203,12 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     CGFloat cx = scrollView.contentOffset.x;
-    if (cx == KScreenWidth *2 ) {
+    
+    if(cx ==KScreenWidth)
+    {
+        [hpVc childWait];
+        
+    }else if (cx == KScreenWidth *2 ) {
         
         [perVc getUserInfo];
     }

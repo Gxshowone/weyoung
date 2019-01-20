@@ -20,10 +20,17 @@
 @property(nonatomic,strong)UIImageView * quanquan;
 @property(nonatomic,strong)LOTAnimationView * childAnimation;
 @property(nonatomic,strong)UIImageView * meteor1,*meteor2,*meteor3;
+@property(nonatomic,assign)BOOL matchIng;
 
 @end
 
 @implementation WYHomePageViewController
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -132,6 +139,11 @@
     [self meteor:self.meteor2];
     [self meteor:self.meteor3];
     
+    
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"second_walk" ofType:@"json"];
+    NSArray *components = [filePath componentsSeparatedByString:@"/"];
+    NSString * name = [components lastObject];
+    [self.childAnimation setAnimation:name];
     self.childAnimation.loopAnimation = NO;
     [self.childAnimation play];
     
@@ -146,6 +158,9 @@
 
 -(void)childWait
 {
+    if (self.matchIng==YES || self.childAnimation.isAnimationPlaying ==YES) {
+        return;
+    }
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"second_wait" ofType:@"json"];
     NSArray *components = [filePath componentsSeparatedByString:@"/"];
     NSString * name = [components lastObject];
@@ -192,7 +207,7 @@
 
 -(void)matchUser
 {
-  
+    self.matchIng = YES;
     self.quanquan.userInteractionEnabled = NO;
     [self.quanquan startAnimating];
     [self matchWait];
@@ -202,6 +217,7 @@
     [request requestWithPragma:dict showLoading:NO];
     request.successBlock = ^(id  _Nonnull response) {
 
+        self.matchIng = NO;
         self.quanquan.userInteractionEnabled = YES;
         [self.quanquan stopAnimating];
 
@@ -234,6 +250,7 @@
 
     request.failureDataBlock = ^(id  _Nonnull error) {
 
+        self.matchIng = YES;
         self.quanquan.userInteractionEnabled = YES;
         [self.quanquan stopAnimating];
         [self childWait];

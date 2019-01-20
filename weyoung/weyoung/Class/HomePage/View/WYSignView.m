@@ -136,6 +136,7 @@
         [[_signButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
             
+            self.signButton.userInteractionEnabled = NO;
             NSString * fname = (KScreenHeight<812)?@"first_walk":@"first_walk_x";
             NSString *filePath = [[NSBundle mainBundle] pathForResource:fname ofType:@"json"];
             NSArray *components = [filePath componentsSeparatedByString:@"/"];
@@ -155,6 +156,7 @@
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
+        weakSelf.signButton.userInteractionEnabled = YES;
         if (weakSelf.delegate) {
             [weakSelf.delegate signHide];
         }

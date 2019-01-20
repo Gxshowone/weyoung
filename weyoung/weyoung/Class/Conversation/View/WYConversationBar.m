@@ -54,7 +54,7 @@
 
 -(void)startTimer
 {
-    _seconds = 10;//180秒倒计时
+    _seconds = 180;//180秒倒计时
     _countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES];
 
 }
