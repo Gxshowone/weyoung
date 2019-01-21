@@ -49,6 +49,8 @@
     NSString * time = [NSString timeIntervaltoString:model.create_time];
     self.timeLabel.text = [NSString inputTimeStr:time withFormat:@"yyyy-MM-dd HH:mm:ss"];
     
+
+    
 }
 
 -(void)layoutSubviews

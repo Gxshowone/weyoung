@@ -1,23 +1,21 @@
 //
-//  RCDataBaseManager.m
+//  WYDataBaseManager.m
 //  weyoung
 //
-//  Created by gongxin on 2019/1/14.
+//  Created by 巩鑫 on 2019/1/20.
 //  Copyright © 2019 SouYu. All rights reserved.
 //
 
-#import "RCDataBaseManager.h"
-
+#import "WYDataBaseManager.h"
 #import "FMDatabase.h"
 #import "FMDatabaseQueue.h"
-
-@interface RCDataBaseManager ()
+@interface WYDataBaseManager ()
 
 @property(nonatomic, strong) FMDatabaseQueue *dbQueue;
 
 @end
 
-@implementation RCDataBaseManager
+@implementation WYDataBaseManager
 
 static NSString *const userTableName = @"USERTABLE";
 static NSString *const groupTableName = @"GROUPTABLEV2";
@@ -25,8 +23,8 @@ static NSString *const friendTableName = @"FRIENDSTABLE";
 static NSString *const blackTableName = @"BLACKTABLE";
 static NSString *const groupMemberTableName = @"GROUPMEMBERTABLE";
 
-+ (RCDataBaseManager *)shareInstance {
-    static RCDataBaseManager *instance = nil;
++ (WYDataBaseManager *)shareInstance {
+    static WYDataBaseManager *instance = nil;
     static dispatch_once_t predicate;
     dispatch_once(&predicate, ^{
         instance = [[[self class] alloc] init];
@@ -113,12 +111,12 @@ static NSString *const groupMemberTableName = @"GROUPMEMBERTABLE";
             NSString *createTableSQL = @"CREATE TABLE FRIENDSTABLE (id integer "
             @"PRIMARY KEY autoincrement, userid "
             @"text,name text, portraitUri text, status "
-            @"text, updatedAt text, displayName text)";
+            @"text, updatedAt text, brithday text)";
             [db executeUpdate:createTableSQL];
             NSString *createIndexSQL = @"CREATE unique INDEX idx_friendsId ON FRIENDSTABLE(userid);";
             [db executeUpdate:createIndexSQL];
-        } else if (![self isColumnExist:@"displayName" inTable:friendTableName withDB:db]) {
-            [db executeUpdate:@"ALTER TABLE FRIENDSTABLE ADD COLUMN displayName text"];
+        } else if (![self isColumnExist:@"brithday" inTable:friendTableName withDB:db]) {
+            [db executeUpdate:@"ALTER TABLE FRIENDSTABLE ADD COLUMN brithday text"];
         }
         
         if (![self isTableOK:blackTableName withDB:db]) {
@@ -159,15 +157,13 @@ static NSString *const groupMemberTableName = @"GROUPMEMBERTABLE";
 - (void)insertUserListToDB:(NSMutableArray *)userList complete:(void (^)(BOOL))result {
     
     if (userList == nil || [userList count] < 1)
-    return;
+        return;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
             for (RCUserInfo *user in userList) {
                 NSString *insertSql = @"REPLACE INTO USERTABLE (userid, name, portraitUri) VALUES (?, ?, ?)";
                 if (user.portraitUri.length <= 0) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        user.portraitUri = @"";
-                    });
+                     user.portraitUri =@"";
                 }
                 [db executeUpdate:insertSql, user.userId, user.name, user.portraitUri];
             }
@@ -188,7 +184,7 @@ static NSString *const groupMemberTableName = @"GROUPMEMBERTABLE";
 - (void)insertBlackListUsersToDB:(NSMutableArray *)userList complete:(void (^)(BOOL))result {
     
     if (userList == nil || [userList count] < 1)
-    return;
+        return;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
             for (RCUserInfo *user in userList) {
@@ -272,20 +268,32 @@ static NSString *const groupMemberTableName = @"GROUPMEMBERTABLE";
     }];
     return allUsers;
 }
-//存储群组信息
+
+
+//存储好友信息
+- (void)insertFriendToDB:(WYUserInfo *)friendInfo{
+    NSString *insertSql = @"REPLACE INTO FRIENDSTABLE (userid, name, "
+    @"portraitUri, status, updatedAt, brithday) VALUES (?, ?, ?, ?, "
+    @"?, ?)";
+    
+    [self.dbQueue inDatabase:^(FMDatabase *db) {
+        [db executeUpdate:insertSql, friendInfo.userId, friendInfo.name, friendInfo.portraitUri, friendInfo.status,
+         friendInfo.updatedAt, friendInfo.brithday];
+    }];
+}
 
 - (void)insertFriendListToDB:(NSMutableArray *)FriendList complete:(void (^)(BOOL))result {
     
     if (FriendList == nil || [FriendList count] < 1)
-    return;
+        return;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
-            for (WYUserInfo *friendInfo in FriendList) {
+            for (WYUserInfo  *friendInfo  in FriendList) {
                 NSString *insertSql = @"REPLACE INTO FRIENDSTABLE (userid, name, "
-                @"portraitUri, status, updatedAt, displayName) VALUES (?, ?, ?, ?, "
+                @"portraitUri, status, updatedAt, brithday) VALUES (?, ?, ?, ?, "
                 @"?, ?)";
                 [db executeUpdate:insertSql, friendInfo.userId, friendInfo.name, friendInfo.portraitUri,
-                 friendInfo.status, friendInfo.updatedAt, friendInfo.displayName];
+                 friendInfo.status, friendInfo.updatedAt, friendInfo.brithday];
             }
         }];
         result(YES);
@@ -300,14 +308,14 @@ static NSString *const groupMemberTableName = @"GROUPMEMBERTABLE";
         FMResultSet *rs = [db executeQuery:@"SELECT * FROM FRIENDSTABLE"];
         while ([rs next]) {
             //            RCUserInfo *model;
-            WYUserInfo *model;
-            model = [[WYUserInfo alloc] init];
+            WYUserInfo  *model;
+            model = [[WYUserInfo  alloc] init];
             model.userId = [rs stringForColumn:@"userid"];
             model.name = [rs stringForColumn:@"name"];
             model.portraitUri = [rs stringForColumn:@"portraitUri"];
             model.status = [rs stringForColumn:@"status"];
             model.updatedAt = [rs stringForColumn:@"updatedAt"];
-            model.displayName = [rs stringForColumn:@"displayName"];
+            model.brithday = [rs stringForColumn:@"brithday"];
             [allUsers addObject:model];
         }
         [rs close];
@@ -316,19 +324,19 @@ static NSString *const groupMemberTableName = @"GROUPMEMBERTABLE";
 }
 
 //从表中获取某个好友的信息
-- (WYUserInfo *)getFriendInfo:(NSString *)friendId {
-    __block WYUserInfo *friendInfo;
+- (WYUserInfo  *)getFriendInfo:(NSString *)friendId {
+    __block WYUserInfo  *friendInfo;
     
     [self.dbQueue inDatabase:^(FMDatabase *db) {
         FMResultSet *rs = [db executeQuery:@"SELECT * FROM FRIENDSTABLE WHERE userid=?", friendId];
         while ([rs next]) {
-            friendInfo = [WYUserInfo new];
+            friendInfo = [WYUserInfo  new];
             friendInfo.userId = [rs stringForColumn:@"userid"];
             friendInfo.name = [rs stringForColumn:@"name"];
             friendInfo.portraitUri = [rs stringForColumn:@"portraitUri"];
             friendInfo.status = [rs stringForColumn:@"status"];
             friendInfo.updatedAt = [rs stringForColumn:@"updatedAt"];
-            friendInfo.displayName = [rs stringForColumn:@"displayName"];
+            friendInfo.brithday = [rs stringForColumn:@"brithday"];
         }
         [rs close];
     }];

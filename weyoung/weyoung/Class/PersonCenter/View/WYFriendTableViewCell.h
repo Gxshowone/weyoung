@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WYFriendModel.h"
+#import "WYUserInfo.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WYFriendTableViewCell : UITableViewCell
 
-@property(nonatomic,strong)WYFriendModel * model;
+@property(nonatomic,strong)WYUserInfo * model;
 
 @end
 

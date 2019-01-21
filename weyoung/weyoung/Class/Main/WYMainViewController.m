@@ -46,6 +46,7 @@
     [super viewWillAppear:animated];
     
     [hpVc childWait];
+
 }
 
 -(void)viewDidLayoutSubviews
@@ -64,12 +65,12 @@
     [self addChildControllers];
     
     //判断是白天还是黑夜
-//    if ([self isNight]) {
- //   [self.view addSubview:self.signView];
-//    }else
-//    {
-//        [self.view addSubview:self.excessView];
-//    }
+    if ([self isNight]) {
+    [self.view addSubview:self.signView];
+    }else
+    {
+        [self.view addSubview:self.excessView];
+    }
 }
 
 
@@ -112,14 +113,29 @@
     
 }
 
--(void)conversation:(WYUserModel*)model
+-(void)conversation:(WYMatchUserModel*)model
 {
+ 
     
-    WYConversationViewController *conversationVC = [[WYConversationViewController alloc]init];
-    conversationVC.conversationType = ConversationType_PRIVATE;
-    conversationVC.targetId = @"100016";
-    conversationVC.title = @"想显示的会话标题";
-    [self.navigationController pushViewController:conversationVC animated:YES];
+    RCUserInfo  * userinfo = [[RCUserInfo alloc]init];
+    userinfo.userId  = model.uid;
+    userinfo.portraitUri = model.header_url;
+    userinfo.name = model.nick_name;
+    
+    WYConversationViewController *_conversationVC = [[WYConversationViewController alloc] init];
+    _conversationVC.user = userinfo;
+    _conversationVC.conversationType = ConversationType_PRIVATE;
+    _conversationVC.targetId = model.uid;
+    _conversationVC.userName = model.nick_name;
+  //  _conversationVC.locatedMessageSentTime = model.time;
+    int unreadCount = [[RCIMClient sharedRCIMClient] getUnreadCount:ConversationType_PRIVATE targetId:model.uid];
+    _conversationVC.unReadMessage = unreadCount;
+    _conversationVC.enableNewComingMessageIcon = YES; //开启消息提醒
+    _conversationVC.enableUnreadMessageIcon = YES;
+    //如果是单聊，不显示发送方昵称
+     _conversationVC.displayUserNameInCell = NO;
+    _conversationVC.isFriend = NO;
+    [self.navigationController pushViewController:_conversationVC animated:YES];
      
 }
 -(void)message
@@ -187,7 +203,12 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     CGFloat cx = scrollView.contentOffset.x;
-    if (cx == KScreenWidth *2 ) {
+    
+    if(cx ==KScreenWidth)
+    {
+        [hpVc childWait];
+        
+    }else if (cx == KScreenWidth *2 ) {
         
         [perVc getUserInfo];
     }

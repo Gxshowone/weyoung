@@ -10,7 +10,7 @@
 @interface WYAboutHeaderView()
 
 @property(nonatomic,strong)UIImageView * logoImageView;
-@property(nonatomic,strong)UILabel  * versionLabel;
+@property(nonatomic,strong)UILabel     * versionLabel;
 
 @end
 @implementation WYAboutHeaderView
@@ -30,14 +30,17 @@
 -(void)layoutSubviews
 {
     [super layoutSubviews];
-    self.logoImageView.frame = CGRectZero;
-    self.versionLabel.frame = CGRectMake(KScreenWidth/2-23.5, CGRectGetMaxY(self.logoImageView.frame), 47, 27);
+    
+    
+    self.logoImageView.frame = CGRectMake(KScreenWidth/2-20.5, 48.4, 41, 87);
+    self.versionLabel.frame = CGRectMake(KScreenWidth/2-23.5, CGRectGetMaxY(self.logoImageView.frame)+17.9, 47, 27);
 }
 
 -(UIImageView*)logoImageView
 {
     if (!_logoImageView) {
         _logoImageView = [[UIImageView alloc]init];
+       _logoImageView.image = [UIImage imageNamed:@"login_logo"];
     }
     return _logoImageView;
 }

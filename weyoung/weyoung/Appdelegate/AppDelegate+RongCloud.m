@@ -8,16 +8,13 @@
 
 #import "AppDelegate+RongCloud.h"
 #import "WYSystemMessage.h"
-
+#import "WYDataBaseManager.h"
 @implementation AppDelegate (RongCloud)
 
 -(void)registerRongCloud:(NSDictionary  *)launchOptions
 {
     [[RCIM sharedRCIM] initWithAppKey:@"sfci50a7s3f7i"];
-    
     [[RCIM sharedRCIM] setGlobalNavigationBarTintColor:[UIColor binaryColor:@"000000"]];
-    
-    
     [[RCIMClient sharedRCIMClient] recordLaunchOptionsEvent:launchOptions];
     [[RCIM sharedRCIM] setConnectionStatusDelegate:self];
     [RCIM sharedRCIM].receiveMessageDelegate = self;
@@ -28,9 +25,8 @@
     [RCIM sharedRCIM].disableMessageAlertSound = YES;
     [RCIM sharedRCIM].globalMessageAvatarStyle = RC_USER_AVATAR_CYCLE;
     [RCIM sharedRCIM].globalConversationAvatarStyle = RC_USER_AVATAR_CYCLE;
-    
-    
     [[RCIM sharedRCIM] setUserInfoDataSource:self];
+    [RCIM sharedRCIM].enablePersistentUserInfoCache = YES;
     [[WYSession sharedSession] connectRc];
 }
 
@@ -56,7 +52,7 @@
 
     NSString *objectName = message.objectName;
    
-
+    [[NSNotificationCenter defaultCenter]postNotificationName:WYUnreadMessageUpdate object:nil];
    
 }
 
@@ -77,10 +73,22 @@
     return NO;
 }
 
-
--(void)updateTotalUnreadCount
-{
-    NSInteger count = [[RCIMClient sharedRCIMClient] getTotalUnreadCount];
-  //  [[NSNotificationCenter defaultCenter]postNotificationName:kUpdateTotalUnreadCountNotification object:@(count)];
+#pragma mark - RCIMUserInfoDataSource
+- (void)getUserInfoWithUserId:(NSString *)userId completion:(void (^)(RCUserInfo *))completion {
+    NSLog(@"getUserInfoWithUserId ----- %@", userId);
+    RCUserInfo *user = [RCUserInfo new];
+    if (userId == nil || [userId length] == 0) {
+        user.userId = userId;
+        user.portraitUri = @"";
+        user.name = @"";
+        completion(user);
+        return;
+    }
+  
+    RCUserInfo * userCache = [[WYDataBaseManager shareInstance] getUserByUserId:userId];
+    completion(userCache);
+    
+    return;
 }
+
 @end

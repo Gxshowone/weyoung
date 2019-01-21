@@ -10,8 +10,8 @@
 
 typedef NS_ENUM(NSUInteger, WYMoreViewType) {
     
-    WYMoreViewType_Dynamic         = 0, // 最新礼物
-    WYMoreViewType_Conversation      = 1, // 普通礼物
+    WYMoreViewType_Dynamic         = 0, //
+    WYMoreViewType_Conversation      = 1, //
     
 };
 
@@ -19,7 +19,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WYMoreView : WYElasticView
 
+@property(nonatomic,strong)RCUserInfo * user;
+
+@property(nonatomic,assign)BOOL isFriend;
+
 @property(nonatomic,assign)WYMoreViewType type;
+
+
 
 @end
 

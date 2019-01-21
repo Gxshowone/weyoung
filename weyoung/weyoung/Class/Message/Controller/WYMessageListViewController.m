@@ -47,7 +47,7 @@
     self.conversationListTableView.tableHeaderView = self.headerView;
     self.conversationListTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    self.emptyConversationView.hidden = YES;
+    self.emptyConversationView.alpha = 0.0;
 }
 
 -(void)setConversationType

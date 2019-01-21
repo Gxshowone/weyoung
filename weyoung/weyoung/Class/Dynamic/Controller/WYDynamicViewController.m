@@ -87,6 +87,7 @@ static NSString * const cacheKey = @"WYALLDynamicList";
         
         [self.dataArray insertObject:model atIndex:0];
         [self.tableView reloadData];
+        [self.tableView scrollsToTop];
         
     }];
     
@@ -190,7 +191,7 @@ static NSString * const cacheKey = @"WYALLDynamicList";
     [_tableView.mj_footer endRefreshing];
     [_tableView reloadData];
     
-   [self->cache setObject:self.dataArray forKey:cacheKey];
+ //  [self->cache setObject:self.dataArray forKey:cacheKey];
 
     
 }

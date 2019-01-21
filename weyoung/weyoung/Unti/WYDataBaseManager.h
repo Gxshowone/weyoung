@@ -1,8 +1,8 @@
 //
-//  RCDataBaseManager.h
+//  WYDataBaseManager.h
 //  weyoung
 //
-//  Created by gongxin on 2019/1/14.
+//  Created by 巩鑫 on 2019/1/20.
 //  Copyright © 2019 SouYu. All rights reserved.
 //
 
@@ -13,9 +13,9 @@
 #import "WYUserInfo.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RCDataBaseManager : NSObject
+@interface WYDataBaseManager : NSObject
 
-+ (RCDataBaseManager *)shareInstance;
++ (WYDataBaseManager *)shareInstance;
 
 - (void)closeDBForDisconnect;
 
@@ -67,8 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //删除好友信息
 - (void)deleteFriendFromDB:(NSString *)userId;
-
-
+    
 @end
 
 NS_ASSUME_NONNULL_END

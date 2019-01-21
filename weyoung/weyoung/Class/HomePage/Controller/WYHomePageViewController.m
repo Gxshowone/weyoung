@@ -8,6 +8,8 @@
 
 #import "WYHomePageViewController.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import "WYMatchUserModel.h"
+#import "WYDataBaseManager.h"
 #define kPulseAnimation @"kPulseAnimation"
 
 
@@ -18,10 +20,17 @@
 @property(nonatomic,strong)UIImageView * quanquan;
 @property(nonatomic,strong)LOTAnimationView * childAnimation;
 @property(nonatomic,strong)UIImageView * meteor1,*meteor2,*meteor3;
+@property(nonatomic,assign)BOOL matchIng;
 
 @end
 
 @implementation WYHomePageViewController
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -130,6 +139,11 @@
     [self meteor:self.meteor2];
     [self meteor:self.meteor3];
     
+    
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"second_walk" ofType:@"json"];
+    NSArray *components = [filePath componentsSeparatedByString:@"/"];
+    NSString * name = [components lastObject];
+    [self.childAnimation setAnimation:name];
     self.childAnimation.loopAnimation = NO;
     [self.childAnimation play];
     
@@ -144,6 +158,9 @@
 
 -(void)childWait
 {
+    if (self.matchIng==YES || self.childAnimation.isAnimationPlaying ==YES) {
+        return;
+    }
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"second_wait" ofType:@"json"];
     NSArray *components = [filePath componentsSeparatedByString:@"/"];
     NSString * name = [components lastObject];
@@ -190,38 +207,54 @@
 
 -(void)matchUser
 {
+    self.matchIng = YES;
     self.quanquan.userInteractionEnabled = NO;
     [self.quanquan startAnimating];
     [self matchWait];
-    
+
     NSDictionary * dict = @{@"interface":@"Match@doMatch"};
     WYHttpRequest *request = [[WYHttpRequest alloc]init];
     [request requestWithPragma:dict showLoading:NO];
     request.successBlock = ^(id  _Nonnull response) {
-        
+
+        self.matchIng = NO;
         self.quanquan.userInteractionEnabled = YES;
         [self.quanquan stopAnimating];
-        
+
         if ([response count]==0) {
-            
+
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-            [self.view makeToast:@"怎么会没有人？" duration:0.3 position:CSToastPositionCenter];
+            [self.childAnimation makeToast:@"怎么会没有人？" duration:0.3 position:CSToastPositionCenter];
+            
             [self childWait];
-    
+
+        }else
+        {
+            WYMatchUserModel * model = [WYMatchUserModel mj_objectWithKeyValues:response];
+            
+            //缓存数据
+            RCUserInfo * userInfo = [[RCUserInfo alloc] initWithUserId:model.uid name:model.nick_name portrait:model.header_url];
+            
+            [[WYDataBaseManager shareInstance] insertUserToDB:userInfo];
+            
+            
+            if(self.delegate&&[self.delegate respondsToSelector:@selector(conversation:)])
+            {
+                [self.delegate conversation:model];
+            }
+            
         }
-        
-//        if(self.delegate&&[self.delegate respondsToSelector:@selector(conversation:)])
-//        {
-//            [self.delegate conversation:nil];
-//        }
-    };
     
+
+    };
+
     request.failureDataBlock = ^(id  _Nonnull error) {
-        
+
+        self.matchIng = YES;
         self.quanquan.userInteractionEnabled = YES;
         [self.quanquan stopAnimating];
         [self childWait];
-        
+
     };
 }
 

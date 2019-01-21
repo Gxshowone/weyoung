@@ -8,11 +8,12 @@
 
 #import "WYFriendViewController.h"
 #import "WYFriendTableViewCell.h"
-#import "WYFriendModel.h"
+#import "WYDataBaseManager.h"
+#import "WYConversationViewController.h"
 @interface WYFriendViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView * tableView;
-@property(nonatomic,strong)NSMutableArray * dataArray;
+@property(nonatomic,strong)NSMutableArray* dataArray;
 @property(nonatomic,assign)int page;
 
 @end
@@ -24,105 +25,16 @@
     // Do any additional setup after loading the view.
     [self setNavTitle:@"好友"];
     [self.view addSubview:self.tableView];
+    [self initData];
     
 }
 
-
--(void)requestDataWithType:(int)type
+-(void)initData
 {
     
-    //停止loading
-    [self hideNoNetWorkView];
-    [self hideNoDataView];
+    self.dataArray = [NSMutableArray arrayWithArray:[[WYDataBaseManager shareInstance] getAllFriends]];
+    [self.tableView reloadData];
     
-    NSString * pageStr = [NSString stringWithFormat:@"%d",_page];
-    NSDictionary * dict=@{@"interface":@"Friend@getFriendList"};
-    
-    
-    WYHttpRequest *request = [[WYHttpRequest alloc]init];
-    [request requestWithPragma:dict showLoading:NO];
-    request.successBlock = ^(id  _Nonnull response) {
-        
-        NSArray * array  = (NSArray*)response;
-        NSMutableArray * modelArray = [WYFriendModel mj_objectArrayWithKeyValuesArray:array];
-        if (type == 1) {
-            
-            //首先要清空id 数组 和数据源数组
-            self.dataArray = [NSMutableArray arrayWithArray:modelArray];
-            
-        }else if(type == 2){
-            
-            NSMutableArray * Array = [[NSMutableArray alloc] init];
-            [Array addObjectsFromArray:self.dataArray];
-            [Array addObjectsFromArray:modelArray];
-            self.dataArray = Array;
-            
-        }
-        
-        [self stopLoadData];
-     //   [self nodata];
-        [self nomoredata:modelArray];
-        
-    };
-    
-    request.failureDataBlock = ^(id  _Nonnull error) {
-        
-    };
-    
-    
-}
--(void)nodata
-{
-    if ([self.dataArray count]==0) {
-        
-        CGRect rect  = CGRectMake(KScreenWidth/2-52, 121, 104, 80);
-        [self showNoDataView:self.view noDataString:@"暂无数据" noDataImage:@"default_nodata" imageViewFrame:rect];
-        
-        [_noDataView setContentViewFrame:CGRectMake(0, 108, KScreenWidth, KScreenHeight-108-54)];
-    }
-    
-}
-
--(void)nomoredata:(NSMutableArray*)array
-{
-    if ([array count]==0) {
-        
-        
-        self.tableView.mj_footer = nil;
-    }
-    
-}
-
--(void)nonet
-{
-    
-    [self showNoNetWorkViewWithimageName:@"default_nonetwork"];
-}
-
--(void)stopLoadData
-{
-    
-    [_tableView.mj_header endRefreshing];
-    [_tableView.mj_footer endRefreshing];
-    [_tableView reloadData];
-    
-}
-
-//重新加载请求
--(void)retryToGetData
-{
-    
-    _page = 1;
-    
-    [self requestDataWithType:1];
-
-}
-
-
--(void)loadMoreData
-{
-    _page ++;
-    [self requestDataWithType:2];
 }
 
 
@@ -196,32 +108,56 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     //在这里实现删除操作
     
-    WYFriendModel * model = self.dataArray[indexPath.row];
+    WYUserInfo * model = self.dataArray[indexPath.row];
     [self deleteUser:model];
     
     //删除数据，和删除动画
-    [self.dataArray removeObjectAtIndex:0];
-    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
+    NSInteger index = indexPath.row;
+    [self.dataArray removeObjectAtIndex:index];
+    
+    [self.tableView reloadData];
 }
 
--(void)deleteUser:(WYFriendModel*)model
+-(void)deleteUser:(WYUserInfo*)model
 {
-   
-    NSDictionary * dict=@{@"interface":@"Friend@delFriend",@"to_uid":@"to_uid"};
-    WYHttpRequest *request = [[WYHttpRequest alloc]init];
-    [request requestWithPragma:dict showLoading:NO];
-    request.successBlock = ^(id  _Nonnull response) {
-        
-    };
+    NSString * to_uid = [NSString stringWithFormat:@"%@",model.userId];
+    [[WYDataBaseManager shareInstance] deleteFriendFromDB:to_uid];
     
-    request.failureDataBlock = ^(id  _Nonnull error) {
-        
-    };
+//    NSDictionary * dict=@{@"interface":@"Friend@delFriend",@"to_uid":to_uid};
+//    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+//    [request requestWithPragma:dict showLoading:NO];
+//    request.successBlock = ^(id  _Nonnull response) {
+//
+//    };
+//
+//    request.failureDataBlock = ^(id  _Nonnull error) {
+//
+//    };
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"[gx] goto chat");
+    WYUserInfo * user = self.dataArray[indexPath.row];
+    
+    RCUserInfo  * userinfo = [[RCUserInfo alloc]init];
+    userinfo.userId  = user.userId;
+    userinfo.portraitUri = user.portraitUri;
+    userinfo.name = user.name;
+    
+    WYConversationViewController *_conversationVC = [[WYConversationViewController alloc] init];
+    _conversationVC.conversationType = ConversationType_PRIVATE;
+    _conversationVC.targetId = user.userId;
+    _conversationVC.userName = user.name;
+    _conversationVC.user  = userinfo;
+    //  _conversationVC.locatedMessageSentTime = model.time;
+    int unreadCount = [[RCIMClient sharedRCIMClient] getUnreadCount:ConversationType_PRIVATE targetId:user.userId];
+    _conversationVC.unReadMessage = unreadCount;
+    _conversationVC.enableNewComingMessageIcon = YES; //开启消息提醒
+    _conversationVC.enableUnreadMessageIcon = YES;
+    //如果是单聊，不显示发送方昵称
+    _conversationVC.displayUserNameInCell = NO;
+    _conversationVC.isFriend = YES;
+    [self.navigationController pushViewController:_conversationVC animated:YES];
 }
 
 -(UITableView*)tableView
@@ -233,21 +169,7 @@
         _tableView.delegate=self;
         _tableView.dataSource=self;
         _tableView.backgroundColor=[UIColor clearColor];
-        
-        __weak __typeof(self) weakSelf = self;
-        
-        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-            [weakSelf retryToGetData];
-        }];
-        
-        _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-            
-            [weakSelf loadMoreData];
-            
-        }];
-        
-        
-        [_tableView.mj_header beginRefreshing];
+       
     }
     return _tableView;
 }

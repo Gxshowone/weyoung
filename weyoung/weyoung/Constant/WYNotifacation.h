@@ -9,8 +9,12 @@
 #ifndef WYNotifacation_h
 #define WYNotifacation_h
 
+#define WYLoginSusscess @"WYLoginSusscess"
+
 #define WYNotifacationUserInfoChange @"WYNotifacationUserInfoChange"
 
 #define WYComposeSusscess @"WYComposeSusscess"
+
+#define WYUnreadMessageUpdate @"WYUnreadMessageUpdate"
 
 #endif /* WYNotifacation_h */

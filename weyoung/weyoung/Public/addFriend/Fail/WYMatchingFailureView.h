@@ -10,7 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol WYMatchingFailureViewDelegate <NSObject>
+
+-(void)endChat;
+
+@end
+
 @interface WYMatchingFailureView : UIView
+
+@property (nonatomic,weak) id<WYMatchingFailureViewDelegate> delegate;
 
 - (void)show;
 
