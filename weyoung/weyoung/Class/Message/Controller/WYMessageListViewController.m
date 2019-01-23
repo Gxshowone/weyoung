@@ -14,6 +14,8 @@
 
 #import "WYCommentViewController.h"
 #import "WYLikeViewController.h"
+
+#import "WYDataBaseManager.h"
 @interface WYMessageListViewController ()<UITableViewDelegate,UITableViewDataSource,WYMessageHeaderViewDelegate>
 
 @property(nonatomic,strong)WYMessageHeaderView * headerView;
@@ -73,12 +75,33 @@
 - (void)onSelectedTableRow:(RCConversationModelType)conversationModelType
          conversationModel:(RCConversationModel *)model
                atIndexPath:(NSIndexPath *)indexPath {
- 
-    WYConversationViewController *conversationVC = [[WYConversationViewController alloc]init];
-    conversationVC.conversationType = ConversationType_PRIVATE;
-    conversationVC.targetId = model.targetId;
-    conversationVC.title = @"想显示的会话标题";
-    [self.navigationController pushViewController:conversationVC animated:YES];
+    
+    
+    WYUserInfo * friend = [[WYDataBaseManager shareInstance] getFriendInfo:model.targetId];
+    if (IsStrEmpty(friend.userId)) {
+        [self.conversationListTableView makeToast:@"您们还不是好友"];
+        return;
+    }
+    
+    
+    RCUserInfo  * userinfo = [[WYDataBaseManager shareInstance] getUserByUserId:model.targetId];
+    WYConversationViewController *_conversationVC = [[WYConversationViewController alloc] init];
+    _conversationVC.user = userinfo;
+    _conversationVC.conversationType = ConversationType_PRIVATE;
+    _conversationVC.targetId = model.targetId;
+    _conversationVC.userName = userinfo.name;
+    
+    //  _conversationVC.locatedMessageSentTime = model.time;
+    int unreadCount = [[RCIMClient sharedRCIMClient] getUnreadCount:ConversationType_PRIVATE targetId:model.targetId];
+    _conversationVC.unReadMessage = unreadCount;
+    _conversationVC.enableNewComingMessageIcon = YES; //开启消息提醒
+    _conversationVC.enableUnreadMessageIcon = YES;
+    //如果是单聊，不显示发送方昵称
+    _conversationVC.displayUserNameInCell = NO;
+    _conversationVC.isFriend = YES;
+    [self.navigationController pushViewController:_conversationVC animated:YES];
+    
+
 }
 
 //左滑删除

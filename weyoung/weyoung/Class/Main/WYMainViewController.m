@@ -19,7 +19,8 @@
 
 #import "WYSignView.h"
 #import "WYExcessiveView.h"
-@interface WYMainViewController ()<UIScrollViewDelegate,WYMainViewControllerDelegate,WYSignViewDelegate>
+#import "NSString+Extension.h"
+@interface WYMainViewController ()<UIScrollViewDelegate,WYMainViewControllerDelegate,WYSignViewDelegate,UINavigationControllerDelegate>
 {
     WYDynamicViewController * dyVc;
     WYHomePageViewController * hpVc;
@@ -66,7 +67,14 @@
     
     //判断是白天还是黑夜
     if ([self isNight]) {
-    [self.view addSubview:self.signView];
+        
+        NSString * key  = [NSString currentDateStr];
+        NSString * cache = [[NSUserDefaults standardUserDefaults] valueForKey:key];
+        if (IsStrEmpty(cache)) {
+            [self.view addSubview:self.signView];
+            [[NSUserDefaults standardUserDefaults] setObject:@"sign" forKey:key];
+        }
+   
     }else
     {
         [self.view addSubview:self.excessView];

@@ -50,6 +50,8 @@ NS_ASSUME_NONNULL_BEGIN
 +(NSString*)exchangeToEngMonth:(NSString*)cn;
 +(NSString *)getNowTimeTimestamp;
 +(NSString*)weekdayStringFromDate:(NSDate*)inputDate;
+
++(NSString *)currentDateStr;
 @end
 
 NS_ASSUME_NONNULL_END
