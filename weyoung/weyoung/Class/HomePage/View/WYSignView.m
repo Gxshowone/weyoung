@@ -135,7 +135,7 @@
         @weakify(self);
         [[_signButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
-            
+        
             self.signButton.userInteractionEnabled = NO;
             NSString * fname = (KScreenHeight<812)?@"first_walk":@"first_walk_x";
             NSString *filePath = [[NSBundle mainBundle] pathForResource:fname ofType:@"json"];

@@ -7,17 +7,11 @@
 //
 
 #import "WYApplyView.h"
-#import "WYPanImageView.h"
 @interface WYApplyView ()
-
-{
-    CGPoint _last;
-}
 
 @property(nonatomic,strong)UILabel     * timeLabel;
 @property(nonatomic,strong)UILabel     * addLabel;
-@property(nonatomic,strong)WYPanImageView * blueImageView;
-@property(nonatomic,strong)WYPanImageView * redImageView;
+@property(nonatomic,strong)UIImageView * matchImageView;
 @property(nonatomic,strong)UILabel     * infoLabel;
 @property(nonatomic,weak)NSTimer * countDownTimer;
 @property(nonatomic,assign)NSInteger seconds;
@@ -37,8 +31,7 @@
  
         [self addSubview:self.timeLabel];
         [self addSubview:self.addLabel];
-        [self addSubview:self.blueImageView];
-        [self addSubview:self.redImageView];
+        [self addSubview:self.matchImageView];
         [self addSubview:self.infoLabel];
         
     }
@@ -46,50 +39,11 @@
     return self;
 }
 
-//点击屏幕的瞬间，手指刚刚碰到屏幕
-
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-
-    UITouch*touch = [touches anyObject];
-    _last = [touch locationInView:self];
- 
-}
-
-//手指没离开屏幕，手指在屏幕上的时候调用，可以获得手指移动时候的数据
-
--(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    UITouch*touch =[touches anyObject];
-    CGPoint pt = [touch locationInView:self];
-    float xOffset=pt.x-_last.x;
-    float yOffset=pt.y-_last.y;
-    _last=pt;
-    self.blueImageView.frame = CGRectMake(self.blueImageView.frame.origin.x+xOffset ,self.blueImageView.frame.origin.y+yOffset, self.blueImageView.frame.size.width, self.blueImageView.frame.size.height);
-    
-}
-
-//手指离开屏幕
-
--(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
-  NSLog(@"手指离开屏幕")
-    
-    BOOL contains = CGRectIntersectsRect(self.redImageView.frame, self.blueImageView.frame);
-    
-    if (contains) {
-        
-        [self applyFriend];
-        
-    }else
-    {
-        [self makeToast:@"请将蓝色视图拖拽到红色区域"];
-    }
-    
-    
-}
-
 -(void)applyFriend
 {
     _request = YES;
+    
+    [self.matchImageView startAnimating];
     
     NSString * to_uid  = self.userInfo.userId;
     NSDictionary * dict = @{@"interface":@"Friend@addFriend",@"to_uid":to_uid};
@@ -97,18 +51,16 @@
     [request requestWithPragma:dict showLoading:NO];
     request.successBlock = ^(id  _Nonnull response) {
         
-        [self hide];
-        
-        if(self.delegate)
-        {
-            [self.delegate addFriendSussces];
-        }
-        
-        self->_request = NO;
+        [self.matchImageView stopAnimating];
+        [self applySusscessAnimation];
+        [self applySusscess];
+    
         
     };
     
     request.failureDataBlock = ^(id  _Nonnull error) {
+        
+        [self.matchImageView stopAnimating];
         
         [self hide];
         
@@ -124,13 +76,45 @@
 
 }
 
-//特殊情况，中断现在的触屏事件，比如玩游戏来电话了
-
--(void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+-(void)applySusscessAnimation
+{
+    NSMutableArray * asa = [NSMutableArray array];
     
-  NSLog(@"取消点击事件");
+    for (int i = 0; i < 29; i ++) {
+        
+        NSString * asn = [NSString stringWithFormat:@"match_sussces_%d",i];
+        UIImage  * asi = [UIImage imageNamed:asn];
+        [asa addObject:asi];
+    }
+    
+    self.matchImageView.animationImages = asa;
+    self.matchImageView.animationDuration = 2.0;
+    self.matchImageView.animationRepeatCount = 1;
+    [self.matchImageView startAnimating];
+    
+}
+
+
+-(void)applySusscess
+{
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
+        
+        [self hide];
+        
+        if(self.delegate)
+        {
+            [self.delegate addFriendSussces];
+        }
+        
+        self->_request = NO;
+    });
+    
  
 }
+
+
 
 -(void)layoutSubviews
 {
@@ -138,8 +122,7 @@
     
     self.timeLabel.frame = CGRectMake(KScreenWidth/2-38, 95+KNaviBarHeight, 76, 76);
     self.addLabel.frame = CGRectMake(KScreenWidth/2-95,CGRectGetMaxY(self.timeLabel.frame)+33, 190, 40);
-    self.blueImageView.frame = CGRectMake(KScreenWidth/2-130,CGRectGetMaxY(self.addLabel.frame)+49.1,100, 100);
-    self.redImageView.frame = CGRectMake(KScreenWidth/2+30,CGRectGetMaxY(self.addLabel.frame)+114, 100, 100);
+    self.matchImageView.frame = CGRectMake(KScreenWidth/2-57,KScreenHeight/2-57,114, 114);
     self.infoLabel.frame = CGRectMake(KScreenWidth/2-66,KScreenHeight-KTabbarSafeBottomMargin-138,132,20);
 }
 - (void)show
@@ -162,14 +145,12 @@
     
     self.timeLabel.transform = CGAffineTransformMakeScale(0.90, 0.90);
     self.addLabel.transform = CGAffineTransformMakeScale(0.90, 0.90);
-    self.blueImageView.transform = CGAffineTransformMakeScale(0.90, 0.90);
-    self.redImageView.transform = CGAffineTransformMakeScale(0.90, 0.90);
+    self.matchImageView.transform = CGAffineTransformMakeScale(0.90, 0.90);
     self.infoLabel.transform = CGAffineTransformMakeScale(0.90, 0.90);
     [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:1 options:UIViewAnimationOptionCurveLinear animations:^{
         self.timeLabel.transform = CGAffineTransformMakeScale(1.0, 1.0);
         self.addLabel.transform = CGAffineTransformMakeScale(1.0, 1.0);
-        self.blueImageView.transform = CGAffineTransformMakeScale(1.0, 1.0);
-        self.redImageView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        self.matchImageView.transform = CGAffineTransformMakeScale(1.0, 1.0);
         self.infoLabel.transform = CGAffineTransformMakeScale(1.0, 1.0);
     } completion:^(BOOL finished) {
         
@@ -203,26 +184,41 @@
     return _addLabel;
 }
 
-
--(WYPanImageView*)blueImageView
+-(UIImageView*)matchImageView
 {
-    if(!_blueImageView)
-    {
-        _blueImageView = [[WYPanImageView alloc]init];
-        _blueImageView.image = [UIImage imageNamed:@"chat_apply_blue"];
+    if (!_matchImageView) {
+        _matchImageView = [[UIImageView alloc]init];
+        _matchImageView.image = [UIImage imageNamed:@"match_loading_0"];
+    
+        NSMutableArray * ma = [NSMutableArray array];
+        
+        for (int i = 0; i < 32; i ++) {
+            
+            NSString * mn = [NSString stringWithFormat:@"match_loading_%d",i];
+            UIImage  * mi = [UIImage imageNamed:mn];
+            [ma addObject:mi];
+        }
+        
+        _matchImageView.animationImages = ma;
+        _matchImageView.animationDuration = 2.0;
+        _matchImageView.animationRepeatCount = 0;
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+        @weakify(self);
+        [[tap rac_gestureSignal] subscribeNext:^(id x) {
+            NSLog(@"tap");
+            @strongify(self);
+            
+            if (self->_request==YES) {
+                return ;
+            }
+            [self applyFriend];
+        }];
+        
+        _matchImageView.userInteractionEnabled = YES;
+        [_matchImageView addGestureRecognizer:tap];
     }
-    return _blueImageView;
-}
-
-
--(WYPanImageView*)redImageView
-{
-    if(!_redImageView)
-    {
-        _redImageView = [[WYPanImageView alloc]init];
-        _redImageView.image = [UIImage imageNamed:@"chat_apply_red"];
-    }
-    return _redImageView;
+    return _matchImageView;
 }
 
 
@@ -238,10 +234,7 @@
     return _infoLabel;
 }
 
--(BOOL)isOverlap  //判断是否重叠
-{
-    return CGRectIntersectsRect(self.redImageView.frame, self.blueImageView.frame);
-}
+
 
 
 -(void)startTimer

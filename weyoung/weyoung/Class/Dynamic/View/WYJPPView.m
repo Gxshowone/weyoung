@@ -26,7 +26,7 @@
 -(void)setDataSource:(NSArray *)dataSource{
     _dataSource = dataSource;
     //单张图片的大小
-    CGFloat jgg_width = KScreenWidth-67-20;;
+    CGFloat jgg_width = KScreenWidth-67-20;
     
     CGFloat imageWidth =  jgg_width;
     CGFloat imageHeight =  imageWidth;
@@ -40,6 +40,7 @@
     iv.tag = 0;
     iv.layer.cornerRadius = 10;
     iv.layer.masksToBounds = YES;
+    iv.contentMode = UIViewContentModeScaleAspectFit;
     [self addSubview:iv];
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapImageAction:)];
     [iv addGestureRecognizer:singleTap];
