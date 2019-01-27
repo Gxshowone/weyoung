@@ -308,7 +308,7 @@ static NSString * const cacheKey = @"WYALLDynamicList";
         
         __weak __typeof(self) weakSelf = self;
         
-        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        _tableView.mj_header = [MJRefreshGifHeader headerWithRefreshingBlock:^{
             [weakSelf retryToGetData];
         }];
         

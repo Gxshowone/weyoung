@@ -371,19 +371,19 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 -(void)checkUserInfo
 {
   
-    if ([self.avatar_str isEmpty]) {
+    if (IsStrEmpty(self.key)) {
         [self.view makeToast:@"请先上传头像" duration:3.0 position:CSToastPositionCenter];
         return;
         
     }
     
-    if ([[self.nickInputView inputText] isEmpty]) {
+    if (IsStrEmpty([self.nickInputView inputText])) {
         [self.view makeToast:@"请输入昵称" duration:3.0 position:CSToastPositionCenter];
         return;
         
     }
     
-    if ([self.dateString isEmpty]) {
+    if (IsStrEmpty(self.dateString)) {
         [self.view makeToast:@"请选择生日" duration:3.0 position:CSToastPositionCenter];
         return;
         
@@ -395,7 +395,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 
 -(void)registerUser
 {
-  
+ 
     NSDictionary * dict = @{@"header_url":self.key,@"nick_name":[self.nickInputView inputText],@"birthday":self.dateString,@"gender":self.sex, @"phone":self.phone,@"zone_num":@"86",@"interface":@"Login@register",@"step":@"4",@"uid":self.uid};
     WYHttpRequest *request = [[WYHttpRequest alloc]init];
     [request requestWithPragma:dict showLoading:NO];

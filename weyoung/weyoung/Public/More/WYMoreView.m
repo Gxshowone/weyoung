@@ -89,10 +89,13 @@
         {
             [self hide];
             
+            
             WYReportView * reportView = [[WYReportView alloc]init];
             @weakify(self);
             reportView.block = ^(NSInteger index) {
                 @strongify(self);
+                [self report:index];
+    
             };
             [reportView show];
         }
@@ -100,7 +103,9 @@
             case 1:
         {
             
-             [self hide];
+            
+            [self hide];
+            
             [[WYDataBaseManager shareInstance] insertBlackListToDB:self.user];
             [[RCIMClient sharedRCIMClient] addToBlacklist:self.user.userId success:^{
                
@@ -122,6 +127,25 @@
             break;
     }
    
+}
+
+
+-(void)report:(NSInteger)reason;
+{
+    NSString * type = (self.type==WYMoreViewType_Dynamic)?@"1":@"2";
+    NSString * reasonString = [NSString stringWithFormat:@"%ld",reason];
+    
+    NSDictionary * dict = @{@"id":@"",@"type":type,@"interface":@"User@report",@"reason":reasonString,@"remark":@""};
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+        [[UIApplication sharedApplication].keyWindow makeToast:@"举报成功"];
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+    };
 }
 
 -(void)setIsFriend:(BOOL)isFriend

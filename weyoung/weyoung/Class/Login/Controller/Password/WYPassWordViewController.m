@@ -10,7 +10,6 @@
 #import "WYPasswordInputView.h"
 #import "WYInfoViewController.h"
 #import "WYGradientButton.h"
-#import <AudioToolbox/AudioToolbox.h>
 #import "NSString+Validation.h"
 @interface WYPassWordViewController ()
 
@@ -95,13 +94,15 @@
             }else
                 
             {
-                if ([[self.inputView inputText] isEmpty]) {
+                if (IsStrEmpty([self.inputView inputText])) {
                     [self.view makeToast:@"请设置密码" duration:3.0 position:CSToastPositionTop];
-                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+                    UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
+                    [impactLight impactOccurred];
                 }else
                 {
                     [self.view makeToast:@"密码格式不正确" duration:3.0 position:CSToastPositionTop];
-                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+                    UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
+                    [impactLight impactOccurred];
                 }
             }
             

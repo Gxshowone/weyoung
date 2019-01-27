@@ -66,19 +66,22 @@
     [self addChildControllers];
     
     //判断是白天还是黑夜
-    if ([self isNight]) {
-        
-        NSString * key  = [NSString currentDateStr];
-        NSString * cache = [[NSUserDefaults standardUserDefaults] valueForKey:key];
-        if (IsStrEmpty(cache)) {
-            [self.view addSubview:self.signView];
-            [[NSUserDefaults standardUserDefaults] setObject:@"sign" forKey:key];
-        }
-   
-    }else
-    {
-        [self.view addSubview:self.excessView];
-    }
+//    if ([self isNight]) {
+//        
+//        NSString * key  = [NSString currentDateStr];
+//        NSString * cache = [[NSUserDefaults standardUserDefaults] valueForKey:key];
+//        if (IsStrEmpty(cache)) {
+//            [self.view addSubview:self.signView];
+//            [[NSUserDefaults standardUserDefaults] setObject:@"sign" forKey:key];
+//        }
+//   
+//    }else
+//    {
+//        [self.view addSubview:self.excessView];
+//    }
+    
+    [self.view addSubview:self.signView];
+    
 }
 
 
@@ -132,10 +135,12 @@
     
     WYConversationViewController *_conversationVC = [[WYConversationViewController alloc] init];
     _conversationVC.user = userinfo;
+    _conversationVC.birthday = model.birthday;
     _conversationVC.conversationType = ConversationType_PRIVATE;
     _conversationVC.targetId = model.uid;
     _conversationVC.userName = model.nick_name;
-  //  _conversationVC.locatedMessageSentTime = model.time;
+    
+
     int unreadCount = [[RCIMClient sharedRCIMClient] getUnreadCount:ConversationType_PRIVATE targetId:model.uid];
     _conversationVC.unReadMessage = unreadCount;
     _conversationVC.enableNewComingMessageIcon = YES; //开启消息提醒
@@ -211,15 +216,28 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     CGFloat cx = scrollView.contentOffset.x;
-    
+    if(cx==0)
+    {
+        UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
+        [impactLight impactOccurred];
+    }else
     if(cx ==KScreenWidth)
     {
         [hpVc childWait];
+        UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
+        [impactLight impactOccurred];
         
     }else if (cx == KScreenWidth *2 ) {
         
         [perVc getUserInfo];
+
+        UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
+        [impactLight impactOccurred];
+        
     }
+    
+    
+    
 }
 
 

@@ -12,7 +12,6 @@
 #import "WYInputViewController.h"
 #import "WYGradientButton.h"
 #import "NSString+Validation.h"
-#import <AudioToolbox/AudioToolbox.h>
 #import "WYInfoViewController.h"
 @interface WYLoginViewController ()
 
@@ -77,7 +76,6 @@
     
     CAEmitterCell * cell = [CAEmitterCell emitterCell];
 
-    
     cell.name = @"heart";
     cell.contents = (__bridge id _Nullable)image.CGImage;
     
@@ -209,7 +207,7 @@
 -(void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    self.logoImageView.frame = CGRectMake(KScreenWidth/2-20/5, 23+KNaviBarHeight, 41, 87);
+    self.logoImageView.frame = CGRectMake(KScreenWidth/2-20.5, 23+KNaviBarHeight, 41, 87);
     self.phoneInputView.frame = CGRectMake(27.5,KNaviBarHeight+196, KScreenWidth-55, 50);
     self.infoLabel.frame = CGRectMake((KScreenWidth -287)/2, CGRectGetMaxY(self.phoneInputView.frame)+15, 172, 20);
     self.clauseButton.frame = CGRectMake(CGRectGetMaxX(self.infoLabel.frame)+3, CGRectGetMaxY(self.phoneInputView.frame)+3,115, 44);
@@ -282,13 +280,15 @@
             }else
                 
             {
-                if ([[self.phoneInputView inputText] isEmpty]) {
+                if (IsStrEmpty([self.phoneInputView inputText])) {
                     [self.view makeToast:@"请输入手机号" duration:3.0 position:CSToastPositionTop];
-                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+                    UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
+                    [impactLight impactOccurred];
                 }else
                 {
                     [self.view makeToast:@"手机号格式不正确" duration:3.0 position:CSToastPositionTop];
-                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+                    UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
+                    [impactLight impactOccurred];
                 }
             }
             
