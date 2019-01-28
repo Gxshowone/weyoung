@@ -123,16 +123,16 @@
     NSString * to_uid = [NSString stringWithFormat:@"%@",model.userId];
     [[WYDataBaseManager shareInstance] deleteFriendFromDB:to_uid];
     
-//    NSDictionary * dict=@{@"interface":@"Friend@delFriend",@"to_uid":to_uid};
-//    WYHttpRequest *request = [[WYHttpRequest alloc]init];
-//    [request requestWithPragma:dict showLoading:NO];
-//    request.successBlock = ^(id  _Nonnull response) {
-//
-//    };
-//
-//    request.failureDataBlock = ^(id  _Nonnull error) {
-//
-//    };
+    NSDictionary * dict=@{@"interface":@"Friend@delFriend",@"to_uid":to_uid};
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+
+    };
+
+    request.failureDataBlock = ^(id  _Nonnull error) {
+
+    };
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

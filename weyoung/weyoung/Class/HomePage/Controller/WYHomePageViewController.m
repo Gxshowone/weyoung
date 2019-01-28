@@ -7,12 +7,9 @@
 //
 
 #import "WYHomePageViewController.h"
-#import <AudioToolbox/AudioToolbox.h>
 #import "WYMatchUserModel.h"
 #import "WYDataBaseManager.h"
 #define kPulseAnimation @"kPulseAnimation"
-
-
 @interface WYHomePageViewController ()
 
 @property(nonatomic,strong)UIImageView * bgIV;
@@ -207,6 +204,8 @@
 
 -(void)matchUser
 {
+    UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
+    [impactLight impactOccurred];
     self.matchIng = YES;
     self.quanquan.userInteractionEnabled = NO;
     [self.quanquan startAnimating];
@@ -223,9 +222,9 @@
 
         if ([response count]==0) {
 
-            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+            UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
+            [impactLight impactOccurred];
             [self.childAnimation makeToast:@"怎么会没有人？" duration:0.3 position:CSToastPositionCenter];
-            
             [self childWait];
 
         }else

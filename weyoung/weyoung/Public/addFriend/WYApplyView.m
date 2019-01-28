@@ -7,6 +7,7 @@
 //
 
 #import "WYApplyView.h"
+#import <AudioToolbox/AudioToolbox.h>
 @interface WYApplyView ()
 
 @property(nonatomic,strong)UILabel     * timeLabel;
@@ -42,8 +43,9 @@
 -(void)applyFriend
 {
     _request = YES;
-    
-    [self.matchImageView startAnimating];
+
+    [self.matchImageView stopAnimating];
+    self.matchImageView.image = [UIImage imageNamed:@"match_loading_0"];
     
     NSString * to_uid  = self.userInfo.userId;
     NSDictionary * dict = @{@"interface":@"Friend@addFriend",@"to_uid":to_uid};
@@ -51,11 +53,9 @@
     [request requestWithPragma:dict showLoading:NO];
     request.successBlock = ^(id  _Nonnull response) {
         
-        [self.matchImageView stopAnimating];
         [self applySusscessAnimation];
         [self applySusscess];
-    
-        
+ 
     };
     
     request.failureDataBlock = ^(id  _Nonnull error) {
@@ -71,7 +71,8 @@
         }
    
         self->_request = NO;
-        
+        UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
+        [impactLight impactOccurred];
     };
 
 }
@@ -111,10 +112,7 @@
         self->_request = NO;
     });
     
- 
 }
-
-
 
 -(void)layoutSubviews
 {
@@ -122,8 +120,10 @@
     
     self.timeLabel.frame = CGRectMake(KScreenWidth/2-38, 95+KNaviBarHeight, 76, 76);
     self.addLabel.frame = CGRectMake(KScreenWidth/2-95,CGRectGetMaxY(self.timeLabel.frame)+33, 190, 40);
-    self.matchImageView.frame = CGRectMake(KScreenWidth/2-57,KScreenHeight/2-57,114, 114);
+    self.matchImageView.frame = CGRectMake(KScreenWidth/2-75,KScreenHeight/2+25,150, 150);
     self.infoLabel.frame = CGRectMake(KScreenWidth/2-66,KScreenHeight-KTabbarSafeBottomMargin-138,132,20);
+    
+    
 }
 - (void)show
 {
@@ -188,8 +188,6 @@
 {
     if (!_matchImageView) {
         _matchImageView = [[UIImageView alloc]init];
-        _matchImageView.image = [UIImage imageNamed:@"match_loading_0"];
-    
         NSMutableArray * ma = [NSMutableArray array];
         
         for (int i = 0; i < 32; i ++) {
@@ -217,6 +215,9 @@
         
         _matchImageView.userInteractionEnabled = YES;
         [_matchImageView addGestureRecognizer:tap];
+        [self.matchImageView startAnimating];
+        
+        
     }
     return _matchImageView;
 }

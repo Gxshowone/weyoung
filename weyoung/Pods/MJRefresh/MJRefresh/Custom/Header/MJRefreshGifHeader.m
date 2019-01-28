@@ -70,6 +70,22 @@
 {
     [super prepare];
     
+
+    // 设置普通状态的动画图片
+   NSMutableArray *refreshingImages = [NSMutableArray array];
+    for (int i = 1; i<=31; i++) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"refresh_%d", i]];
+        [refreshingImages addObject:image];
+    }
+    [self setImages:refreshingImages forState:MJRefreshStateIdle];
+    
+    // 设置即将刷新状态的动画图片（一松开就会刷新的状态）
+    [self setImages:refreshingImages forState:MJRefreshStatePulling];
+    
+    // 设置正在刷新状态的动画图片
+    [self setImages:refreshingImages forState:MJRefreshStateRefreshing];
+    
+    
     // 初始化间距
     self.labelLeftInset = 20;
 }
@@ -92,6 +108,11 @@
     [super placeSubviews];
     
     if (self.gifView.constraints.count) return;
+    
+    //隐藏状态显示文字
+    self.stateLabel.hidden = YES;
+    //隐藏更新时间文字
+    self.lastUpdatedTimeLabel.hidden = YES;
     
     self.gifView.frame = self.bounds;
     if (self.stateLabel.hidden && self.lastUpdatedTimeLabel.hidden) {

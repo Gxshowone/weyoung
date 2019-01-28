@@ -99,6 +99,16 @@
 -(void)addFriendSussces
 {
     [self.susscesView show];
+    
+    WYUserInfo * user = [[WYUserInfo alloc]init];
+    user.userId = self.user.userId;
+    user.brithday = self.birthday;
+    user.name = self.user.name;
+    user.portraitUri = self.user.portraitUri;
+    user.status = @"";
+    user.updatedAt = @"";
+    [[WYDataBaseManager shareInstance] insertFriendToDB:user];
+    
 }
 
 -(void)addFriendFail

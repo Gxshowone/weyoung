@@ -9,7 +9,6 @@
 #import "WYCodeViewController.h"
 #import "WLUnitField.h"
 #import "WYPassWordViewController.h"
-#import <AudioToolbox/AudioToolbox.h>
 #import "WYPasswordChangeViewController.h"
 @interface WYCodeViewController ()<WLUnitFieldDelegate>
 
@@ -136,7 +135,8 @@
     request.failureDataBlock = ^(id  _Nonnull error) {
         
         [self.view makeToast:[NSString stringWithFormat:@"%@",error]];
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
+        [impactLight impactOccurred];
     };
 }
 

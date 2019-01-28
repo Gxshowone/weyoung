@@ -66,9 +66,7 @@
     self.monthLabel.frame = CGRectMake(CGRectGetMaxX(self.dayLabel.frame)+4.5, CGRectGetMaxY(self.weekLabel.frame), 50, 14);
     self.infoLabel.frame = CGRectMake(25, 127+KNaviBarHeight, KScreenWidth-50, 84);
     self.signButton.frame = CGRectMake(KScreenWidth/2-75, CGRectGetMaxY(self.infoLabel.frame), 150, 40);
-    
-    CGFloat gy =  KScreenHeight-KTabBarHeight-125;
-    self.grassView.frame =  CGRectMake(0, KScreenHeight-KTabBarHeight-125, 211, 125);
+    self.grassView.frame =  CGRectMake(0, KScreenHeight-125, 211, 125);
     
 }
 
@@ -136,6 +134,7 @@
         [[_signButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
         
+            [self remoteSign];
             self.signButton.userInteractionEnabled = NO;
             NSString * fname = (KScreenHeight<812)?@"first_walk":@"first_walk_x";
             NSString *filePath = [[NSBundle mainBundle] pathForResource:fname ofType:@"json"];
@@ -147,6 +146,22 @@
         }];
     }
     return _signButton;
+    
+}
+
+-(void)remoteSign
+{
+
+    NSDictionary * dict = @{@"interface":@"User@signIn"};
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+    };
     
 }
 

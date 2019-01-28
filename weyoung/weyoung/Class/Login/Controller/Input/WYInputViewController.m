@@ -11,7 +11,6 @@
 #import "WYCodeInputView.h"
 #import "WYCodeViewController.h"
 #import "NSString+Validation.h"
-#import <AudioToolbox/AudioToolbox.h>
 
 @interface WYInputViewController ()
 
@@ -118,9 +117,10 @@
         [[_nextButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
             
-            if ([[self.inputView inputText] isEmpty]) {
+            if (IsStrEmpty([self.inputView inputText])) {
                 [self.view makeToast:@"请输入密码" duration:3.0 position:CSToastPositionTop];
-                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+                UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
+                [impactLight impactOccurred];
             }else
             {
                 [self login];
@@ -166,8 +166,8 @@
     request.failureDataBlock = ^(id  _Nonnull error) {
         
         [self.view makeToast:@"密码不正确" duration:3.0 position:CSToastPositionTop];
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-        
+        UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
+        [impactLight impactOccurred];
     };
 }
 

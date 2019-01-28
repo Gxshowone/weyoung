@@ -44,7 +44,27 @@
     [self.bgView addSubview:self.textView];
     [self.bgView addSubview:self.countLabel];
     [self.bgView addSubview:self.holderLabel];
+    
+    [[self.rightButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        
+        NSString * type = @"3";
+        NSString * reasonString = @"7";
+        NSDictionary * dict = @{@"id":@"",@"type":type,@"interface":@"User@report",@"reason":reasonString,@"remark":self.textView.text};
+        WYHttpRequest *request = [[WYHttpRequest alloc]init];
+        [request requestWithPragma:dict showLoading:NO];
+        request.successBlock = ^(id  _Nonnull response) {
+            
+            [[UIApplication sharedApplication].keyWindow makeToast:@"举报成功"];
+        };
+        
+        request.failureDataBlock = ^(id  _Nonnull error) {
+            
+        };
+    }];
 }
+
+
+
 
 -(UILabel*)holderLabel
 {

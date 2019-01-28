@@ -13,6 +13,7 @@
 #import "WYCommentModel.h"
 #import "WYMoreView.h"
 #import "NSString+Extension.h"
+#import <IQKeyboardManager.h>
 @interface WYCommentController ()<UITableViewDelegate,UITableViewDataSource,WYCommentToolBarDelegate,WYCommentHeaderDelegate>
 
 
@@ -41,13 +42,16 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [IQKeyboardManager sharedManager].enable = NO;
 
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
+    [IQKeyboardManager sharedManager].enable = YES;
+
 }
 
 - (void)viewDidLoad {
@@ -98,6 +102,7 @@
         return;
     }
 
+    self.headerView.userInteractionEnabled = YES;
     // 1.键盘弹出需要的时间
     CGFloat duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
  
@@ -113,6 +118,8 @@
  */
 - (void)keyboardWillShow:(NSNotification *)note
 {
+    
+    self.headerView.userInteractionEnabled = NO;
     // 1.键盘弹出需要的时间
     CGFloat duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     
@@ -123,6 +130,7 @@
         CGRect keyboardF = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
         CGFloat keyboardH = keyboardF.size.height;
         self.toolBar.transform = CGAffineTransformMakeTranslation(0, - keyboardH);
+    
     }];
 }
 
@@ -183,7 +191,6 @@
         
         CGRect rect  = CGRectMake(KScreenWidth/2-52, 121, 104, 80);
         [self showNoDataView:self.view noDataString:@"暂无数据" noDataImage:@"default_nodata" imageViewFrame:rect];
-        
         [_noDataView setContentViewFrame:CGRectMake(0, 108, KScreenWidth, KScreenHeight-108-54)];
     }
     

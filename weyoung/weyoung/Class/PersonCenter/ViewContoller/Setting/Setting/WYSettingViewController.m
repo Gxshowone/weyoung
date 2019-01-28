@@ -163,6 +163,19 @@
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * _Nonnull action) {
                                                                
+                                                               
+                                                               NSDictionary * dict = @{@"interface":@"Login@logout"};
+                                                               WYHttpRequest *request = [[WYHttpRequest alloc]init];
+                                                               [request requestWithPragma:dict showLoading:NO];
+                                                               request.successBlock = ^(id  _Nonnull response) {
+                                                            
+                                                               };
+                                                               
+                                                               request.failureDataBlock = ^(id  _Nonnull error) {
+                                                                   
+                                                               };
+                                                               
+                                                               
                                                                [[WYSession sharedSession] removeUserInfo];
                                                                [[WYSession sharedSession] disconnectRc];
                                                                

@@ -14,6 +14,7 @@
 #import "WYAssets.h"
 #import "WYDynamicModel.h"
 #import "NSString+Extension.h"
+
 @interface WYComposeViewController ()<UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic , strong) WYTextView *textView;
