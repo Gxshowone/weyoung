@@ -10,6 +10,7 @@
 #import "WYLayout.h"
 NS_ASSUME_NONNULL_BEGIN
 
+
 @interface WYDynamicModel : NSObject
 
 @property(nonatomic,copy)NSString * image;

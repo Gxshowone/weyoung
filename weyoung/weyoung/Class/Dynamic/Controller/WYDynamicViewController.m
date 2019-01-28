@@ -294,7 +294,12 @@ static NSString * const cacheKey = @"WYALLDynamicList";
       
     };
 }
-
+-(void)gotoOtherCenter:(WYDynamicModel*)model
+{
+    if (self.delegate) {
+        [self.delegate gotoOtherCenter:model];
+    }
+}
 
 -(UITableView*)tableView
 {

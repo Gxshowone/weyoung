@@ -9,7 +9,7 @@
 #import "WYLikeViewController.h"
 #import "WYLikeTableViewCell.h"
 #import "WYCommonMessage.h"
-
+#import "WYCommentController.h"
 @interface WYLikeViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView * tableView;
@@ -179,7 +179,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
- 
+    WYLikeMessage * model = self.dataArray[indexPath.row];
+    
+    WYCommentController * commentVc = [[WYCommentController alloc]init];
+    commentVc.d_id = model.d_id;
+    [self.navigationController pushViewController:commentVc animated:YES];
 }
 
 -(UITableView*)tableView

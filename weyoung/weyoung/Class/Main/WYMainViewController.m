@@ -20,6 +20,7 @@
 #import "WYSignView.h"
 #import "WYExcessiveView.h"
 #import "NSString+Extension.h"
+#import "WYOtherPersonalViewController.h"
 @interface WYMainViewController ()<UIScrollViewDelegate,WYMainViewControllerDelegate,WYSignViewDelegate,UINavigationControllerDelegate>
 {
     WYDynamicViewController * dyVc;
@@ -148,6 +149,9 @@
     //如果是单聊，不显示发送方昵称
      _conversationVC.displayUserNameInCell = NO;
     _conversationVC.isFriend = NO;
+    
+    //在push动画之前设置动画代理
+    self.navigationController.delegate = _conversationVC;
     [self.navigationController pushViewController:_conversationVC animated:YES];
      
 }
@@ -181,6 +185,12 @@
     [self.navigationController pushViewController:commentVc animated:YES];
 }
 
+-(void)gotoOtherCenter:(WYDynamicModel *)model
+{
+    WYOtherPersonalViewController * otherVC = [[WYOtherPersonalViewController alloc]init];
+    otherVC.uid = model.uid;
+    [self.navigationController pushViewController:otherVC animated:YES];
+}
 
 - (NSDate *)getCustomDateWithHour:(NSInteger)hour
 

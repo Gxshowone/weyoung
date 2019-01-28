@@ -105,6 +105,12 @@
 		D23AE91621DCEED300D79007 /* WYCommentHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = D23AE91521DCEED300D79007 /* WYCommentHeader.m */; };
 		D26037AB21CE225E007CF066 /* WYReportCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D26037AA21CE225E007CF066 /* WYReportCollectionViewCell.m */; };
 		D2775D2D21D356EB001C4659 /* WYMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2775D2C21D356EB001C4659 /* WYMainViewController.m */; };
+		D278839721FED25C009D3E9A /* WYOtherPersonalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D278839621FED25C009D3E9A /* WYOtherPersonalViewController.m */; };
+		D278839D21FED312009D3E9A /* WYOtherPersonHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = D278839C21FED312009D3E9A /* WYOtherPersonHeader.m */; };
+		D27883A021FED340009D3E9A /* WYUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D278839F21FED340009D3E9A /* WYUserModel.m */; };
+		D27883A421FEEE2B009D3E9A /* WYConversationAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = D27883A321FEEE2B009D3E9A /* WYConversationAnimation.m */; };
+		D27883A521FEF4AD009D3E9A /* WYConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D224B2DA21CCC56300AF6330 /* WYConversationViewController.m */; };
+		D27883AA21FF056A009D3E9A /* flight_end.json in Resources */ = {isa = PBXBuildFile; fileRef = D27883A921FF056A009D3E9A /* flight_end.json */; };
 		D283594E21D4B42500C6EB76 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = D283594B21D4B42500C6EB76 /* GTMBase64.m */; };
 		D283595121D4B43200C6EB76 /* NSString+AES.m in Sources */ = {isa = PBXBuildFile; fileRef = D283594F21D4B43200C6EB76 /* NSString+AES.m */; };
 		D283595821D4D30900C6EB76 /* WYCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D283595721D4D30900C6EB76 /* WYCommentViewController.m */; };
@@ -348,6 +354,15 @@
 		D2775D2B21D356EB001C4659 /* WYMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYMainViewController.h; sourceTree = "<group>"; };
 		D2775D2C21D356EB001C4659 /* WYMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYMainViewController.m; sourceTree = "<group>"; };
 		D2775D3221D3798E001C4659 /* WYMainViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYMainViewControllerDelegate.h; sourceTree = "<group>"; };
+		D278839521FED25C009D3E9A /* WYOtherPersonalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYOtherPersonalViewController.h; sourceTree = "<group>"; };
+		D278839621FED25C009D3E9A /* WYOtherPersonalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYOtherPersonalViewController.m; sourceTree = "<group>"; };
+		D278839B21FED312009D3E9A /* WYOtherPersonHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYOtherPersonHeader.h; sourceTree = "<group>"; };
+		D278839C21FED312009D3E9A /* WYOtherPersonHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYOtherPersonHeader.m; sourceTree = "<group>"; };
+		D278839E21FED340009D3E9A /* WYUserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYUserModel.h; sourceTree = "<group>"; };
+		D278839F21FED340009D3E9A /* WYUserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYUserModel.m; sourceTree = "<group>"; };
+		D27883A221FEEE2B009D3E9A /* WYConversationAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYConversationAnimation.h; sourceTree = "<group>"; };
+		D27883A321FEEE2B009D3E9A /* WYConversationAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYConversationAnimation.m; sourceTree = "<group>"; };
+		D27883A921FF056A009D3E9A /* flight_end.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = flight_end.json; sourceTree = "<group>"; };
 		D283594B21D4B42500C6EB76 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
 		D283594C21D4B42500C6EB76 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		D283594D21D4B42500C6EB76 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
@@ -814,6 +829,7 @@
 		D224B2D821CCC53A00AF6330 /* Conversation */ = {
 			isa = PBXGroup;
 			children = (
+				D27883A121FEEE11009D3E9A /* Animation */,
 				D212A90F21CE0E23004D3DC0 /* View */,
 				D212A90E21CE0E17004D3DC0 /* Controller */,
 			);
@@ -856,6 +872,7 @@
 		D22E375021E5F20100292FB3 /* Res */ = {
 			isa = PBXGroup;
 			children = (
+				D27883A921FF056A009D3E9A /* flight_end.json */,
 				D22FFBD621F18D92003F565B /* flight.json */,
 				D229525221F06D3400EA73D3 /* first_wait_x.json */,
 				D229525321F06D3500EA73D3 /* first_walk_x.json */,
@@ -1055,6 +1072,52 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		D278839421FED234009D3E9A /* OtherPerson */ = {
+			isa = PBXGroup;
+			children = (
+				D278839A21FED2F6009D3E9A /* Model */,
+				D278839921FED2EE009D3E9A /* View */,
+				D278839821FED2E4009D3E9A /* Controller */,
+			);
+			path = OtherPerson;
+			sourceTree = "<group>";
+		};
+		D278839821FED2E4009D3E9A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D278839521FED25C009D3E9A /* WYOtherPersonalViewController.h */,
+				D278839621FED25C009D3E9A /* WYOtherPersonalViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		D278839921FED2EE009D3E9A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D278839B21FED312009D3E9A /* WYOtherPersonHeader.h */,
+				D278839C21FED312009D3E9A /* WYOtherPersonHeader.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D278839A21FED2F6009D3E9A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D278839E21FED340009D3E9A /* WYUserModel.h */,
+				D278839F21FED340009D3E9A /* WYUserModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D27883A121FEEE11009D3E9A /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				D27883A221FEEE2B009D3E9A /* WYConversationAnimation.h */,
+				D27883A321FEEE2B009D3E9A /* WYConversationAnimation.m */,
+			);
+			path = Animation;
+			sourceTree = "<group>";
+		};
 		D283594A21D4B41A00C6EB76 /* GTM */ = {
 			isa = PBXGroup;
 			children = (
@@ -1213,6 +1276,7 @@
 		D2D7107621B9403200D78746 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				D278839421FED234009D3E9A /* OtherPerson */,
 				D283595321D4D2B600C6EB76 /* Message */,
 				D2775D2A21D356DB001C4659 /* Main */,
 				D224B2D821CCC53A00AF6330 /* Conversation */,
@@ -1415,6 +1479,7 @@
 				D2237BCD21ED93CE002A11B9 /* first_wait.json in Resources */,
 				D22AF87F21BF6EEC0004405B /* WSDatePickerView.xib in Resources */,
 				D2D7104321B9334900D78746 /* Main.storyboard in Resources */,
+				D27883AA21FF056A009D3E9A /* flight_end.json in Resources */,
 				D2237BC921ED93CE002A11B9 /* first_walk.json in Resources */,
 				D22FFBD721F18D92003F565B /* flight.json in Resources */,
 				D229525521F06D3500EA73D3 /* first_walk_x.json in Resources */,
@@ -1537,6 +1602,7 @@
 				D283595121D4B43200C6EB76 /* NSString+AES.m in Sources */,
 				D230315421DDED1700E0DBF2 /* WYCommentToolBar.m in Sources */,
 				D224039C21BBB10200001B83 /* WYEditViewController.m in Sources */,
+				D278839721FED25C009D3E9A /* WYOtherPersonalViewController.m in Sources */,
 				D22F08E721E7241500FE9331 /* WYMessageNaviBar.m in Sources */,
 				D283595B21D4D31500C6EB76 /* WYLikeViewController.m in Sources */,
 				D230B83321CE45EE004BC2F2 /* WYMoreCollectionViewCell.m in Sources */,
@@ -1561,6 +1627,7 @@
 				D23AE91021DCB9A200D79007 /* WYComposeToolBar.m in Sources */,
 				D230314B21DDC5D700E0DBF2 /* WYCopyLabel.m in Sources */,
 				D23AE90D21DCB84B00D79007 /* WYAssets.m in Sources */,
+				D278839D21FED312009D3E9A /* WYOtherPersonHeader.m in Sources */,
 				D23AE90121DCB66400D79007 /* WYComposeViewController.m in Sources */,
 				D23AE8E721DC8CCB00D79007 /* WYDynamicTableViewCell.m in Sources */,
 				D229B79D21CA1EF1006BCD39 /* WYCodeInputView.m in Sources */,
@@ -1577,6 +1644,7 @@
 				D230315721DE375E00E0DBF2 /* WYCommentTableViewCell.m in Sources */,
 				D224B2DB21CCC56300AF6330 /* WYConversationViewController.m in Sources */,
 				D22BDF1421C7D2CD002269AC /* WYDynamicViewController.m in Sources */,
+				D27883A421FEEE2B009D3E9A /* WYConversationAnimation.m in Sources */,
 				D23AE90A21DCB7FC00D79007 /* WYComposeCollectionViewCell.m in Sources */,
 				D22AF87E21BF6EEC0004405B /* WSDatePickerView.m in Sources */,
 				D230B83721CE5AFB004BC2F2 /* WYFriendViewController.m in Sources */,
@@ -1599,6 +1667,7 @@
 				D22F08F621E77E3A00FE9331 /* WYCommonMessage.m in Sources */,
 				D22596C121E9E57800580C0D /* WYChatListTableViewCell.m in Sources */,
 				D23AE8FD21DCA5D900D79007 /* HZPhotoBrowserView.m in Sources */,
+				D27883A021FED340009D3E9A /* WYUserModel.m in Sources */,
 				D222AB8821DF2FFC004ADFD8 /* WYMyDynamicTableViewCell.m in Sources */,
 				D224039621BBA77100001B83 /* WYGradientButton.m in Sources */,
 				D22BDF0021C76B09002269AC /* AppDelegate+RongCloud.m in Sources */,
@@ -1648,6 +1717,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2D7105521B9334B00D78746 /* weyoungTests.m in Sources */,
+				D27883A521FEF4AD009D3E9A /* WYConversationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic ,strong) WYDynamicModel * model;
 
+@property (nonatomic,strong)NSString * d_id;
 
 @end
 

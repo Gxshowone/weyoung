@@ -235,7 +235,7 @@
         _titleLabel.frame = CGRectMake(100, KNaviBarSafeBottomMargin+20,KScreenWidth-200, 44);
         _titleLabel.textColor = [UIColor whiteColor];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
-        _titleLabel.font = [UIFont fontWithName:TextFontName size:16];
+        _titleLabel.font = [UIFont fontWithName:TextFontName size:18];
         _titleLabel.adjustsFontSizeToFitWidth =YES;
         _titleLabel.minimumScaleFactor = 0.4;
     }

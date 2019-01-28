@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)moreDynamic:(WYDynamicModel*)model;
 -(void)likeDynamic:(WYDynamicModel*)model;
-
+-(void)gotoOtherCenter:(WYDynamicModel*)model;
 
 @end
 @interface WYCommentHeader : UIView

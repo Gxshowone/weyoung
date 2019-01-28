@@ -229,19 +229,15 @@
 
         }else
         {
+        
             WYMatchUserModel * model = [WYMatchUserModel mj_objectWithKeyValues:response];
             
             //缓存数据
             RCUserInfo * userInfo = [[RCUserInfo alloc] initWithUserId:model.uid name:model.nick_name portrait:model.header_url];
             
             [[WYDataBaseManager shareInstance] insertUserToDB:userInfo];
-            
-            
-            if(self.delegate&&[self.delegate respondsToSelector:@selector(conversation:)])
-            {
-                [self.delegate conversation:model];
-            }
-            
+    
+            [self matchSussces:model];
         }
     
 
@@ -255,6 +251,17 @@
         [self childWait];
 
     };
+}
+
+-(void)matchSussces:(WYMatchUserModel*)model
+{
+ 
+    
+    if(self.delegate&&[self.delegate respondsToSelector:@selector(conversation:)])
+    {
+        [self.delegate conversation:model];
+    }
+    
 }
 
 -(void)gotoDynamic

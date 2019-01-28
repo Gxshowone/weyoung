@@ -9,6 +9,7 @@
 #import "WYCommentViewController.h"
 #import "WYCommentTableViewCell.h"
 #import "WYCommonMessage.h"
+#import "WYCommentController.h"
 @interface WYCommentViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView * tableView;
@@ -181,7 +182,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"[gx] goto chat");
+    WYCommonMessage * model = self.dataArray[indexPath.row];
+    WYCommentController * commentVc = [[WYCommentController alloc]init];
+    commentVc.d_id = model.d_id;
+    [self.navigationController pushViewController:commentVc animated:YES];
 }
 
 -(UITableView*)tableView

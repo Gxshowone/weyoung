@@ -199,7 +199,7 @@
         [self startTimer];
     }else
     {
-        [self.timerButton setTitle:@"解除好友" forState:UIControlStateNormal];
+        [self.timerButton setTitle:@"" forState:UIControlStateNormal];
     }
 }
 

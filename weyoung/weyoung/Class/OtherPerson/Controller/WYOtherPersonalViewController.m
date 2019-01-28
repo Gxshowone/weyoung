@@ -1,36 +1,36 @@
+
+
 //
-//  WYPersonCenterController.m
+//  WYOtherPersonalViewController.m
 //  weyoung
 //
-//  Created by gongxin on 2018/12/8.
-//  Copyright © 2018 SouYu. All rights reserved.
+//  Created by gongxin on 2019/1/28.
+//  Copyright © 2019 SouYu. All rights reserved.
 //
 
-#import "WYPersonCenterController.h"
-#import "WYPersonCenterHeaderView.h"
+#import "WYOtherPersonalViewController.h"
+#import "WYOtherPersonHeader.h"
 #import "WYMyDynamicTableViewCell.h"
 #import "WYMYDynamicModel.h"
-@interface WYPersonCenterController ()<UITableViewDelegate,UITableViewDataSource>
+#import "WYUserModel.h"
+@interface WYOtherPersonalViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView * tableView;
-@property(nonatomic,strong)WYPersonCenterHeaderView * headerView;
+@property(nonatomic,strong)WYOtherPersonHeader * headerView;
 @property(nonatomic,strong)NSMutableArray * dataArray;
-@property(nonatomic,strong)UIButton * messageButton;
-@property(nonatomic,strong)UIView       * pointView;
 @property(nonatomic,assign)int page;
 
 
 @end
-@implementation WYPersonCenterController
 
+@implementation WYOtherPersonalViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
+    
     [self setNavigationConfig];
     [self.view addSubview:self.tableView];
-    [self addNotification];
     [self retryToGetData];
 }
 
@@ -43,89 +43,31 @@
 -(void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    
-    self.pointView.frame = CGRectMake(KScreenWidth-70, 30+KNaviBarSafeBottomMargin, 9, 9);
-    self.messageButton.frame = CGRectMake(KScreenWidth-100, 20+KNaviBarSafeBottomMargin, 48,50);
     self.headerView.frame =CGRectMake(0, 0, KScreenWidth, 231);
 }
 
--(void)addNotification
-{
-    @weakify(self);
-    [[[NSNotificationCenter defaultCenter]rac_addObserverForName:WYComposeSusscess object:nil] subscribeNext:^(id x) {
-        @strongify(self);
-        
-        WYDynamicModel * model = (WYDynamicModel *)[x object];
-        [self.dataArray insertObject:model atIndex:0];
-        [self.tableView reloadData];
-        
-    }];
-    
-    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:WYUnreadMessageUpdate object:nil]
-     subscribeNext:^(id x) {
-         @strongify(self);
-         
-         [self checkUnreadMessage];
-     }];
-    
-    
-}
+
 -(void)setNavigationConfig
 {
     
     [[self.leftButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-       
-        [self gotoHomePage];
+        
+        [self.navigationController popViewControllerAnimated:YES];
     }];
 
-    [self.rightButton setImage:[UIImage imageNamed:@"navi_setting_btn"] forState:UIControlStateNormal];
-   
-    [[self.rightButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x)
-       {
-        
-        if(self.delegate&&[self.delegate respondsToSelector:@selector(setting)])
-        {
-            [self.delegate setting];
-        }
-     
-    }];
-    
-    [self.customNavigationBar addSubview:self.messageButton];
-    [self.customNavigationBar addSubview:self.pointView];
-    [self checkUnreadMessage];
+  
 }
 
--(void)checkUnreadMessage
+-(void)getUserInfo:(NSString*)userId
 {
-    
-    int totalUnreadCount = [[RCIMClient sharedRCIMClient] getTotalUnreadCount];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        // UI更新代码
-        self.pointView.hidden = (totalUnreadCount==0)?YES:NO;
-        
-    });
-}
-
--(void)gotoHomePage
-{
-    if (self.delegate&&[self.delegate respondsToSelector:@selector(scrollToIndex:)]) {
-        [self.delegate scrollToIndex:1];
-    }
-   
-}
-
--(void)getUserInfo
-{
-    NSDictionary * dict = @{@"interface":@"User@getUserInfo"};
+    NSDictionary * dict = @{@"interface":@"User@getUserInfo",@"check_uid":userId};
     WYHttpRequest *request = [[WYHttpRequest alloc]init];
     [request requestWithPragma:dict showLoading:NO];
     request.successBlock = ^(id  _Nonnull response) {
         
-        WYSession * session = [WYSession sharedSession];
-        [session updateUser:response];
-
-        [self.headerView reload];
+        WYUserModel * user = [WYUserModel mj_objectWithKeyValues:response];
+        self.headerView.model = user;
+    
     };
     
     request.failureDataBlock = ^(id  _Nonnull error) {
@@ -166,7 +108,7 @@
         }
         
         [self stopLoadData];
-       // [self nodata];
+        // [self nodata];
         [self nomoredata:modelArray];
         
     };
@@ -221,7 +163,7 @@
     
     [self requestDataWithType:1];
     
-
+    
 }
 
 
@@ -255,7 +197,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-  
+    
     return 0.01;
 }
 
@@ -275,51 +217,18 @@
     if (!cell) {
         cell = [[WYMyDynamicTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
-  
+    
     cell.model = self.dataArray[indexPath.row];
     
     return cell;
     
 }
 
--(WYPersonCenterHeaderView*)headerView
+-(WYOtherPersonHeader*)headerView
 {
     if (!_headerView) {
-        _headerView = [[WYPersonCenterHeaderView alloc]init];
-        
-         @weakify(self);
-        _headerView.block = ^(NSInteger index) {
-            @strongify(self);
-            switch (index) {
-                case 0:
-                {
-                    if(self.delegate&&[self.delegate respondsToSelector:@selector(edit)])
-                    {
-                        [self.delegate edit];
-                    }
-                }
-                    break;
-                    case 1:
-                {
-                    NSLog(@"dynamic");
-                }
-                    break;
-                    case 2:
-                {
-                    if(self.delegate&&[self.delegate respondsToSelector:@selector(friendList)])
-                    {
-                        [self.delegate friendList];
-                    }
-                }
-                    break;
-                default:
-                    break;
-            }
-            
-            
-        };
-     
-        
+        _headerView = [[WYOtherPersonHeader alloc]init];
+    
     }
     return _headerView;
 }
@@ -348,41 +257,17 @@
             [weakSelf loadMoreData];
             
         }];
-   
+        
     }
     return _tableView;
 }
 
--(UIButton*)messageButton
-{
-    if (!_messageButton) {
-        _messageButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_messageButton setImage:[UIImage imageNamed:@"navi_message_btn"] forState:UIControlStateNormal];
-        
-        @weakify(self);
-        [[_messageButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-            @strongify(self);
-            NSLog(@"[gx] goto message");
-             if(self.delegate)
-             {
-                 [self.delegate message];
-             }
-            
-        }];
-    }
-    return _messageButton;
-}
 
--(UIView*)pointView
+-(void)setUid:(NSString *)uid
 {
-    if (!_pointView) {
-        _pointView = [[UIView alloc]init];
-        _pointView.backgroundColor = [UIColor binaryColor:@"F64F6E"];
-        _pointView.layer.cornerRadius = 4.5;
-        _pointView.layer.masksToBounds = YES;
-        
-    }
-    return _pointView;
+    _uid = uid;
+    
+    [self getUserInfo:uid];
 }
 
 @end

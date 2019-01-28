@@ -117,12 +117,6 @@
          
         }
             break;
-            case 2:
-        {
-            
-            
-        }
-            break;
         default:
             break;
     }
@@ -152,8 +146,8 @@
 {
     _isFriend = isFriend;
     
-    self.titleArray =(isFriend==YES)?@[@"举报",@"拉黑",@"解除好友"]:@[@"举报",@"拉黑"];
-    self.imageArray = (isFriend==YES)?@[@"more_report",@"more_black",@"more_delete"]:@[@"more_report",@"more_black"];
+    self.titleArray =@[@"举报",@"拉黑"];
+    self.imageArray = @[@"more_report",@"more_black"];
     [self.collectionView reloadData];
 }
 
@@ -168,7 +162,7 @@
             break;
             case WYMoreViewType_Conversation:
         {
-            self.titleArray = @[@"举报",@"拉黑",@"解除好友"];
+            self.titleArray = @[@"举报",@"拉黑"];
             self.imageArray = @[@"more_report",@"more_black",@"more_delete"];
         }
             break;

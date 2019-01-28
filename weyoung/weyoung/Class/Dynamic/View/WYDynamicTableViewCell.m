@@ -147,7 +147,18 @@
         _avatarIV = [[UIImageView alloc]init];
         _avatarIV.layer.cornerRadius = 16;
         _avatarIV.layer.masksToBounds = YES;
-        
+        _avatarIV.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+        @weakify(self);
+        [[tap rac_gestureSignal] subscribeNext:^(id x) {
+            NSLog(@"tap");
+            @strongify(self);
+            if (self.delegate) {
+                [self.delegate gotoOtherCenter:self.model];
+            }
+        }];
+
+        [_avatarIV addGestureRecognizer:tap];
     }
     return _avatarIV;
 }

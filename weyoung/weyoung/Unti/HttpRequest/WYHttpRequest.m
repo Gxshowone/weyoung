@@ -15,8 +15,7 @@
 -(void)requestWithPragma:(NSDictionary*)pragma
              showLoading:(BOOL)show
 {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    
+  
     NSString *requestUrl = [NSString stringWithFormat:@"%@",MainURL];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     

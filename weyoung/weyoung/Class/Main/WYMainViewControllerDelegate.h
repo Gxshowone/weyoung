@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)gotoComment:(WYDynamicModel*)model;//评论列表页
 
+-(void)gotoOtherCenter:(WYDynamicModel*)model;
 
 @end
 

@@ -28,19 +28,11 @@
         [self.contentView addSubview:self.userNameLabel];
         [self.contentView addSubview:self.timeStampLabel];
         [self.contentView addSubview:self.contentLabel];
-        
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapComment:)];
-        [self.contentLabel  addGestureRecognizer:tap];
-        
+     
     }
     return self;
 }
 
--(void)tapComment:(UITapGestureRecognizer *)tap{
-    if (self.tapCommentBlock) {
-        self.tapCommentBlock(self, self.model);
-    }
-}
 
 -(void)layoutSubviews
 {
@@ -75,7 +67,17 @@
         _avatarIV = [[UIImageView alloc]init];
         _avatarIV.layer.cornerRadius = 16;
         _avatarIV.layer.masksToBounds = YES;
-        
+        _avatarIV.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+        @weakify(self);
+        [[tap rac_gestureSignal] subscribeNext:^(id x) {
+            NSLog(@"tap");
+            @strongify(self);
+            if (self.tapCommentBlock) {
+                self.tapCommentBlock(self, self.model);
+            }
+        }];
+        [_avatarIV addGestureRecognizer:tap];
     }
     return _avatarIV;
 }

@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-@interface WYConversationViewController : RCConversationViewController
+@interface WYConversationViewController : RCConversationViewController<UINavigationControllerDelegate>
 
 @property(nonatomic,strong)NSString * birthday;
 @property(nonatomic,strong)RCUserInfo * user;

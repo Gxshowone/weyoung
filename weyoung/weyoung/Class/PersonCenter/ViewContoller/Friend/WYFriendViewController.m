@@ -25,16 +25,54 @@
     // Do any additional setup after loading the view.
     [self setNavTitle:@"好友"];
     [self.view addSubview:self.tableView];
-    [self initData];
+    [self getFriendList];
     
 }
 
--(void)initData
+
+
+-(void)getFriendList
 {
     
-    self.dataArray = [NSMutableArray arrayWithArray:[[WYDataBaseManager shareInstance] getAllFriends]];
-    [self.tableView reloadData];
+    NSDictionary * dict=@{@"interface":@"Friend@getFriendList"};
     
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+        NSArray * array  = (NSArray*)response;
+        NSMutableArray * friendList = [NSMutableArray array];
+        
+        for (NSDictionary * dict in array) {
+            
+            WYUserInfo * user = [[WYUserInfo alloc]init];
+            user.userId =  [dict valueForKey:@"uid"];
+            user.name   =  [dict valueForKey:@"nick_name"];
+            user.portraitUri  = [dict valueForKey:@"header_url"];
+            user.brithday  = [dict valueForKey:@"birthday"];
+            user.updatedAt = @"";
+            user.status    = @"0";
+            [friendList addObject:user];
+            
+        }
+        
+        [self saveFriend:friendList];
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+    };
+}
+
+-(void)saveFriend:(NSMutableArray*)firendList
+{
+    [[WYDataBaseManager shareInstance] insertFriendListToDB:firendList complete:^(BOOL result) {
+        
+    }];
+    
+    self.dataArray = firendList;
+    [self.tableView reloadData];
+
 }
 
 

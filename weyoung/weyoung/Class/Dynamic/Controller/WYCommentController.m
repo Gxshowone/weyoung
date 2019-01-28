@@ -14,6 +14,7 @@
 #import "WYMoreView.h"
 #import "NSString+Extension.h"
 #import <IQKeyboardManager.h>
+#import "WYOtherPersonalViewController.h"
 @interface WYCommentController ()<UITableViewDelegate,UITableViewDataSource,WYCommentToolBarDelegate,WYCommentHeaderDelegate>
 
 
@@ -288,6 +289,13 @@
 
     cell.model = self.dataArray[indexPath.row];
     
+    @weakify(self);
+    cell.tapCommentBlock = ^(WYCommentCell * _Nonnull cell, WYCommentModel * _Nonnull model) {
+        @strongify(self);
+        WYOtherPersonalViewController * otherVC = [[WYOtherPersonalViewController alloc]init];
+        otherVC.uid = model.uid;
+        [self.navigationController pushViewController:otherVC animated:YES];
+    };
     return cell;
     
 }
@@ -298,6 +306,14 @@
     [self.toolBar beginEdit];
     self.commonMaster = NO;
 }
+
+-(void)gotoOtherCenter:(WYDynamicModel*)model
+{
+    WYOtherPersonalViewController * otherVC = [[WYOtherPersonalViewController alloc]init];
+    otherVC.uid = model.uid;
+    [self.navigationController pushViewController:otherVC animated:YES];
+}
+
 
 
 -(void)moreDynamic:(WYDynamicModel*)model
@@ -413,6 +429,23 @@
     self.headerView.height = model.rowHeight+60;
     [self retryToGetData];
     
+}
+
+-(void)setD_id:(NSString *)d_id
+{
+    _d_id = d_id;
+    NSDictionary * dict =@{@"interface":@"Dynamic@getDynamicDetail",@"d_id":d_id};
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+     
+        WYDynamicModel * model = [WYDynamicModel mj_objectWithKeyValues:response];
+        self.model = model;
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+   
+    };
 }
 
 -(WYMoreView*)moreView

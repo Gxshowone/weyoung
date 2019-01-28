@@ -14,10 +14,13 @@
 
 #import "WYMatchingSusscesView.h"
 #import "WYMatchingFailureView.h"
+#import "WYConversationAnimation.h"
 #define kInputBarHeight 49.5
 
-@interface WYConversationViewController ()<WYConversationBarDelegate,WYApplyViewDelegate,WYMatchingFailureViewDelegate>
+@interface WYConversationViewController ()<WYConversationBarDelegate,WYApplyViewDelegate,WYMatchingFailureViewDelegate,UIViewControllerTransitioningDelegate>
 
+//手势过渡转场
+@property (nonatomic, strong) WYConversationAnimation * transition;
 @property(nonatomic,strong)WYConversationBar * navigationBar;
 @property(nonatomic,strong)WYApplyView * applyView;
 @property(nonatomic,strong)WYMatchingSusscesView* susscesView;
@@ -69,6 +72,7 @@
     self.view.backgroundColor = [UIColor blackColor];
     self.conversationMessageCollectionView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:self.navigationBar];
+    
 }
 
 - (void)willDisplayMessageCell:(RCMessageBaseCell *)cell
@@ -100,15 +104,15 @@
 {
     [self.susscesView show];
     
-    WYUserInfo * user = [[WYUserInfo alloc]init];
-    user.userId = self.user.userId;
-    user.brithday = self.birthday;
-    user.name = self.user.name;
-    user.portraitUri = self.user.portraitUri;
-    user.status = @"";
-    user.updatedAt = @"";
-    [[WYDataBaseManager shareInstance] insertFriendToDB:user];
-    
+//    WYUserInfo * user = [[WYUserInfo alloc]init];
+//    user.userId = self.user.userId;
+//    user.brithday = self.birthday;
+//    user.name = self.user.name;
+//    user.portraitUri = self.user.portraitUri;
+//    user.status = @"";
+//    user.updatedAt = @"";
+//    [[WYDataBaseManager shareInstance] insertFriendToDB:user];
+//
 }
 
 -(void)addFriendFail
@@ -181,6 +185,44 @@
 {
     _user = user;
     [self.navigationBar setMoreUser:user];
+}
+
+#pragma mark -- UINavigationControllerDelegate
+
+//返回处理push/pop动画过渡的对象
+- (nullable id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                            animationControllerForOperation:(UINavigationControllerOperation)operation
+                                                         fromViewController:(UIViewController *)fromVC
+                                                           toViewController:(UIViewController *)toVC{
+    
+    if (operation == UINavigationControllerOperationPush) {
+        self.transition.transitionType = WYLTransitionOneTypePush;
+        return self.transition;
+    }else if (operation == UINavigationControllerOperationPop){
+        self.transition.transitionType = WYLTransitionOneTypePop;
+    }
+    return self.transition;
+}
+
+//返回处理push/pop手势过渡的对象 这个代理方法依赖于上方的方法 ，这个代理实际上是根据交互百分比来控制上方的动画过程百分比
+- (nullable id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
+                                   interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController{
+    
+    return nil;
+}
+
+- (WYConversationAnimation *)transition{
+    
+    if (_transition == nil) {
+        _transition = [[WYConversationAnimation alloc] init];
+        self.transitioningDelegate = self;
+    }
+    return _transition;
+}
+
+
+- (void)viewDidDisappear:(BOOL)animated{
+    self.navigationController.delegate = nil;
 }
 
 @end
