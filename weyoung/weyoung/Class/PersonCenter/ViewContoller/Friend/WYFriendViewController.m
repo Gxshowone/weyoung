@@ -42,7 +42,7 @@
         
         NSArray * array  = (NSArray*)response;
         NSMutableArray * friendList = [NSMutableArray array];
-        
+        NSMutableArray * idList = [NSMutableArray array];
         for (NSDictionary * dict in array) {
             
             WYUserInfo * user = [[WYUserInfo alloc]init];
@@ -53,9 +53,11 @@
             user.updatedAt = @"";
             user.status    = @"0";
             [friendList addObject:user];
-            
+            [idList addObject: [dict valueForKey:@"uid"]];
         }
         
+        [WYSession sharedSession].friendArray = idList;
+      
         [self saveFriend:friendList];
     };
     
@@ -160,6 +162,12 @@
 {
     NSString * to_uid = [NSString stringWithFormat:@"%@",model.userId];
     [[WYDataBaseManager shareInstance] deleteFriendFromDB:to_uid];
+    
+    NSMutableArray * array = [[WYSession sharedSession].friendArray mutableCopy];
+    if ([array containsObject:model.userId]) {
+        [array removeObject:model.userId];
+    }
+    [WYSession sharedSession].friendArray = array;
     
     NSDictionary * dict=@{@"interface":@"Friend@delFriend",@"to_uid":to_uid};
     WYHttpRequest *request = [[WYHttpRequest alloc]init];

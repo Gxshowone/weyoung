@@ -34,9 +34,8 @@
     //停止loading
     [self hideNoNetWorkView];
     [self hideNoDataView];
-    
-    NSString * pageStr = [NSString stringWithFormat:@"%d",_page];
-    NSDictionary * dict=@{@"page":pageStr,@"interface":@"Dynamic@getMineCommentList",@"type":@"2"};
+
+    NSDictionary * dict=@{@"interface":@"Dynamic@getMineCommentList",@"type":@"2"};
     
     
     WYHttpRequest *request = [[WYHttpRequest alloc]init];
@@ -102,7 +101,6 @@
 {
     
     [_tableView.mj_header endRefreshing];
-    [_tableView.mj_footer endRefreshing];
     [_tableView reloadData];
     
 }
@@ -201,13 +199,7 @@
         _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             [weakSelf retryToGetData];
         }];
-        
-        _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-            
-            [weakSelf loadMoreData];
-            
-        }];
-    
+ 
         [_tableView.mj_header beginRefreshing];
     }
     return _tableView;

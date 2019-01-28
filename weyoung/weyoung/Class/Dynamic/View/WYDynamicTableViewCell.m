@@ -60,8 +60,7 @@
     self.jggView.dataSource = @[image];
 
     [self setIsLike:model.praise_count];
-    
-    self.friendLabel.hidden = YES;
+
     
     self.messageTextLabel.attributedText = model.attributedText;
     self.messageTextLabel.frame = model.textLayout.frameLayout;
@@ -73,6 +72,8 @@
    
     
     self.sepLine.frame = CGRectMake(20, CGRectGetMaxY(self.jggView.frame)+20, KScreenWidth-20, 1);
+    
+    self.friendLabel.hidden = ([[WYSession sharedSession].friendArray containsObject:model.uid])?NO:YES;
     
 }
 

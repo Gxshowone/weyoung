@@ -68,6 +68,9 @@ NS_ASSUME_NONNULL_BEGIN
 //容云token
 @property(nonatomic,copy)NSString * rc_token;
 
+@property(nonatomic,copy)NSMutableArray * friendArray;
+@property(nonatomic,copy)NSMutableArray * likeArray;
+
 -(void)loginUser:(NSDictionary*)dict
            phone:(NSString*)phone;
 

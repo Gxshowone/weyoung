@@ -194,7 +194,7 @@
     self.textView = textView;
     
     // 2.设置提醒文字
-    textView.placeholder = @"记录页面的美好...";
+    textView.placeholder = @"记录夜晚的美好...";
     
     // 3.设置字体
     textView.font = [UIFont systemFontOfSize:15];

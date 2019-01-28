@@ -30,6 +30,9 @@ static NSString *const kSessionRcToken = @"kSessionRcToken";
 static NSString *const kSessionDynamicCount = @"kSessionDynamicCount";
 static NSString *const kSessionFriendCount = @"kSessionFriendCount";
 
+static NSString *const kSessionFriendList = @"kSessionFriendList";
+
+static NSString *const kSessionLikeList= @"kSessionLikeList";
 
 static WYSession *sharedManager=nil;
 
@@ -104,7 +107,7 @@ static WYSession *sharedManager=nil;
         
         NSArray * array  = (NSArray*)response;
         NSMutableArray * friendList = [NSMutableArray array];
-        
+        NSMutableArray * idList = [NSMutableArray array];
         for (NSDictionary * dict in array) {
         
             WYUserInfo * user = [[WYUserInfo alloc]init];
@@ -115,9 +118,11 @@ static WYSession *sharedManager=nil;
             user.updatedAt = @"";
             user.status    = @"0";
             [friendList addObject:user];
-            
+        
+            [idList addObject: [dict valueForKey:@"uid"]];
         }
         
+        self.friendArray = idList;
         [self saveFriend:friendList];
     };
     
@@ -126,11 +131,18 @@ static WYSession *sharedManager=nil;
     };
 }
 
+
+
 -(void)saveFriend:(NSMutableArray*)firendList
 { 
     [[WYDataBaseManager shareInstance] insertFriendListToDB:firendList complete:^(BOOL result) {
         
     }];
+}
+
+-(void)getlikeList
+{
+    
 }
 
 -(void)connectRc
@@ -227,8 +239,6 @@ static WYSession *sharedManager=nil;
 }
 
 #pragma mark set
-
-
 -(void)setPassWord:(NSString *)passWord
 {
     [self setValue:passWord forKey:kSessionPassWord];
@@ -316,10 +326,18 @@ static WYSession *sharedManager=nil;
 {
     [self setIntegerValue:friend_count forkey:kSessionFriendCount];
 }
+-(void)setFriendArray:(NSMutableArray *)friendArray
+{
+    [self setValue:friendArray forKey:kSessionFriendList];
+}
+
+-(void)setLikeArray:(NSMutableArray *)likeArray
+{
+    [self setValue:likeArray forKey:kSessionLikeList];
+}
+
 
 #pragma mark get
-
-
 
 -(NSString*)passWord
 {
@@ -414,6 +432,16 @@ static WYSession *sharedManager=nil;
     return [self getIntegerValue:kSessionFriendCount];
 }
 
+-(NSMutableArray*)friendArray
+{
+    return [self getValueForKey:kSessionFriendList];
+}
+
+-(NSMutableArray*)likeArray
+{
+    return [self getValueForKey:kSessionLikeList];
+}
+
 #pragma mark - islogin
 - (BOOL)isLogin{
     
@@ -475,10 +503,12 @@ static WYSession *sharedManager=nil;
     [self removeObjectForKey:kSessionAvatar];
     [self removeObjectForKey:kSessionNickName];
     [self removeObjectForKey:kSessionSex];
+    [self removeObjectForKey:kSessionFriendList];
+    [self removeObjectForKey:kSessionLikeList];
     [[RCIM sharedRCIM] disconnect];
     [[WYDataBaseManager shareInstance] clearFriendsData];
     [[WYDataBaseManager shareInstance] clearBlackListData];
-    
+
 }
 
 -(void)disconnectRc
@@ -492,5 +522,6 @@ static WYSession *sharedManager=nil;
     RCConnectionStatus status = [[RCIMClient sharedRCIMClient] getConnectionStatus];
     return (ConnectionStatus_Connected == status);
 }
+
 
 @end
