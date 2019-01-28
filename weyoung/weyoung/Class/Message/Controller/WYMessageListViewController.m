@@ -48,22 +48,14 @@
     self.conversationListTableView.backgroundColor = [UIColor clearColor];
     self.conversationListTableView.tableHeaderView = self.headerView;
     self.conversationListTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
     self.emptyConversationView.alpha = 0.0;
 }
 
 -(void)setConversationType
 {
     //设置需要显示哪些类型的会话
-    [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE),
-                                        @(ConversationType_DISCUSSION),
-                                        @(ConversationType_CHATROOM),
-                                        @(ConversationType_GROUP),
-                                        @(ConversationType_APPSERVICE),
-                                        @(ConversationType_SYSTEM)]];
-    //设置需要将哪些类型的会话在会话列表中聚合显示
-    [self setCollectionConversationType:@[@(ConversationType_DISCUSSION),
-                                          @(ConversationType_GROUP)]];
+    [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE)]];
+ 
 }
 
 -(CGFloat)rcConversationListTableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -130,7 +122,18 @@
     switch (indexPath.row) {
         case 0:
         {
-            
+//              WYConversationViewController *_conversationVC = [[WYConversationViewController alloc] init];
+//            _conversationVC.conversationType = model.conversationType;
+//            _conversationVC.targetId = model.targetId;
+//            _conversationVC.userName = model.conversationTitle;
+//            _conversationVC.title = model.conversationTitle;
+//            _conversationVC.conversation = model;
+//            _conversationVC.unReadMessage = model.unreadMessageCount;
+//            _conversationVC.enableNewComingMessageIcon = YES; //开启消息提醒
+//            _conversationVC.enableUnreadMessageIcon = YES;
+//            _conversationVC.userName = @"未央";
+//            _conversationVC.title = @"未央";
+//            [self.navigationController pushViewController:_conversationVC animated:YES];
         }
             break;
             case 1:

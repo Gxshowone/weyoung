@@ -35,6 +35,17 @@
     return self;
 }
 
+-(void)addNotification
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(update) name:WYSYSTEMMESSAGE object:nil];
+   
+}
+
+-(void)updatNotification:(NSNotification *)note
+{
+    
+}
+
 -(void)setData
 {
     NSDictionary * weiyang = @{@"image":@"message_weiyang",@"title":@"未央"};

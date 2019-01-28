@@ -83,21 +83,7 @@
         @weakify(self);
         [[_forgetButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
-            
-//            NSDictionary * dict = @{@"phone":self.phone,@"zone_num":@"86",@"interface":@"Login@forgetPassword",@"step":@"1"};
-//            WYHttpRequest *request = [[WYHttpRequest alloc]init];
-//            [request requestWithPragma:dict showLoading:NO];
-//            request.successBlock = ^(id  _Nonnull response) {
-//                
-//                WYCodeViewController * codeVc = [[WYCodeViewController alloc]init];
-//                codeVc.phone = self.phone;
-//                codeVc.type = WYCodeTypeForget;
-//                [self.navigationController pushViewController:codeVc animated:YES];
-//            };
-//            
-//            request.failureDataBlock = ^(id  _Nonnull error) {
-//                
-//            };
+
             
             WYCodeViewController * codeVc = [[WYCodeViewController alloc]init];
             codeVc.phone = self.phone;

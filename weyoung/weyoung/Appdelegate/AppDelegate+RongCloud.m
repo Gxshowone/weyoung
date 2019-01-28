@@ -48,6 +48,12 @@
     if ([message.content isMemberOfClass:[RCTextMessage class]]) {
         RCTextMessage *testMessage = (RCTextMessage *)message.content;
         NSLog(@"消息内容：%@", testMessage.content);
+ 
+    }else if([message.targetId isEqualToString:@"000000"])
+    {
+       
+        [[NSNotificationCenter defaultCenter] postNotificationName:WYSYSTEMMESSAGE object:message];
+        
     }
 
     NSString *objectName = message.objectName;

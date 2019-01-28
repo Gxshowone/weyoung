@@ -286,6 +286,7 @@ static NSString * const cacheKey = @"WYALLDynamicList";
     [request requestWithPragma:dict showLoading:NO];
     request.successBlock = ^(id  _Nonnull response) {
         
+
    
     };
     

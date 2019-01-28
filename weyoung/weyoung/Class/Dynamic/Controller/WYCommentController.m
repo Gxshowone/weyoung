@@ -329,7 +329,7 @@
     [request requestWithPragma:dict showLoading:NO];
     request.successBlock = ^(id  _Nonnull response) {
         
-        
+
     };
     
     request.failureDataBlock = ^(id  _Nonnull error) {

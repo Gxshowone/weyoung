@@ -396,11 +396,11 @@
 {
     if (!_quanquan) {
         _quanquan = [[UIImageView alloc]init];
-        _quanquan.image = [UIImage imageNamed:@"home_quanquan_0"];
+        _quanquan.image = [UIImage imageNamed:@"home_quanquan"];
         
         NSMutableArray * qa = [NSMutableArray array];
         
-        for (int i = 0; i < 24; i ++) {
+        for (int i = 0; i < 35; i ++) {
             
             NSString * qn = [NSString stringWithFormat:@"home_quanquan_%d",i];
             UIImage  * qi = [UIImage imageNamed:qn];
@@ -408,7 +408,7 @@
         }
         
         _quanquan.animationImages = qa;
-        _quanquan.animationDuration = 1.0;
+        _quanquan.animationDuration = 1.5;
         _quanquan.animationRepeatCount = 0;
       
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];

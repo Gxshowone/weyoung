@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,weak) id<WYCommentHeaderDelegate> delegate;
 @property(nonatomic,strong)WYDynamicModel * model;
+@property(nonatomic,assign)BOOL isLike;
 @property(nonatomic,strong)UIButton *likeBtn;
 @property(nonatomic,strong)UIButton *moreBtn;
 
