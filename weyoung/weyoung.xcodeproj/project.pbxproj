@@ -103,6 +103,8 @@
 		D23AE90D21DCB84B00D79007 /* WYAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = D23AE90C21DCB84B00D79007 /* WYAssets.m */; };
 		D23AE91021DCB9A200D79007 /* WYComposeToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D23AE90F21DCB9A200D79007 /* WYComposeToolBar.m */; };
 		D23AE91621DCEED300D79007 /* WYCommentHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = D23AE91521DCEED300D79007 /* WYCommentHeader.m */; };
+		D25CBE0F220047A60042170E /* WYSystemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D25CBE0E220047A60042170E /* WYSystemViewController.m */; };
+		D25CBE12220049990042170E /* WYSystemBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D25CBE11220049990042170E /* WYSystemBar.m */; };
 		D26037AB21CE225E007CF066 /* WYReportCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D26037AA21CE225E007CF066 /* WYReportCollectionViewCell.m */; };
 		D2775D2D21D356EB001C4659 /* WYMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2775D2C21D356EB001C4659 /* WYMainViewController.m */; };
 		D278839721FED25C009D3E9A /* WYOtherPersonalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D278839621FED25C009D3E9A /* WYOtherPersonalViewController.m */; };
@@ -349,6 +351,10 @@
 		D23AE90F21DCB9A200D79007 /* WYComposeToolBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYComposeToolBar.m; sourceTree = "<group>"; };
 		D23AE91421DCEED300D79007 /* WYCommentHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYCommentHeader.h; sourceTree = "<group>"; };
 		D23AE91521DCEED300D79007 /* WYCommentHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYCommentHeader.m; sourceTree = "<group>"; };
+		D25CBE0D220047A60042170E /* WYSystemViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYSystemViewController.h; sourceTree = "<group>"; };
+		D25CBE0E220047A60042170E /* WYSystemViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYSystemViewController.m; sourceTree = "<group>"; };
+		D25CBE10220049990042170E /* WYSystemBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYSystemBar.h; sourceTree = "<group>"; };
+		D25CBE11220049990042170E /* WYSystemBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYSystemBar.m; sourceTree = "<group>"; };
 		D26037A921CE225E007CF066 /* WYReportCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYReportCollectionViewCell.h; sourceTree = "<group>"; };
 		D26037AA21CE225E007CF066 /* WYReportCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WYReportCollectionViewCell.m; sourceTree = "<group>"; };
 		D2775D2B21D356EB001C4659 /* WYMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WYMainViewController.h; sourceTree = "<group>"; };
@@ -477,6 +483,8 @@
 			children = (
 				D224B2D921CCC56300AF6330 /* WYConversationViewController.h */,
 				D224B2DA21CCC56300AF6330 /* WYConversationViewController.m */,
+				D25CBE0D220047A60042170E /* WYSystemViewController.h */,
+				D25CBE0E220047A60042170E /* WYSystemViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -490,6 +498,8 @@
 				D230B82521CE3A29004BC2F2 /* WYProgressView.m */,
 				D2C8310F21D21DC400354211 /* WYChatInputBar.h */,
 				D2C8311021D21DC400354211 /* WYChatInputBar.m */,
+				D25CBE10220049990042170E /* WYSystemBar.h */,
+				D25CBE11220049990042170E /* WYSystemBar.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1630,6 +1640,7 @@
 				D278839D21FED312009D3E9A /* WYOtherPersonHeader.m in Sources */,
 				D23AE90121DCB66400D79007 /* WYComposeViewController.m in Sources */,
 				D23AE8E721DC8CCB00D79007 /* WYDynamicTableViewCell.m in Sources */,
+				D25CBE0F220047A60042170E /* WYSystemViewController.m in Sources */,
 				D229B79D21CA1EF1006BCD39 /* WYCodeInputView.m in Sources */,
 				D230315121DDE28F00E0DBF2 /* WYCommentModel.m in Sources */,
 				D23487A821F3823E0024E1CA /* WYMatchUserModel.m in Sources */,
@@ -1704,6 +1715,7 @@
 				D23AE8FE21DCA5D900D79007 /* HZWaitingView.m in Sources */,
 				D23487C121F4601E0024E1CA /* WYUserInfo.m in Sources */,
 				D2249FCF21BA2519009B274C /* UIView+Extension.m in Sources */,
+				D25CBE12220049990042170E /* WYSystemBar.m in Sources */,
 				D230B83A21CE5B11004BC2F2 /* WYFriendTableViewCell.m in Sources */,
 				D287DE9921BCE9CB0048B5C2 /* WYPolicyViewController.m in Sources */,
 				D23AE8F121DC9DB500D79007 /* WYJPPView.m in Sources */,

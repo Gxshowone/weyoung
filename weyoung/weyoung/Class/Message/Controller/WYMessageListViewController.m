@@ -16,6 +16,7 @@
 #import "WYLikeViewController.h"
 
 #import "WYDataBaseManager.h"
+#import "WYSystemViewController.h"
 @interface WYMessageListViewController ()<UITableViewDelegate,UITableViewDataSource,WYMessageHeaderViewDelegate>
 
 @property(nonatomic,strong)WYMessageHeaderView * headerView;
@@ -130,7 +131,24 @@
     switch (indexPath.row) {
         case 0:
         {
+            //缓存数据
+            RCUserInfo * userInfo = [[RCUserInfo alloc] initWithUserId:@"10000" name:@"未央" portrait:@"http://thyrsi.com/t6/664/1548751873x2890191655.png"];
             
+            [[WYDataBaseManager shareInstance] insertUserToDB:userInfo];
+        
+            
+            WYSystemViewController *_conversationVC = [[WYSystemViewController alloc] init];
+            _conversationVC.conversationType = ConversationType_SYSTEM;
+        
+            _conversationVC.targetId = @"10000";
+            _conversationVC.userName = @"未央";
+            int unreadCount = [[RCIMClient sharedRCIMClient] getUnreadCount:ConversationType_SYSTEM targetId:@"10000"];
+            _conversationVC.unReadMessage = unreadCount;
+            _conversationVC.enableNewComingMessageIcon = YES; //开启消息提醒
+            _conversationVC.enableUnreadMessageIcon = YES;
+            //如果是单聊，不显示发送方昵称
+            _conversationVC.displayUserNameInCell = NO;
+            [self.navigationController pushViewController:_conversationVC animated:YES];
         }
             break;
             case 1:
