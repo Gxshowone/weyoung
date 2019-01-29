@@ -37,10 +37,8 @@
     [self hideNoNetWorkView];
     [self hideNoDataView];
     
-    NSString * pageStr = [NSString stringWithFormat:@"%d",_page];
-    NSDictionary * dict=@{@"page":pageStr,@"interface":@"Dynamic@getMineCommentList",@"type":@"1"};
-    
-    
+    NSDictionary * dict=@{@"interface":@"Dynamic@getMineCommentList",@"type":@"1"};
+
     WYHttpRequest *request = [[WYHttpRequest alloc]init];
     [request requestWithPragma:dict showLoading:NO];
     request.successBlock = ^(id  _Nonnull response) {
@@ -118,12 +116,6 @@
     
 }
 
-
--(void)loadMoreData
-{
-    _page ++;
-    [self requestDataWithType:2];
-}
 
 
 
@@ -203,14 +195,7 @@
         _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             [weakSelf retryToGetData];
         }];
-        
-        _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-            
-            [weakSelf loadMoreData];
-            
-        }];
-        
-        
+ 
         [_tableView.mj_header beginRefreshing];
     }
     return _tableView;
