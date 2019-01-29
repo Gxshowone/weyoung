@@ -214,6 +214,10 @@
         self.rightButton.alpha = (IsStrEmpty(x))?0.3:1.0;
         self.rightButton.userInteractionEnabled = (IsStrEmpty(x))?NO:YES;
         
+        NSString * comment = [NSString stringWithFormat:@"%@",x];
+        NSString * count = [NSString stringWithFormat:@"%ld",[comment length]];
+        [self.toolbar updateCount:count];
+        
     }];
     
     

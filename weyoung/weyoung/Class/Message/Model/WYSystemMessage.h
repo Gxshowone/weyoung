@@ -11,7 +11,7 @@
 /*!
  文本消息的类型名
  */
-#define SystemMessageTypeIdentifier @"systemMsg"
+#define SystemMessageTypeIdentifier @"WYSYSTEMMESSAGE"
 
 
 @interface WYSystemMessage : RCMessageContent

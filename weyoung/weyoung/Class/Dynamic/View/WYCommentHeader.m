@@ -60,12 +60,7 @@
     
     NSString * image = [NSString stringWithFormat:@"%@",model.image];
     self.jggView.dataSource = @[image];
-    
 
-    [self setIsLike:model.praise_count];
-    
-    self.friendLabel.hidden = YES;
-    
     self.messageTextLabel.attributedText = model.attributedText;
     self.messageTextLabel.frame = model.textLayout.frameLayout;
     
@@ -76,11 +71,19 @@
     
     self.sepLine.frame = CGRectMake(20, CGRectGetMaxY(self.jggView.frame)+20, KScreenWidth-20, 1);
     self.commentLabel.frame = CGRectMake(20,CGRectGetMaxY(self.sepLine.frame), KScreenWidth-40, 60);
+   
+    self.friendLabel.hidden = ([[WYSession sharedSession].friendArray containsObject:model.uid])?NO:YES;
+    
+    NSMutableArray * likeArray = [[WYSession sharedSession].likeArray mutableCopy];
+    [self setIsLike:[likeArray containsObject:model.d_id]];
+    
 }
 
--(void)setIsLike:(NSInteger)praise_count
+-(void)setIsLike:(BOOL)isLike
 {
-    NSString * likeIN = (praise_count==0)?@"dynamic_like_btn":@"dynamic_like_select_btn";
+    _isLike = isLike;
+    
+    NSString * likeIN = (isLike==NO)?@"dynamic_like_btn":@"dynamic_like_select_btn";
     [self.likeBtn setImage:[UIImage imageNamed:likeIN] forState:UIControlStateNormal];
 }
 
@@ -125,6 +128,9 @@
     animation2.delegate = self;
     //加到button上
     [self.likeBtn.layer addAnimation:animation2 forKey:@"animation"];
+    
+    
+    
 }
 
 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag {
@@ -224,11 +230,21 @@
         [[_likeBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
             
-            if (self.model.praise_count>0) {
+            if (self.isLike==YES) {
                 return ;
             }
             
             [self addZanAnimation];
+            
+            
+            NSMutableArray * array = [NSMutableArray array];
+            [array addObjectsFromArray:[WYSession sharedSession].likeArray];
+            if ([array containsObject:self.model.d_id]==NO) {
+                [array addObject:self.model.d_id];
+            }
+            [WYSession sharedSession].likeArray = array;
+            
+            self.isLike = YES;
             
             if (self.delegate) {
                 [self.delegate likeDynamic:self.model];

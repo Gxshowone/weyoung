@@ -49,22 +49,14 @@
     self.conversationListTableView.backgroundColor = [UIColor clearColor];
     self.conversationListTableView.tableHeaderView = self.headerView;
     self.conversationListTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
     self.emptyConversationView.alpha = 0.0;
 }
 
 -(void)setConversationType
 {
     //设置需要显示哪些类型的会话
-    [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE),
-                                        @(ConversationType_DISCUSSION),
-                                        @(ConversationType_CHATROOM),
-                                        @(ConversationType_GROUP),
-                                        @(ConversationType_APPSERVICE),
-                                        @(ConversationType_SYSTEM)]];
-    //设置需要将哪些类型的会话在会话列表中聚合显示
-    [self setCollectionConversationType:@[@(ConversationType_DISCUSSION),
-                                          @(ConversationType_GROUP)]];
+    [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE)]];
+ 
 }
 
 -(CGFloat)rcConversationListTableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -149,6 +141,7 @@
             //如果是单聊，不显示发送方昵称
             _conversationVC.displayUserNameInCell = NO;
             [self.navigationController pushViewController:_conversationVC animated:YES];
+
         }
             break;
             case 1:

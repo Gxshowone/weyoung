@@ -93,6 +93,8 @@ static WYSession *sharedManager=nil;
     [self connectRc];
     
     [self getFriendList];
+    
+    [self getlikeList];
 }
 
 
@@ -142,7 +144,29 @@ static WYSession *sharedManager=nil;
 
 -(void)getlikeList
 {
+    NSDictionary * dict=@{@"interface":@"Dynamic@getMineCommentList",@"type":@"2"};
     
+    WYHttpRequest *request = [[WYHttpRequest alloc]init];
+    [request requestWithPragma:dict showLoading:NO];
+    request.successBlock = ^(id  _Nonnull response) {
+        
+        NSArray * array  = (NSArray*)response;
+
+        
+        NSMutableArray * idList = [NSMutableArray array];
+        for (NSDictionary * dict in array) {
+            
+            [idList addObject: [dict valueForKey:@"d_id"]];
+        }
+        
+        self.likeArray = idList;
+        
+        
+    };
+    
+    request.failureDataBlock = ^(id  _Nonnull error) {
+        
+    };
 }
 
 -(void)connectRc

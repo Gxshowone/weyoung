@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,weak) id<WYDynamicTableViewCellDelegate> delegate;
 
+@property(nonatomic,assign)BOOL isLike;
 @property(nonatomic,strong)WYDynamicModel * model;
 @property(nonatomic,strong)UIButton *likeBtn;
 @property(nonatomic,strong)UIButton *moreBtn;

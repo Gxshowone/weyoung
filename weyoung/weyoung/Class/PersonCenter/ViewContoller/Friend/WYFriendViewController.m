@@ -162,12 +162,14 @@
 {
     NSString * to_uid = [NSString stringWithFormat:@"%@",model.userId];
     [[WYDataBaseManager shareInstance] deleteFriendFromDB:to_uid];
-    
-    NSMutableArray * array = [[WYSession sharedSession].friendArray mutableCopy];
+
+    NSMutableArray * array = [NSMutableArray array];
+    [array addObjectsFromArray:[WYSession sharedSession].friendArray];
     if ([array containsObject:model.userId]) {
         [array removeObject:model.userId];
     }
     [WYSession sharedSession].friendArray = array;
+    
     
     NSDictionary * dict=@{@"interface":@"Friend@delFriend",@"to_uid":to_uid};
     WYHttpRequest *request = [[WYHttpRequest alloc]init];

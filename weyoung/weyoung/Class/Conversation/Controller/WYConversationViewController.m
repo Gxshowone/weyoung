@@ -103,13 +103,14 @@
 -(void)addFriendSussces
 {
     [self.susscesView show];
-    
-    NSMutableArray * array = [[WYSession sharedSession].friendArray mutableCopy];
-    [array addObject:self.user.userId];
+
+    NSMutableArray * array = [NSMutableArray array];
+    [array addObjectsFromArray:[WYSession sharedSession].friendArray];
+    if ([array containsObject:self.user.userId]==NO) {
+        [array addObject:self.user.userId];
+    }
     [WYSession sharedSession].friendArray = array;
-    
-    
-    
+ 
 }
 
 -(void)addFriendFail
