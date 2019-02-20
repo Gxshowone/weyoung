@@ -79,6 +79,26 @@
     cell.backgroundColor = [UIColor blackColor];
     cell.data = self.dataArray[indexPath.row];
     
+    switch (indexPath.row) {
+        case 0:
+        {
+            [cell getSystemCount];
+        }
+            break;
+            case 1:
+        {
+            
+        }
+            break;
+            case 2:
+        {
+            
+        }
+            break;
+        default:
+            break;
+    }
+    
     return cell;
 }
 

@@ -88,25 +88,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.row) {
-        case 0:
-        {
-            WYWebViewController * webVc = [[WYWebViewController alloc]init];
-            webVc.url = @"http://www.baidu.com";
-            [self.navigationController pushViewController:webVc animated:YES];
-        }
-            break;
-            case 1:
-        {
-            WYWebViewController * webVc = [[WYWebViewController alloc]init];
-            webVc.url = @"http://www.baidu.com";
-            [self.navigationController pushViewController:webVc animated:YES];
-        }
-            
-            break;
-        default:
-            break;
-    }
+    WYWebViewController * webVc = [[WYWebViewController alloc]init];
+    webVc.url = @"http://api.supe.tv/privacy.html";
+    [self.navigationController pushViewController:webVc animated:YES];
 }
 
 -(WYAboutHeaderView*)headerView

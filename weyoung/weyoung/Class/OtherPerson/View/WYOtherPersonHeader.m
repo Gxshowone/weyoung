@@ -45,20 +45,20 @@
 -(void)setModel:(WYUserModel *)model{
     _model = model;
     
-    NSString *bir = [WYSession sharedSession].birthday;
+    NSString *bir = model.birthday;
     NSString * age = [NSString dateToOld:bir];
     NSString * xing = [NSString getAstroWithBrith:bir];
     NSString * info = [NSString stringWithFormat:@"%@岁  %@座",age,xing];
-    NSString * imageName = ([[WYSession sharedSession].sex isEqualToString:@"1"])?@"personal_male":@"personal_female";
+    NSString * imageName = ([model.gender isEqualToString:@"1"])?@"personal_male":@"personal_female";
     
-    [self.avatarItem yy_setImageWithURL:[NSURL URLWithString:[WYSession sharedSession].avatar] forState:UIControlStateNormal options:YYWebImageOptionSetImageWithFadeAnimation];
+    [self.avatarItem yy_setImageWithURL:[NSURL URLWithString:model.header_url] forState:UIControlStateNormal options:YYWebImageOptionSetImageWithFadeAnimation];
     self.sexImageView.image = [UIImage imageNamed:imageName];
-    self.nickLabel.text= [WYSession sharedSession].nickname;
+    self.nickLabel.text= model.nick_name;
     self.infoLabel.text  = info;
     
-    [self.dynamicItem setRight:[NSString stringWithFormat:@"%ld",(long)[WYSession sharedSession].dynamic_count]];
+    [self.dynamicItem setRight:[NSString stringWithFormat:@"%ld",(long)model.dynamic_count]];
     
-    [self.friendItem setRight:[NSString stringWithFormat:@"%ld",(long)[WYSession sharedSession].friend_count]];
+    [self.friendItem setRight:[NSString stringWithFormat:@"%ld",(long)model.friend_count]];
     
     
 }

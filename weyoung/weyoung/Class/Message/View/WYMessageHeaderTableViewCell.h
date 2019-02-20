@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,strong)NSDictionary * data;
 
+//获取系统消息未读数量
+-(void)getSystemCount;
+
 @end
 
 NS_ASSUME_NONNULL_END

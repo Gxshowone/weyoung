@@ -141,8 +141,12 @@
             //如果是单聊，不显示发送方昵称
             _conversationVC.displayUserNameInCell = NO;
             [self.navigationController pushViewController:_conversationVC animated:YES];
-
-        }
+            
+            
+            [[RCIMClient sharedRCIMClient] clearMessagesUnreadStatus:ConversationType_SYSTEM targetId:@"10000"];
+            
+            
+            }
             break;
             case 1:
         {

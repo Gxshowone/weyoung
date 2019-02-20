@@ -24,8 +24,19 @@
         [self.contentView addSubview:self.icon];
         [self.contentView addSubview:self.titleLabel];
         [self.contentView addSubview:self.unreadLabel];
+        
+        [self getSystemCount];
     }
     return self;
+}
+
+-(void)getSystemCount
+{
+
+    int count =  [[RCIMClient sharedRCIMClient] getUnreadCount:ConversationType_SYSTEM targetId:@"10000"];
+    self.unreadLabel.text = [NSString stringWithFormat:@"%d",count];
+    self.unreadLabel.hidden = (count==0)?YES:NO;
+    
 }
 
 -(void)setData:(NSDictionary *)data

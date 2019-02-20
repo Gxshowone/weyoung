@@ -67,18 +67,25 @@
     [self addChildControllers];
     
     //判断是白天还是黑夜
-    if ([self isNight]) {
-        
-        NSString * key  = [NSString currentDateStr];
-        NSString * cache = [[NSUserDefaults standardUserDefaults] valueForKey:key];
-        if (IsStrEmpty(cache)) {
-            [self.view addSubview:self.signView];
-            [[NSUserDefaults standardUserDefaults] setObject:@"sign" forKey:key];
-        }
-   
-    }else
-    {
-        [self.view addSubview:self.excessView];
+//    if ([self isNight]) {
+//
+//        NSString * key  = [NSString currentDateStr];
+//        NSString * cache = [[NSUserDefaults standardUserDefaults] valueForKey:key];
+//        if (IsStrEmpty(cache)) {
+//            [self.view addSubview:self.signView];
+//            [[NSUserDefaults standardUserDefaults] setObject:@"sign" forKey:key];
+//        }
+//
+//    }else
+//    {
+//        [self.view addSubview:self.excessView];
+//    }
+    
+    NSString * key  = [NSString currentDateStr];
+    NSString * cache = [[NSUserDefaults standardUserDefaults] valueForKey:key];
+    if (IsStrEmpty(cache)) {
+        [self.view addSubview:self.signView];
+        [[NSUserDefaults standardUserDefaults] setObject:@"sign" forKey:key];
     }
 
 }

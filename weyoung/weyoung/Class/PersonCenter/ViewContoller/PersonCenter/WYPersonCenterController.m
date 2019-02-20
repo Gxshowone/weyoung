@@ -38,6 +38,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [self checkUnreadMessage];
 }
 
 -(void)viewDidLayoutSubviews
@@ -105,6 +107,8 @@
         self.pointView.hidden = (totalUnreadCount==0)?YES:NO;
         
     });
+    
+    
 }
 
 -(void)gotoHomePage
