@@ -52,7 +52,7 @@
     }else if([message.targetId isEqualToString:@"000000"])
     {
        
-        [[NSNotificationCenter defaultCenter] postNotificationName:WYSYSTEMMESSAGE object:message];
+        [[NSNotificationCenter defaultCenter] postNotificationName:WYSYSTEMMESSAGEUPDATE object:message];
         
     }
 

@@ -30,7 +30,6 @@
         [self.contentView addSubview:self.monthLabel];
         [self.contentView addSubview:self.messageTextLabel];
         [self.contentView addSubview:self.jggView];
-        
 
         
     }
@@ -106,4 +105,5 @@
     }
     return _jggView;
 }
+
 @end

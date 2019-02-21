@@ -44,6 +44,13 @@
   
 }
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+   
+    [[NSNotificationCenter defaultCenter]postNotificationName:WYUnreadMessageUpdate object:nil];
+}
+
 -(void)customUI
 {
     self.conversationListTableView.backgroundColor = [UIColor clearColor];
@@ -73,6 +80,11 @@
     WYUserInfo * friend = [[WYDataBaseManager shareInstance] getFriendInfo:model.targetId];
     if (IsStrEmpty(friend.userId)) {
         [self.conversationListTableView makeToast:@"您们还不是好友"];
+        
+        [[RCIMClient sharedRCIMClient] clearMessagesUnreadStatus:ConversationType_PRIVATE targetId:model.targetId];
+        
+        [[NSNotificationCenter defaultCenter]postNotificationName:WYUnreadMessageUpdate object:nil];
+        
         return;
     }
     
@@ -145,8 +157,10 @@
             
             [[RCIMClient sharedRCIMClient] clearMessagesUnreadStatus:ConversationType_SYSTEM targetId:@"10000"];
             
+            [[NSNotificationCenter defaultCenter]postNotificationName:WYUnreadMessageUpdate object:nil];
             
-            }
+          
+        }
             break;
             case 1:
         {

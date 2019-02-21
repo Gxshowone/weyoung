@@ -225,7 +225,13 @@
             UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
             [impactLight impactOccurred];
             [self.childAnimation makeToast:@"怎么会没有人？" duration:0.3 position:CSToastPositionCenter];
-            [self childWait];
+            
+            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"second_wait" ofType:@"json"];
+            NSArray *components = [filePath componentsSeparatedByString:@"/"];
+            NSString * name = [components lastObject];
+            [self.childAnimation setAnimation:name];
+            self.childAnimation.loopAnimation = YES;
+            [self.childAnimation play];  
 
         }else
         {

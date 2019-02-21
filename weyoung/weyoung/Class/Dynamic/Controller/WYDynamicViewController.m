@@ -121,7 +121,7 @@ static NSString * const cacheKey = @"WYALLDynamicList";
     [self hideNoDataView];
     
     NSString * pageStr = [NSString stringWithFormat:@"%d",_page];
-    NSDictionary * dict=@{@"page":pageStr,@"interface":@"Dynamic@getDynamicList",@"is_mine":@"0"};
+    NSDictionary * dict=@{@"page":pageStr,@"interface":@"Dynamic@getDynamicList"};
 
     
     WYHttpRequest *request = [[WYHttpRequest alloc]init];

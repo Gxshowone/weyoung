@@ -10,6 +10,7 @@
 #import "WYPersonCenterHeaderView.h"
 #import "WYMyDynamicTableViewCell.h"
 #import "WYMYDynamicModel.h"
+#import "WYMoreView.h"
 @interface WYPersonCenterController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView * tableView;
@@ -18,7 +19,7 @@
 @property(nonatomic,strong)UIButton * messageButton;
 @property(nonatomic,strong)UIView       * pointView;
 @property(nonatomic,assign)int page;
-
+@property(nonatomic,strong)WYMoreView * moreView;
 
 @end
 @implementation WYPersonCenterController
@@ -100,7 +101,12 @@
 -(void)checkUnreadMessage
 {
     
-    int totalUnreadCount = [[RCIMClient sharedRCIMClient] getTotalUnreadCount];
+    int systemUnreadCount = [[RCIMClient sharedRCIMClient] getUnreadCount:ConversationType_SYSTEM targetId:[WYSession sharedSession].uid];
+    int privaceUnreadCount = [[RCIMClient sharedRCIMClient] getUnreadCount:ConversationType_PRIVATE targetId:[WYSession sharedSession].uid];
+    
+    int totalUnreadCount = systemUnreadCount + privaceUnreadCount;
+    
+    
     
     dispatch_async(dispatch_get_main_queue(), ^{
         // UI更新代码
@@ -145,8 +151,9 @@
     [self hideNoNetWorkView];
     [self hideNoDataView];
     
+    NSString * uid = [WYSession sharedSession].uid;
     NSString * pageStr = [NSString stringWithFormat:@"%d",_page];
-    NSDictionary * dict=@{@"page":pageStr,@"interface":@"Dynamic@getDynamicList",@"is_mine":@"1"};
+    NSDictionary * dict=@{@"page":pageStr,@"interface":@"Dynamic@getDynamicList",@"check_uid":uid};
     
     
     WYHttpRequest *request = [[WYHttpRequest alloc]init];
@@ -286,6 +293,11 @@
     
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.moreView show];
+}
+
 -(WYPersonCenterHeaderView*)headerView
 {
     if (!_headerView) {
@@ -388,5 +400,16 @@
     }
     return _pointView;
 }
-
+-(WYMoreView*)moreView
+{
+    if (!_moreView) {
+        
+        _moreView = [[WYMoreView alloc]initWithSuperView:self.view.superview
+                                         animationTravel:0.3
+                                              viewHeight:160];
+        _moreView.type =  WYMoreViewType_Dynamic;
+        
+    }
+    return _moreView;
+}
 @end

@@ -37,13 +37,14 @@
 
 -(void)addNotification
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(update) name:WYSYSTEMMESSAGE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(update) name:WYSYSTEMMESSAGEUPDATE object:nil];
    
 }
 
 -(void)updatNotification:(NSNotification *)note
 {
-    
+    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:0 inSection:0];
+    [self reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 -(void)setData

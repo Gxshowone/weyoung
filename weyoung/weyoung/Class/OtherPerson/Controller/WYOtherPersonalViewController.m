@@ -13,13 +13,14 @@
 #import "WYMyDynamicTableViewCell.h"
 #import "WYMYDynamicModel.h"
 #import "WYUserModel.h"
+#import "WYMoreView.h"
 @interface WYOtherPersonalViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView * tableView;
 @property(nonatomic,strong)WYOtherPersonHeader * headerView;
 @property(nonatomic,strong)NSMutableArray * dataArray;
 @property(nonatomic,assign)int page;
-
+@property(nonatomic,strong)WYMoreView * moreView;
 
 @end
 
@@ -31,7 +32,7 @@
     
     [self setNavigationConfig];
     [self.view addSubview:self.tableView];
-    [self retryToGetData];
+  
 }
 
 
@@ -84,7 +85,7 @@
     [self hideNoDataView];
     
     NSString * pageStr = [NSString stringWithFormat:@"%d",_page];
-    NSDictionary * dict=@{@"page":pageStr,@"interface":@"Dynamic@getDynamicList",@"is_mine":@"1"};
+    NSDictionary * dict=@{@"page":pageStr,@"interface":@"Dynamic@getDynamicList",@"check_uid":_uid};
     
     
     WYHttpRequest *request = [[WYHttpRequest alloc]init];
@@ -219,10 +220,16 @@
     }
     
     cell.model = self.dataArray[indexPath.row];
-    
+
     return cell;
     
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+     [self.moreView show];
+}
+
 
 -(WYOtherPersonHeader*)headerView
 {
@@ -233,7 +240,18 @@
     return _headerView;
 }
 
-
+-(WYMoreView*)moreView
+{
+    if (!_moreView) {
+        
+        _moreView = [[WYMoreView alloc]initWithSuperView:self.view.superview
+                                         animationTravel:0.3
+                                              viewHeight:160];
+        _moreView.type =  WYMoreViewType_Dynamic;
+        
+    }
+    return _moreView;
+}
 
 -(UITableView*)tableView
 {
@@ -268,6 +286,7 @@
     _uid = uid;
     
     [self getUserInfo:uid];
+    [self retryToGetData];
 }
 
 @end

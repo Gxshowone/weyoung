@@ -22,6 +22,8 @@
     [super viewWillAppear:animated];
     [IQKeyboardManager sharedManager].enable = NO;
     [self refreshTitle];
+ 
+    [[RCIMClient sharedRCIMClient] clearMessages:ConversationType_SYSTEM targetId:@"10000"];
 }
 
 

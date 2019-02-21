@@ -17,6 +17,6 @@
 
 #define WYUnreadMessageUpdate @"WYUnreadMessageUpdate"
 
-#define WYSYSTEMMESSAGE @"WYSYSTEMMESSAGE"
+#define WYSYSTEMMESSAGEUPDATE @"WYSYSTEMMESSAGEUPDATE"
 
 #endif /* WYNotifacation_h */
