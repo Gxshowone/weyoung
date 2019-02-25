@@ -103,9 +103,24 @@
             case 1:
         {
             
+            if ([self.user.userId isEqualToString:[WYSession sharedSession].uid]) {
+                
+                [self.superview makeToast:@"您不能拉黑自己"];
+                
+                return;
+            }
+            
             
             [self hide];
             
+            if ([[WYDataBaseManager shareInstance] isBlackUser:self.user.userId]) {
+                
+                [self.superview makeToast:@"已经拉黑"];
+                
+                return;
+            }
+            
+        
             [[WYDataBaseManager shareInstance] insertBlackListToDB:self.user];
             [[RCIMClient sharedRCIMClient] addToBlacklist:self.user.userId success:^{
                
@@ -114,6 +129,9 @@
             } error:^(RCErrorCode status) {
                 
             }];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:WYBlockUserDynamic object:nil];
+            
          
         }
             break;

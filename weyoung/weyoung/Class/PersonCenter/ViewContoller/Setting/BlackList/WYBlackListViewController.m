@@ -126,6 +126,9 @@
     } error:^(RCErrorCode status) {
     
     }];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:WYBlockUserDynamic object:nil];
+    
 }
 
 

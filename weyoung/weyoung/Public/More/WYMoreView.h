@@ -12,7 +12,6 @@ typedef NS_ENUM(NSUInteger, WYMoreViewType) {
     
     WYMoreViewType_Dynamic         = 0, //
     WYMoreViewType_Conversation      = 1, //
-    
 };
 
 NS_ASSUME_NONNULL_BEGIN

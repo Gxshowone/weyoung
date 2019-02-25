@@ -12,7 +12,7 @@
 #import "WYComposeViewController.h"
 #import "WYMoreView.h"
 #import <YYCache/YYCache.h>
-
+#import "WYDataBaseManager.h"
 static NSString * const cacheKey = @"WYALLDynamicList";
 
 @interface WYDynamicViewController ()<UITableViewDelegate,UITableViewDataSource,WYDynamicTableViewCellDelegate>
@@ -22,6 +22,7 @@ static NSString * const cacheKey = @"WYALLDynamicList";
 @property(nonatomic,strong)WYMoreView * moreView;
 @property(nonatomic,strong)UITableView * tableView;
 @property(nonatomic,strong)NSMutableArray * dataArray;
+@property(nonatomic,strong)NSMutableArray * blockArray;
 @property(nonatomic,strong)UIButton * sendButton;
 @property(nonatomic,assign)int page;
 
@@ -91,6 +92,16 @@ static NSString * const cacheKey = @"WYALLDynamicList";
         
     }];
     
+    
+    [[[NSNotificationCenter defaultCenter]rac_addObserverForName:WYBlockUserDynamic object:nil] subscribeNext:^(id x) {
+        @strongify(self);
+        
+        [self blockDynamic];
+        [self stopLoadData];
+        
+    }];
+
+    
 }
 
 -(void)initUI
@@ -144,6 +155,7 @@ static NSString * const cacheKey = @"WYALLDynamicList";
             
         }
         
+        [self blockDynamic];
         
         [self stopLoadData];
       //  [self nodata];
@@ -157,6 +169,8 @@ static NSString * const cacheKey = @"WYALLDynamicList";
     
     
 }
+
+
 -(void)nodata
 {
     if ([self.dataArray count]==0) {
@@ -167,6 +181,23 @@ static NSString * const cacheKey = @"WYALLDynamicList";
         [_noDataView setContentViewFrame:CGRectMake(0, 108, KScreenWidth, KScreenHeight-108-54)];
     }
     
+}
+
+-(void)blockDynamic
+{
+    NSMutableArray * blockArray = [NSMutableArray array];
+    
+    for (WYDynamicModel * model in self.dataArray) {
+        
+        BOOL isBlack =  [[WYDataBaseManager shareInstance] isBlackUser:model.uid];
+        
+        if (!isBlack) {
+            [blockArray addObject:model];
+        }
+        
+    }
+    
+    self.blockArray = blockArray;
 }
 
 -(void)nomoredata:(NSMutableArray*)array
@@ -190,8 +221,6 @@ static NSString * const cacheKey = @"WYALLDynamicList";
     [_tableView.mj_header endRefreshing];
     [_tableView.mj_footer endRefreshing];
     [_tableView reloadData];
-    
- //  [self->cache setObject:self.dataArray forKey:cacheKey];
 
     
 }
@@ -216,12 +245,12 @@ static NSString * const cacheKey = @"WYALLDynamicList";
 #pragma mark - TabelView delegate 代理
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    WYDynamicModel * model = self.dataArray[indexPath.row];
+    WYDynamicModel * model = self.blockArray[indexPath.row];
     return model.rowHeight;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.dataArray count];
+    return [self.blockArray count];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -254,7 +283,7 @@ static NSString * const cacheKey = @"WYALLDynamicList";
         cell = [[WYDynamicTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
     
-    cell.model = self.dataArray[indexPath.row];
+    cell.model = self.blockArray[indexPath.row];
     cell.delegate = self;
     return cell;
     
@@ -266,7 +295,7 @@ static NSString * const cacheKey = @"WYALLDynamicList";
 {
     NSLog(@"[gx] goto chat");
     
-    WYDynamicModel * model  = self.dataArray[indexPath.row];
+    WYDynamicModel * model  = self.blockArray[indexPath.row];
     if (self.delegate) {
         [self.delegate gotoComment:model];
     }
@@ -362,6 +391,8 @@ static NSString * const cacheKey = @"WYALLDynamicList";
     }
     return _moreView;
 }
+
+
 
 
 @end

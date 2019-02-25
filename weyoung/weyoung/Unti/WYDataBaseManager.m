@@ -215,6 +215,18 @@ static NSString *const groupMemberTableName = @"GROUPMEMBERTABLE";
     return allBlackList;
 }
 
+-(BOOL)isBlackUser:(NSString*)userId
+{
+    NSMutableArray * idArray = [NSMutableArray array];
+    
+    for (RCUserInfo *model in [self getBlackList]) {
+        NSLog(@"langArray=%@", object);
+        [idArray addObject:model.userId];
+    }
+    
+    return [idArray containsObject:userId];
+}
+
 //移除黑名单
 - (void)removeBlackList:(NSString *)userId {
     NSString *deleteSql = [NSString stringWithFormat:@"DELETE FROM BLACKTABLE WHERE userid=%@", userId];

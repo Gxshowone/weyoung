@@ -19,4 +19,6 @@
 
 #define WYSYSTEMMESSAGEUPDATE @"WYSYSTEMMESSAGEUPDATE"
 
+#define WYBlockUserDynamic @"WYBlockUserDynamic"
+
 #endif /* WYNotifacation_h */

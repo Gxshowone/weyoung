@@ -293,10 +293,10 @@
     
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self.moreView show];
-}
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    [self.moreView show];
+//}
 
 -(WYPersonCenterHeaderView*)headerView
 {

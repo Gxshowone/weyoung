@@ -32,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 //获取黑名单列表
 - (NSArray *)getBlackList;
 
+-(BOOL)isBlackUser:(NSString*)userId;
+
 //移除黑名单
 - (void)removeBlackList:(NSString *)userId;
 

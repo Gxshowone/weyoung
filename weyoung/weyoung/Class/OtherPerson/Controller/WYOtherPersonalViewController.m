@@ -21,7 +21,6 @@
 @property(nonatomic,strong)NSMutableArray * dataArray;
 @property(nonatomic,assign)int page;
 @property(nonatomic,strong)WYMoreView * moreView;
-
 @end
 
 @implementation WYOtherPersonalViewController
@@ -50,11 +49,21 @@
 
 -(void)setNavigationConfig
 {
-    
+     @weakify(self);
     [[self.leftButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        
+        @strongify(self);
         [self.navigationController popViewControllerAnimated:YES];
     }];
+    
+    
+    [self.rightButton setImage:[UIImage imageNamed:@"dynamic_more_btn"] forState:UIControlStateNormal];
+    [[self.rightButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x)
+     {
+
+        @strongify(self);
+        [self.moreView show];
+     
+     }];
 
   
 }
@@ -69,6 +78,10 @@
         WYUserModel * user = [WYUserModel mj_objectWithKeyValues:response];
         self.headerView.model = user;
     
+        RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:userId name:user.nick_name portrait:user.header_url];
+        self.moreView.user = userInfo;
+        
+        
     };
     
     request.failureDataBlock = ^(id  _Nonnull error) {
@@ -224,11 +237,11 @@
     return cell;
     
 }
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-     [self.moreView show];
-}
+//
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//     [self.moreView show];
+//}
 
 
 -(WYOtherPersonHeader*)headerView
@@ -247,7 +260,7 @@
         _moreView = [[WYMoreView alloc]initWithSuperView:self.view.superview
                                          animationTravel:0.3
                                               viewHeight:160];
-        _moreView.type =  WYMoreViewType_Dynamic;
+        _moreView.type =  WYMoreViewType_Conversation;
         
     }
     return _moreView;
@@ -279,6 +292,7 @@
     }
     return _tableView;
 }
+
 
 
 -(void)setUid:(NSString *)uid
